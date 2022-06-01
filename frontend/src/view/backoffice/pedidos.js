@@ -10,17 +10,23 @@ export default function PedidosComponent() {
     const [pedidos, setPedidos] = useState([])
     const [totalPedidos, setTotalPedidos] = useState(0)
     const [estados, setEstados] = useState([])
+    const [filtroEstadoPedido, setFiltroEstadoPedido] = useState(0)
+    const [filtroEstadoPedidoDesc, setFiltroEstadoPedidoDesc] = useState('Todos os pedidos')
 
     const [dicaDoDia, setDicaDoDia] = useState('')
     const [autorDica, setAutorDica] = useState('')
 
     useEffect(() => {
-        // Get os pedidos todos
-        axios.get('http://' + ip + ':4011/pedidos/all')
+        // Get os pedidos todos (por vezes filtrados e ordenados)
+        axios.get('http://' + ip + ':4011/pedidos/all?estado_id=' + filtroEstadoPedido)
             .then(res => {
                 // console.log(res.data)
                 setPedidos(res.data)
             })
+    }, [filtroEstadoPedido])
+
+
+    useEffect(() => {
 
         // Get total de pedidos
         // por defeito, sem mandar nenhuma query (nem estado nem dias),
@@ -126,7 +132,14 @@ export default function PedidosComponent() {
             estados.map(estado => {
                 return (
                     <li key={estado.id}>
-                        <button className="dropdown-item" type='button'>
+                        <button
+                            className="dropdown-item"
+                            type='button'
+                            onClick={e => {
+                                setFiltroEstadoPedido(estado.id)
+                                setFiltroEstadoPedidoDesc(estado.descricao + 's')
+                            }}
+                        >
                             {estado.descricao + 's'}
                         </button>
                     </li>
@@ -179,10 +192,20 @@ export default function PedidosComponent() {
 
                             <div className="dropdown bg-white me-2">
                                 <button className=" btn btn-sm btn-outline-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <span className='me-2'>Todos os pedidos</span>
+                                    <span className='me-2'>{filtroEstadoPedidoDesc}</span>
                                 </button>
                                 <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    <li><button className="dropdown-item" type='button'>Todos os pedidos</button></li>
+                                    <li>
+                                        <button
+                                            className="dropdown-item"
+                                            type='button'
+                                            onClick={e => {
+                                                setFiltroEstadoPedido(0)
+                                                setFiltroEstadoPedidoDesc('Todos os pedidos')
+                                            }}>
+                                            Todos os pedidos
+                                        </button>
+                                    </li>
                                     <li><hr className="dropdown-divider" /></li>
                                     <LoadEstados />
                                 </ul>
@@ -194,17 +217,21 @@ export default function PedidosComponent() {
 
                             <div className="dropdown bg-white me-2">
                                 <button className=" btn btn-sm btn-outline-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <span className='me-2'>mais recentes primeiro</span>
+                                    <span className='me-2'>Pendentes mais antigos primeiro</span>
                                 </button>
                                 <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    <li><button className="dropdown-item" type='button'>Action</button></li>
-                                    <li><button className="dropdown-item" type='button'>Another action</button></li>
-                                    <li><button className="dropdown-item" type='button'>Something else here</button></li>
+                                    <li><button className="dropdown-item" onClick={e => { }} type='button'>Pendentes mais antigos primeiro</button></li>
+                                    <li><button className="dropdown-item" onClick={e => { }} type='button'>Mais recentes primeiro</button></li>
+                                    <li><hr className="dropdown-divider" /></li>
+                                    <li><button className="dropdown-item" onClick={e => { }} type='button'>Nome de cliente (A-Z)</button></li>
+                                    <li><button className="dropdown-item" onClick={e => { }} type='button'>Nome de cliente (Z-A)</button></li>
+                                    <li><hr className="dropdown-divider" /></li>
+                                    <li><button className="dropdown-item" onClick={e => { }} type='button'>Valor mais elevado primeiro</button></li>
+                                    <li><button className="dropdown-item" onClick={e => { }} type='button'>Valor mais baixo primeiro</button></li>
                                 </ul>
                             </div>
 
                         </div>
-                        {/* TODO Filtros */}
                     </div>
 
                     <div className="mb-3 row px-2">

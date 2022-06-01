@@ -9,7 +9,7 @@ module.exports = {
     count: async (req, res) => {
         // count conta por estado_id
         // Para contar todos os pedidos, nao passes estado na query
-        const estadoId = req.query.estado ?? 0
+        const estadoId = req.query.estado_id ?? 0
         // filtra por dias de idade (conta pedidos com até 30 dias de idade por exemplo)
         const dias = req.query.dias ?? 30
 
@@ -25,7 +25,7 @@ module.exports = {
                         .then(res => { response.estado = res })
                 }
             })
-            .then(async (estado) => {
+            .then(async () => {
                 if (estadoId > 0) {
                     await Pedido
                         .count({
@@ -37,7 +37,7 @@ module.exports = {
                 }
                 if (estadoId === 0) {
                     await Pedido.count({
-                        where : {
+                        where: {
                             created_at: {
                                 [Op.gte]: sequelize.literal('NOW() - INTERVAL \'' + dias + 'd\'')
                             }
@@ -51,18 +51,41 @@ module.exports = {
     },
 
     all: async (req, res) => {
+        // para filtrar por estado
+        const estadoId = req.query.estado_id ?? 0
+
         await sequelize.sync()
             .then(async () => {
-                await Pedido.findAll({
-                    include: [
-                        { model: Cliente },
-                        { model: EstadoPedido },
-                        { model: MotivoRecusa },
-                        { model: Resposta }
-                    ],
-                    order: [['id', 'ASC']]
-                })
-                    .then(response => res.send(response))
+                // sem filtro por estado_id
+                if (estadoId == 0) {
+                    await Pedido.findAll({
+                        include: [
+                            { model: Cliente },
+                            { model: EstadoPedido },
+                            { model: MotivoRecusa },
+                            { model: Resposta }
+                        ],
+                        order: [['id', 'ASC']]
+                    })
+                        .then(response => res.send(response))
+                }
+                // com filtro por estado_id
+                if (estadoId > 0) {
+                    await Pedido.findAll({
+                        where: {
+                            estado_id: estadoId
+                        },
+                        include: [
+                            { model: Cliente },
+                            { model: EstadoPedido },
+                            { model: MotivoRecusa },
+                            { model: Resposta }
+                        ],
+                        order: [['id', 'ASC']]
+                    })
+                        .then(response => res.send(response))
+                }
+
             })
     },
 
