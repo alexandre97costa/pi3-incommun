@@ -35,8 +35,8 @@ export default function PedidosComponent() {
         // get dica do dia!
         axios.get('https://api.quotable.io/random?tags=success|inspirational|happiness')
             .then(res => {
-                setAutorDica(res.data.content)
-                setDicaDoDia(res.data.author)
+                setAutorDica(res.data.author)
+                setDicaDoDia(res.data.content)
             })
 
 
