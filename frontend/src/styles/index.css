@@ -1,0 +1,31 @@
+:root {
+    --cor-fundo: #e4e4e4;
+    --cor-fundo-transp: rgba(0, 0, 0, 0.2);
+}
+
+body, html {
+    scroll-behavior: smooth;
+}
+
+nav {
+    height: 80px;
+    z-index: 10000;
+    /* background-color: var(--cor-fundo-transp); */
+}
+
+.text-indigo { color: var(--bs-indigo) }
+.bg-indigo { background-color: var(--bs-indigo) }
+
+.text-light-dark { color: var(--bs-gray-500) }
+.bg-light-dark { background-color: var(--bs-gray-500) }
+
+.text-teal { color: var(--bs-teal) }
+.bg-teal { background-color: var(--bs-teal) }
+
+.bg-primary-semi    { background-color: rgba( var(--bs-primary-rgb),    0.15 );}
+.bg-secondary-semi  { background-color: rgba( var(--bs-secondary-rgb),  0.2 );}
+.bg-success-semi    { background-color: rgba( var(--bs-success-rgb),    0.15);}
+.bg-teal-semi       { background-color: rgba( 32, 201, 151,           0.2 );}
+.bg-info-semi       { background-color: rgba( var(--bs-info-rgb),       0.2 );}
+.bg-warning-semi    { background-color: rgba( var(--bs-warning-rgb),    0.18);}
+.bg-danger-semi     { background-color: rgba( var(--bs-danger-rgb),     0.18 );}

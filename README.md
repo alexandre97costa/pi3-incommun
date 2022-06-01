@@ -1,2 +1,2 @@
-# pi3-incommun
-O repositório do desenvolvimento de Projeto Integrado 3. Inclui backend &amp; frontend
+# pi3-2022-incommun
+O repositório de desenvolvimento de Projeto Integrado 3. Contem conteúdo tanto de frontend como de backend.
