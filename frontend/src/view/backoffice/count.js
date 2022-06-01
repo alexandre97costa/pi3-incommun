@@ -7,23 +7,10 @@ export default function CountComponent(props) {
 
     const [count, setCount] = useState(0)
     const [estado, setEstado] = useState('')
-    const icons = [
-        'bi-envelope',
-        'bi-envelope-paper-heart',
-        'bi-arrow-through-heart-fill',
-        'bi-heartbreak-fill',
-    ]
-    const cores = [
-        'text-warning',
-        'text-primary',
-        'text-teal',
-        'text-danger',
-    ]
 
     useEffect(() => {
         axios.get('http://' + ip + ':4011/pedidos/count?estado=' + props.estadoId)
         .then(res => {
-            console.log(res.data)
             setCount(res.data.count)
             setEstado(res.data.estado)
         })

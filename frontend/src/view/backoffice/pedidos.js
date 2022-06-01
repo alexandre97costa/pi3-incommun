@@ -8,18 +8,8 @@ import ip from '../../ip'
 export default function PedidosComponent() {
 
     const [pedidos, setPedidos] = useState([])
-    const icons = [
-        'bi-envelope',
-        'bi-envelope-paper-heart',
-        'bi-arrow-through-heart-fill',
-        'bi-heartbreak-fill',
-    ]
-    const cores = [
-        'warning',
-        'primary',
-        'teal',
-        'danger',
-    ]
+    const [totalPedidos, setTotalPedidos] = useState(0)
+    const [estados, setEstados] = useState([])
 
     const [dicaDoDia, setDicaDoDia] = useState('')
     const [autorDica, setAutorDica] = useState('')
@@ -28,11 +18,25 @@ export default function PedidosComponent() {
         // Get os pedidos todos
         axios.get('http://' + ip + ':4011/pedidos/all')
             .then(res => {
-                console.log(res.data)
+                // console.log(res.data)
                 setPedidos(res.data)
             })
 
-        // get dica do dia!
+        // Get total de pedidos
+        // por defeito, sem mandar nenhuma query (nem estado nem dias),
+        // conta todos os pedidos dos ultimos 30 dias
+        axios.get('http://' + ip + ':4011/pedidos/count')
+            .then(res => {
+                setTotalPedidos(res.data.count)
+            })
+
+        // Get os estados todos que houver na bd (para o filtro/dropdown)
+        axios.get('http://' + ip + ':4011/pedidos/all_estados')
+            .then(res => {
+                setEstados(res.data)
+            })
+
+        // Get dica do dia
         axios.get('https://api.quotable.io/random?tags=success|inspirational|happiness')
             .then(res => {
                 setAutorDica(res.data.author)
@@ -117,6 +121,20 @@ export default function PedidosComponent() {
         )
     }
 
+    function LoadEstados() {
+        return (
+            estados.map(estado => {
+                return (
+                    <li key={estado.id}>
+                        <button className="dropdown-item" type='button'>
+                            {estado.descricao + 's'}
+                        </button>
+                    </li>
+                )
+            })
+        )
+    }
+
     return (
         <div className="container-fluid bg-light">
             <div className="row vh-100">
@@ -133,7 +151,7 @@ export default function PedidosComponent() {
                             </span>
                             <br />
                             <span className='fs-6 fw-normal text-muted'>
-                                Vista geral do último mês
+                                {'Foram criados ' + totalPedidos + ' pedidos nos últimos 30 dias.'}
                             </span>
                         </div>
                         <div className='col-6 text-end'>
@@ -146,59 +164,45 @@ export default function PedidosComponent() {
                         </div>
                     </div>
                     <div className='mb-4 g-3 row row-cols-1 row-cols-md-2 row-cols-lg-4 row-cols-xl-4'>
-                        <Count estadoId={1}/>
-                        <Count estadoId={2}/>
-                        <Count estadoId={3}/>
-                        <Count estadoId={4}/>
+                        <Count estadoId={1} />
+                        <Count estadoId={2} />
+                        <Count estadoId={3} />
+                        <Count estadoId={4} />
 
                     </div>
 
                     <div className="mb-3 row">
-                        <div className='col d-flex justify-content-between'>
-                            <span className='fs-6 fw-normal text-muted'>
-                                Pedidos
+                        <div className='col d-flex justify-content-start align-items-center fs-6 fw-normal text-muted'>
+                            <span className='me-2'>
+                                Ver
                             </span>
-                            <div className='d-none btn-group bg-white '>
-                                <button
-                                    type='button'
-                                    className='btn btn-outline-secondary  form-check d-flex align-items-center fs-6'
-                                >
-                                    <span>Todos</span>
-                                    <i className='bi bi-check-square-fill ms-3 fs-6'></i>
-                                </button>
 
-                                <button
-                                    type='button'
-                                    className='btn btn-outline-secondary form-check d-flex align-items-center'
-                                >
-                                    <span>Pendentes</span>
-                                    <i className='bi bi-square ms-3 fs-6'></i>
+                            <div className="dropdown bg-white me-2">
+                                <button className=" btn btn-sm btn-outline-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <span className='me-2'>Todos os pedidos</span>
                                 </button>
-
-                                <button
-                                    type='button'
-                                    className='btn btn-outline-secondary form-check d-flex align-items-center'
-                                >
-                                    <span>Enviados</span>
-                                    <i className='bi bi-square ms-3 fs-6'></i>
-                                </button>
-
-                                <button
-                                    type='button'
-                                    className='btn btn-outline-secondary form-check d-flex align-items-center'
-                                >
-                                    <span>Aceites</span>
-                                    <i className='bi bi-square ms-3 fs-6'></i>
-                                </button>
-
-                                <button
-                                    type='button'
-                                    className='btn btn-outline-secondary form-check d-flex align-items-center'
-                                >
-                                    <span>Recusados</span>
-                                    <i className='bi bi-check-square ms-3 fs-6'></i>
-                                </button>
+                                <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    <li><button className="dropdown-item" type='button'>Todos os pedidos</button></li>
+                                    <li><hr className="dropdown-divider" /></li>
+                                    <LoadEstados />
+                                </ul>
                             </div>
+
+                            <span className='me-2'>
+                                na ordem de
+                            </span>
+
+                            <div className="dropdown bg-white me-2">
+                                <button className=" btn btn-sm btn-outline-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <span className='me-2'>mais recentes primeiro</span>
+                                </button>
+                                <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    <li><button className="dropdown-item" type='button'>Action</button></li>
+                                    <li><button className="dropdown-item" type='button'>Another action</button></li>
+                                    <li><button className="dropdown-item" type='button'>Something else here</button></li>
+                                </ul>
+                            </div>
+
                         </div>
                         {/* TODO Filtros */}
                     </div>

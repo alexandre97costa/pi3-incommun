@@ -9,6 +9,7 @@ router.get('/', (req, res) => {
 
 
 router.get('/all', pedidosController.all)
+router.get('/all_estados', pedidosController.all_estados)
 router.get('/count', pedidosController.count)
 // router.get('/civ', pedidosController.civ)
 
