@@ -18,7 +18,7 @@ module.exports = {
                     .findOne({
                         where: { id: estadoId }
                     })
-                    .then(res => { response.desc = res.descricao })
+                    .then(res => { response.estado = res })
             })
             .then(async (estado) => {
                 await Pedido

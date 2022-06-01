@@ -32,14 +32,14 @@ export default function PedidosComponent() {
                 setPedidos(res.data)
             })
 
-        // Get a dica do dia
+        // get dica do dia!
         axios.get('https://api.quotable.io/random?tags=success|inspirational|happiness')
             .then(res => {
-                console.log('🚀 / res', res)
-
-                setDicaDoDia(res.data.content)
-                setAutorDica(res.data.author)
+                setAutorDica(res.data.content)
+                setDicaDoDia(res.data.author)
             })
+
+
     }, [])
 
 
@@ -70,10 +70,10 @@ export default function PedidosComponent() {
                         {/* Estado */}
                         <td className='text-start'>
                             <span
-                                className={'badge text-start w-100 fw-semibold bg-' + cores[pedido.estado_id - 1] + '-semi text-' + cores[pedido.estado_id - 1] + ' fs-6'}
+                                className={'badge text-start w-100 fw-semibold bg-' + pedido.estado_pedido.cor + '-semi text-' + pedido.estado_pedido.cor + ' fs-6'}
                                 title={pedido.estado_pedido.obs}
                             >
-                                <i className={'me-2 bi ' + icons[pedido.estado_id - 1]}></i>
+                                <i className={'me-2 bi ' + pedido.estado_pedido.icon}></i>
                                 {pedido.estado_pedido.descricao}
                             </span>
                         </td>
@@ -139,17 +139,17 @@ export default function PedidosComponent() {
                         <div className='col-6 text-end'>
                             <span className='fs-5 lh-sm text-indigo fw-bold ' title={dicaDoDia + ' - ' + autorDica}>
                                 Dica do dia :)
-                            </span><br/>
+                            </span><br />
                             <span className=' p-2 badge fw-normal bg-light lh-sm text-secondary text-end text-wrap w-75'>
                                 {dicaDoDia + ' ~' + autorDica}
                             </span>
                         </div>
                     </div>
                     <div className='mb-4 g-3 row row-cols-1 row-cols-md-2 row-cols-lg-4 row-cols-xl-4'>
-                        <Count estado={1} icon='bi-heart-fill' />
-                        <Count estado={2} icon='bi-heart-fill' />
-                        <Count estado={3} icon='bi-heart-fill' />
-                        <Count estado={4} icon='bi-heartbreak-fill' />
+                        <Count estadoId={1}/>
+                        <Count estadoId={2}/>
+                        <Count estadoId={3}/>
+                        <Count estadoId={4}/>
 
                     </div>
 

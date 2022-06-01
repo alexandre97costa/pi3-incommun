@@ -6,7 +6,7 @@ import ip from '../../ip'
 export default function CountComponent(props) {
 
     const [count, setCount] = useState(0)
-    const [desc, setDesc] = useState('')
+    const [estado, setEstado] = useState('')
     const icons = [
         'bi-envelope',
         'bi-envelope-paper-heart',
@@ -21,11 +21,11 @@ export default function CountComponent(props) {
     ]
 
     useEffect(() => {
-        axios.get('http://' + ip + ':4011/pedidos/count?estado=' + props.estado)
+        axios.get('http://' + ip + ':4011/pedidos/count?estado=' + props.estadoId)
         .then(res => {
             console.log(res.data)
             setCount(res.data.count)
-            setDesc(res.data.desc)
+            setEstado(res.data.estado)
         })
     }, [])
 
@@ -36,13 +36,13 @@ export default function CountComponent(props) {
                 <div className='row'>
                     <div className='col-2 py-2 d-flex align-items-center justify-content-center'>
                         <span className='me-1'>
-                            <i className={'bi ' + icons[props.estado-1] + ' ' + cores[props.estado-1] + ' fs-3'}></i>
+                            <i className={'bi ' + estado.icon + ' text-' + estado.cor + ' fs-3'}></i>
                         </span>
 
                     </div>
                     <div className='col-6 d-flex align-items-center justify-content-center'>
                         <span className='fw-normal fs-6 lh-sm'>
-                            Pedidos {desc}s
+                            Pedidos {estado.descricao}s
                         </span>
                     </div>
                     <div className='col-4 d-flex align-items-center justify-content-center'>

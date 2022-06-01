@@ -156,6 +156,8 @@ const EstadoPedido = sequelize.define('estado_pedido',
                 msg: 'A descrição do estado do pedido não pode estar vazia.'
             }
         },
+        icon: DataTypes.STRING,
+        cor: DataTypes.STRING,
         obs: DataTypes.STRING
     },
     {

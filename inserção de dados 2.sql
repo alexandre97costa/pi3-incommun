@@ -25,11 +25,11 @@ INSERT INTO cliente (id, nome, email, empresa, tlm, created_at, updated_at) VALU
 
 /***************************************** Estado de Pedido + Motivo de Recusa *****************************************/
 
-INSERT INTO estado_pedido (id, descricao, obs) VALUES
-(1,     'Pendente',  'O cliente que criou este pedido ainda não obteve uma resposta da nossa parte.'),
-(2,     'Enviado',   'Já houve contacto com o cliente que criou este pedido, e aguarda-se uma conclusão (aceite/recusado)'),
-(3,     'Aceite',    'O cliente aceitou o orçamento enviado.'),
-(4,     'Recusado',  'O cliente recusou o orçamento enviado. ');
+INSERT INTO estado_pedido (id, descricao, icon, cor, obs) VALUES
+(1,     'Pendente',  'bi-envelope',                 'warning',  'O cliente que criou este pedido ainda não obteve uma resposta da nossa parte.'),
+(2,     'Enviado',   'bi-envelope-paper-heart',     'primary',  'Já houve contacto com o cliente que criou este pedido, e aguarda-se uma conclusão (aceite/recusado)'),
+(3,     'Aceite',    'bi-arrow-through-heart-fill', 'teal',     'O cliente aceitou o orçamento enviado.'),
+(4,     'Recusado',  'bi-heartbreak-fill',          'danger',   'O cliente recusou o orçamento enviado. ');
 
 INSERT INTO motivo_recusa_pedido (id, descricao, obs) VALUES
 (1,     'Preço Elevado',                    ''),
