@@ -21,23 +21,31 @@ export default function PedidosComponent() {
         'danger',
     ]
 
+    const [dicaDoDia, setDicaDoDia] = useState('')
+    const [autorDica, setAutorDica] = useState('')
+
     useEffect(() => {
-        getAllPedidos()
-    }, [])
-
-
-    async function getAllPedidos() {
+        // Get os pedidos todos
         axios.get('http://' + ip + ':4011/pedidos/all')
             .then(res => {
                 console.log(res.data)
                 setPedidos(res.data)
             })
-    }
+
+        // Get a dica do dia
+        axios.get('https://api.quotable.io/random?tags=success|inspirational|happiness')
+            .then(res => {
+                console.log('🚀 / res', res)
+
+                setDicaDoDia(res.data.content)
+                setAutorDica(res.data.author)
+            })
+    }, [])
+
 
     function LoadPedidos() {
         return (
             pedidos.map(pedido => {
-                console.log('🚀 / (pedido.estado_id === 1) ? false : true', (pedido.estado_id === 1) ? false : true)
                 return (
                     <tr className='align-middle' key={pedido.id}>
                         {/* Data */}
@@ -70,7 +78,7 @@ export default function PedidosComponent() {
                             </span>
                         </td>
                         {/* Valor */}
-                        <td className='text-end text-success fs-5 '>
+                        <td className='text-end text-success fs-4 pe-3'>
                             {pedido.preco_total.toFixed(2)}
                         </td>
 
@@ -78,18 +86,21 @@ export default function PedidosComponent() {
                         <td className=''>
                             {(pedido.estado_id === 1 || pedido.estado_id === 2) &&
                                 <button className='btn btn-warning w-100 fw-semibold' >
-                                    Contactar cliente   
+                                    <i className='me-2 bi bi-send-fill'></i>
+                                    Contactar cliente
                                 </button>
                             }
                             {(pedido.estado_id === 3 || pedido.estado_id === 4) &&
                                 <button className='btn btn-warning w-100' disabled>
-                                    Contactar cliente caralho
+                                    <i className='me-2 bi bi-send-slash-fill'></i>
+                                    Contactar cliente
                                 </button>
                             }
                         </td>
 
                         <td className=''>
-                            <button className='btn btn-warning w-100'>
+                            <button className='btn btn-secondary w-100'>
+                                <i className='me-2 bi bi-card-checklist'></i>
                                 Ver pedido
                             </button>
                         </td>
@@ -112,19 +123,27 @@ export default function PedidosComponent() {
 
                 <NavDeLado />
 
-
                 <div className="col overflow-auto h-sm-100 px-5 pt-4">
 
                     {/* Titulo */}
                     <div className="mb-3 row">
-                        <span className='h2 text-dark fw-bold'>
-                            Pedidos
-                        </span>
-                        <br />
-                        <span className='fs-6 fw-normal text-muted'>
-                            Vista geral do último mês
-                        </span>
-
+                        <div className='col-6'>
+                            <span className='h2 text-dark fw-bold'>
+                                Pedidos
+                            </span>
+                            <br />
+                            <span className='fs-6 fw-normal text-muted'>
+                                Vista geral do último mês
+                            </span>
+                        </div>
+                        <div className='col-6 text-end'>
+                            <span className='fs-5 lh-sm text-indigo fw-bold ' title={dicaDoDia + ' - ' + autorDica}>
+                                Dica do dia :)
+                            </span><br/>
+                            <span className=' p-2 badge fw-normal bg-light lh-sm text-secondary text-end text-wrap w-75'>
+                                {dicaDoDia + ' ~' + autorDica}
+                            </span>
+                        </div>
                     </div>
                     <div className='mb-4 g-3 row row-cols-1 row-cols-md-2 row-cols-lg-4 row-cols-xl-4'>
                         <Count estado={1} icon='bi-heart-fill' />
