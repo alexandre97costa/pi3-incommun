@@ -6,9 +6,8 @@ import LogoIncommun from '../../assets/imgs/logotipoincommun.png'
 
 export default function NavDeLadoComponent() {
     return (
-        <div className="col-12 col-sm-3 col-lg-2 px-sm-2 px-0 bg-warning d-flex sticky-top">
-            <div
-                className="d-flex flex-sm-column flex-row flex-grow-1 align-items-center align-items-sm-start pt-2"
+        <div className="col-12 col-sm-3 col-lg-2 col-sm-2 bg-warning d-flex sticky-top">
+            <div className="d-flex flex-sm-column flex-row flex-grow-1 align-items-center align-items-sm-start pt-2"
             >
                 <Link to='/' className='navbar-brand w-100 px-3 my-3 text-light d-flex align-items-center'>
                     <img src={LogoIncommun} alt='incommun' className='w-100' />
@@ -69,6 +68,14 @@ export default function NavDeLadoComponent() {
                         <Link to="/back-office/formularios" className="nav-link px-sm-0 px-2 text-white">
                             <i className="fs-5 bi bi-ui-checks"></i><span
                                 className="ms-2 d-none d-sm-inline ">Formulários</span>
+                        </Link>
+                    </li>
+
+                    {/* Formulários V2 */}
+                    <li className="nav-item ">
+                        <Link to="/back-office/formularios_v2" className="nav-link px-sm-0 px-2 text-white">
+                            <i className="fs-5 bi bi-ui-checks"></i><span
+                                className="ms-2 d-none d-sm-inline ">Formulários_v2</span>
                         </Link>
                     </li>
 

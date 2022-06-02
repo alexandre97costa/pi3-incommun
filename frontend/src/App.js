@@ -12,6 +12,8 @@ import BoInicio from './view/backoffice/inicio'
 import BoPedidos from './view/backoffice/pedidos'
 import BoFormularios from './view/backoffice/formularios'
 
+import BoFormularios_v2 from './view/backoffice/formularios_v2'
+
 // Componentes de teste
 import Form from './view/forms/form'
 
@@ -23,8 +25,6 @@ export default function App() {
 	return (
 		<Router>
 			<div className='App'>
-
-
 
 				<Routes>
 					<Route exact path='/' element={
@@ -47,6 +47,7 @@ export default function App() {
 					<Route path='/back-office/' element={<BoInicio />} />
 					<Route path='/back-office/pedidos' element={<BoPedidos />} />
 					<Route path='/back-office/formularios' element={<BoFormularios />} />
+					<Route path='/back-office/formularios_v2' element={<BoFormularios_v2 />} />
 
 					{/* Legacy 👇 */}
 

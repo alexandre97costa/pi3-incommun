@@ -9,7 +9,7 @@ export default function FormulariosComponent() {
     const [forms, setForms] = useState([])
 
     useEffect(() => {
-        axios.get('http://'+ip+':4011/forms/all')
+        axios.get('http://' + ip + ':4011/forms/all')
             .then(res => {
                 console.table(res.data.formularios, ['id', 'nome'])
                 setForms(res.data.formularios)
@@ -54,10 +54,10 @@ export default function FormulariosComponent() {
                                                             grupo.pergunta.map(pergunta => {
                                                                 return (
                                                                     <tr>
-                                                                        <td style={{width: '20%'}}>{pergunta.texto}</td>
-                                                                        <td style={{width: '60%'}}>{pergunta.descricao}</td>
-                                                                        <td style={{width: '10%'}}>{pergunta.tipo}</td>
-                                                                        <td style={{width: '10%'}}>{pergunta.preco}</td>
+                                                                        <td style={{ width: '20%' }}>{pergunta.texto}</td>
+                                                                        <td style={{ width: '60%' }}>{pergunta.descricao}</td>
+                                                                        <td style={{ width: '10%' }}>{pergunta.tipo}</td>
+                                                                        <td style={{ width: '10%' }}>{pergunta.preco}</td>
                                                                     </tr>
 
                                                                 )

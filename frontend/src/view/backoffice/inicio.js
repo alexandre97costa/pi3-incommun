@@ -7,7 +7,7 @@ import NavDeLado from './navdelado'
 export default function InicioComponent() {
 
     return (
-        <div className="container-fluid">
+        <div className="container-fluid ps-0">
             <div className="row vh-100">
 
                 <NavDeLado />
