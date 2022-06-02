@@ -8,7 +8,7 @@ const bcrypt = require('bcryptjs')
 
 const Formulario = sequelize.define('formulario',
     {
-        nome: {
+        titulo: {
             type: DataTypes.STRING,
             allowNull: false
         },
@@ -45,14 +45,14 @@ const Grupo = sequelize.define('grupo',
 
 const Pergunta = sequelize.define('pergunta',
     {
-        texto: {
+        titulo: {
             type: DataTypes.STRING,
             allowNull: false
         },
         descricao: {
             type: DataTypes.STRING
         },
-        preco: {
+        valor_unitario: {
             type: DataTypes.FLOAT,
             allowNull: false,
             validate: {
@@ -121,7 +121,7 @@ const Resposta = sequelize.define('resposta',
 
 const Pedido = sequelize.define('pedido',
     {
-        preco_total: {
+        valor_total: {
             type: DataTypes.FLOAT,
             allowNull: false,
             validate: {

@@ -21,7 +21,7 @@ export default function FormulariosComponente() {
                 <div className="col-12" key={form.id}>
 
                     <div className="fs-4 fw.bold text-warning">
-                        {form.descricao}
+                        {form.nome}
                     </div>
 
 
@@ -105,7 +105,7 @@ export default function FormulariosComponente() {
     }
 
     return (
-        <div className="container-fluid ps-0">
+        <div className="container-fluid">
             <div className="row vh-100">
 
                 <NavDeLado />
