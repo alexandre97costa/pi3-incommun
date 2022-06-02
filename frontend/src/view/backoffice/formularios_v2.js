@@ -1,7 +1,4 @@
 import axios from 'axios';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min';
-import "bootstrap-icons/font/bootstrap-icons.css";
 import React, { useEffect, useState } from "react";
 import NavDeLado from './navdelado'
 import ip from '../../ip'
@@ -31,9 +28,17 @@ export default function FormulariosComponente() {
                     <div className="accordion accordion-flush m-2" id={"accordion-" + form.id} >
                         <div className="accordion-item">
                             <h2 className="accordion-header" id={"accordion-header-" + form.id}>
-                                <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target={"#a" + form.id} >
-                                    aqui fica o nome do grupo
-                                </button>
+                                {
+                                    form.grupos.map(grupo => {
+                                        return (
+                                            <div key={grupo.id}>
+                                                <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target={"#a" + form.id} >
+                                                    {grupo.titulo}
+                                                </button>
+                                            </div>
+                                        )
+                                    })
+                                }
                             </h2>
                             <div id={"a" + form.id} className="accordion-collapse collapse" data-bs-parent={"#accordion-" + form.id}>
                                 <div className="accordion-body">
