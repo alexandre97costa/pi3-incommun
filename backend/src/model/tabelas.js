@@ -95,7 +95,7 @@ const Resposta = sequelize.define('resposta',
                 min: 0
             }
         },
-        preco_unitario: {
+        valor_unitario: {
             type: DataTypes.FLOAT,
             allowNull: false,
             validate: {
