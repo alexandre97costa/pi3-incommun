@@ -41,7 +41,7 @@ INSERT INTO motivo_recusa_pedido (id, descricao, obs) VALUES
 
 /***************************************** Pedidos *****************************************/
 
-INSERT INTO pedido (id, cliente_id, preco_total, estado_id, motivo_id, created_at, updated_at) VALUES
+INSERT INTO pedido (id, cliente_id, valor_total, estado_id, motivo_id, created_at, updated_at) VALUES
 (1, 1, 234.5, 1, null,  CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 (2, 2, 345.6, 2, null,  CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 (3, 3, 456.7, 3, null,  CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
@@ -50,7 +50,7 @@ INSERT INTO pedido (id, cliente_id, preco_total, estado_id, motivo_id, created_a
 /***************************************** Fim Pedidos *****************************************/
 
 /**************************************** formulario ********************************************************/
-INSERT INTO formulario (id, nome, descricao, created_at, updated_at)  VALUES 
+INSERT INTO formulario (id, titulo, descricao, created_at, updated_at)  VALUES 
 (1, 'Criação de Website Institucional', 'Descrição Criação de Website Institucional',  CURRENT_TIMESTAMP, CURRENT_TIMESTAMP  ),
 (2, 'Criação de Loja Online',           'Descrição Criação de Loja Online',            CURRENT_TIMESTAMP, CURRENT_TIMESTAMP  ),
 (3, 'Criação de Website Hibrido',       'Descrição Criação de Website Hibrido',        CURRENT_TIMESTAMP, CURRENT_TIMESTAMP  ),
@@ -87,7 +87,7 @@ INSERT INTO grupo (id, formulario_id, titulo, created_at, updated_at) VALUES
 /***************************************** Perguntas Landing Page ***********************************/
 /*Extras*/
 
-INSERT INTO pergunta (created_at, updated_at, id, grupo_id, texto, descricao, preco, tipo) VALUES 
+INSERT INTO pergunta (created_at, updated_at, id, grupo_id, titulo, descricao, valor_unitario, tipo) VALUES 
 (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, 1, 'Deseja comprar um dominio?',        'O domínio é a url do seu site. (www.oseusite.pt)', 10.5, 'checkbox'),
 (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 2, 1, 'Pretende obter hospedagem?',        'A hospedagem é o local onde o seu site é guardado', 10.5, 'checkbox'),
 (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 3, 1, 'Deseja a criação dum portfolio?',   'Caso tenha trabalhos anterioes que queira mostrar um portfolio é a melhor opção para tal', 10.5, 'checkbox'),
