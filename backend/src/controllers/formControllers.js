@@ -29,7 +29,7 @@ module.exports = {
                             attributes: ['id', 'titulo'],
                             include: [{
                                 model: Pergunta,
-                                attributes: ['id', 'texto', 'descricao', 'tipo', 'preco']
+                                attributes: ['id', 'titulo', 'descricao', 'tipo']
                             }]
                         }],
                         order: [
@@ -62,9 +62,9 @@ module.exports = {
                             attributes: ['id', 'titulo'],
                             include: [{
                                 model: Pergunta,
-                                // Não se inclui o attr preco para que não esteja 
+                                // Não se inclui o attr valor_unitario para que não esteja 
                                 // acessivel de maneira nenhuma no lado do cliente
-                                attributes: ['id', 'texto', 'descricao', 'tipo']
+                                attributes: ['id', 'titulo', 'descricao', 'tipo']
                             }]
                         }],
                         order: [

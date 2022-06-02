@@ -10,7 +10,7 @@ export default function CheckboxComponent(props) {
     //     if (props.perguntasObject.hasOwnProperty(id)
     //         && props.perguntasObject[id] !== undefined
     //         && props.perguntasObject[id] !== false) {
-    //         props.setResposta(props.pergunta.texto)
+    //         props.setResposta(props.pergunta.titulo)
     //     }
     // }, [props.perguntasObject])
 
@@ -21,7 +21,7 @@ export default function CheckboxComponent(props) {
                 type="checkbox"
                 id={'p-' + props.pergunta.id}
                 checked={props.perguntasObject[id]}
-                value={props.pergunta.texto}
+                value={props.pergunta.titulo}
                 onChange={e => {
                     const updateObj = {}
                     updateObj[id] = e.target.checked
@@ -33,7 +33,7 @@ export default function CheckboxComponent(props) {
                 }}
             />
             <label className="form-check-label fs-4 d-flex flex-column lh-small" htmlFor={'p-' + props.pergunta.id}>
-                {props.pergunta.texto}
+                {props.pergunta.titulo}
 
                 <small className="text-muted small fs-6 lh-small">
                     {props.pergunta.descricao}

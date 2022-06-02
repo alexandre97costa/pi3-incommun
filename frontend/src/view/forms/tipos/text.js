@@ -62,7 +62,7 @@ export default function TextComponent(props) {
                         <input
                             type="text"
                             className="form-control form-control-lg focus-warning bg-white border-warning"
-                            id={'p-' + props.pergunta.id} placeholder={props.pergunta.texto}
+                            id={'p-' + props.pergunta.id} placeholder={props.pergunta.titulo}
                             value={text}
                             onChange={e => { setText(e.target.value) }}
 
@@ -82,7 +82,7 @@ export default function TextComponent(props) {
                     </div>
 
                     <ul className='list-group mb-3 shadow'>
-                        {/* <li className='list-group-item text-muted small py-2'>{text === '' ? props.pergunta.texto : text}</li> */}
+                        {/* <li className='list-group-item text-muted small py-2'>{text === '' ? props.pergunta.titulo : text}</li> */}
                         {
                             arrayItems.map((item, index) => {
                                 return (<li className='list-group-item fw-semibold' key={index}><i className='bi bi-arrow-right-short me-2'></i>{item}</li>)

@@ -33,10 +33,10 @@ export default function MainComponent() {
                 <div className='col' key={form.id}>
                     <Link
                         className='btn btn-outline-dark h-100 fs-3 fw-bold rounded-0 py-3 lh-1'
-                        to={'/servicos-personalizados/' + nomeTransform(form.nome)}
+                        to={'/servicos-personalizados/' + nomeTransform(form.titulo)}
                         state={{ id: form.id }}
                     >
-                        {form.nome}
+                        {form.titulo}
                         <small className='fs-6 lh-1 fw-normal d-none'>
                             {form.descricao}
                         </small>

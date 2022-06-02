@@ -23,8 +23,25 @@ app.use('/pedidos', pedidosRoutes)
 app.use('/clientes', clientesRoutes)
 app.use('/test', testRoutes)
 
+// rota de introdução
 app.use('/', (req, res) => {
-    res.send("Alô! Possiveis rotas: forms, pedidos, clientes, test.");
+    res.json({
+        success: false,
+        intro: 'Olá! 👋 Isto é o ponto de entrada do nosso backend. Tira os sapatos antes de entrar 🧐',
+        rotas: {
+            forms: [
+                'GET /forms/all',
+                'GET /forms/all_form_names',
+                'GET /forms/one?id=1',
+            ],
+            pedidos: [
+                'GET /pedidos/all?id=0',
+                'GET /pedidos/all_estados',
+                'GET /pedidos/count?id=0&dias=30',
+            ],
+
+        }
+    });
 });
 
 

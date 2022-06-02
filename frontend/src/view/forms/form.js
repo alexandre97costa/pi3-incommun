@@ -25,11 +25,13 @@ export default function FormComponent(props) {
         axios
             .get('http://' + ip + ':4011/forms/one?id=' + formId)
             .then(res => { setForm(res.data) })
+            .catch(error => console.log(error))
     }, [])
 
 
+
     useEffect(() => {
-        document.title = form.nome ?? '...'
+        document.title = form.titulo ?? '...'
 
         if (form.length !== 0) {
             const perguntasObject =
@@ -104,7 +106,7 @@ export default function FormComponent(props) {
                         {form.length === 0 ? 'A carregar...' : 'Serviços personalizados'}
                     </Link>
                     <span className='text-indigo fw-semibold'>
-                        {form.length === 0 ? ' / a carregar...' : (' / ' + form.nome)}
+                        {form.length === 0 ? ' / a carregar...' : (' / ' + form.titulo)}
                     </span>
 
                 </div>

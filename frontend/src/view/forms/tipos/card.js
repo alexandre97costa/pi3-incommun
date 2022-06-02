@@ -12,7 +12,7 @@ export default function CardComponent(props) {
             && props.perguntasObject[id] !== undefined
             && props.perguntasObject[id]) {
             setChecked(props.perguntasObject[id])
-            props.setResposta(props.pergunta.texto)
+            props.setResposta(props.pergunta.titulo)
         }
     }, [props.perguntaObject])
     
@@ -42,7 +42,7 @@ export default function CardComponent(props) {
                     <div className={(isChecked ? 'bg-warning' : '') + ' col-md-7 col-lg-8 col-xl-9'}>
                         <div className='card-body ms-3 mt-1'>
                             <div className={(isChecked ? 'text-dark':'') + ' h2 card-title'}>
-                                {props.pergunta.texto ?? 'a carregar...'}
+                                {props.pergunta.titulo ?? 'a carregar...'}
                                 {isChecked && <i className='bi bi-check-lg text-dark ms-2'></i>}
                             </div>
                             <p className='card-text my-3 '>{props.pergunta.descricao ?? 'a carregar...'}</p>
