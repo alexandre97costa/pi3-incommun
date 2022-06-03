@@ -2,6 +2,7 @@ import axios from 'axios';
 // import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 import React, { useEffect, useState } from 'react';
 import NavDeLado from './navdelado'
+import NavDeLado2 from './navdelado2'
 import Count from './count'
 import ip from '../../ip'
 
@@ -152,7 +153,8 @@ export default function PedidosComponent() {
         <div className="container-fluid bg-light">
             <div className="row vh-100">
 
-                <NavDeLado />
+                {/* <NavDeLado /> */}
+                <NavDeLado2 />
 
                 <div className="col overflow-auto h-sm-100 px-5 pt-4">
 

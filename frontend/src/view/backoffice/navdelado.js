@@ -14,7 +14,7 @@ export default function NavDeLadoComponent() {
                 </Link>
 
 
-                <ul className="px-3 nav nav-pills flex-sm-column flex-row flex-nowrap flex-shrink-1 flex-sm-grow-0 flex-grow-1 mb-sm-auto mb-0 justify-content-center align-items-center align-items-sm-start"
+                <ul className="px-3 nav nav-pills d-flex flex-sm-column flex-row flex-nowrap flex-shrink-1 flex-sm-grow-0 flex-grow-1 mb-sm-auto mb-0 justify-content-center align-items-center align-items-sm-start"
                     id="menu">
 
                     {/* Inicio */}
@@ -25,6 +25,7 @@ export default function NavDeLadoComponent() {
                     </li>
 
                     {/* Pedidos */}
+
                     <li className="dropdown">
                         <button type='button' className="nav-link dropdown-toggle px-sm-0 px-1 text-white" id="dropdown1"
                             data-bs-toggle="dropdown" aria-expanded="false">
