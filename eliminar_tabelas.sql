@@ -1,4 +1,4 @@
-DROP TABLE
+DROP TABLE IF EXISTS
     cliente,
     estado_pedido,
     formulario,
@@ -6,6 +6,7 @@ DROP TABLE
     motivo_recusa_pedido,
     pedido,
     pergunta,
+    tipo_pergunta,
     resposta,
     user_incommun,
     user_incommun_role

@@ -61,17 +61,6 @@ const Pergunta = sequelize.define('pergunta',
                     msg: 'Não é um FLOAT válido'
                 }
             }
-        },
-        tipo: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            validate: {
-                notNull: true,
-                isIn: {
-                    args: [['checkbox', 'radio', 'slider', 'card', 'text']],
-                    msg: 'Tem que ser um dos seguintes: checkbox, radio, slider, card, text.'
-                }
-            }
         }
     },
     {
@@ -81,6 +70,24 @@ const Pergunta = sequelize.define('pergunta',
         createdAt: 'created_at',
         updatedAt: 'updated_at',
         deletedAt: 'deleted_at',
+    }
+)
+
+const TipoPergunta = sequelize.define('tipo_pergunta',
+    {
+        titulo: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        obs: DataTypes.STRING
+    },
+    {
+        freezeTableName: true,
+        timestamps: false,
+        name: {
+            singular: 'tipo_pergunta',
+            plural: 'tipos_perguntas'
+        },
     }
 )
 
@@ -177,7 +184,7 @@ const MotivoRecusa = sequelize.define('motivo_recusa_pedido',
             }
         },
         obs: DataTypes.STRING
-    }, 
+    },
     {
         freezeTableName: true,
         timestamps: false,
@@ -257,6 +264,22 @@ Pergunta.belongsTo(Grupo, { foreignKey: 'grupo_id' });
 
 // ######################################################
 
+// Pergunta N:1 TipoPergunta
+TipoPergunta.hasMany(Pergunta, {
+    foreignKey: {
+        name: 'tipo_id',
+        allowNull: false
+    }
+})
+Pergunta.belongsTo(TipoPergunta, {
+    as: 'tipo_pergunta',
+    foreignKey: {
+        name: 'tipo_id',
+        allowNull: false
+    }
+})
+
+// ######################################################
 
 // Pedido  N:1  Cliente
 Cliente.hasMany(Pedido, {
@@ -377,5 +400,5 @@ UserIncommun.belongsTo(UserIncommunRole, {
 })
 
 module.exports = {
-    Formulario, Grupo, Pergunta, Resposta, Pedido, EstadoPedido, MotivoRecusa, Cliente, UserIncommun, UserIncommunRole
+    Formulario, Grupo, Pergunta, TipoPergunta, Resposta, Pedido, EstadoPedido, MotivoRecusa, Cliente, UserIncommun, UserIncommunRole
 }

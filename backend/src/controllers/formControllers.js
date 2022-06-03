@@ -1,4 +1,4 @@
-var { Formulario, Grupo, Pergunta, Resposta, Pedido, EstadoPedido, MotivoRecusa, Cliente, UserIncommun, UserIncommunRole } = require('../model/tabelas')
+var { Formulario, Grupo, Pergunta, TipoPergunta, Resposta, Pedido, EstadoPedido, MotivoRecusa, Cliente, UserIncommun, UserIncommunRole } = require('../model/tabelas')
 var sequelize = require('../model/db')
 const { Op } = require("sequelize");
 
@@ -33,13 +33,19 @@ module.exports = {
                             attributes: ['id', 'titulo'],
                             include: [{
                                 model: Pergunta,
-                                attributes: ['id', 'titulo', 'descricao', 'tipo']
+                                attributes: ['id', 'titulo', 'descricao', 'tipo_id'],
+                                include: [{
+                                    model: TipoPergunta,
+                                    as: 'tipo_pergunta',
+                                    attributes: ['id', 'titulo']
+                                }]
                             }]
                         }],
                         order: [
                             ['id', 'ASC'],
                             [Grupo, 'id', 'ASC'],
-                            [Grupo, Pergunta, 'id', 'ASC']
+                            [Grupo, Pergunta, 'id', 'ASC'],
+                            [Grupo, Pergunta, TipoPergunta, 'id', 'ASC']
                         ]
                     })
             })
@@ -60,13 +66,19 @@ module.exports = {
                             attributes: ['id', 'titulo'],
                             include: [{
                                 model: Pergunta,
-                                attributes: ['id', 'titulo', 'descricao', 'tipo', 'valor_unitario']
+                                attributes: ['id', 'titulo', 'descricao', 'tipo_id', 'valor_unitario'],
+                                include: [{
+                                    model: TipoPergunta,
+                                    as: 'tipo_pergunta',
+                                    attributes: ['id', 'titulo']
+                                }]
                             }]
                         }],
                         order: [
                             ['id', 'ASC'],
                             [Grupo, 'id', 'ASC'],
-                            [Grupo, Pergunta, 'id', 'ASC']
+                            [Grupo, Pergunta, 'id', 'ASC'],
+                            [Grupo, Pergunta, TipoPergunta, 'id', 'ASC']
                         ]
                     })
             })
@@ -95,12 +107,18 @@ module.exports = {
                                 model: Pergunta,
                                 // Não se inclui o attr valor_unitario para que não esteja 
                                 // acessivel de maneira nenhuma no lado do cliente
-                                attributes: ['id', 'titulo', 'descricao', 'tipo']
+                                attributes: ['id', 'titulo', 'descricao', 'tipo_id'],
+                                include: [{
+                                    model: TipoPergunta,
+                                    as: 'tipo_pergunta',
+                                    attributes: ['id', 'titulo']
+                                }]
                             }]
                         }],
                         order: [
                             [Grupo, 'id', 'ASC'],
-                            [Grupo, Pergunta, 'id', 'ASC']
+                            [Grupo, Pergunta, 'id', 'ASC'],
+                            [Grupo, Pergunta, TipoPergunta, 'id', 'ASC']
                         ]
                     })
                     .then(formulario => {
