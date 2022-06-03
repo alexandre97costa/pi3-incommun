@@ -26,19 +26,17 @@ export default function FormulariosComponente() {
 
 
 					<div className="col-12"> <div key={form.id}>
-						<div className="fs-4 fw.bold text-warning">
-						</div>
+						
 					</div>
 
+						<div class="accordion accordion-flush" id={"formulario" + form.id}>
+							<div class="accordion-header" id={"formulario" + form.id}>
 
-						<div class="accordion accordion-flush" id={"accordion-" + form.id}>
-							<div class="accordion-item">
+								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target={"#titulodoformulario" + form.id}>
+									<div className="text-warning fs-2"> 	{form.titulo} </div>
 
-								<div className="text-warning fs-1"> 	{form.titulo} </div>
-								</div>
-
-
-
+								</button>
+							</div>
 
 							{
 								form.grupos.map(grupo => {
@@ -46,100 +44,81 @@ export default function FormulariosComponente() {
 										<div key={grupo.id}>
 											<>
 
-												<div class="accordion-header" id={"accordion-" + grupo.id}>
-													
-													<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target={"#titulodasperguntas" + grupo.id}>
+												<div id={"titulodoformulario" + form.id} class="accordion-collapse collapse">
+													<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target={"#grupo" + grupo.id}>
 														<div className="text-success fs-3">{grupo.titulo}</div>
+
 													</button>
 												</div>
 
-												{
-													grupo.pergunta.map(pergunta => {
-														return (
-															<div key={pergunta.id}>
-															<>
+												<div id={"grupo" + grupo.id} class="accordion-collapse collapse">
+													<div class="accordion-body p-0 m-0">
 
-																<div id={"titulodasperguntas" + grupo.id} class="accordion-collapse collapse">
-																	<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target={"#pergunta" + pergunta.id}>
-																		<div className="text-info fs-4"> {pergunta.titulo} </div>     
-																	</button>
-																</div>
-													
+														<table className="table table-borderless">
+															<thead>
+																<tr>
+																	<td style={{ width: "20%" }}>Titulo da Pergunta</td>
+																	<td style={{ width: "40%" }}>Descrição</td>
+																	<td style={{ width: "10%" }}>Tipo de Pergunta</td>
+																	<td style={{ width: "10%" }}>Valor</td>
+																	<td style={{ width: "20%" }}>Ações</td>
+																</tr>
+															</thead>
+															<tbody>
+																{
+																	grupo.pergunta.map(pergunta => {
+																		return (
 
-																				<div id={"pergunta" + pergunta.id} class="accordion-collapse collapse">
-																					<div class="accordion-body">
+																			<tr key={pergunta.id}>
+
+																				<td>
+																					<input type="text" className="form-control" value={pergunta.titulo}></input>
+																				</td>
 
 
+																				<td>
+																					<input type="text" className="form-control" value={pergunta.descricao}></input>
+																				</td>
 
+																				<td>
+																					<div className="dropdown">
+																						<button className="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" value="checkbox">
 
-																					<table className="table">
-                                        <thead>
-                                            <tr>
-                                                <td style={{ width: "20%" }}>Titulo da Pergunta</td>
-                                                <td style={{ width: "40%" }}>Descrição</td>
-                                                <td style={{ width: "10%" }}>Tipo de Pergunta</td>
-                                                <td style={{ width: "10%" }}>Valor</td>
-                                                <td style={{ width: "20%" }}>Ações</td>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
+																						</button>
+																						<ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+																							{/* Tenho que fazer aqui um get da inf da BD */}
 
-                                                <th scope="row">
-                                                    <input type="text" className="form-control" value= {pergunta.titulo}></input>
-																	 
+																							<li><a className="dropdown-item" href="#">Acti6on</a></li>
 
-																	 
-                                                                       
-                                                                       
-                                                                      
-                                                                       
-
-                                                </th>
-
-                                                <td>
-                                                    <input type="text" className="form-control" value= {pergunta.descricao}></input>
-                                                </td>
-
-                                                <td>
-                                                    <div className="dropdown">
-                                                        <button className="btn outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" value="checkbox">
-
-                                                        </button>
-                                                        <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                                            {/* Tenho que fazer aqui um get da inf da BD */}
-
-                                                            <li><a className="dropdown-item" href="#">Acti6on</a></li>
-                                               
-                                                        </ul>
-                                                    </div>
-                                                </td>
-                                                <td>
-
-                                                    <input type="number" className="form-control" value= {pergunta.valor_unitario}></input>
-
-                                                </td>
-
-                                                <td>
-
-                                                    <button type="button" className="btn-sm btn btn-success me-1"> <i className="text-white bi bi-save m-1"></i>Guardar</button>
-                                                    <button type="button" className="btn-sm btn btn-danger ms-1"> <i className="bi bi-folder-x"></i> Eliminar</button>
-
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-
+																						</ul>
 																					</div>
-																				</div>
+																				</td>
+
+																				<td>
+																					<input type="number" className="form-control" value={pergunta.valor_unitario}></input>
+																				</td>
+
+																				<td>
+																					<button type="button" className="btn-sm btn btn-success me-1"> <i className="text-white bi bi-save m-1"></i>Guardar</button>
+																					<button type="button" className="btn-sm btn btn-danger ms-1"> <i className="bi bi-folder-x"></i> Eliminar</button>
+
+																				</td>
+
+																			</tr>
+
+																		)
+																	})}
+															</tbody>
+														</table>
+
+													</div>
+												</div>
 
 
 
-																
 
-															</></div>
-														)
-													})}
+
+
 
 											</></div>
 									)
