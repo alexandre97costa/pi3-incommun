@@ -84,81 +84,81 @@ INSERT INTO grupo (id, formulario_id, titulo, created_at, updated_at) VALUES
 /**************************************** fim grupo_perguntas ***********************************************/
 
 
+
+INSERT INTO pergunta (id, grupo_id, valor_unitario, tipo, created_at, updated_at, titulo, descricao) VALUES 
 /***************************************** Perguntas Landing Page ***********************************/
 /*Extras*/
-
-INSERT INTO pergunta (created_at, updated_at, id, grupo_id, titulo, descricao, valor_unitario, tipo) VALUES 
-(CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, 1, 'Deseja comprar um dominio?',        'O domínio é a url do seu site. (www.oseusite.pt)', 10.5, 'checkbox'),
-(CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 2, 1, 'Pretende obter hospedagem?',        'A hospedagem é o local onde o seu site é guardado', 10.5, 'checkbox'),
-(CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 3, 1, 'Deseja a criação dum portfolio?',   'Caso tenha trabalhos anterioes que queira mostrar um portfolio é a melhor opção para tal', 10.5, 'checkbox'),
-(CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 4, 1, 'Ja possui conteudos textuais?',     'Já possui os textos que iram aparecer no site para falar sobre o seu negocio', 10.5, 'checkbox'),
+(1, 1,   12.3, 'checkbox',    CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Deseja comprar um dominio?',        'O domínio é a url do seu site. (www.oseusite.pt)'),
+(2, 1,   12.3, 'checkbox',    CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Pretende obter hospedagem?',        'A hospedagem é o local onde o seu site é guardado'),
+(3, 1,   12.3, 'checkbox',    CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Deseja a criação dum portfolio?',   'Caso tenha trabalhos anterioes que queira mostrar um portfolio é a melhor opção para tal'),
+(4, 1,   12.3, 'checkbox',    CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Ja possui conteudos textuais?',     'Já possui os textos que iram aparecer no site para falar sobre o seu negocio'),
 
 /****************************************** Perguntas Site Institucional ******************************************/
 /*Quantas Paginas pretende*/
-(CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 5, 2, 'Quantas páginas pretende?', 'Pense em páginas como em categorias diferentes. Por exemplo se tiver um restaurante, pode ter páginas diferentes para o takeaway, reserva de lugares, etc.', 10.5, 'text'),
+(5, 2,   12.3, 'text',        CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Quantas páginas pretende?',          'Pense em páginas como em categorias diferentes. Por exemplo se tiver um restaurante, pode ter páginas diferentes para o takeaway, reserva de lugares, etc.'),
 /*Extras*/
-(CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 6, 3, 'Deseja comprar um dominio?',        'O domínio é a url do seu site. (www.oseusite.pt)', 10.5, 'checkbox'),
-(CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 7, 3, 'Pretende obter alojamento?',        'O alojamento é o local onde o seu site é guardado ', 10.5, 'checkbox'),
-(CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 8, 3, 'Deseja a criação dum portfolio?',   'Caso tenha trabalhos anterioes que queira mostrar, um portfolio é a melhor opção para tal', 10.5, 'checkbox'),
-(CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 9, 3, 'Ja possui conteudos textuais?',     'Já possui os textos que iram aparecer no site para falar sobre o seu negocio', 10.5, 'checkbox'),
+(6, 3,   12.3, 'checkbox',    CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Deseja comprar um dominio?',        'O domínio é a url do seu site. (www.oseusite.pt)'),
+(7, 3,   12.3, 'checkbox',    CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Pretende obter alojamento?',        'O alojamento é o local onde o seu site é guardado '),
+(8, 3,   12.3, 'checkbox',    CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Deseja a criação dum portfolio?',   'Caso tenha trabalhos anterioes que queira mostrar, um portfolio é a melhor opção para tal'),
+(9, 3,   12.3, 'checkbox',    CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Ja possui conteudos textuais?',     'Já possui os textos que iram aparecer no site para falar sobre o seu negocio'),
 
 /****************************************** Loja Online ******************************************/
 /*Quantas Paginas pretende*/
-(CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 13, 5, 'Quantas páginas pretende?', 'Pense em páginas como em categorias diferentes. Por exemplo se tiver um restaurante, pode ter páginas diferentes para o takeaway, reserva de lugares, etc.', 10.5, 'text'),
+(13, 5,  12.3, 'text',       CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Quantas páginas pretende?', 'Pense em páginas como em categorias diferentes. Por exemplo se tiver um restaurante, pode ter páginas diferentes para o takeaway, reserva de lugares, etc.'),
 /*Extras*/
-(CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 14, 6, 'Deseja comprar um dominio?', 'O domínio é a url do seu site. (www.oseusite.pt)', 10.5, 'checkbox'),
-(CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 15, 6, 'Pretende obter alojamento?', 'O alojamento é o local onde o seu site é guardado ', 10.5, 'checkbox'),
-(CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 16, 6, 'Deseja a criação dum portfolio?', 'Caso tenha trabalhos anterioes que queira mostrar, um portfolio é a melhor opção para tal', 10.5, 'checkbox'),
-(CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 17, 6, 'Ja possui conteudos textuais?', 'Já possui os textos que iram aparecer no site para falar sobre o seu negocio', 10.5, 'checkbox'),
+(14, 6,  12.3, 'checkbox',   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Deseja comprar um dominio?', 'O domínio é a url do seu site. (www.oseusite.pt)'),
+(15, 6,  12.3, 'checkbox',   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Pretende obter alojamento?', 'O alojamento é o local onde o seu site é guardado '),
+(16, 6,  12.3, 'checkbox',   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Deseja a criação dum portfolio?', 'Caso tenha trabalhos anterioes que queira mostrar, um portfolio é a melhor opção para tal'),
+(17, 6,  12.3, 'checkbox',   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Ja possui conteudos textuais?', 'Já possui os textos que iram aparecer no site para falar sobre o seu negocio'),
 
 /****************************************** Hibrido ******************************************/
 /*Quantas Paginas pretende*/
-(CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 18, 8, 'Quantas páginas pretende?', 'Pense em páginas como em categorias diferentes. Por exemplo se tiver um restaurante, pode ter páginas diferentes para o takeaway, reserva de lugares, etc.', 10.5, 'text'),
+(18, 8,  12.3, 'text',       CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Quantas páginas pretende?', 'Pense em páginas como em categorias diferentes. Por exemplo se tiver um restaurante, pode ter páginas diferentes para o takeaway, reserva de lugares, etc.'),
 /*Extras*/
-(CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 19, 9, 'Deseja comprar um dominio?', 'O domínio é a url do seu site. (www.oseusite.pt)', 10.5, 'checkbox'),
-(CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 20, 9, 'Pretende obter alojamento?', 'O alojamento é o local onde o seu site é guardado ', 10.5, 'checkbox'),
-(CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 21, 9, 'Deseja a criação dum portfolio?', 'Caso tenha trabalhos anterioes que queira mostrar, um portfolio é a melhor opção para tal', 10.5, 'checkbox'),
-(CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 22, 9, 'Ja possui conteudos textuais?', 'Já possui os textos que iram aparecer no site para falar sobre o seu negocio', 10.5, 'checkbox'),
+(19, 9,  12.3, 'checkbox',   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Deseja comprar um dominio?', 'O domínio é a url do seu site. (www.oseusite.pt)'),
+(20, 9,  12.3, 'checkbox',   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Pretende obter alojamento?', 'O alojamento é o local onde o seu site é guardado '),
+(21, 9,  12.3, 'checkbox',   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Deseja a criação dum portfolio?', 'Caso tenha trabalhos anterioes que queira mostrar, um portfolio é a melhor opção para tal'),
+(22, 9,  12.3, 'checkbox',   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Ja possui conteudos textuais?', 'Já possui os textos que iram aparecer no site para falar sobre o seu negocio'),
 
 /*************************************** Criação Identidade Visual **********************************/
 /*Que tipo de logo prefere*/
-(CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 23, 11, 'Logótipo', 'Constituído apenas por texto, ótimo para quem quer ser conhecido pelo nome do seu negócio.', 1.0, 'card'),
-(CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 24, 11, 'Isótipo', 'Apenas um ícone, recomendado a empresas com um forte reconhecimento de marca.', 1.0, 'card'),
-(CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 25, 11, 'Isólogo', 'O texto e o ícone são agrupados num só e funcionam melhor juntos.', 1.0, 'card'),
-(CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 26, 11, 'Imagotipo', 'O texto e o ícone estão juntos mas podem ser usados em separado. A opção mais versátil!', 1.0, 'card'),
+(23, 11, 12.3, 'card',       CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Logótipo', 'Constituído apenas por texto, ótimo para quem quer ser conhecido pelo nome do seu negócio.'),
+(24, 11, 12.3, 'card',       CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Isótipo', 'Apenas um ícone, recomendado a empresas com um forte reconhecimento de marca.'),
+(25, 11, 12.3, 'card',       CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Isólogo', 'O texto e o ícone são agrupados num só e funcionam melhor juntos.'),
+(26, 11, 12.3, 'card',       CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Imagotipo', 'O texto e o ícone estão juntos mas podem ser usados em separado. A opção mais versátil!'),
 /*Adora o logo de alguma marca*/
-(CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 27, 12, 'Adora o logo de alguma marca?', 'Existe alguma marca que adora simplesmente pelo seu design? Algum logo que acha genial? Diga-nos qual! Os nossos designers vão usar as suas referências como inspiração para a criação da sua identidade visual. Pode adicionar quantas referências quiser!', 1.0, 'text'),
+(27, 12, 12.3, 'text',       CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Adora o logo de alguma marca?', 'Existe alguma marca que adora simplesmente pelo seu design? Algum logo que acha genial? Diga-nos qual! Os nossos designers vão usar as suas referências como inspiração para a criação da sua identidade visual. Pode adicionar quantas referências quiser!'),
 /*Que cores não podem faltar no seu logo?*/
-(CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 28, 13, 'Cores quentes', 'Vermelho, laranja, amarelo', 1.0, 'checkbox'),
-(CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 29, 13, 'Cores frias', 'Azul, roxo, verde', 1.0, 'checkbox'),
-(CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 30, 13, 'Escala de cinza', 'Preto, branco, e todas as variações de cinzento', 1.0, 'checkbox'),
+(28, 13, 12.3, 'checkbox',   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Cores quentes', 'Vermelho, laranja, amarelo'),
+(29, 13, 12.3, 'checkbox',   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Cores frias', 'Azul, roxo, verde'),
+(30, 13, 12.3, 'checkbox',   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Escala de cinza', 'Preto, branco, e todas as variações de cinzento'),
 /*alguns detalhes...*/
-(CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 31, 14, 'Análise da Concorrência', 'Um estudo das empresas do mesmo ramo.', 1.0, 'checkbox'),
-(CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 32, 14, 'Manual de Normas Gráficas', 'Um documento onde estão um conjunto de regras de aplicação do logótipo.', 1.0, 'checkbox'),
-(CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 33, 14, 'Estacionário', 'Cartas, cartões e envelopes timbrados com a sua marca.', 1.0, 'checkbox'),
+(31, 14, 12.3, 'checkbox',   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Análise da Concorrência', 'Um estudo das empresas do mesmo ramo.'),
+(32, 14, 12.3, 'checkbox',   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Manual de Normas Gráficas', 'Um documento onde estão um conjunto de regras de aplicação do logótipo.'),
+(33, 14, 12.3, 'checkbox',   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Estacionário', 'Cartas, cartões e envelopes timbrados com a sua marca.'),
 
 /*************************************** Gestão Redes Sociais *******************************************/
 /*Escolha a Sua Rede Social*/
 /*Facebook*/
-(CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 34, 16, 'Rede Social', 'Escolha a Sua Rede Social', 1.0, 'checkbox'),
-(CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 35, 17, 'Personaliza as tuas preferências', 'Número de publicações semanais', 1.0, 'text'),
-(CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 36, 17, 'Personaliza as tuas preferências', 'Stories Diários', 1.0, 'text'),
+(34, 16, 12.3, 'checkbox',  CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Rede Social', 'Escolha a Sua Rede Social'),
+(35, 17, 12.3, 'slider',    CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Personaliza as tuas preferências', 'Número de publicações semanais'),
+(36, 17, 12.3, 'slider',    CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Personaliza as tuas preferências', 'Stories Diários'),
 /*Instagram*/
-(CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 37, 17, 'Personaliza as tuas preferências', 'Número de publicações semanais', 1.0, 'text'),
-(CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 38, 17, 'Personaliza as tuas preferências', 'Stories Diários', 1.0, 'text'),
-(CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 39, 17, 'Personaliza as tuas preferências', 'Reals', 1.0, 'text'),
+(37, 17, 12.3, 'slider',    CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Personaliza as tuas preferências', 'Número de publicações semanais'),
+(38, 17, 12.3, 'slider',    CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Personaliza as tuas preferências', 'Stories Diários'),
+(39, 17, 12.3, 'slider',    CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Personaliza as tuas preferências', 'Reals'),
 /*Twitter*/
-(CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 40, 17, 'Personaliza as tuas preferências', 'Tweets', 1.0, 'text'),
-(CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 41, 17, 'Personaliza as tuas preferências', 'Stories Diários', 1.0, 'text'),
+(40, 17, 12.3, 'slider',    CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Personaliza as tuas preferências', 'Tweets'),
+(41, 17, 12.3, 'slider',    CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Personaliza as tuas preferências', 'Stories Diários'),
 /*Youtube*/
-(CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 42, 17, 'Personaliza as tuas preferências', 'Videos por semana', 1.0, 'text'),
+(42, 17, 12.3, 'slider',    CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Personaliza as tuas preferências', 'Videos por semana'),
 /*Requisitos*/
-(CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 43, 18, 'Requisitos', 'Pretende que as publicações tenham horários específicos?', 1.0, 'text'),
-(CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 44, 18, 'Requisitos', 'Pretende publicitar as suas outras redes numa das acima?', 1.0, 'text'),
-(CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 45, 18, 'Requisitos', 'Quer ter apoio profissional para rever as suas escolhas?', 1.0, 'text'),
-(CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 46, 18, 'Requisitos', 'Pretende ter Copywriting?', 1.0, 'text'),
-(CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 47, 18, 'Requisitos', 'Pretende ter planificação editorial?', 1.0, 'text'),
-(CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 48, 18, 'Requisitos', 'Pretende receber um relatório mensal?', 1.0, 'text'),
-(CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 49, 18, 'Requisitos', 'Está interessado em ter gestão de campanhas?', 1.0, 'text'),
+(43, 18, 12.3, 'checkbox',  CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Requisitos', 'Pretende que as publicações tenham horários específicos?'),
+(44, 18, 12.3, 'checkbox',  CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Requisitos', 'Pretende publicitar as suas outras redes numa das acima?'),
+(45, 18, 12.3, 'checkbox',  CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Requisitos', 'Quer ter apoio profissional para rever as suas escolhas?'),
+(46, 18, 12.3, 'checkbox',  CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Requisitos', 'Pretende ter Copywriting?'),
+(47, 18, 12.3, 'checkbox',  CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Requisitos', 'Pretende ter planificação editorial?'),
+(48, 18, 12.3, 'checkbox',  CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Requisitos', 'Pretende receber um relatório mensal?'),
+(49, 18, 12.3, 'checkbox',  CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Requisitos', 'Está interessado em ter gestão de campanhas?'),
 /*Adicionar rede social?*/ 
-(CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 50, 19, 'Rede Social', 'Deseja adicionar outra Rede Social?', 1.0, 'checkbox');
+(50, 19, 12.3, 'checkbox',  CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Rede Social', 'Deseja adicionar outra Rede Social?');
