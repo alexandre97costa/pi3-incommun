@@ -1,4 +1,4 @@
-TRUNCATE TABLE 
+DROP TABLE
     cliente,
     estado_pedido,
     formulario,
@@ -9,5 +9,4 @@ TRUNCATE TABLE
     resposta,
     user_incommun,
     user_incommun_role
-    RESTART IDENTITY 
     CASCADE;
