@@ -5,46 +5,71 @@ import ip from '../../ip'
 
 export default function FormulariosComponente() {
 
-    const [forms, setForms] = useState([])
+	const [forms, setForms] = useState([])
 
-    useEffect(() => {
-        axios.get('http://' + ip + ':4011/forms/all')
-            .then(res => {
-                console.table(res.data.formularios, ['id', 'nome'])
-                setForms(res.data.formularios)
-            })
-    }, [])
-
-    function LoadForms() {
-        return forms.map(form => {
-            return (
-                <div className="col-12" key={form.id}>
-
-                    <div className="fs-4 fw.bold text-warning">
-                        {form.nome}
-                    </div>
+	useEffect(() => {
+		axios.get('http://' + ip + ':4011/forms/all')
+			.then(res => {
+				console.table(res.data.formularios, ['id', 'nome'])
+				setForms(res.data.formularios)
+			})
+	}, [])
 
 
-                    <div className="accordion accordion-flush m-2" id={"accordion-" + form.id} >
-                        <div className="accordion-item">
-                            <h2 className="accordion-header" id={"accordion-header-" + form.id}>
-                                {
-                                    form.grupos.map(grupo => {
-                                        return (
-                                            <div key={grupo.id}>
-                                                <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target={"#a" + form.id} >
-                                                    {grupo.titulo}
-                                                </button>
-                                            </div>
-                                        )
-                                    })
-                                }
-                            </h2>
-                            <div id={"a" + form.id} className="accordion-collapse collapse" data-bs-parent={"#accordion-" + form.id}>
-                                <div className="accordion-body">
+
+	function LoadForms() {
+		return forms.map(form => {
+			return (
 
 
-                                    <table className="table">
+				<div>
+
+
+					<div className="col-12"> <div key={form.id}>
+						<div className="fs-4 fw.bold text-warning">
+						</div>
+					</div>
+
+
+						<div class="accordion accordion-flush" id={"accordion-" + form.id}>
+							<div class="accordion-item">
+								<div className="text-warning fs-1"> 	{form.titulo} </div></div>
+
+
+
+
+							{
+								form.grupos.map(grupo => {
+									return (
+										<div key={grupo.id}>
+											<>
+
+												<div class="accordion-header" id={"accordion-" + grupo.id}>
+													<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target={"#titulodasperguntas" + grupo.id}>
+														<div className="text-success fs-3">{grupo.titulo}</div>
+													</button>
+												</div>
+
+												{
+													grupo.pergunta.map(pergunta => {
+														return (
+															<div key={pergunta.id}>
+															<>
+
+																<div id={"titulodasperguntas" + grupo.id} class="accordion-collapse collapse">
+																	<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target={"#pergunta" + pergunta.id}>
+																		<div className="text-info fs-4"> {pergunta.titulo} </div>     
+																	</button>
+																</div>
+													
+
+																				<div id={"pergunta" + pergunta.id} class="accordion-collapse collapse">
+																					<div class="accordion-body">
+
+
+
+
+																					<table className="table">
                                         <thead>
                                             <tr>
                                                 <td style={{ width: "20%" }}>Titulo da Pergunta</td>
@@ -58,11 +83,19 @@ export default function FormulariosComponente() {
                                             <tr>
 
                                                 <th scope="row">
-                                                    <input type="email" className="form-control" value=""></input>
+                                                    <input type="text" className="form-control" value= {pergunta.titulo}></input>
+																	 
+
+																	 
+                                                                       
+                                                                       
+                                                                      
+                                                                       
+
                                                 </th>
 
                                                 <td>
-                                                    <input type="email" className="form-control" value=""></input>
+                                                    <input type="text" className="form-control" value= {pergunta.descricao}></input>
                                                 </td>
 
                                                 <td>
@@ -82,7 +115,7 @@ export default function FormulariosComponente() {
                                                 </td>
                                                 <td>
 
-                                                    <input type="number" className="form-control" value=""></input>
+                                                    <input type="number" className="form-control" value= {pergunta.valor_unitario}></input>
 
                                                 </td>
 
@@ -95,50 +128,72 @@ export default function FormulariosComponente() {
                                             </tr>
                                         </tbody>
                                     </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            )
-        })
-    }
 
-    return (
-        <div className="container-fluid">
-            <div className="row vh-100">
-
-                <NavDeLado />
+																					</div>
+																				</div>
 
 
-                <div className="col overflow-auto h-sm-100">
 
-                    <div className="row px-4">
-                        {/* Titulo */}
-                        <div className='col-12 my-4'>
-                            <div className='display-3 text-indigo'>
-                                Formulários
-                            </div>
-                        </div>
-                    </div>
+																
 
-                    <div className='row px-4'>
+															</></div>
+														)
+													})}
 
-
-                        <LoadForms />
-                        {/*Aqui será onde ficará o conteúdo dos formulários!?*/}
+											</></div>
+									)
+								})}
 
 
 
 
 
-                    </div>
 
-                </div>
 
-            </div>
-        </div>
-    )
+						</div>
+					</div>
+
+				</div>
+
+			)
+		})
+	}
+
+	return (
+		<div className="container-fluid">
+			<div className="row vh-100">
+
+				<NavDeLado />
+
+
+				<div className="col overflow-auto h-sm-100">
+
+					<div className="row px-4">
+						{/* Titulo */}
+						<div className='col-12 my-4'>
+							<div className='display-3 text-indigo'>
+								Formulários
+							</div>
+						</div>
+					</div>
+
+					<div className='row px-4'>
+
+
+						<LoadForms />
+						{/*Aqui será onde ficará o conteúdo dos formulários!?*/}
+
+
+
+
+
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	)
 
 
 }

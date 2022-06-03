@@ -17,6 +17,10 @@ module.exports = {
     },
 
 
+
+
+
+
     all: async (req, res) => {
         const response = {}
 
@@ -30,6 +34,33 @@ module.exports = {
                             include: [{
                                 model: Pergunta,
                                 attributes: ['id', 'titulo', 'descricao', 'tipo']
+                            }]
+                        }],
+                        order: [
+                            ['id', 'ASC'],
+                            [Grupo, 'id', 'ASC'],
+                            [Grupo, Pergunta, 'id', 'ASC']
+                        ]
+                    })
+            })
+            .then(() => { res.send(response) })
+    },
+
+    // ALTERAR ATRIBUTOS E VER ROTAS
+
+    all_backoffice: async (req, res) => {
+        const response = {}
+
+        await sequelize.sync()
+            .then(async () => {
+                response.formularios = await Formulario
+                    .findAll({
+                        include: [{
+                            model: Grupo,
+                            attributes: ['id', 'titulo'],
+                            include: [{
+                                model: Pergunta,
+                                attributes: ['id', 'titulo', 'descricao', 'tipo', 'valor_unitario']
                             }]
                         }],
                         order: [
@@ -74,7 +105,7 @@ module.exports = {
                     })
                     .then(formulario => {
                         console.log('\x1b[36m[res.send] \x1b[0m' + formulario.nome)
-                        res.send(formulario) 
+                        res.send(formulario)
                     })
             })
     },

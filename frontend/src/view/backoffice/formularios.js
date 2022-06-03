@@ -21,7 +21,7 @@ export default function FormulariosComponent() {
             return (
                 <div className='col-12 mb-4'>
                     <div className='h2 text-white bg-dark p-2 m-0'>
-                        {form.nome}
+                        {form.titulo} 
                         <div className='fs-6 fw-normal'>
                             {form.descricao}
                         </div>
@@ -54,7 +54,7 @@ export default function FormulariosComponent() {
                                                             grupo.pergunta.map(pergunta => {
                                                                 return (
                                                                     <tr>
-                                                                        <td style={{ width: '20%' }}>{pergunta.texto}</td>
+                                                                        <td style={{ width: '20%' }}>{pergunta.titulo}</td>
                                                                         <td style={{ width: '60%' }}>{pergunta.descricao}</td>
                                                                         <td style={{ width: '10%' }}>{pergunta.tipo}</td>
                                                                         <td style={{ width: '10%' }}>{pergunta.preco}</td>
