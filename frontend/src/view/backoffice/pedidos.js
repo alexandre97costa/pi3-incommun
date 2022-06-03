@@ -89,7 +89,7 @@ export default function PedidosComponent() {
                         </td>
                         {/* Valor */}
                         <td className='text-end text-success fs-4 pe-3'>
-                            {pedido.preco_total.toFixed(2)}
+                            {pedido.valor_total.toFixed(2)}
                         </td>
 
                         {/* Opções */}
