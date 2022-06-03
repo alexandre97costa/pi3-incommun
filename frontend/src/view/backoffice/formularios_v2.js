@@ -8,7 +8,7 @@ export default function FormulariosComponente() {
 	const [forms, setForms] = useState([])
 
 	useEffect(() => {
-		axios.get('http://' + ip + ':4011/forms/all')
+		axios.get('http://' + ip + ':4011/forms/all_backoffice')
 			.then(res => {
 				console.table(res.data.formularios, ['id', 'nome'])
 				setForms(res.data.formularios)
@@ -33,7 +33,9 @@ export default function FormulariosComponente() {
 
 						<div class="accordion accordion-flush" id={"accordion-" + form.id}>
 							<div class="accordion-item">
-								<div className="text-warning fs-1"> 	{form.titulo} </div></div>
+
+								<div className="text-warning fs-1"> 	{form.titulo} </div>
+								</div>
 
 
 
@@ -45,6 +47,7 @@ export default function FormulariosComponente() {
 											<>
 
 												<div class="accordion-header" id={"accordion-" + grupo.id}>
+													
 													<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target={"#titulodasperguntas" + grupo.id}>
 														<div className="text-success fs-3">{grupo.titulo}</div>
 													</button>
@@ -107,9 +110,7 @@ export default function FormulariosComponente() {
                                                             {/* Tenho que fazer aqui um get da inf da BD */}
 
                                                             <li><a className="dropdown-item" href="#">Acti6on</a></li>
-                                                            <li><a className="dropdown-item" href="#">Another action</a></li>
-                                                            <li><a className="dropdown-item" href="#">Something else here</a></li>
-
+                                               
                                                         </ul>
                                                     </div>
                                                 </td>

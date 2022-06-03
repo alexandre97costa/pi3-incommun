@@ -46,7 +46,7 @@ module.exports = {
             .then(() => { res.send(response) })
     },
 
-    // ALTERAR ATRIBUTOS E VER ROTAS
+    // Devolver os valores para se poderem usar na Backoffice
 
     all_backoffice: async (req, res) => {
         const response = {}

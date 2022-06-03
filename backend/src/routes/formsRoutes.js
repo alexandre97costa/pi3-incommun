@@ -10,7 +10,10 @@ router.get('/', (req, res) => {
 
 router.get('/all_form_names', formController.all_form_names)
 router.get('/all', formController.all)
+router.get('/all_backoffice', formController.all_backoffice)
 router.get('/one', formController.one)
+
+
 /*
 router.get('/testdata',filmeController.testdata );
 router.get('/list',filmeController.filme_list );
