@@ -44,7 +44,7 @@ export default function FormComponent(props) {
                                 .map((pergunta) => {
                                     // ...e devolver uma array para cada id.
                                     // * Esta array equivale a um par key/value no objecto final
-                                    return [pergunta.id, pergunta.tipo === 'text' ? [] : false]
+                                    return [pergunta.id, pergunta.tipo_pergunta.titulo === 'text' ? [] : false]
                                 })
                         })
                         // As arrays provenientes de cada grupo são concatenadas numa só

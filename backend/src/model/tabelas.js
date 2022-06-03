@@ -84,6 +84,10 @@ const TipoPergunta = sequelize.define('tipo_pergunta',
     {
         freezeTableName: true,
         timestamps: false,
+        name: {
+            singular: 'tipo_pergunta',
+            plural: 'tipos_perguntas'
+        },
     }
 )
 
@@ -268,6 +272,7 @@ TipoPergunta.hasMany(Pergunta, {
     }
 })
 Pergunta.belongsTo(TipoPergunta, {
+    as: 'tipo_pergunta',
     foreignKey: {
         name: 'tipo_id',
         allowNull: false
@@ -395,5 +400,5 @@ UserIncommun.belongsTo(UserIncommunRole, {
 })
 
 module.exports = {
-    Formulario, Grupo, Pergunta, Resposta, Pedido, EstadoPedido, MotivoRecusa, Cliente, UserIncommun, UserIncommunRole
+    Formulario, Grupo, Pergunta, TipoPergunta, Resposta, Pedido, EstadoPedido, MotivoRecusa, Cliente, UserIncommun, UserIncommunRole
 }

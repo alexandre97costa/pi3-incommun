@@ -46,7 +46,7 @@ export default function GrupoComponent(props) {
             })
             .filter(cb => cb !== null)
         
-        const grupoIsCheckbox = (props.grupo.pergunta[0].tipo === 'checkbox')
+        const grupoIsCheckbox = (props.grupo.pergunta[0].tipo_pergunta.titulo === 'checkbox')
         if (grupoIsCheckbox) {
             setResposta(checkboxesChecked.join(', '))
         }
@@ -89,7 +89,7 @@ export default function GrupoComponent(props) {
                     }}
                 >
                     {props.grupo.pergunta.map((pergunta, indexPergunta) => {
-                        switch (pergunta.tipo) {
+                        switch (pergunta.tipo_pergunta.titulo) {
                             case 'card':
                                 arrayDeIdsDosCards.push(pergunta.id)
                                 return (
@@ -135,8 +135,8 @@ export default function GrupoComponent(props) {
                                 )
 
                             default:
-                                return null;
-                                {/* return (console.log('Tipo de pergunta não aceite')); */ }
+                                return (console.log('Tipo de pergunta não aceite'));
+                                {/* return null; */}
                         }
 
                     })}
