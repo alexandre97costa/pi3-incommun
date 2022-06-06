@@ -150,7 +150,7 @@ export default function PedidosComponent() {
     }
 
     return (
-        <div className="container-fluid bg-light">
+        <div className="container-fluid">
             <div className="row vh-100">
 
                 {/* <NavDeLado /> */}

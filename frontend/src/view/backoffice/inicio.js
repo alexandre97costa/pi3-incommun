@@ -3,14 +3,16 @@
 // import React, { useEffect, useState } from 'react';
 import React from 'react';
 import NavDeLado from './navdelado'
+import NavDeLado2 from './navdelado2'
 
 export default function InicioComponent() {
 
     return (
-        <div className="container-fluid ps-0">
+        <div className="container-fluid ">
             <div className="row vh-100">
 
-                <NavDeLado />
+                {/* <NavDeLado /> */}
+                <NavDeLado2 />
 
                 {/* <!-- INICIO DA BARRA TOP INFORMATIVA --> */}
 

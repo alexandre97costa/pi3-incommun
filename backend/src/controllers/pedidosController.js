@@ -96,5 +96,12 @@ module.exports = {
                     res.send(response)
                 })
             })
-    }
+    },
+
+    post: async (req, res) => {
+        await sequelize.sync()
+            .then(() => {
+
+            })
+    },
 }
