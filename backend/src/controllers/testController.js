@@ -2,7 +2,7 @@ var { Formulario, GrupoPerguntas, Pergunta, Resposta, Pedido, Cliente } = requir
 var sequelize = require('../model/db')
 const { Op } = require("sequelize");
 
-sequelize.sync()
+
 
 module.exports = {
     post_pedido: async (req, res) => {

@@ -2,7 +2,7 @@ var { Formulario, Grupo, Pergunta, Resposta, Pedido, EstadoPedido, MotivoRecusa,
 var sequelize = require('../model/db')
 const { Op } = require("sequelize");
 
-sequelize.sync()
+
 
 module.exports = {
 
