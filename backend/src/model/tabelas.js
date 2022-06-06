@@ -199,7 +199,7 @@ const Cliente = sequelize.define('cliente',
             validate: {
                 notNull: {
                     args: true,
-                    msg: 'O nome do cliente não pode estar vazio.'
+                    msg: '\x1b[31mO nome do cliente não pode estar vazio.\x1b[0m'
                 }
             }
         },
@@ -209,11 +209,7 @@ const Cliente = sequelize.define('cliente',
             validate: {
                 notNull: {
                     args: true,
-                    msg: 'O email do cliente não pode estar vazio. Os orçamentos são enviados para lá!'
-                },
-                isEmail: {
-                    args: true,
-                    msg: 'O email inserido não é válido'
+                    msg: '\x1b[31mO email do cliente não pode estar vazio. Os orçamentos são enviados para lá!\x1b[0m'
                 }
             }
         },

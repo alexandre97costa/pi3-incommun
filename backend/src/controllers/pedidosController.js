@@ -98,10 +98,62 @@ module.exports = {
             })
     },
 
-    post: async (req, res) => {
-        await sequelize.sync()
-            .then(() => {
+    new: async (req, res) => {
+        const bodyPedido = req.body.pedido
+        const bodyCliente = req.body.cliente
+        if (bodyPedido == undefined ||
+            bodyPedido == null ||
+            Object.keys(bodyPedido).length === 0 ||
+            bodyCliente == undefined ||
+            bodyCliente == null ||
+            Object.keys(bodyCliente).length === 0) {
 
+            throw new Error('Algum dado não foi inserido. O body deve ser constituido por 2 objectos: pedido e cliente.')
+        }
+
+        await sequelize.sync()
+            .then(async () => {
+                // ver se o cliente já existe através do email
+                await Cliente.findOne({
+                    where: {
+                        email: bodyCliente.email
+                    }
+                })
+                    .then(async cliente => {
+                        console.log('Passou a parte do cliente')
+
+                        if (cliente !== null) {
+                            // Se o cliente já existe
+
+                        } else {
+                            // Se é um cliente novo
+                            console.log('Se um cliente é novo')
+                            const newPedido = await Pedido
+                                .create({
+                                    valor_total: bodyPedido.valor_total,
+                                    estado_id: 1,
+                                    motivo_id: null,
+                                    cliente: {
+                                        nome: 'nome de teste',
+                                        email: 'email de teste'
+                                    }
+                                }, {
+                                    include: [
+                                        Cliente
+                                    ]
+                                })
+
+                            console.log('Passou o newPedido')
+                            const result = Pedido.findOne({
+                                where: { valor_total: bodyPedido.valor_total },
+                                include: Cliente
+                            })
+
+                            res.json(result)
+                        }
+
+                    })
             })
+
     },
 }
