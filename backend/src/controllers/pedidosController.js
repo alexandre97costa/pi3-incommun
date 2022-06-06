@@ -71,18 +71,19 @@ module.exports = {
                 }
                 // com filtro por estado_id
                 if (estadoId > 0) {
-                    await Pedido.findAll({
-                        where: {
-                            estado_id: estadoId
-                        },
-                        include: [
-                            { model: Cliente },
-                            { model: EstadoPedido },
-                            { model: MotivoRecusa },
-                            { model: Resposta }
-                        ],
-                        order: [['id', 'ASC']]
-                    })
+                    await Pedido
+                        .findAll({
+                            where: {
+                                estado_id: estadoId
+                            },
+                            include: [
+                                { model: Cliente },
+                                { model: EstadoPedido },
+                                { model: MotivoRecusa },
+                                { model: Resposta }
+                            ],
+                            order: [['id', 'ASC']]
+                        })
                         .then(response => res.send(response))
                 }
 
@@ -120,26 +121,57 @@ module.exports = {
                     }
                 })
                     .then(async cliente => {
-                        console.log('Passou a parte do cliente')
 
                         if (cliente !== null) {
                             // Se o cliente já existe
+                            await Pedido
+                                .create({
+                                    valor_total: bodyPedido.valor_total,
+                                    estado_id: 1,
+                                    cliente_id: cliente.id
+                                })
+                                .then(async pedido => {
+                                    await Pedido
+                                        .findOne({
+                                            where: { id: pedido.id },
+                                            include: [
+                                                { model: Cliente },
+                                                { model: EstadoPedido },
+                                                { model: MotivoRecusa },
+                                                { model: Resposta }
+                                            ]
+                                        })
+                                        .then(response => res.status(200).json(response))
+                                })
 
                         } else {
                             // Se é um cliente novo
-                            console.log('Se um cliente é novo')
-                            const newPedido = await Pedido
+                            await Pedido
                                 .create({
                                     valor_total: bodyPedido.valor_total,
                                     estado_id: 1,
                                     cliente: {
                                         nome: bodyCliente.nome,
-                                        email: bodyCliente.email
+                                        email: bodyCliente.email,
+                                        empresa: bodyCliente.empresa ?? null,
+                                        tlm: bodyCliente.tlm ?? null
                                     }
                                 }, {
-                                    include: [ Cliente ]
+                                    include: [Cliente]
                                 })
-                                .then(pedido => res.json(pedido))
+                                .then(async pedido => {
+                                    await Pedido
+                                        .findOne({
+                                            where: { id: pedido.id },
+                                            include: [
+                                                { model: Cliente },
+                                                { model: EstadoPedido },
+                                                { model: MotivoRecusa },
+                                                { model: Resposta }
+                                            ]
+                                        })
+                                        .then(response => res.status(200).json(response))
+                                })
 
                         }
 

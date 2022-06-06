@@ -2,8 +2,6 @@ var { Formulario, Grupo, Pergunta, TipoPergunta, Resposta, Pedido, EstadoPedido,
 var sequelize = require('../model/db')
 const { Op } = require("sequelize");
 
-
-
 module.exports = {
 
     all_form_names: async (req, res) => {
@@ -15,11 +13,6 @@ module.exports = {
                     .then(forms => res.json(forms))
             })
     },
-
-
-
-
-
 
     all: async (req, res) => {
         const response = {}
@@ -122,7 +115,7 @@ module.exports = {
                         ]
                     })
                     .then(formulario => {
-                        console.log('\x1b[36m[res.send] \x1b[0m' + formulario.nome)
+                        console.log('\x1b[36m/forms/one \x1b[0m' + formulario.titulo)
                         res.send(formulario)
                     })
             })
