@@ -134,11 +134,11 @@ const Pedido = sequelize.define('pedido',
             validate: {
                 isFloat: {
                     args: true,
-                    msg: 'O preço total não é um FLOAT válido.'
+                    msg: '\x1b[31mO preço total não é um FLOAT válido.\x1b[0m'
                 },
                 notNull: {
                     args: true,
-                    msg: 'O preço total do pedido não pode estar vazio.'
+                    msg: '\x1b[31mO preço total do pedido não pode estar vazio.\x1b[0m'
                 }
             }
         }
@@ -210,6 +210,10 @@ const Cliente = sequelize.define('cliente',
                 notNull: {
                     args: true,
                     msg: '\x1b[31mO email do cliente não pode estar vazio. Os orçamentos são enviados para lá!\x1b[0m'
+                },
+                isEmail: {
+                    args: true,
+                    msg: '\x1b[31mO email inserido não é válido.\x1b[0m'
                 }
             }
         },

@@ -132,24 +132,15 @@ module.exports = {
                                 .create({
                                     valor_total: bodyPedido.valor_total,
                                     estado_id: 1,
-                                    motivo_id: null,
                                     cliente: {
-                                        nome: 'nome de teste',
-                                        email: 'email de teste'
+                                        nome: bodyCliente.nome,
+                                        email: bodyCliente.email
                                     }
                                 }, {
-                                    include: [
-                                        Cliente
-                                    ]
+                                    include: [ Cliente ]
                                 })
+                                .then(pedido => res.json(pedido))
 
-                            console.log('Passou o newPedido')
-                            const result = Pedido.findOne({
-                                where: { valor_total: bodyPedido.valor_total },
-                                include: Cliente
-                            })
-
-                            res.json(result)
                         }
 
                     })
