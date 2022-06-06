@@ -170,3 +170,16 @@ INSERT INTO pergunta (id, grupo_id, valor_unitario, tipo_id, created_at, updated
 (49, 18, 12.3, 1,  CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Requisitos', 'Está interessado em ter gestão de campanhas?'),
 /*Adicionar rede social?*/ 
 (50, 19, 12.3, 1,  CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Rede Social', 'Deseja adicionar outra Rede Social?');
+
+
+
+-- UPDATE SEQUENCIAS
+ALTER SEQUENCE user_incommun_role_id_seq RESTART WITH 6;
+ALTER SEQUENCE cliente_id_seq RESTART WITH 11;
+ALTER SEQUENCE estado_pedido_id_seq RESTART WITH 5;
+ALTER SEQUENCE motivo_recusa_pedido_id_seq RESTART WITH 5;
+ALTER SEQUENCE pedido_id_seq RESTART WITH 5;
+ALTER SEQUENCE formulario_id_seq RESTART WITH 6;
+ALTER SEQUENCE grupo_id_seq RESTART WITH 20;
+ALTER SEQUENCE tipo_pergunta_id_seq RESTART WITH 7;
+ALTER SEQUENCE pergunta_id_seq RESTART WITH 51;
