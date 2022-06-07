@@ -113,20 +113,20 @@ export default function FormComponent(props) {
             </div>
 
             <div className='row'>
-                <div className='col-12 ps-1 pe-5 ms-3 pb-5 pt-3 border-end border-warning border-5 position-relative'>
+                <div className='col-12 ps-1 pe-5 ms-3 pb-5 pt-3  position-relative'>
 
-                    <div className='display-5 text-end'>
+                    <div className='display-5 text-start'>
+                        <i className='bi bi-sliders text-indigo fs-1 me-3' ></i>
                         Responda a algumas perguntas
-                        <i className='bi bi-sliders text-indigo fs-1 ms-3' ></i>
                     </div>
-                    <div className='fs-6 fw-normal mt-1 text-muted text-end'>
+                    <div className='fs-6 fw-normal mt-1 text-muted text-start'>
                         Personalize o serviço à sua medida em 5 minutos! Basta responder às seguintes perguntas.
                     </div>
                 </div>
 
             </div>
 
-            <div className='row'>
+            <div className='row d-none'>
                 <div className='col-12 border-top border-start border-warning border-5 ps-1 ms-3 py-2'>
 
                 </div>
