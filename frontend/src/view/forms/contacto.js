@@ -22,34 +22,47 @@ export default function ContactoComponent(props) {
             </div>
 
             <div className='col-8 mx-auto'>
-                <div className="form-floating mb-3">
-                    <input type="text" className="form-control rounded-0 focus-warning" id="input-nome" placeholder="Nome" required />
-                    <label htmlFor="input-nome">Nome completo</label>
-                </div>
-                <div className="form-floating mb-3">
-                    <input type="email" className="form-control rounded-0 focus-warning" id="input-email" placeholder="email" required />
-                    <label htmlFor="input-email">Email</label>
-                </div>
-                <div className="form-floating mb-3">
-                    <input type="text" className="form-control rounded-0 focus-warning" id="input-empresa" placeholder="empresa" />
-                    <label htmlFor="input-empresa">Nome da sua empresa (opcional)</label>
-                </div>
-                <div className="form-floating mb-3">
-                    <input type="number" className="form-control rounded-0 focus-warning" id="input-tlm" placeholder="tlm" />
-                    <label htmlFor="input-tlm">Número de telemóvel (opcional)</label>
-                </div>
-                <div className='d-grid'>
-                    <button
-                        type='button'
-                        className='btn btn-warning py-2 rounded-0 fs-4 fw-semibold '
-                        disabled
-                    >
-                        Finalizar<br />
-                        <small className='fs-6 fw-normal lh-small'>
-                            Ainda não estamos prontos!
-                        </small>
-                    </button>
-                </div>
+                <form onSubmit={e => { console.log(e); e.preventDefault() }}>
+
+                    <div className="form-floating mb-3">
+                        <input type="text" className="form-control rounded-0 focus-warning" id="input-nome" placeholder="Nome"  />
+                        <label htmlFor="input-nome">
+                            Nome completo
+                            <span className='text-danger fw-bold ms-1'>*</span>
+                        </label>
+                    </div>
+                    <div className="form-floating mb-3">
+                        <input type="email" className="form-control rounded-0 focus-warning" id="input-email" placeholder="email"  />
+                        <label htmlFor="input-email">
+                            Email
+                            <span className='text-danger fw-bold ms-1'>*</span>
+                        </label>
+                    </div>
+                    <div className="form-floating mb-3">
+                        <input type="text" className="form-control rounded-0 focus-warning" id="input-empresa" placeholder="empresa" />
+                        <label htmlFor="input-empresa">Nome da sua empresa</label>
+                    </div>
+                    <div className="form-floating mb-3">
+                        <input type="tel" className="form-control rounded-0 focus-warning" id="input-tlm" placeholder="tlm" />
+                        <label htmlFor="input-tlm">Número de telemóvel</label>
+                    </div>
+                    <div className='mb-3'>
+                        <span className='text-danger fw-bold me-1'>*</span>
+                        <span className='text-secondary fw-normal'>Requisito obrigatório</span>
+                    </div>
+                    <div className='d-grid'>
+                        <button
+                            type='submit'
+                            className='btn btn-warning py-2 rounded-0 fs-4 fw-semibold '
+                        >
+                            Finalizar
+                            <br />
+                            <small className='fs-6 fw-normal lh-small'>
+                                Ainda não estamos prontos!
+                            </small>
+                        </button>
+                    </div>
+                </form>
             </div>
 
         </div>

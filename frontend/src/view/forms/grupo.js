@@ -63,14 +63,14 @@ export default function GrupoComponent(props) {
                     aria-expanded='false' aria-controls={'accordion-collapse-' + props.id}
                     onClick={(e) => { }}
                 >
-                    <div className='h3 text-warning overflow-hidden text-nowrap'
+                    <div className='h3 text-warning text-truncate'
                         style={{ textOverflow: 'ellipsis' }}
                     >
                         <span className='h3 text-dark' title={props.grupo.titulo}>
                             {props.grupo.titulo}
                         </span>
                         <span
-                            className='text-warning ms-3 fw-semibold '
+                            className='text-warning ms-3 fw-semibold'
                             title={resposta}>
                             {resposta}
                         </span>

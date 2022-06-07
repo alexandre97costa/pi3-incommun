@@ -40,12 +40,11 @@ export default function FormComponent(props) {
                     form.grupos
                         .map((grupo) => {
                             // ...e as respetivas perguntas...
-                            return grupo.pergunta
-                                .map((pergunta) => {
-                                    // ...e devolver uma array para cada id.
-                                    // * Esta array equivale a um par key/value no objecto final
-                                    return [pergunta.id, pergunta.tipo_pergunta.titulo === 'text' ? [] : false]
-                                })
+                            return grupo.pergunta.map((pergunta) => {
+                                // ...e devolver uma array para cada id.
+                                // * Esta array equivale a um par key/value no objecto final
+                                return [pergunta.id, pergunta.tipo_pergunta.titulo === 'text' ? [] : false]
+                            })
                         })
                         // As arrays provenientes de cada grupo são concatenadas numa só
                         .reduce((pre, current) => { return pre.concat(current) })
@@ -101,26 +100,36 @@ export default function FormComponent(props) {
 
             {/* 🍕 Inicio */}
             <div className='row'>
-                <div className='fs-3 lh-sm mb-4'>
-                    <Link className='link-secondary fw-light' to='/'>
-                        {form.length === 0 ? 'A carregar...' : 'Serviços personalizados'}
+                <div className='fs-5 lh-sm mb-4'>
+                    <Link className='text-secondary fw-light text-decoration-none' to='/'>
+                        <i className='bi bi-arrow-left-short me-1'></i>
+                        {form.length === 0 ? 'A carregar...' : 'Serviços personalizados / '}
                     </Link>
                     <span className='text-indigo fw-semibold'>
-                        {form.length === 0 ? ' / a carregar...' : (' / ' + form.titulo)}
+                        {form.length === 0 ? 'a carregar...' : form.titulo}
                     </span>
 
                 </div>
             </div>
 
-            <div className='row mb-5'>
-                <div className='display-5'>
-                    <i className='bi bi-sliders text-indigo fs-1 me-3' ></i>
-                    Responda a algumas perguntas
-                </div>
-                <div className='fs-6 fw-normal mt-1 text-muted'>
-                    Personalize o serviço à sua medida em 5 minutos! Basta responder às seguintes perguntas.
+            <div className='row'>
+                <div className='col-12 ps-1 pe-5 ms-3 pb-5 pt-3 border-end border-warning border-5 position-relative'>
+
+                    <div className='display-5 text-end'>
+                        Responda a algumas perguntas
+                        <i className='bi bi-sliders text-indigo fs-1 ms-3' ></i>
+                    </div>
+                    <div className='fs-6 fw-normal mt-1 text-muted text-end'>
+                        Personalize o serviço à sua medida em 5 minutos! Basta responder às seguintes perguntas.
+                    </div>
                 </div>
 
+            </div>
+
+            <div className='row'>
+                <div className='col-12 border-top border-start border-warning border-5 ps-1 ms-3 py-2'>
+
+                </div>
             </div>
 
             {/* 🧁 Formulário */}
