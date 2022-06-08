@@ -60,7 +60,29 @@ export default function FormComponent(props) {
     }, [form])
 
     function postPedido(e) {
-        console.log('🍌 postPedido!', e)
+        const cliente = {
+            nome: clienteNome,
+            email: clienteEmail,
+            empresa: clienteEmpresa,
+            tlm: parseInt(clienteTlm)
+        }
+        const respostas = Object.keys(props.perguntasObject).map((key) => {
+            let resposta = props.perguntasObject[key]
+            let texto = Array.isArray(resposta) ? resposta.join(', ') : '';
+            let inteiro = 0
+            if (resposta && !Array.isArray(resposta)) { inteiro = 1 } // Se a resposta for true => inteiro = 1
+            
+            return  {
+                pergunta_id: parseInt(key),
+                valor_unitario: 0,
+                inteiro: inteiro,
+                texto: texto,
+
+            }
+        });
+        console.log('🍌 postPedido!')
+        console.table(cliente)
+        console.table(respostas)
     }
 
     return (

@@ -16,6 +16,10 @@ export default function ContactoComponent(props) {
             </div>
 
             <div className='col-8 mx-auto'>
+                {/* 
+                    Usar o onSubmit no form em vez de onClick no botão permite que a 
+                    função postPedido só seja efectuada se os inputs forem todos validos.
+                 */}
                 <form onSubmit={e => { e.preventDefault(); props.postPedido(e) }}>
                     {/* Nome */}
                     <div className="form-floating mb-3">
@@ -113,12 +117,26 @@ export default function ContactoComponent(props) {
                             id="input-tlm"
                             className="form-control rounded-0 focus-warning"
                             type="tel"
+                            pattern='^[0-9]*$'
                             minLength={9}
                             maxLength={9}
                             placeholder="tlm"
                             autoComplete='tel-national'
                             value={props.clienteTlm}
                             onChange={e => {props.setClienteTlm(e.target.value)}}
+                            onInput={e => {
+                                if (!e.target.validity.valid) {
+                                    e.target.classList.add('focus-danger')
+
+                                    if (e.target.validity.patternMismatch) {
+                                        e.target.setCustomValidity('Por favor introduza um número de telemóvel válido')
+                                        e.target.reportValidity()
+                                    } else {
+                                        e.target.setCustomValidity('')
+                                        e.target.classList.remove('focus-danger')
+                                    }
+                                }
+                            }}
                         />
                         <label htmlFor="input-tlm">Número de telemóvel</label>
                     </div>
