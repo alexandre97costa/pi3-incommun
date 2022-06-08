@@ -33,7 +33,7 @@ export default function NavDeLado2Component() {
                         </Link>
                     </li>
 
-                    {/* Formulários V2 */}
+                    {/* Formulário */}
                     <li className="mb-2">
                         <Link to="/back-office/formularios" className="btn btn-outline-dark border-0 rounded-0 px-2 px-sm-0 d-flex align-items-center">
                             <i className="bi bi-ui-checks fs-4 ms-sm-3 ms-md-4 me-sm-2"></i>
