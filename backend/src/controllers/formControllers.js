@@ -78,6 +78,18 @@ module.exports = {
             .then(() => { res.send(response) })
     },
 
+    // DEVOLVER VALORES PARA DROPDOWN DO TIPO DE PERGUNTAS EM FORMULÁRIO
+
+   all_tipos_pergunta: async (req, res) => {
+        const data = await TipoPergunta.findAll({
+            order: [['id', 'ASC']]
+        });
+        res.json({ success: true, data: data })
+    },
+    
+
+
+
     one: async (req, res) => {
 
         const id = req.query.id
