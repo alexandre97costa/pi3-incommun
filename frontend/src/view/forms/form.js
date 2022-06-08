@@ -126,18 +126,17 @@ export default function FormComponent(props) {
 
             </div>
 
+            {/* Testes */}
             <div className='row d-none'>
                 <div className='col-12 border-top border-start border-warning border-5 ps-1 ms-3 py-2'>
 
                 </div>
             </div>
 
-            {/* 🧁 Formulário */}
-            <div className='row'>
-                <LoadForm />
-            </div>
+            {/* 🤹‍♂️ Formulário */}
+            <LoadForm />
 
-            {/* Contacto do cliente */}
+            {/* 🏄‍♂️ Contacto do cliente */}
             <Contacto />
         </div>
     )
@@ -146,31 +145,35 @@ export default function FormComponent(props) {
         // if (form) { return } // guard clause
 
         return (
-            <div id='accordion' className='accordion accordion-flush border-start border-warning border-5 ps-1 ms-3'>
+            <div className='row'>
 
-                {form.length !== 0 && form.grupos.map((grupo, index) => {
+                <div id='accordion' className='accordion accordion-flush border-start border-warning border-5 ps-1 ms-3'>
 
-                    arrayDeIdsDeGrupos.push(index)
+                    {form.length !== 0 && form.grupos.map((grupo, index) => {
 
-                    return (
-                        <Grupo
-                            key={grupo.id}
-                            id={grupo.id}
-                            grupo={grupo}
+                        arrayDeIdsDeGrupos.push(index)
 
-                            // sync das respostas
-                            perguntasObject={props.perguntasObject}
-                            setPerguntasObject={props.setPerguntasObj}
+                        return (
+                            <Grupo
+                                key={grupo.id}
+                                id={grupo.id}
+                                grupo={grupo}
 
-                            // sync do grupo que estiver aberto
-                            // responsavel por addicionar/remover a classe 'show'
-                            // Faz com que o grupo fique aberto no re-render
-                            selectedGroup={selectedGroup}
-                            setSelectedGroup={setSelectedGroup}
-                        />
-                    )
+                                // sync das respostas
+                                perguntasObject={props.perguntasObject}
+                                setPerguntasObject={props.setPerguntasObj}
 
-                })}
+                                // sync do grupo que estiver aberto
+                                // responsavel por addicionar/remover a classe 'show'
+                                // Faz com que o grupo fique aberto no re-render
+                                selectedGroup={selectedGroup}
+                                setSelectedGroup={setSelectedGroup}
+                            />
+                        )
+
+                    })}
+                </div>
+
             </div>
         )
     }

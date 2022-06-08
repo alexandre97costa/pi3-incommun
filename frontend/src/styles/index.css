@@ -3,15 +3,7 @@
     --cor-fundo-transp: rgba(0, 0, 0, 0.2);
 }
 
-body, html {
-    scroll-behavior: smooth;
-}
-
-nav {
-    height: 80px;
-    z-index: 10000;
-    /* background-color: var(--cor-fundo-transp); */
-}
+body, html { scroll-behavior: smooth; }
 
 .text-indigo { color: var(--bs-indigo) }
 .bg-indigo { background-color: var(--bs-indigo) }
