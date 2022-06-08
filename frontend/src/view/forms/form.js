@@ -9,17 +9,21 @@ import ip from '../../ip'
 
 export default function FormComponent(props) {
 
-    // 🌭 form id
+    // 🌭 form info
     const location = useLocation()
     const formId = location.state.id
     if (formId === undefined) { throw new Error('id is undefined!') }
-
     const [form, setForm] = useState([])
 
     let arrayDeIdsDeGrupos = []
     const [selectedGroup, setSelectedGroup] = useState(-1)
 
-    // axios get forms/civ
+    // 🥐 client info
+    const [clienteNome, setClienteNome] = useState('')
+    const [clienteEmail, setClienteEmail] = useState('')
+    const [clienteEmpresa, setClienteEmpresa] = useState('')
+    const [clienteTlm, setClienteTlm] = useState('')
+
     useEffect(() => {
         console.log('%caxios get forms/civ', 'color: skyblue')
         axios
@@ -27,8 +31,6 @@ export default function FormComponent(props) {
             .then(res => { setForm(res.data) })
             .catch(error => console.log(error))
     }, [])
-
-
 
     useEffect(() => {
         document.title = form.titulo ?? '...'
@@ -56,6 +58,10 @@ export default function FormComponent(props) {
             props.setPerguntasObj(perguntasObject)
         }
     }, [form])
+
+    function postPedido(e) {
+        console.log('🍌 postPedido!', e)
+    }
 
     return (
         <div className='container mt-4'>
@@ -126,19 +132,32 @@ export default function FormComponent(props) {
 
             </div>
 
+            {/* Testes */}
             <div className='row d-none'>
                 <div className='col-12 border-top border-start border-warning border-5 ps-1 ms-3 py-2'>
 
                 </div>
             </div>
 
-            {/* 🧁 Formulário */}
-            <div className='row'>
-                <LoadForm />
-            </div>
+            {/* 🤹‍♂️ Formulário */}
+            <LoadForm />
 
-            {/* Contacto do cliente */}
-            <Contacto />
+            {/* 🏄‍♂️ Contacto do cliente */}
+            <Contacto
+                clienteNome={clienteNome}
+                setClienteNome={setClienteNome}
+
+                clienteEmail={clienteEmail}
+                setClienteEmail={setClienteEmail}
+
+                clienteEmpresa={clienteEmpresa}
+                setClienteEmpresa={setClienteEmpresa}
+
+                clienteTlm={clienteTlm}
+                setClienteTlm={setClienteTlm}
+
+                postPedido={postPedido}
+            />
         </div>
     )
 
@@ -146,31 +165,35 @@ export default function FormComponent(props) {
         // if (form) { return } // guard clause
 
         return (
-            <div id='accordion' className='accordion accordion-flush border-start border-warning border-5 ps-1 ms-3'>
+            <div className='row'>
 
-                {form.length !== 0 && form.grupos.map((grupo, index) => {
+                <div id='accordion' className='accordion accordion-flush border-start border-warning border-5 ps-1 ms-3'>
 
-                    arrayDeIdsDeGrupos.push(index)
+                    {form.length !== 0 && form.grupos.map((grupo, index) => {
 
-                    return (
-                        <Grupo
-                            key={grupo.id}
-                            id={grupo.id}
-                            grupo={grupo}
+                        arrayDeIdsDeGrupos.push(index)
 
-                            // sync das respostas
-                            perguntasObject={props.perguntasObject}
-                            setPerguntasObject={props.setPerguntasObj}
+                        return (
+                            <Grupo
+                                key={grupo.id}
+                                id={grupo.id}
+                                grupo={grupo}
 
-                            // sync do grupo que estiver aberto
-                            // responsavel por addicionar/remover a classe 'show'
-                            // Faz com que o grupo fique aberto no re-render
-                            selectedGroup={selectedGroup}
-                            setSelectedGroup={setSelectedGroup}
-                        />
-                    )
+                                // sync das respostas
+                                perguntasObject={props.perguntasObject}
+                                setPerguntasObject={props.setPerguntasObj}
 
-                })}
+                                // sync do grupo que estiver aberto
+                                // responsavel por addicionar/remover a classe 'show'
+                                // Faz com que o grupo fique aberto no re-render
+                                selectedGroup={selectedGroup}
+                                setSelectedGroup={setSelectedGroup}
+                            />
+                        )
+
+                    })}
+                </div>
+
             </div>
         )
     }
