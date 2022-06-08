@@ -6,8 +6,11 @@ import ip from '../../ip'
 export default function FormulariosComponente() {
 
 	const [forms, setForms] = useState([])
-	const [tipos_pergunta, setTipos_pergunta] = useState([])
-	const [stringTipos_Pergunta, setstringTipos_Pergunta] = useState("");
+	const [tiposPergunta, setTiposPergunta] = useState([])
+
+	const [filtroTiposPergunta, setFiltroTiposPergunta] = useState(0)
+	const [filtroTiposPerguntaDesc, setFiltroTiposPerguntaDesc] = useState('Tipos de Pergunta')
+
 
 	useEffect(() => {
 		axios.get('http://' + ip + ':4011/forms/all_backoffice')
@@ -17,13 +20,46 @@ export default function FormulariosComponente() {
 			})
 	}, [])
 
+	useEffect(() => {
+		// Get os pedidos todos (por vezes filtrados e ordenados)
+		axios.get('http://' + ip + ':4011/forms/all_tipos_pergunta')
+			.then(res => {
+				console.log(res.data)
+				setTiposPergunta(res.data.data)
+			})
+	}, [filtroTiposPergunta])
+
+
+	function LoadTiposPergunta() {
+		return (
+			tiposPergunta.map(tipos_perguntas => {
+				return (
+					<li key={tipos_perguntas.id}>
+						<button
+							className="dropdown-item"
+							type='button'
+							onClick={e => {
+								setFiltroTiposPerguntaDesc(tipos_perguntas.titulo)
+							}}
+						>
+							{tipos_perguntas.titulo}
+						</button>
+					</li>
+				)
+			})
+		)
+	}
+
+
+
+
+
+
 
 
 	function LoadForms() {
 		return forms.map(form => {
 			return (
-
-
 				<div className="col-12  mb-4"> <div key={form.id}>
 
 					<div class="accordion accordion-flush  col-12" id={"formulario" + form.id}>
@@ -32,9 +68,7 @@ export default function FormulariosComponente() {
 							<button class="accordion-button collapsed border-bottom border-warning" type="button" data-bs-toggle="collapse" data-bs-target={"#titulodoformulario" + form.id}>
 								<div className="text-warning fs-3"> 	{form.titulo} </div>
 							</button>
-
 						</div>
-
 						{
 							form.grupos.map(grupo => {
 								return (
@@ -76,19 +110,33 @@ export default function FormulariosComponente() {
 																				<textarea class="form-control" rows="1" value={pergunta.descricao} id="floatingTextarea"></textarea>
 																			</td>
 
-																			<td>
-																				<div className="form-group">
 
-																					<select id="inputTiposPergunta" className="form-control"
-																						value={stringTipos_Pergunta}
-																						onChange={
-																							(event) => {
-																								setstringTipos_Pergunta(event.target.value)
-																							}}>
-																						<option value="" selected disabled hidden>Seleciona o tipo de pergunta</option>
-																						<LoadTipos_Pergunta />
-																					</select>
-																				</div>
+																			<td>
+																				
+																							<div className="dropdown bg-white me-2">
+																								<button className=" btn btn btn-outline-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+																									{/* <span className='me-2'>{filtroTiposPerguntaDesc}</span> */}
+																									<span className='me-2'>{pergunta.tipo_pergunta.titulo}</span>
+																								</button>
+																								<ul className="dropdown-menu">
+																									<li>
+																										<button
+																											className="dropdown-item"
+																											type='button'
+																											onClick={e => {
+																												setFiltroTiposPergunta(0)
+																												setFiltroTiposPerguntaDesc('Tipo de Pergunta')
+																											}}>
+																										
+
+																										</button>
+																									</li>
+																							
+																									<LoadTiposPergunta />
+																								</ul>
+																							</div>
+																				
+
 																			</td>
 
 																			<td>
@@ -100,6 +148,8 @@ export default function FormulariosComponente() {
 																				<button type="button" className="btn btn btn-danger ms-1"> <i className="bi bi-folder-x"></i> Eliminar</button>
 
 																			</td>
+
+
 
 																		</tr>
 
@@ -142,14 +192,8 @@ export default function FormulariosComponente() {
 					</div>
 
 					<div className='row px-4'>
-
-
 						<LoadForms />
 						{/*Aqui será onde ficará o conteúdo dos formulários!?*/}
-
-
-
-
 
 					</div>
 
@@ -158,18 +202,5 @@ export default function FormulariosComponente() {
 			</div>
 		</div>
 	)
-
-	function LoadTipos_Pergunta() {
-		return tipos_pergunta.map(titulo => {
-			return (
-				<option value={titulo.id}>
-					{titulo.titulo}
-				</option>
-			)
-		})
-	}
-
-
-
 
 }
