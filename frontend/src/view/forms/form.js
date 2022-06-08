@@ -9,17 +9,21 @@ import ip from '../../ip'
 
 export default function FormComponent(props) {
 
-    // 🌭 form id
+    // 🌭 form info
     const location = useLocation()
     const formId = location.state.id
     if (formId === undefined) { throw new Error('id is undefined!') }
-
     const [form, setForm] = useState([])
 
     let arrayDeIdsDeGrupos = []
     const [selectedGroup, setSelectedGroup] = useState(-1)
 
-    // axios get forms/civ
+    // 🥐 client info
+    const [clienteNome, setClienteNome] = useState('')
+    const [clienteEmail, setClienteEmail] = useState('')
+    const [clienteEmpresa, setClienteEmpresa] = useState('')
+    const [clienteTlm, setClienteTlm] = useState('')
+
     useEffect(() => {
         console.log('%caxios get forms/civ', 'color: skyblue')
         axios
@@ -27,8 +31,6 @@ export default function FormComponent(props) {
             .then(res => { setForm(res.data) })
             .catch(error => console.log(error))
     }, [])
-
-
 
     useEffect(() => {
         document.title = form.titulo ?? '...'
@@ -56,6 +58,10 @@ export default function FormComponent(props) {
             props.setPerguntasObj(perguntasObject)
         }
     }, [form])
+
+    function postPedido(e) {
+        console.log('🍌 postPedido!', e)
+    }
 
     return (
         <div className='container mt-4'>
@@ -137,7 +143,21 @@ export default function FormComponent(props) {
             <LoadForm />
 
             {/* 🏄‍♂️ Contacto do cliente */}
-            <Contacto />
+            <Contacto
+                clienteNome={clienteNome}
+                setClienteNome={setClienteNome}
+
+                clienteEmail={clienteEmail}
+                setClienteEmail={setClienteEmail}
+
+                clienteEmpresa={clienteEmpresa}
+                setClienteEmpresa={setClienteEmpresa}
+
+                clienteTlm={clienteTlm}
+                setClienteTlm={setClienteTlm}
+
+                postPedido={postPedido}
+            />
         </div>
     )
 
