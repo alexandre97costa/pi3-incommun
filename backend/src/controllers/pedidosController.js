@@ -136,7 +136,10 @@ module.exports = {
                                 .create({
                                     valor_total: bodyPedido.valor_total,
                                     estado_id: 1,
-                                    cliente_id: cliente.id
+                                    cliente_id: cliente.id,
+                                    resposta: bodyRespostas
+                                }, {
+                                    include: [Resposta]
                                 })
                                 .then(async pedido => {
                                     await Pedido
@@ -158,6 +161,7 @@ module.exports = {
                                 .create({
                                     valor_total: bodyPedido.valor_total,
                                     estado_id: 1,
+                                    resposta: bodyRespostas,
                                     cliente: {
                                         nome: bodyCliente.nome,
                                         email: bodyCliente.email,
@@ -165,7 +169,7 @@ module.exports = {
                                         tlm: bodyCliente.tlm ?? null
                                     }
                                 }, {
-                                    include: [Cliente]
+                                    include: [Resposta, Cliente]
                                 })
                                 .then(async pedido => {
                                     await Pedido
