@@ -6,6 +6,8 @@ import ip from '../../ip'
 export default function FormulariosComponente() {
 
 	const [forms, setForms] = useState([])
+	const [tipos_pergunta, setTipos_pergunta] = useState([])
+	const [stringTipos_Pergunta, setstringTipos_Pergunta] = useState("");
 
 	useEffect(() => {
 		axios.get('http://' + ip + ':4011/forms/all_backoffice')
@@ -70,21 +72,22 @@ export default function FormulariosComponente() {
 																			</td>
 
 
-																			<td>														
-																					<textarea class="form-control" rows="1" value={pergunta.descricao} id="floatingTextarea"></textarea>
+																			<td>
+																				<textarea class="form-control" rows="1" value={pergunta.descricao} id="floatingTextarea"></textarea>
 																			</td>
 
 																			<td>
-																				<div className="dropdown">
-																					<button className="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" value="checkbox">
+																				<div className="form-group">
 
-																					</button>
-																					<ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-																						{/* Tenho que fazer aqui um get da inf da BD */}
-
-																						<li><a className="dropdown-item" href="#">Acti6on</a></li>
-
-																					</ul>
+																					<select id="inputTiposPergunta" className="form-control"
+																						value={stringTipos_Pergunta}
+																						onChange={
+																							(event) => {
+																								setstringTipos_Pergunta(event.target.value)
+																							}}>
+																						<option value="" selected disabled hidden>Seleciona o tipo de pergunta</option>
+																						<LoadTipos_Pergunta />
+																					</select>
 																				</div>
 																			</td>
 
@@ -107,22 +110,9 @@ export default function FormulariosComponente() {
 
 												</div>
 											</div>
-
-
-
-
-
-
-
 										</></div>
 								)
 							})}
-
-
-
-
-
-
 
 					</div>
 				</div>
@@ -168,6 +158,18 @@ export default function FormulariosComponente() {
 			</div>
 		</div>
 	)
+
+	function LoadTipos_Pergunta() {
+		return tipos_pergunta.map(titulo => {
+			return (
+				<option value={titulo.id}>
+					{titulo.titulo}
+				</option>
+			)
+		})
+	}
+
+
 
 
 }
