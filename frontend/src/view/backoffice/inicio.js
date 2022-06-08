@@ -2,7 +2,6 @@
 // import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 // import React, { useEffect, useState } from 'react';
 import React from 'react';
-import NavDeLado2 from './navdelado'
 
 export default function InicioComponent() {
 

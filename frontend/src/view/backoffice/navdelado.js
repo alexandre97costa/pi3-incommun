@@ -25,6 +25,17 @@ export default function NavDeLado2Component() {
                         </Link>
                     </li>
 
+                    {/* Inicio v2*/}
+                    <li className="mb-2">
+                        <Link to="/back-office/inicio_v2" className="btn btn-outline-dark border-0 rounded-0 px-2 px-sm-0 d-flex align-items-center">
+                            <i className="bi bi-house fs-4 ms-sm-3 ms-md-4 me-sm-2"></i>
+                            <span className="d-none d-sm-inline ">
+                                Inicio
+                                <span className="badge bg-success px-1 ms-2">v2</span>
+                            </span>
+                        </Link>
+                    </li>
+
                     {/* Pedidos */}
                     <li className="mb-2">
                         <Link to="/back-office/pedidos" className="btn btn-outline-dark border-0 rounded-0 px-2 px-sm-0 d-flex align-items-center">

@@ -1,8 +1,6 @@
 import axios from 'axios';
 // import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 import React, { useEffect, useState } from 'react';
-import NavDeLado from './navdelado'
-import NavDeLado2 from './navdelado'
 import Count from './count'
 import ip from '../../ip'
 

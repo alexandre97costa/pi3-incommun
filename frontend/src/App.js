@@ -11,6 +11,7 @@ import Form from './view/forms/form'
 import BoInicio from './view/backoffice/inicio'
 import BoPedidos from './view/backoffice/pedidos'
 import BoFormularios from './view/backoffice/formularios'
+import BoInicio_v2 from './view/backoffice/inicio_v2'
 
 
 export default function App() {
@@ -45,7 +46,7 @@ export default function App() {
 					<Route path='/back-office/' element={
 						<div className="container-fluid">
 							<div className="row vh-100">
-								<NavDeLado/>
+								<NavDeLado />
 								<div className="col overflow-auto h-sm-100">
 									<BoInicio />
 								</div>
@@ -71,6 +72,18 @@ export default function App() {
 								<NavDeLado />
 								<div className="col overflow-auto h-sm-100">
 									<BoPedidos />
+								</div>
+							</div>
+						</div>
+					} />
+
+
+					<Route path='/back-office/inicio_v2' element={
+						<div className="container-fluid">
+							<div className="row vh-100">
+								<NavDeLado />
+								<div className="col overflow-auto h-sm-100">
+									<BoInicio_v2 />
 								</div>
 							</div>
 						</div>

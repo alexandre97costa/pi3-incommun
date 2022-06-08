@@ -7,6 +7,10 @@ router.get('/', (req, res) => {
     res.send('estás dentro de /pedidos/')
 })
 
+router.get('/v2', (req, res) => {
+    res.send('estás dentro de /pedidos/v2')
+})
+
 
 router.get('/all', clientesController.all)
 // router.get('/civ', pedidosController.civ)
