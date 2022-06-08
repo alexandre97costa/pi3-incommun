@@ -1,10 +1,24 @@
+import React, { useEffect, useState } from 'react'
 import { Link } from "react-router-dom";
-// import React, { useEffect, useState } from 'react';
-import React from 'react';
+import axios from 'axios'
+import ip from '../../ip'
 import './navdelado.css'
 import LogoIncommun from '../../assets/imgs/logotipoincommun.png'
 
 export default function NavDeLado2Component() {
+
+    const [pedidosPendentes, setPedidosPendentes] = useState(0)
+
+    useEffect(() => {
+        axios
+            .get('http://' + ip + ':4011/pedidos/count?estado_id=1')
+            .then(res => {
+                setPedidosPendentes(res.data.count)
+            })
+    }, [])
+
+
+
     return (
         <div className="col-12 col-sm-3 col-lg-2 col-sm-2 bg-warning d-flex sticky-top px-0">
             <div className="d-flex flex-sm-column flex-row flex-grow-1 align-items-center align-items-sm-start pt-2"
@@ -40,7 +54,12 @@ export default function NavDeLado2Component() {
                     <li className="mb-2">
                         <Link to="/back-office/pedidos" className="btn btn-outline-dark border-0 rounded-0 px-2 px-sm-0 d-flex align-items-center">
                             <i className="bi bi-file-earmark-spreadsheet fs-4 ms-sm-3 ms-md-4 me-sm-2"></i>
-                            <span className="d-none d-sm-inline">Pedidos</span>
+                            <span className="d-none d-sm-inline">
+                                Pedidos
+                                {pedidosPendentes > 0 &&
+                                    <span className="badge bg-indigo border-0 rounded-pill ms-2">{pedidosPendentes}</span>
+                                }
+                            </span>
                         </Link>
                     </li>
 
@@ -50,7 +69,6 @@ export default function NavDeLado2Component() {
                             <i className="bi bi-ui-checks fs-4 ms-sm-3 ms-md-4 me-sm-2"></i>
                             <span className="d-none d-sm-inline ">
                                 Formulários
-                                <span className="badge bg-success px-1 ms-2">1</span>
                             </span>
                         </Link>
                     </li>
