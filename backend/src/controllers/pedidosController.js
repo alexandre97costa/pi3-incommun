@@ -43,7 +43,12 @@ module.exports = {
                             }
                         }
                     }).then(count => {
-                        response.count = count
+                        response.count = count,
+                        response.estado = {
+                            icon: 'bi-ui-radios',
+                            cor: 'primary',
+                            descricao: 'Todo'
+                        }
                     })
                 }
             })
@@ -101,15 +106,18 @@ module.exports = {
 
     new: async (req, res) => {
         const bodyPedido = req.body.pedido
+        const bodyRespostas = req.body.pedido.respostas ?? []
         const bodyCliente = req.body.cliente
+
         if (bodyPedido == undefined ||
             bodyPedido == null ||
             Object.keys(bodyPedido).length === 0 ||
+            bodyRespostas.length === 0 ||
             bodyCliente == undefined ||
             bodyCliente == null ||
             Object.keys(bodyCliente).length === 0) {
 
-            throw new Error('Algum dado não foi inserido. O body deve ser constituido por 2 objectos: pedido e cliente.')
+            throw new Error('\x1b[31m\nAlgum dado não foi inserido. \nO body deve ser constituido por 2 objectos: pedido e cliente.\nO pedido deve ter uma array "respostas" com mais de um item.\x1b[0m')
         }
 
         await sequelize.sync()
