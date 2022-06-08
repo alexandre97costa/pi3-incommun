@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useLocation, Link } from 'react-router-dom'
+import { useLocation, useNavigate, Link } from 'react-router-dom'
 // import { Link } from 'react-router-dom';
 import axios from 'axios'
 import Grupo from './grupo'
@@ -8,7 +8,8 @@ import Contacto from './contacto'
 import ip from '../../ip'
 
 export default function FormComponent(props) {
-
+    const navigate = useNavigate()
+    
     // 🌭 form info
     const location = useLocation()
     const formId = location.state.id
@@ -68,21 +69,29 @@ export default function FormComponent(props) {
         }
         const respostas = Object.keys(props.perguntasObject).map((key) => {
             let resposta = props.perguntasObject[key]
-            let texto = Array.isArray(resposta) ? resposta.join(', ') : '';
+            let texto = Array.isArray(resposta) ? resposta.join(', ') : ''
             let inteiro = 0
             if (resposta && !Array.isArray(resposta)) { inteiro = 1 } // Se a resposta for true => inteiro = 1
-            
-            return  {
+
+            return {
                 pergunta_id: parseInt(key),
                 valor_unitario: 0,
                 inteiro: inteiro,
                 texto: texto,
-
             }
-        });
-        console.log('🍌 postPedido!')
-        console.table(cliente)
-        console.table(respostas)
+        })
+        const pedido = {
+            valor_total: 0,
+            respostas: respostas
+        }
+
+        axios
+            .post('http://' + ip + ':4011/pedidos/new', {
+                pedido: pedido,
+                cliente: cliente
+            })
+            .then(res => res.status === 200 ? navigate('/') : console.log(res))
+            .catch(error => console.log(error))
     }
 
     return (
