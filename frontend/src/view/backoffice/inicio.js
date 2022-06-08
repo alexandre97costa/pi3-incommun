@@ -2,19 +2,12 @@
 // import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 // import React, { useEffect, useState } from 'react';
 import React from 'react';
-import NavDeLado from './navdelado'
-import NavDeLado2 from './navdelado2'
+import NavDeLado2 from './navdelado'
 
 export default function InicioComponent() {
 
     return (
-        <div className="container-fluid ">
-            <div className="row vh-100">
 
-                {/* <NavDeLado /> */}
-                <NavDeLado2 />
-
-                {/* <!-- INICIO DA BARRA TOP INFORMATIVA --> */}
 
                 <div className="col d-flex flex-column h-sm-100">
                     <main className="row overflow-auto">
@@ -175,8 +168,7 @@ export default function InicioComponent() {
                         </div>
                     </main>
                 </div>
-            </div>
-        </div>
+
     )
 
 }        
