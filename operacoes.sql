@@ -1,13 +1,4 @@
 /***************************************************************OPERAÇÔES SQL***************************************************************/
-/*
-20 operações
-delete - 
-insert - 3
-update - 
-select - 5
-*/
-
-/**************************LISTA DE OPERAÇÕES**************************/
 
 /*1 Inserir um Cliente*/
 INSERT INTO cliente (id, nome, email, empresa, tlm, created_at, updated_at) VALUES
@@ -72,7 +63,27 @@ WHERE cliente_id IN
 (SELECT (id) FROM cliente 
 WHERE id = 5);
 
-/**/
+/* 16 Função que cancatena os valores dos campos nome e empresa e email e telefone dos clientes*/
+select concat (nome, empresa) as "Identificação", concat (email, tlm) as "Contacto"
+from cliente
+order by id ASC;
+
+/*17 Função que devolve preço médio de todas as perguntas do grupo 2*/
+select AVG(valor_total) as "Preço Médio" from pergunta
+where grupo_id = 2;
+
+/*18 Função que devolve o primeiro cliente e ultimo da base de dados e o numero total de clientes*/
+SELECT MIN (nome) AS "primeiro cliente", MAX (nome) AS "ultimo cliente",
+COUNT (nome) AS "Numero de clientes" FROM cliente
+
+/*19 Apagar todos os pedidos recusados que não têm motivo associado*/
+DELETE  FROM pedido 
+WHERE estado_id = 4 and motivo_id not in;
+
+/*20 Consulta que devolve o numero pedidos pendentes e o total*/
+SELECT count(*) AS "numero de pedidos pendentes", 
+SUM (valor_total) AS "valor total" FROM pedido
+WHERE estado_id = 1; 
 
 
 /************************************************************* FIM OPERAÇÔES SQL *************************************************************/
