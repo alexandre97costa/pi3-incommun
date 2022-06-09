@@ -267,7 +267,7 @@ export default function PedidosComponent() {
             </div>
 
             {/* Modal Contactar cliente */}
-            <div className="modal fade" id="modal-contactar" tabindex="-1" aria-labelledby="modal-contactar-label" aria-hidden="true">
+            <div className="modal fade" id="modal-contactar" tabIndex="-1" aria-labelledby="modal-contactar-label" aria-hidden="true">
                 <div className="modal-dialog modal-dialog-centered modal-lg ">
                     {/* Versão 1 */}
                     <div className="d-none modal-content border-0 rounded-0">
@@ -294,18 +294,18 @@ export default function PedidosComponent() {
                     </div>
                     {/* Versão 2 */}
                     <div className="modal-content border-0">
-                        <div class="modal-header rounded-4 border-0">
-                            <div class="modal-title fs-4 fw-light" id="exampleModalLabel">Contactar cliente</div>
+                        <div className="modal-header rounded-4 border-0">
+                            <div className="modal-title fs-4 fw-light" id="exampleModalLabel">Contactar cliente</div>
                         </div>
-                        <div class="modal-body">
+                        <div className="modal-body">
 
-                            <div class="form-floating mb-3">
-                                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com"/>
-                                    <label for="floatingInput">Email address</label>
+                            <div className="form-floating mb-3">
+                                <input type="email" className="form-control" id="floatingInput" placeholder="name@example.com"/>
+                                    <label htmlFor="floatingInput">Email address</label>
                             </div>
-                            <div class="form-floating">
-                                <textarea class="form-control" rows={4} placeholder="Leave a comment here" id="floatingTextarea"></textarea>
-                                <label for="floatingTextarea">Comments</label>
+                            <div className="form-floating">
+                                <textarea className="form-control" rows={4} placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                                <label htmlFor="floatingTextarea">Comments</label>
                             </div>
 
                         </div>
