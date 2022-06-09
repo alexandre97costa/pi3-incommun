@@ -44,11 +44,11 @@ module.exports = {
                         }
                     }).then(count => {
                         response.count = count,
-                        response.estado = {
-                            icon: 'bi-ui-radios',
-                            cor: 'primary',
-                            descricao: 'Todo'
-                        }
+                            response.estado = {
+                                icon: 'bi-ui-radios',
+                                cor: 'primary',
+                                descricao: 'Todo'
+                            }
                     })
                 }
             })
@@ -120,14 +120,35 @@ module.exports = {
             throw new Error('\x1b[31m\nAlgum dado não foi inserido. \nO body deve ser constituido por 2 objectos: pedido e cliente.\nO pedido deve ter uma array "respostas" com mais de um item.\x1b[0m')
         }
 
+        // TODO
+        // * Antes de inserir o que quer que seja, é preciso:
+        // 1. ir buscar o preço das perguntas associadas
+        // 2. inserir esse preço nas respostas
+        // 3. calcular o valor total do pedido
+
         await sequelize.sync()
+            // calcular preços 🥵
+            .then(() => {
+
+                bodyRespostas.forEach(async (resposta, index, array) => {
+                    await Pergunta
+                        .findOne({ where: { id: resposta.pergunta_id } })
+                        .then(pergunta => {
+                            resposta.valor_unitario = pergunta.valor_unitario
+                            bodyPedido.valor_total += resposta.valor_unitario * resposta.inteiro
+                        })
+
+                })
+            })
+            // inserir pedido 🥶
             .then(async () => {
                 // ver se o cliente já existe através do email
-                await Cliente.findOne({
-                    where: {
-                        email: bodyCliente.email
-                    }
-                })
+                await Cliente
+                    .findOne({
+                        where: {
+                            email: bodyCliente.email
+                        }
+                    })
                     .then(async cliente => {
 
                         if (cliente !== null) {
