@@ -37,29 +37,42 @@ where estado_id = 4
 select SUM (id) as "Orçamentos Enviados" from pedido
 where estado_id = 2
 
-/*9 Atualizar o valor unitario para todas as perguntas do grupo 5 */
+/*9 Atualizar o valor unitario para todas as perguntas do grupo 5 em 20% */
 SELECT * FROM pergunta 
 UPDATE valor_unitario
-SET valor_unitario where grupo_id = 5;
+SET valor_unitario * 1,20 where grupo_id = 5;
 
 /*10 Eliminar pedidos que o estado seja "Recusado" */
 SELECT * FROM pedido;
 DELETE FROM pedido where estado_id = 4;
 
-/*11 Consulta que devolve o pedido associado ao cliente com ID 10 com estado Aceite*/
+/*11 Consulta que devolve o estado do pedido e o valor tutal do cliente que começa o nome pela letra J*/
+SELECT estado_id, valor_total FROM pedido
+WHERE cliente_id IN 
+(SELECT (id) FROM cliente 
+WHERE nome LIKE 'a%');
+
+/*12 Consulta que devolve o pedido associado ao cliente com ID 10 com estado Aceite*/
 select * from pedido
 where cliente_id = 10 and estado_id = 3;
 
-/*12 Consulta que devolve os pedidos com valor ente 500 a 1000€ e foram recusados*/
+/*13 Consulta que devolve os pedidos com valor ente 500 a 1000€ e foram recusados*/
 select * from pedido
 where valor_total between '500' and '1000' and estado_id = 4;
 
-/*13 Consulta que devolva o numero total de pedidos recusados com o seu motivo e valor total*/
+/*14 Consulta que devolva o numero total de pedidos recusados com o seu motivo e valor total*/
 select SUM id as "Numero Pedidos", motivo_id as "Motivo", valor_total as "Valor Total", estado_id 
 from pedido
 where estado_id = 4;
 
+/*15 Consulta que devolve o estado do pedido e o valor total do cliente com id 5*/
+SELECT estado_id as "Estado", valor_total as "Total" 
+FROM pedido
+WHERE cliente_id IN 
+(SELECT (id) FROM cliente 
+WHERE id = 5);
 
+/**/
 
 
 /************************************************************* FIM OPERAÇÔES SQL *************************************************************/
