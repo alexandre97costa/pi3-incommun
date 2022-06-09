@@ -30,7 +30,7 @@ export default function InicioComponent() {
         // Get total de pedidos
         // por defeito, sem mandar nenhuma query (nem estado nem dias),
         // conta todos os pedidos dos ultimos 30 dias
-        axios.get('http://' + ip + ':4011/pedidos/count')
+        axios.get('http://' + ip + ':4011/pedidos/count?estado_id=0')
             .then(res => {
                 setTotalPedidos(res.data.count)
             })
@@ -58,10 +58,10 @@ export default function InicioComponent() {
                 return (
 
                     <div className='col d-flex flex-column'>
-                        
+
                         <div className='container-fluid rounded-4 border ps-4 bg-white shadow'>
                             <td className="row justify-content-center my-4 g-3" key={pedido.id}>
-                                
+
                                 {/* Cliente */}
                                 <tr className='mt-2 text-center text-dark lh-sm'>
                                     <span className='fs-5 fw-semibold position-relative'>
@@ -195,102 +195,97 @@ export default function InicioComponent() {
     return (
 
 
-        <div className="col d-flex flex-column h-sm-100 px-5 pt-4">
-            <main className="row overflow-auto">
+        <div className="col overflow-auto h-sm-100 px-5 pt-4">
 
-                {/* Titulo */}
-                <div className="mb-3 row">
-                    <div className='col-6'>
-                        <span className='h2 text-dark fw-bold'>
-                            BEM VINDO
-                        </span>
-                        <br />
-                        <span className='fs-6 fw-normal text-muted'>
-                            {'Foram criados ' + totalPedidos + ' pedidos nos últimos 30 dias.'}
-                        </span>
+            {/* Titulo */}
+            <div className="mb-3 row">
+                <div className='col-6'>
+                    <span className='h2 text-dark fw-bold'>
+                        BEM VINDO
+                    </span>
+                    <br />
+                    <span className='fs-6 fw-normal text-muted'>
+                        {'Foram criados ' + totalPedidos + ' pedidos nos últimos 30 dias.'}
+                    </span>
+                </div>
+                <div className='col-6 text-end'>
+                    <span className='fs-5 lh-sm text-indigo fw-bold ' title={dicaDoDia + ' - ' + autorDica}>
+                        Dica do dia :)
+                    </span><br />
+                    <span className=' p-2 badge fw-normal bg-light lh-sm text-secondary text-end text-wrap w-75'>
+                        {dicaDoDia + ' ~' + autorDica}
+                    </span>
+                </div>
+            </div>
+            <div className='mb-4 g-3 row row-cols-1 row-cols-md-2 row-cols-lg-4 row-cols-xl-4'>
+                <Count estadoId={0} />
+                <Count estadoId={2} />
+                <Count estadoId={3} />
+                <Count estadoId={4} />
+
+            </div>
+
+            <div className="mb-3 row">
+                <div className='col d-flex justify-content-start align-items-center fs-6 fw-normal text-muted'>
+                    <span className='me-2'>
+                        Ver
+                    </span>
+
+                    <div className="dropdown bg-white me-2">
+                        <button className=" btn btn-sm btn-outline-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span className='me-2'>{filtroEstadoPedidoDesc}</span>
+                        </button>
+                        <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li>
+                                <button
+                                    className="dropdown-item"
+                                    type='button'
+                                    onClick={e => {
+                                        setFiltroEstadoPedido(0)
+                                        setFiltroEstadoPedidoDesc('Todos os pedidos')
+                                    }}>
+                                    Todos os pedidos
+                                </button>
+                            </li>
+                            <li><hr className="dropdown-divider" /></li>
+                            <LoadEstados />
+                        </ul>
                     </div>
-                    <div className='col-6 text-end'>
-                        <span className='fs-5 lh-sm text-indigo fw-bold ' title={dicaDoDia + ' - ' + autorDica}>
-                            Dica do dia :)
-                        </span><br />
-                        <span className=' p-2 badge fw-normal bg-light lh-sm text-secondary text-end text-wrap w-75'>
-                            {dicaDoDia + ' ~' + autorDica}
-                        </span>
+
+                    <span className='me-2'>
+                        na ordem de
+                    </span>
+
+                    <div className="dropdown bg-white me-2">
+                        <button className=" btn btn-sm btn-outline-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span className='me-2'>Pendentes mais antigos primeiro</span>
+                        </button>
+                        <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><button className="dropdown-item" onClick={e => { }} type='button'>Pendentes mais antigos primeiro</button></li>
+                            <li><button className="dropdown-item" onClick={e => { }} type='button'>Mais recentes primeiro</button></li>
+                            <li><hr className="dropdown-divider" /></li>
+                            <li><button className="dropdown-item" onClick={e => { }} type='button'>Nome de cliente (A-Z)</button></li>
+                            <li><button className="dropdown-item" onClick={e => { }} type='button'>Nome de cliente (Z-A)</button></li>
+                            <li><hr className="dropdown-divider" /></li>
+                            <li><button className="dropdown-item" onClick={e => { }} type='button'>Valor mais elevado primeiro</button></li>
+                            <li><button className="dropdown-item" onClick={e => { }} type='button'>Valor mais baixo primeiro</button></li>
+                        </ul>
                     </div>
-                </div>
-                <div className='mb-4 g-3 row row-cols-1 row-cols-md-2 row-cols-lg-4 row-cols-xl-4'>
-                    <Count estadoId={0} />
-                    <Count estadoId={2} />
-                    <Count estadoId={3} />
-                    <Count estadoId={4} />
 
                 </div>
-
-                <div className="mb-3 row">
-                    <div className='col d-flex justify-content-start align-items-center fs-6 fw-normal text-muted'>
-                        <span className='me-2'>
-                            Ver
-                        </span>
-
-                        <div className="dropdown bg-white me-2">
-                            <button className=" btn btn-sm btn-outline-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                <span className='me-2'>{filtroEstadoPedidoDesc}</span>
-                            </button>
-                            <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <li>
-                                    <button
-                                        className="dropdown-item"
-                                        type='button'
-                                        onClick={e => {
-                                            setFiltroEstadoPedido(0)
-                                            setFiltroEstadoPedidoDesc('Todos os pedidos')
-                                        }}>
-                                        Todos os pedidos
-                                    </button>
-                                </li>
-                                <li><hr className="dropdown-divider" /></li>
-                                <LoadEstados />
-                            </ul>
-                        </div>
-
-                        <span className='me-2'>
-                            na ordem de
-                        </span>
-
-                        <div className="dropdown bg-white me-2">
-                            <button className=" btn btn-sm btn-outline-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                <span className='me-2'>Pendentes mais antigos primeiro</span>
-                            </button>
-                            <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <li><button className="dropdown-item" onClick={e => { }} type='button'>Pendentes mais antigos primeiro</button></li>
-                                <li><button className="dropdown-item" onClick={e => { }} type='button'>Mais recentes primeiro</button></li>
-                                <li><hr className="dropdown-divider" /></li>
-                                <li><button className="dropdown-item" onClick={e => { }} type='button'>Nome de cliente (A-Z)</button></li>
-                                <li><button className="dropdown-item" onClick={e => { }} type='button'>Nome de cliente (Z-A)</button></li>
-                                <li><hr className="dropdown-divider" /></li>
-                                <li><button className="dropdown-item" onClick={e => { }} type='button'>Valor mais elevado primeiro</button></li>
-                                <li><button className="dropdown-item" onClick={e => { }} type='button'>Valor mais baixo primeiro</button></li>
-                            </ul>
-                        </div>
-
-                    </div>
-                </div>
+            </div>
 
 
-                {/* <!-- INICIO ORÇAMENTOS PENDENTES --> */}
+            {/* <!-- INICIO ORÇAMENTOS PENDENTES --> */}
 
-                <p className="fs-normal d-flex"> Orçamentos Pendentes</p>
-
-
-                <div className='mb-4 g-3 row row-cols-1 row-cols-md-2 row-cols-lg-4 row-cols-xl-4'>
+            <p className="fs-normal d-flex"> Orçamentos Pendentes</p>
 
 
-                    <LoadInfoPedidosCliente />
-                </div>
+            <div className='mb-4 g-3 row row-cols-1 row-cols-md-2 row-cols-lg-4 row-cols-xl-4'>
 
 
-                {/* <!-- FIM ORÇAMENTOS PENDENTES --> */}
-            </main>
+                <LoadInfoPedidosCliente />
+            </div>
 
         </div>
 

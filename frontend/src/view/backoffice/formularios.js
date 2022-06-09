@@ -112,30 +112,30 @@ export default function FormulariosComponente() {
 
 
 																			<td>
-																				
-																							<div className="dropdown bg-white me-2">
-																								<button className=" btn btn btn-outline-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-																									{/* <span className='me-2'>{filtroTiposPerguntaDesc}</span> */}
-																									<span className='me-2'>{pergunta.tipo_pergunta.titulo}</span>
-																								</button>
-																								<ul className="dropdown-menu">
-																									<li>
-																										<button
-																											className="dropdown-item"
-																											type='button'
-																											onClick={e => {
-																												setFiltroTiposPergunta(0)
-																												setFiltroTiposPerguntaDesc('Tipo de Pergunta')
-																											}}>
-																										
 
-																										</button>
-																									</li>
-																							
-																									<LoadTiposPergunta />
-																								</ul>
-																							</div>
-																				
+																				<div className="dropdown bg-white me-2">
+																					<button className=" btn btn btn-outline-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+																						{/* <span className='me-2'>{filtroTiposPerguntaDesc}</span> */}
+																						<span className='me-2'>{pergunta.tipo_pergunta.titulo}</span>
+																					</button>
+																					<ul className="dropdown-menu">
+																						<li>
+																							<button
+																								className="dropdown-item"
+																								type='button'
+																								onClick={e => {
+																									setFiltroTiposPergunta(0)
+																									setFiltroTiposPerguntaDesc('Tipo de Pergunta')
+																								}}>
+
+
+																							</button>
+																						</li>
+
+																						<LoadTiposPergunta />
+																					</ul>
+																				</div>
+
 
 																			</td>
 
@@ -174,32 +174,24 @@ export default function FormulariosComponente() {
 	}
 
 	return (
-		<div className="container-fluid">
-			<div className="row vh-100">
 
-			
+		<div className="col overflow-auto h-sm-100 px-5 pt-4">
 
-
-				<div className="col overflow-auto h-sm-100">
-
-					<div className="row px-4">
-						{/* Titulo */}
-						<div className='col-12 my-4'>
-							<div className='display-3 text-indigo'>
-								Formulários
-							</div>
-						</div>
+			<div className="mb-3 row">
+				{/* Titulo */}
+				<div className='col-12'>
+					<div className='h2 text-dark fw-bold'>
+						Formulários
 					</div>
-
-					<div className='row px-4'>
-						<LoadForms />
-						{/*Aqui será onde ficará o conteúdo dos formulários!?*/}
-
-					</div>
-
 				</div>
+			</div>
+
+			<div className='row px-4'>
+				<LoadForms />
+				{/*Aqui será onde ficará o conteúdo dos formulários!?*/}
 
 			</div>
+
 		</div>
 	)
 

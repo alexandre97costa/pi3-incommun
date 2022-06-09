@@ -43,6 +43,7 @@ module.exports = {
                             }
                         }
                     }).then(count => {
+                        
                         response = {
                             count: count,
                             estado: {
@@ -54,7 +55,7 @@ module.exports = {
                     })
                 }
             })
-            res.json(response)
+        res.json(response)
     },
 
     all: async (req, res) => {

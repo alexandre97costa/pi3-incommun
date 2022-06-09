@@ -11,6 +11,9 @@ body, html { scroll-behavior: smooth; }
 .text-light-dark { color: var(--bs-gray-500) }
 .bg-light-dark { background-color: var(--bs-gray-500) }
 
+.text-dark-secondary { color: #2b3138 }
+.bg-dark-secondary { background-color: #2b3138 }
+
 .text-teal { color: var(--bs-teal) }
 .bg-teal { background-color: var(--bs-teal) }
 

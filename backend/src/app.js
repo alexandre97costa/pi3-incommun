@@ -1,12 +1,14 @@
-const express = require('express');
-const cors = require('cors');
-const app = express();
-app.set('port', process.env.PORT || 4011);
+const express = require('express')
+const cors = require('cors')
+const app = express()
+app.set('port', process.env.PORT || 4011)
+
 
 const formsRoutes = require('./routes/formsRoutes.js')
 const pedidosRoutes = require('./routes/pedidosRoutes.js')
 const clientesRoutes = require('./routes/clientesRoutes.js')
 const testRoutes = require('./routes/testRoutes.js')
+const emailRoutes = require('./routes/emailRoutes.js')
 
 // teste
 //* Middlewares
@@ -21,6 +23,7 @@ app.use((req, res, next) => {
 app.use('/forms', formsRoutes)
 app.use('/pedidos', pedidosRoutes)
 app.use('/clientes', clientesRoutes)
+app.use('/email', emailRoutes)
 app.use('/test', testRoutes)
 
 // rota de introdução

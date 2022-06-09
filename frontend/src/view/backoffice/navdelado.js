@@ -20,7 +20,7 @@ export default function NavDeLado2Component() {
 
 
     return (
-        <div className="col-12 col-sm-3 col-lg-2 col-sm-2 bg-warning d-flex sticky-top px-0">
+        <div className="col-12 col-sm-3 col-lg-2 col-sm-2 d-flex sticky-top px-0 bg-dark-secondary">
             <div className="d-flex flex-sm-column flex-row flex-grow-1 align-items-center align-items-sm-start pt-2"
             >
                 <Link to='/' className='navbar-brand w-100 my-0 my-sm-4 text-light d-flex justify-content-start align-items-center'>
@@ -33,7 +33,10 @@ export default function NavDeLado2Component() {
 
                     {/* Inicio */}
                     <li className="mb-2">
-                        <Link to="/back-office/" className="btn btn-outline-dark border-0 rounded-0 px-2 px-sm-0 d-flex align-items-center">
+                        <Link to="/back-office/" 
+                        className="btn btn-outline-secondary border-0 rounded-0 px-2 px-sm-0 d-flex align-items-center"
+                        onFocus={e => setTimeout(() => {e.target.blur()}, 200)}
+                        >
                             <i className="bi bi-house fs-4 ms-sm-3 ms-md-4 me-sm-2"></i>
                             <span className=" d-none d-sm-inline">Início</span>
                         </Link>
@@ -41,7 +44,10 @@ export default function NavDeLado2Component() {
 
                     {/* Inicio v2*/}
                     <li className="mb-2">
-                        <Link to="/back-office/inicio_v2" className="btn btn-outline-dark border-0 rounded-0 px-2 px-sm-0 d-flex align-items-center">
+                        <Link to="/back-office/inicio_v2" 
+                        className="btn btn-outline-secondary border-0 rounded-0 px-2 px-sm-0 d-flex align-items-center"
+                        onFocus={e => setTimeout(() => {e.target.blur()}, 200)}
+                        >
                             <i className="bi bi-house fs-4 ms-sm-3 ms-md-4 me-sm-2"></i>
                             <span className="d-none d-sm-inline ">
                                 Inicio
@@ -52,12 +58,15 @@ export default function NavDeLado2Component() {
 
                     {/* Pedidos */}
                     <li className="mb-2">
-                        <Link to="/back-office/pedidos" className="btn btn-outline-dark border-0 rounded-0 px-2 px-sm-0 d-flex align-items-center">
+                        <Link to="/back-office/pedidos" 
+                        className="btn btn-outline-secondary border-0 rounded-0 px-2 px-sm-0 d-flex align-items-center"
+                        onFocus={e => setTimeout(() => {e.target.blur()}, 200)}
+                        >
                             <i className="bi bi-file-earmark-spreadsheet fs-4 ms-sm-3 ms-md-4 me-sm-2"></i>
                             <span className="d-none d-sm-inline">
                                 Pedidos
                                 {pedidosPendentes > 0 &&
-                                    <span className="badge bg-indigo border-0 rounded-pill ms-2">{pedidosPendentes}</span>
+                                    <span className="badge bg-warning text-dark border-0 rounded-pill ms-2">{pedidosPendentes}</span>
                                 }
                             </span>
                         </Link>
@@ -65,7 +74,10 @@ export default function NavDeLado2Component() {
 
                     {/* Formulário */}
                     <li className="mb-2">
-                        <Link to="/back-office/formularios" className="btn btn-outline-dark border-0 rounded-0 px-2 px-sm-0 d-flex align-items-center">
+                        <Link to="/back-office/formularios" 
+                        className="btn btn-outline-secondary border-0 rounded-0 px-2 px-sm-0 d-flex align-items-center"
+                        onFocus={e => setTimeout(() => {e.target.blur()}, 200)}
+                        >
                             <i className="bi bi-ui-checks fs-4 ms-sm-3 ms-md-4 me-sm-2"></i>
                             <span className="d-none d-sm-inline ">
                                 Formulários
@@ -76,7 +88,10 @@ export default function NavDeLado2Component() {
 
                     {/* Clientes */}
                     <li className="mb-2">
-                        <Link to="/back-office/" className="btn btn-outline-dark border-0 rounded-0 px-2 px-sm-0 d-flex align-items-center">
+                        <Link to="/back-office/" 
+                        className="btn btn-outline-secondary border-0 rounded-0 px-2 px-sm-0 d-flex align-items-center"
+                        onFocus={e => setTimeout(() => {e.target.blur()}, 200)}
+                        >
                             <i className="bi bi-people fs-4 ms-sm-3 ms-md-4 me-sm-2"></i>
                             <span className="d-none d-sm-inline ">Clientes</span>
                         </Link>
