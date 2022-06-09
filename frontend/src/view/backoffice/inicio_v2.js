@@ -173,7 +173,7 @@ export default function InicioComponent() {
                         </div>
                     </div>
                     <div className='mb-4 g-3 row row-cols-1 row-cols-md-2 row-cols-lg-4 row-cols-xl-4'>
-                        <Count estadoId={1} />
+                        <Count estadoId={0} />
                         <Count estadoId={2} />
                         <Count estadoId={3} />
                         <Count estadoId={4} />

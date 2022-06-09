@@ -11,6 +11,7 @@ export default function CountComponent(props) {
     useEffect(() => {
         axios.get('http://' + ip + ':4011/pedidos/count?estado_id=' + props.estadoId)
         .then(res => {
+            console.log(res.data)
             setCount(res.data.count)
             setEstado(res.data.estado)
         })

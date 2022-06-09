@@ -13,7 +13,7 @@ module.exports = {
         // filtra por dias de idade (conta pedidos com até 30 dias de idade por exemplo)
         const dias = req.query.dias ?? 30
 
-        const response = {}
+        let response = {}
 
         await sequelize.sync()
             .then(async () => {
@@ -33,9 +33,9 @@ module.exports = {
                                 estado_id: estadoId
                             }
                         })
-                        .then(count => { response.count = count })
+                        .then(count => { response = { ...response, count: count } })
                 }
-                if (estadoId === 0) {
+                if (estadoId === '0') {
                     await Pedido.count({
                         where: {
                             created_at: {
@@ -43,16 +43,18 @@ module.exports = {
                             }
                         }
                     }).then(count => {
-                        response.count = count,
-                            response.estado = {
+                        response = {
+                            count: count,
+                            estado: {
                                 icon: 'bi-ui-radios',
                                 cor: 'primary',
                                 descricao: 'Todo'
                             }
+                        }
                     })
                 }
             })
-            .then(() => { res.json(response) })
+            res.json(response)
     },
 
     all: async (req, res) => {
