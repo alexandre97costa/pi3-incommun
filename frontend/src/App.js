@@ -45,7 +45,7 @@ export default function App() {
 
 					<Route path='/back-office/' element={
 						<div className="container-fluid">
-							<div className="row h-100">
+							<div className="row vh-100">
 								<NavDeLado />
 								<div className="col overflow-auto h-sm-100">
 									<BoInicio />
@@ -57,7 +57,7 @@ export default function App() {
 
 					<Route path='/back-office/formularios' element={
 						<div className="container-fluid">
-							<div className="row h-100">
+							<div className="row vh-100">
 								<NavDeLado />
 								<div className="col overflow-auto h-sm-100">
 									<BoFormularios />
@@ -68,7 +68,7 @@ export default function App() {
 
 					<Route path='/back-office/pedidos' element={
 						<div className="container-fluid">
-							<div className="row h-100">
+							<div className="row vh-100">
 								<NavDeLado />
 								<div className="col overflow-auto h-sm-100">
 									<BoPedidos />
@@ -80,7 +80,7 @@ export default function App() {
 
 					<Route path='/back-office/inicio_v2' element={
 						<div className="container-fluid">
-							<div className="row h-100">
+							<div className="row vh-100">
 								<NavDeLado />
 								<div className="col overflow-auto h-sm-100">
 									<BoInicio_v2 />
