@@ -2,29 +2,25 @@
 
 name: CI
 
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
-    branches: [ "main" ]
+    branches: [ main ]
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
   build:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - name: Push backend to another pi3-incommun-heroku-backend
-      - uses: cpina/github-action-push-to-another-repository@v1.4.2
-      - with:
-          source-directory: backend
-          destination-github-username: alexandre97costa
-          destination-repository-name: pi3-incommun-heroku-backend
+      - name: Pushes to another repository
+        id: push_directory
+        uses: cpina/github-action-push-to-another-repository@ssh-deploy-key
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+        with:
+          source-directory: backend/
+          destination-github-username: 'alexandre97costa'
+          destination-repository-name: 'pi3-incommun-heroku-backend'
           user-email: alexandre97costa@gmail.com
-          user-name: github-actions-pi3-incommun
+          commit-message: See ORIGIN_COMMIT from $GITHUB_REF
+          target-branch: main
+      - name: Test get variable exported by push-to-another-repository
+        run: echo $DESTINATION_CLONED_DIRECTORY
