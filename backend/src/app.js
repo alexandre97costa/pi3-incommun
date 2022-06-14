@@ -1,4 +1,5 @@
 const express = require('express')
+const path = require('path');
 const cors = require('cors')
 const app = express()
 app.set('port', process.env.PORT || 4011)
@@ -28,6 +29,10 @@ app.use('/test', testRoutes)
 
 // rota de introdução
 app.use('/', (req, res) => {
+    res.sendFile(path.join(__dirname + '/index.html'));
+})
+/*
+app.use('/', (req, res) => {
     res.json({
         success: false,
         intro: 'Olá! 👋 Isto é o ponto de entrada do nosso backend. Tira os sapatos antes de entrar 🧐',
@@ -46,6 +51,7 @@ app.use('/', (req, res) => {
         }
     });
 });
+*/
 
 
 app.listen(app.get('port'), () => {
