@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     container: pandoc/latex
     steps:
-      - name: Test get variable exported by push-to-another-repository
+      - name: Test echo
         run: echo Será que é agora?
       - name: Pushes to another repository
         id: push_directory
@@ -20,7 +20,7 @@ jobs:
         env:
           API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
         with:
-          source-directory: backend
+          source-directory: backend/
           destination-github-username: 'alexandre97costa'
           destination-repository-name: 'pi3-incommun-heroku-backend'
           user-email: alexandre97costa@gmail.com
