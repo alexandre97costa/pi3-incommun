@@ -12,10 +12,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: List site directory
-        run: ls tree/main/backend
-      - name: List site directory
-        run: ls backend
-      - name: List site directory
         run: ls 
       - name: Pushes to another repository
         id: push_directory
