@@ -28,7 +28,7 @@ export default function FormComponent(props) {
     useEffect(() => {
         console.log('%caxios get forms/civ', 'color: skyblue')
         axios
-            .get('http://' + ip + ':4011/forms/one?id=' + formId)
+            .get(ip + '/forms/one?id=' + formId)
             .then(res => { setForm(res.data) })
             .catch(error => console.log(error))
     }, [])
@@ -86,7 +86,7 @@ export default function FormComponent(props) {
         }
 
         axios
-            .post('http://' + ip + ':4011/pedidos/new', {
+            .post(ip + '/pedidos/new', {
                 pedido: pedido,
                 cliente: cliente
             })

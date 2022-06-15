@@ -10,7 +10,7 @@ export default function MainComponent() {
     useEffect(() => {
         document.title = 'Incommun'
 
-        axios.get('https://'+ip+'/forms/all_form_names')
+        axios.get(ip+'/forms/all_form_names')
             .then(res => { setForms(res.data) })
     }, [])
 

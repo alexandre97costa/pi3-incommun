@@ -9,7 +9,7 @@ export default function CountComponent(props) {
     const [estado, setEstado] = useState('')
 
     useEffect(() => {
-        axios.get('http://' + ip + ':4011/pedidos/count?estado_id=' + props.estadoId)
+        axios.get(ip + '/pedidos/count?estado_id=' + props.estadoId)
         .then(res => {
             setCount(res.data.count)
             setEstado(res.data.estado)

@@ -6,5 +6,5 @@
 // ? desta maneira podemos ver o site noutros dispositivos
 // ? da mesma rede (no tlm ou noutro pc)
 
-const ip = 'localhost'
+const ip = 'http://localhost:4011'
 export default ip
