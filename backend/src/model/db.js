@@ -1,16 +1,13 @@
 const { Sequelize } = require('sequelize');
 
 const sequelize = new Sequelize(
-    'dekf2pi7icgv6m',
-    'olpegxpvhpbkqa',
-    'd447a862e12d4717d3771f7781fc91c42dfd346533c89e657a17d0f7a3bf0529',
+    'pi3-sequelize',
+    'postgres',
+    'postgres',
     {
-        host: 'ec2-52-214-23-110.eu-west-1.compute.amazonaws.com',
+        host: 'localhost',
         port: '5432',
         dialect: 'postgres',
-        dialectOptions: {
-            ssl: { rejectUnauthorized: false }
-        },
         logging: false,
         define: {
             // hooks globais, atingem todos os modelos

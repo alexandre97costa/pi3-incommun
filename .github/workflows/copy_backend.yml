@@ -4,7 +4,7 @@ name: Copy Backend
 
 on:
   push:
-    branches: [ main ]
+    branches: [ heroku ]
   workflow_dispatch:
 
 jobs:

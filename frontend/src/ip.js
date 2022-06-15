@@ -6,5 +6,5 @@
 // ? desta maneira podemos ver o site noutros dispositivos
 // ? da mesma rede (no tlm ou noutro pc)
 
-const ip = 'ec2-52-214-23-110.eu-west-1.compute.amazonaws.com'
+const ip = 'localhost'
 export default ip
