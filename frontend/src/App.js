@@ -12,6 +12,7 @@ import BoInicio from './view/backoffice/inicio'
 import BoInicioV2 from './view/backoffice/inicio_v2'
 import BoPedidos from './view/backoffice/pedidos'
 import BoFormularios from './view/backoffice/formularios'
+import BoClientes from './view/backoffice/clientes'
 
 
 export default function App() {
@@ -57,6 +58,15 @@ export default function App() {
 							</div>
 						</div>
 					} />
+					<Route path='/back-office/clientes' element={
+						<div className="container-fluid">
+							<div className="row vh-100">
+								
+								<BoClientes />
+							</div>
+						</div>
+					} />
+
 
 					<Route path='/back-office/formularios' element={
 						<div className="container-fluid">

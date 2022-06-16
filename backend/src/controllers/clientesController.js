@@ -1,12 +1,34 @@
 var { Formulario, GrupoPerguntas, Pergunta, Resposta, Pedido, Cliente } = require('../model/tabelas')
 var sequelize = require('../model/db')
 const { Op } = require("sequelize");
+sequelize.sync()
+const controllers = {}
+controllers.list = async (req, res) => {
+    const data = await Cliente.findAll({
+    })
+        .then(function (data) {
+            return data;
+        })
+        .catch(error => {
+            return error;
+        });
+    res.json({ success: true, data: data });
+}
+controllers.total = async (req, res) => {
+    const data = await Cliente.count({
+    })
+        .then(function (data) {
+            return data;
+        })
+        .catch(error => {
+            return error;
+        });
+    res.json({ success: true, data: data });
+}  
 
+module.exports = controllers;
 
-
-module.exports = {
-
-
+    
     /*
     all: async (req, res) => {
         const response = {}
@@ -30,7 +52,7 @@ module.exports = {
     },
     */
 
-
+    /*
     all: async (req, res) => {
         await sequelize.sync()
         .then(async () => {
@@ -48,7 +70,7 @@ module.exports = {
             .then(response => res.send(response))
         })
     }
-
+    */
 
 
     /*
@@ -249,4 +271,3 @@ module.exports = {
 
 
     */
-}

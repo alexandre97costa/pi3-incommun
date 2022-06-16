@@ -88,7 +88,7 @@ export default function NavDeLado2Component() {
 
                     {/* Clientes */}
                     <li className="mb-2">
-                        <Link to="/back-office/" 
+                        <Link to="/back-office/clientes" 
                         className="btn btn-outline-secondary border-0 rounded-0 px-2 px-sm-0 d-flex align-items-center"
                         onFocus={e => setTimeout(() => {e.target.blur()}, 200)}
                         >
