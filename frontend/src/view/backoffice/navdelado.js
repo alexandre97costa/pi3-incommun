@@ -11,7 +11,7 @@ export default function NavDeLado2Component() {
 
     useEffect(() => {
         axios
-            .get('http://' + ip + ':4011/pedidos/count?estado_id=1')
+            .get(ip + '/pedidos/count?estado_id=1')
             .then(res => {
                 setPedidosPendentes(res.data.count)
             })

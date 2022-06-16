@@ -13,7 +13,7 @@ export default function FormulariosComponente() {
 
 
 	useEffect(() => {
-		axios.get('http://' + ip + ':4011/forms/all_backoffice')
+		axios.get(ip + '/forms/all_backoffice')
 			.then(res => {
 				console.table(res.data.formularios, ['id', 'nome'])
 				setForms(res.data.formularios)
@@ -22,7 +22,7 @@ export default function FormulariosComponente() {
 
 	useEffect(() => {
 		// Get os pedidos todos (por vezes filtrados e ordenados)
-		axios.get('http://' + ip + ':4011/forms/all_tipos_pergunta')
+		axios.get(ip + '/forms/all_tipos_pergunta')
 			.then(res => {
 				console.log(res.data)
 				setTiposPergunta(res.data.data)

@@ -1,6 +1,6 @@
 const { Sequelize } = require('sequelize');
 
-const sequelize =  new Sequelize(
+const sequelize = new Sequelize(
     'pi3-sequelize',
     'postgres',
     'postgres',
@@ -28,4 +28,4 @@ const sequelize =  new Sequelize(
 
 sequelize.sync()
 
-module.exports =  sequelize 
+module.exports = sequelize 
