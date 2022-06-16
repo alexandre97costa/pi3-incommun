@@ -14,6 +14,34 @@ controllers.list = async (req, res) => {
         });
     res.json({ success: true, data: data });
 }
+controllers.listAZ = async (req, res) => {
+    const data = await Cliente.findAll({
+        order:[
+            ['nome', 'ASC']
+        ],
+    })
+        .then(function (data) {
+            return data;
+        })
+        .catch(error => {
+            return error;
+        });
+    res.json({ success: true, data: data });
+}
+controllers.listZA = async (req, res) => {
+    const data = await Cliente.findAll({
+        order:[
+            ['nome', 'DESC']
+        ],
+    })
+        .then(function (data) {
+            return data;
+        })
+        .catch(error => {
+            return error;
+        });
+    res.json({ success: true, data: data });
+}
 controllers.total = async (req, res) => {
     const data = await Cliente.count({
     })
