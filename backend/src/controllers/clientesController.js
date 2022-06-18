@@ -3,45 +3,87 @@ var sequelize = require('../model/db')
 const { Op } = require("sequelize");
 sequelize.sync()
 const controllers = {}
+
+
 controllers.list = async (req, res) => {
-    const data = await Cliente.findAll({
-    })
-        .then(function (data) {
-            return data;
+    // para filtrar por estado
+    const filtro = req.query.filtro ?? 0
+
+    await sequelize.sync()
+        .then(async () => {
+            // sem filtro por estado_id
+            if (filtro == 0) {
+                const data = await Cliente.findAll({
+                })
+                    .then(function (data) {
+                        return data;
+                    })
+                    .catch(error => {
+                        return error;
+                    });
+                res.json({ success: true, data: data });
+            }
+            if (filtro == 1) {
+                const data = await Cliente.findAll({
+                    order:[
+                        ['nome', 'ASC']
+                    ],
+                })
+                    .then(function (data) {
+                        return data;
+                    })
+                    .catch(error => {
+                        return error;
+                    });
+                res.json({ success: true, data: data });
+            }
+            if (filtro == 2) {
+                const data = await Cliente.findAll({
+                    order:[
+                        ['nome', 'DESC']
+                    ],
+                })
+                    .then(function (data) {
+                        return data;
+                    })
+                    .catch(error => {
+                        return error;
+                    });
+                res.json({ success: true, data: data });
+            }
+            if (filtro == 3) {
+                const data = await Cliente.findAll({
+                    order:[
+                        ['id', 'ASC']
+                    ],
+                })
+                    .then(function (data) {
+                        return data;
+                    })
+                    .catch(error => {
+                        return error;
+                    });
+                res.json({ success: true, data: data });
+            }
+            if (filtro == 4) {
+                const data = await Cliente.findAll({
+                    order:[
+                        ['created_at', 'ASC']
+                    ],
+                })
+                    .then(function (data) {
+                        return data;
+                    })
+                    .catch(error => {
+                        return error;
+                    });
+                res.json({ success: true, data: data });
+            }
+
         })
-        .catch(error => {
-            return error;
-        });
-    res.json({ success: true, data: data });
-}
-controllers.listAZ = async (req, res) => {
-    const data = await Cliente.findAll({
-        order:[
-            ['nome', 'ASC']
-        ],
-    })
-        .then(function (data) {
-            return data;
-        })
-        .catch(error => {
-            return error;
-        });
-    res.json({ success: true, data: data });
-}
-controllers.listZA = async (req, res) => {
-    const data = await Cliente.findAll({
-        order:[
-            ['nome', 'DESC']
-        ],
-    })
-        .then(function (data) {
-            return data;
-        })
-        .catch(error => {
-            return error;
-        });
-    res.json({ success: true, data: data });
-}
+},
+
+
 controllers.total = async (req, res) => {
     const data = await Cliente.count({
     })

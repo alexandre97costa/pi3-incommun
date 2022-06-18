@@ -10,8 +10,6 @@ router.get('/', (req, res) => {
 router.get('/v2', (req, res) => {
     res.send('estás dentro de /pedidos/v2')
 })
-router.get('/listZA', clientesController.listZA)
-router.get('/listAZ', clientesController.listAZ)
 router.get('/list', clientesController.list)
 router.get('/total', clientesController.total)
 //router.get('/all', clientesController.all)
