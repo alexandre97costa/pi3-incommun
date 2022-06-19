@@ -4,7 +4,7 @@ name: Copy Backend
 
 on:
   push:
-    branches: [ heroku ]
+    branches: [ main ]
   workflow_dispatch:
 
 jobs:
@@ -13,8 +13,8 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
-      - name: Pushes to another repository
-        id: push_directory
+      - name: Pushes the backend to pi3-incommun-heroku-backend
+        id: push_backend
         uses: cpina/github-action-push-to-another-repository@v1.4.2
         env:
           API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
