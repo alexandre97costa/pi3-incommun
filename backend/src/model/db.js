@@ -1,4 +1,5 @@
 const { Sequelize } = require('sequelize');
+// testing
 
 const sequelize = new Sequelize(
     'pi3-sequelize',
