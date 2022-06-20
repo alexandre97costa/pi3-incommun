@@ -17,7 +17,7 @@ jobs:
           path: src/ip.js
           write-mode: overwrite
           contents: |
-            const ip = 'https://pi3-incommun-backend.herokuapp.com/'
+            const ip = 'https://pi3-incommun-backend.herokuapp.com'
             export default ip
       - name: Commit & Push
         uses: Andro999b/push@v1.3
