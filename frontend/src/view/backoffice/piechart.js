@@ -29,10 +29,10 @@ export default function InicioComponent() {
 
     const data = [
         ["Motivo", "Quantidade"],
-        ["Preço Elevado", 11],
-        ["Preferiu a concorrência", 2],
-        ["Não era o que estava à espera", 2],
-        ["Outro", 2],
+        ["Preço Elevado", 2],
+        ["Preferiu a concorrência", 1],
+        ["Não era o que estava à espera", 3],
+        ["Outro", 4],
     ];
 
 
