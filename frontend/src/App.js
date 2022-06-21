@@ -13,6 +13,7 @@ import BoInicioV2 from './view/backoffice/inicio_v2'
 import BoPedidos from './view/backoffice/pedidos'
 import BoFormularios from './view/backoffice/formularios'
 import BoClientes from './view/backoffice/clientes'
+import BoPiechart from './view/backoffice/piechart'
 
 
 export default function App() {
@@ -82,6 +83,15 @@ export default function App() {
 							<div className="row vh-100">
 								<NavDeLado />
 								<BoPedidos />
+							</div>
+						</div>
+					} />
+
+					<Route path='/back-office/piechart' element={
+						<div className="container-fluid">
+							<div className="row vh-100">
+								<NavDeLado />
+								<BoPiechart />
 							</div>
 						</div>
 					} />
