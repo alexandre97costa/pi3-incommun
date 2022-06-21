@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link } from "react-router-dom";
 import axios from 'axios'
 import ip from '../../ip'
-import './navdelado.css'
+import '../../styles/navdelado.css'
 import LogoIncommun from '../../assets/imgs/logotipoincommun.png'
 
 export default function NavDeLado2Component() {
