@@ -9,7 +9,11 @@ export default function InicioComponent() {
 
     const [dicaDoDia, setDicaDoDia] = useState('')
     const [autorDica, setAutorDica] = useState('')
-    const [totalPedidos, setTotalPedidos] = useState(0)
+    const [totalPedidosRecusados, setTotalPedidosRecusados] = useState(0)
+    const [contMotivoPreco, setMotivoPreco] = useState(0)
+    const [contMotivoConcorrencia, setMotivoConcorrencia] = useState(0)
+    const [contMotivoNaoEstavaEspera, setMotivoNaoEstavaEspera] = useState(0)
+    const [contMotivoOutro, setMotivoOutro] = useState(0)
 
 
     useEffect(() => {
@@ -22,14 +26,33 @@ export default function InicioComponent() {
 
         axios.get(ip + '/pedidos/count?estado_id=4')
             .then(res => {
-                setTotalPedidos(res.data.count)
+                setTotalPedidosRecusados(res.data.count)
             })
 
+            axios.get(ip + '/pedidos/count?motivo_id=1')
+            .then(res => {
+                setMotivoPreco(res.data.count)
+            })
+
+            axios.get(ip + '/pedidos/count?motivo_id=2')
+            .then(res => {
+                setMotivoConcorrencia(res.data.count)
+            })
+
+            axios.get(ip + '/pedidos/count?motivo_id=3')
+            .then(res => {
+                setMotivoNaoEstavaEspera(res.data.count)
+            })
+
+            axios.get(ip + '/pedidos/count?motivo_id=4')
+            .then(res => {
+                setMotivoOutro(res.data.count)
+            })
     }, [])
 
     const data = [
         ["Motivo", "Quantidade"],
-        ["Preço Elevado", 2],
+        ["Preço Elevado", contMotivoPreco],
         ["Preferiu a concorrência", 1],
         ["Não era o que estava à espera", 3],
         ["Outro", 4],
@@ -47,7 +70,7 @@ export default function InicioComponent() {
                     </span>
                     <br />
                     <span className='fs-6 fw-normal text-muted'>
-                        {'Foram recusados ' + totalPedidos + ' pedidos nos últimos 30 dias.'}
+                        {'Foram recusados ' + totalPedidosRecusados + ' pedidos nos últimos 30 dias.'}
                     </span>
                 </div>
 
