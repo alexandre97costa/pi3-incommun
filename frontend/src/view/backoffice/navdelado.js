@@ -97,13 +97,13 @@ export default function NavDeLado2Component() {
                         </Link>
                     </li>
 
-                          {/* Clientes */}
+                          {/* PieChart */}
                           <li className="mb-2">
                         <Link to="/back-office/piechart" 
                         className="btn btn-outline-secondary border-0 rounded-0 px-2 px-sm-0 d-flex align-items-center"
                         onFocus={e => setTimeout(() => {e.target.blur()}, 200)}
                         >
-                            <i className="bi bi-people fs-4 ms-sm-3 ms-md-4 me-sm-2"></i>
+                            <i className="bi bi-pie-chart fs-4 ms-sm-3 ms-md-4 me-sm-2"></i>
                             <span className="d-none d-sm-inline ">Pie Chart</span>
                         </Link>
                     </li>
