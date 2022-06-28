@@ -14,6 +14,7 @@ import BoPedidos from './view/backoffice/pedidos'
 import BoFormularios from './view/backoffice/formularios'
 import BoClientes from './view/backoffice/clientes'
 import BoPiechart from './view/backoffice/piechart'
+import BoPedidosCliente from './view/backoffice/pedidos_cliente'
 
 
 export default function App() {
@@ -67,7 +68,14 @@ export default function App() {
 							</div>
 						</div>
 					} />
-
+					<Route path='/back-office/pedidos_cliente/:Cliente' element={
+						<div className="container-fluid">
+							<div className="row vh-100">
+								
+								<BoPedidosCliente />
+							</div>
+						</div>
+					} />
 
 					<Route path='/back-office/formularios' element={
 						<div className="container-fluid">

@@ -2,9 +2,9 @@ import axios from 'axios';
 // import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 import React, { useEffect, useState } from 'react';
 import NavDeLado from './navdelado'
-import Count from './count'
 import ip from '../../ip'
 import mailImg from '../../assets/imgs/mail2.png'
+import { Link } from "react-router-dom";
 
 export default function ClientesComponent() {
     const [clientes, setClientes] = useState([])
@@ -65,7 +65,7 @@ export default function ClientesComponent() {
                             </span>
                         </td>
                         <td >
-                        <button type="button" className="btn btn-warning fs-6 bi-cash-stack me-2">Pedidos Cliente</button>
+                        <Link to={"/back-office/pedidos_cliente/" + cliente.id} className="btn btn-warning fs-6 bi-cash-stack me-2">&nbsp;Pedidos Cliente</Link>
                         </td>
                         <td >
                         <button type="button" data-bs-toggle="modal" data-bs-target="#modal-contactar" className="btn btn-secondary fs-6 bi-send ">Contactar Cliente</button>
