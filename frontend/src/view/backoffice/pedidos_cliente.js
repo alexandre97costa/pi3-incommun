@@ -28,7 +28,6 @@ export default function Pedidos_clienteComponent() {
     function handleFiltro(filtro, ordem, texto) {
         setFiltroPedido(filtro) 
         setOrdemPedido(ordem)
-
         document.getElementById('dropdown-filtro').textContent = texto
     }
 

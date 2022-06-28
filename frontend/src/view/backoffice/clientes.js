@@ -98,9 +98,9 @@ export default function ClientesComponent() {
                             <br />
                             <br />
                             <div
-								class="py-2 border rounded-4 bg-light d-flex w-50 flex-row justify-content-between align-items-center shadow p-3 bg-body rounded">
+								className="py-2 border rounded-4 bg-light d-flex w-50 flex-row justify-content-between align-items-center shadow p-3 bg-body rounded">
                             <span className='h5 text-dark fw-bold'>
-                            <i class="m-0 fs-2  text-primary bi bi-people"></i>
+                            <i className="m-0 fs-2  text-primary bi bi-people"></i>
                             &nbsp;{'Total Clientes: ' + totalClientes}
                                 
                             </span>

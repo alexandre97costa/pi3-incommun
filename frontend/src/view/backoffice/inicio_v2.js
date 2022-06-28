@@ -4,25 +4,25 @@ import React, { useEffect, useState } from 'react';
 import Count from './count'
 import ip from '../../ip'
 
-export default function InicioComponent() {
+export default function InicioV2Component() {
 
     const [pedidos, setPedidos] = useState([])
     const [totalPedidos, setTotalPedidos] = useState(0)
     const [estados, setEstados] = useState([])
-    const [filtroEstadoPedido, setFiltroEstadoPedido] = useState(0)
-    const [filtroEstadoPedidoDesc, setFiltroEstadoPedidoDesc] = useState('Todos os pedidos')
+    const [fildivoEstadoPedido, setFildivoEstadoPedido] = useState(0)
+    const [fildivoEstadoPedidoDesc, setFildivoEstadoPedidoDesc] = useState('Todos os pedidos')
 
     const [dicaDoDia, setDicaDoDia] = useState('')
     const [autorDica, setAutorDica] = useState('')
 
     useEffect(() => {
-        // Get os pedidos todos (por vezes filtrados e ordenados)
-        axios.get(ip + '/pedidos/all?estado_id=' + filtroEstadoPedido)
+        // Get os pedidos todos (por vezes fildivados e ordenados)
+        axios.get(ip + '/pedidos/all?estado_id=' + fildivoEstadoPedido)
             .then(res => {
                 // console.log(res.data)
                 setPedidos(res.data)
             })
-    }, [filtroEstadoPedido])
+    }, [fildivoEstadoPedido])
 
 
     useEffect(() => {
@@ -35,7 +35,7 @@ export default function InicioComponent() {
                 setTotalPedidos(res.data.count)
             })
 
-        // Get os estados todos que houver na bd (para o filtro/dropdown)
+        // Get os estados todos que houver na bd (para o fildivo/dropdown)
         axios.get(ip + '/pedidos/all_estados')
             .then(res => {
                 setEstados(res.data)
@@ -57,13 +57,13 @@ export default function InicioComponent() {
             pedidos.map(pedido => {
                 return (
 
-                    <div className='col d-flex flex-column'>
+                    <div className='col d-flex flex-column' key={pedido.id}>
 
                         <div className='container-fluid rounded-4 border ps-4 bg-white shadow'>
-                            <td className="row justify-content-center my-4 g-3" key={pedido.id}>
+                            <div className="row justify-content-center my-4 g-3">
 
                                 {/* Cliente */}
-                                <tr className='mt-2 text-center text-dark lh-sm'>
+                                <div className='mt-2 text-center text-dark lh-sm'>
                                     <span className='fs-5 fw-semibold position-relative'>
                                         {pedido.cliente.nome}
                                     </span>
@@ -74,25 +74,25 @@ export default function InicioComponent() {
                                     <span className='badge p-0 fw-semibold text-light-dark lh-sm'>
                                         {pedido.cliente.empresa}
                                     </span>
-                                </tr>
+                                </div>
 
 
 
 
                                 {/* Valor */}
-                                <tr className='mt-2 text-center text-success fs-4'>
+                                <div className='mt-2 text-center text-success fs-4'>
                                     {pedido.valor_total.toFixed(2)}
-                                </tr>
+                                </div>
 
                                 {/* Data */}
-                                <tr className='mt-2 text-center '>
+                                <div className='mt-2 text-center '>
                                     <span className='text-muted badge fw-normal align-middle'>
                                         {new Date(pedido.created_at).toISOString().split('T')[0]}
                                     </span>
-                                </tr>
+                                </div>
 
                                 {/* Estado */}
-                                <tr className='mt-2'>
+                                <div className='mt-2'>
                                     <span
                                         className={'badge w-100 fw-semibold bg-' + pedido.estado_pedido.cor + '-semi text-' + pedido.estado_pedido.cor + ' fs-6'}
                                         title={pedido.estado_pedido.obs}
@@ -100,10 +100,10 @@ export default function InicioComponent() {
                                         <i className={'me-2 bi ' + pedido.estado_pedido.icon}></i>
                                         {pedido.estado_pedido.descricao}
                                     </span>
-                                </tr>
+                                </div>
 
                                 {/* Opções */}
-                                <tr className='mt-2'>
+                                <div className='mt-2'>
                                     {(pedido.estado_id === 1 || pedido.estado_id === 2) &&
                                         <button className='btn btn-warning w-100 fw-semibold' >
                                             <i className='me-2 bi bi-send-fill'></i>
@@ -116,23 +116,23 @@ export default function InicioComponent() {
                                             Contactar cliente
                                         </button>
                                     }
-                                </tr>
+                                </div>
 
 
-                                <tr className='mt-2'>
+                                <div className='mt-2'>
                                     <button className='btn btn-secondary w-100'>
                                         <i className='me-2 bi bi-card-checklist'></i>
                                         Ver pedido
                                     </button>
-                                </tr>
+                                </div>
 
-                                <tr className='my-2'>
+                                <div className='my-2'>
                                     <button className='btn btn-outline-secondary w-100'>
 
                                         <i className='bi bi-gear-fill'></i>
                                     </button>
-                                </tr>
-                            </td>
+                                </div>
+                            </div>
 
 
 
@@ -180,8 +180,8 @@ export default function InicioComponent() {
                             className="dropdown-item"
                             type='button'
                             onClick={e => {
-                                setFiltroEstadoPedido(estado.id)
-                                setFiltroEstadoPedidoDesc(estado.descricao + 's')
+                                setFildivoEstadoPedido(estado.id)
+                                setFildivoEstadoPedidoDesc(estado.descricao + 's')
                             }}
                         >
                             {estado.descricao + 's'}
@@ -233,7 +233,7 @@ export default function InicioComponent() {
 
                     <div className="dropdown bg-white me-2">
                         <button className=" btn btn-sm btn-outline-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                            <span className='me-2'>{filtroEstadoPedidoDesc}</span>
+                            <span className='me-2'>{fildivoEstadoPedidoDesc}</span>
                         </button>
                         <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                             <li>
@@ -241,8 +241,8 @@ export default function InicioComponent() {
                                     className="dropdown-item"
                                     type='button'
                                     onClick={e => {
-                                        setFiltroEstadoPedido(0)
-                                        setFiltroEstadoPedidoDesc('Todos os pedidos')
+                                        setFildivoEstadoPedido(0)
+                                        setFildivoEstadoPedidoDesc('Todos os pedidos')
                                     }}>
                                     Todos os pedidos
                                 </button>
