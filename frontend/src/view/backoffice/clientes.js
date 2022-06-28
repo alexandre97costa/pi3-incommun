@@ -14,7 +14,7 @@ export default function ClientesComponent() {
 
     
     useEffect(() => {
-        axios.get('http://localhost:4011/clientes/list?filtro=' + filtroCliente)
+        axios.get(ip + '/clientes/list?filtro=' + filtroCliente)
         .then(res => {
             if (res.data.success) {
                 const data = res.data.data;
@@ -30,7 +30,7 @@ export default function ClientesComponent() {
 
     useEffect(() => {
 
-        axios.get('http://localhost:4011/clientes/total')
+        axios.get(ip + '/clientes/total')
         .then(res => {
             setTotalClientes(res.data.data)
         });
