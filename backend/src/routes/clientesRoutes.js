@@ -8,6 +8,7 @@ router.get('/', (req, res) => {
 })
 
 router.get('/list', clientesController.list)
+router.get('/list_pedidos', clientesController.list_pedidos)
 router.get('/total', clientesController.total)
 
 router.post('/enviar_email', clientesController.enviar_email)

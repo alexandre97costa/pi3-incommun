@@ -9,28 +9,30 @@ import { useParams } from "react-router-dom";
 
 export default function Pedidos_clienteComponent() {
     const [pedidos, setPedidos] = useState([])
-    const [filtroPedido, setFiltroPedido] = useState(0)
+    const [filtroPedido, setFiltroPedido] = useState('id')
+    const [ordemPedido, setOrdemPedido] = useState('ASC')
     const { Cliente } = useParams();
     
     useEffect(() => {
-        axios.get('http://localhost:4011/pedidos_cliente/list/?cliente=' + Cliente + '&?filtro=' + filtroPedido)
+        axios.get(ip + '/clientes/list_pedidos/?cliente=' + Cliente + '&?filtro=' + filtroPedido + '&?ordem=' + ordemPedido)
         .then(res => {
             if (res.data.success) {
-                const data = res.data.data;
                 //alert(filtroPedido + "," + Cliente);
-                setPedidos(data);
-            } else {
-                //alert(filtroPedido + "," + Cliente);
+                setPedidos(res.data.data);
             }
         })
-        .catch(error => {
-            alert(error)
-        });
-    }, [filtroPedido])
+        .catch(error => { throw new Error(error) });
+    }, [Cliente, filtroPedido, ordemPedido])
 
-    
 
-    
+    function handleFiltro(filtro, ordem, texto) {
+        setFiltroPedido(filtro) 
+        setOrdemPedido(ordem)
+
+        document.getElementById('dropdown-filtro').textContent = texto
+    }
+
+
     function LoadPedidos() {
         return (
             pedidos.map(pedido => {
@@ -130,15 +132,15 @@ export default function Pedidos_clienteComponent() {
                             </span>
 
                             <div className="dropdown bg-white me-2">
-                                <button className=" btn btn-sm btn-outline-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <span className='me-2'></span>
+                                <button className=" btn btn-sm btn-outline-dark dropdown-toggle" type="button" id="dropdown-filtro" data-bs-toggle="dropdown" aria-expanded="false">
+                                    id
                                 </button>
-                                <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    <li><button className="dropdown-item" onClick={e => {setFiltroPedido(0)}} type='button'>ID</button></li>
-                                    <li><button className="dropdown-item" onClick={e => {setFiltroPedido(1)}} type='button'>Valor mais elevado primeiro</button></li>
-                                    <li><button className="dropdown-item" onClick={e => {setFiltroPedido(2) }} type='button'>Valor mais baixo primeiro</button></li>
-                                    <li><button className="dropdown-item" onClick={e => {setFiltroPedido(3) }} type='button'>Data de criação (mais antigo - mais recente)</button></li>
-                                    <li><button className="dropdown-item" onClick={e => {setFiltroPedido(4) }} type='button'>Data de criação(mais recente - mais antigo)</button></li>
+                                <ul className="dropdown-menu" aria-labelledby="dropdown-filtro">
+                                    <li><button className="dropdown-item" onClick={e => { handleFiltro('id',            'ASC',  e.target.textContent) }} type='button'>id</button></li>
+                                    <li><button className="dropdown-item" onClick={e => { handleFiltro('valor_total',   'DESC', e.target.textContent) }} type='button'>Valor mais elevado primeiro</button></li>
+                                    <li><button className="dropdown-item" onClick={e => { handleFiltro('valor_total',   'ASC',  e.target.textContent) }} type='button'>Valor mais baixo primeiro</button></li>
+                                    <li><button className="dropdown-item" onClick={e => { handleFiltro('created_at',    'ASC',  e.target.textContent) }} type='button'>Data de criação (mais antigo - mais recente)</button></li>
+                                    <li><button className="dropdown-item" onClick={e => { handleFiltro('created_at',    'DESC', e.target.textContent) }} type='button'>Data de criação(mais recente - mais antigo)</button></li>
                                 </ul>
                             </div>
 

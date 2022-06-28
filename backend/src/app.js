@@ -8,9 +8,7 @@ app.set('port', process.env.PORT || 4011)
 const formsRoutes = require('./routes/formsRoutes.js')
 const pedidosRoutes = require('./routes/pedidosRoutes.js')
 const clientesRoutes = require('./routes/clientesRoutes.js')
-const testRoutes = require('./routes/testRoutes.js')
 const emailRoutes = require('./routes/emailRoutes.js')
-const pedidos_clienteRoutes = require('./routes/pedidos_clienteRoutes.js')
 
 // teste
 //* Middlewares
@@ -26,8 +24,6 @@ app.use('/forms', formsRoutes)
 app.use('/pedidos', pedidosRoutes)
 app.use('/clientes', clientesRoutes)
 app.use('/email', emailRoutes)
-app.use('/test', testRoutes)
-app.use('/pedidos_cliente', pedidos_clienteRoutes)
 
 // rota de introdução
 app.use('/', (req, res) => {
