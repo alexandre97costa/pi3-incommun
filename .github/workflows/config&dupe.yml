@@ -17,7 +17,7 @@ jobs:
       - name: Overwite config.js
         uses: "DamianReeves/write-file-action@v1.0"
         with:
-          path: src/config.js
+          path: backend/src/config.js
           write-mode: overwrite
           contents: |
             module.exports = {
