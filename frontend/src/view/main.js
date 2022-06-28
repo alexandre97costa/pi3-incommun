@@ -10,7 +10,7 @@ export default function MainComponent() {
     useEffect(() => {
         document.title = 'Incommun'
 
-        axios.get(ip+'/forms/all_form_names')
+        axios.get(ip + '/forms/all_form_names')
             .then(res => { setForms(res.data) })
     }, [])
 
@@ -49,7 +49,14 @@ export default function MainComponent() {
     return (
         <div className='container p-5'>
 
-            <div className='display-3 text-indigo fw-bold mb-5'>Página Inicial</div>
+            <div className='display-3 text-indigo fw-bold mb-5'>
+                Página Inicial
+                {forms.length === 0 &&
+                    <div className="spinner-grow text-secondary ms-3 align-baseline" role="status">
+                        <span className="visually-hidden">Loading...</span>
+                    </div>
+                }
+            </div>
             <div className='row row-cols-sm-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 gy-3'>
 
                 <div className='col'>

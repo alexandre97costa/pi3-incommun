@@ -1,3 +1,3 @@
 module.exports = {
-  jwtSecret: 'sepi3nãosefizesseemrecursonãoerapi3'
+  JWT_SECRET: 'chave'
 }

@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: Overwrite src/config.js && Dupe backend/
+name: Copy backend
 
 on:
   push:
@@ -12,27 +12,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v3
-
-      - name: Overwite config.js
-        uses: "DamianReeves/write-file-action@v1.0"
-        with:
-          path: backend/src/config.js
-          write-mode: overwrite
-          contents: |
-            module.exports = {
-              jwtSecret: '${{ secrets.JWT_SECRET }}'
-            }
-
-      - name: Commit & Push
-        uses: Andro999b/push@v1.3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: main
-          force: true
-          message: 'Overwritten by Github Actions - ${date}'
-
-      - name: Checkout repo again
         uses: actions/checkout@v3
 
       - name: Push the backend folder to pi3-incommun-heroku-backend
