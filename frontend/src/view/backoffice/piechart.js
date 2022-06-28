@@ -53,9 +53,9 @@ export default function InicioComponent() {
     const data = [
         ["Motivo", "Quantidade"],
         ["Preço Elevado", contMotivoPreco],
-        ["Preferiu a concorrência", 1],
-        ["Não era o que estava à espera", 3],
-        ["Outro", 4],
+        ["Preferiu a concorrência", contMotivoConcorrencia],
+        ["Não era o que estava à espera", contMotivoNaoEstavaEspera],
+        ["Outro", contMotivoOutro],
     ];
 
 
