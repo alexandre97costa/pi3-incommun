@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { nanoid } from 'nanoid';
 import React, { useEffect, useState } from "react";
 
 import ip from '../../ip'
@@ -11,6 +12,44 @@ export default function FormulariosComponente() {
 	const [filtroTiposPergunta, setFiltroTiposPergunta] = useState(0)
 	const [filtroTiposPerguntaDesc, setFiltroTiposPerguntaDesc] = useState('Tipos de Pergunta')
 
+	const [addNovaPergunta, setAddNovaPergunta] = useState({
+		titulo: '',
+		descricao: '',
+		tipo_pergunta: '',
+		valor_unitario: ''
+	});
+
+	const handleAddFormChange = (event) => {
+		event.preventDefault();
+
+		const fieldName = event.target.getAttribute('name');
+		const fieldValue = event.target.value;
+
+		const newNovaPergunta = { ...addNovaPergunta };
+		console.log(newNovaPergunta);
+		newNovaPergunta[fieldName] = fieldValue;
+
+		setAddNovaPergunta(newNovaPergunta);
+	};
+
+	const handleAddFormSubmit = (event) => {
+		event.preventDefault();
+
+		const newPergunta = {
+			id: nanoid(),
+			titulo: addNovaPergunta.titulo,
+			descricao: addNovaPergunta.descricao,
+			tipo_pergunta: addNovaPergunta.tipo_pergunta,
+			valor_unitario: addNovaPergunta.valor_unitario,
+		};
+
+		const newPerguntas = [...forms, newPergunta];
+		setForms = (newPerguntas);
+
+
+
+	};
+
 
 	useEffect(() => {
 		axios.get(ip + '/forms/all_backoffice')
@@ -19,16 +58,6 @@ export default function FormulariosComponente() {
 				setForms(res.data.formularios)
 			})
 	}, [])
-
-	useEffect(() => {
-		// Get os pedidos todos (por vezes filtrados e ordenados)
-		axios.get(ip + '/forms/all_tipos_pergunta')
-			.then(res => {
-				console.log(res.data)
-				setTiposPergunta(res.data.data)
-			})
-	}, [filtroTiposPergunta])
-
 
 	function LoadTiposPergunta() {
 		return (
@@ -50,119 +79,8 @@ export default function FormulariosComponente() {
 		)
 	}
 
+
 	function LoadForms() {
-		return forms.map(form => {
-			return (
-				<div className="col-12 mb-4" key={form.id}>
-					<div className="accordion accordion-flush col-12" id={"formulario" + form.id}>
-						<div className="accordion-header" id={"formulario" + form.id}>
-							<button
-								type="button"
-								className="accordion-button collapsed border-bottom border-warning"
-								data-bs-toggle="collapse" data-bs-target={"#titulodoformulario" + form.id}
-							>
-								<div className="text-warning fs-3">
-									{form.titulo}
-								</div>
-							</button>
-						</div>
-						{
-							form.grupos.map(grupo => {
-								return (
-									<div key={grupo.id}>
-
-										<div id={"titulodoformulario" + form.id} className="accordion-collapse collapse col-12 text-end">
-											<button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target={"#grupo" + grupo.id}>
-												<div className="text-success fs-4 ms-2 mb-0">{grupo.titulo}</div>
-											</button>
-										</div>
-
-										<div id={"grupo" + grupo.id} className="accordion-collapse collapse">
-											<div className="accordion-body p-0 ms-5 mt-0 mb-0">
-
-												<table className="table table-borderless">
-													<thead>
-														<tr>
-															<td style={{ width: "20%" }}>Titulo</td>
-															<td style={{ width: "30%" }}>Descrição</td>
-															<td style={{ width: "10%" }}>Tipo</td>
-															<td style={{ width: "10%" }}>Valor</td>
-															<td style={{ width: "30%" }}>Ações</td>
-														</tr>
-													</thead>
-													<tbody>
-														{
-															grupo.pergunta.map(pergunta => {
-																return (
-
-																	<tr key={pergunta.id}>
-
-																		<td>
-																			<input type="text" className="form-control" value={pergunta.titulo}></input>
-																		</td>
-
-
-																		<td>
-																			<textarea className="form-control" rows="1" value={pergunta.descricao} id="floatingTextarea"></textarea>
-																		</td>
-
-
-																		<td>
-
-																			<div className="dropdown bg-white me-2">
-																				<button className=" btn btn btn-outline-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-																					{/* <span className='me-2'>{filtroTiposPerguntaDesc}</span> */}
-																					<span className='me-2'>{pergunta.tipo_pergunta.titulo}</span>
-																				</button>
-																				<ul className="dropdown-menu">
-																					<li>
-																						<button
-																							type='button'
-																							className="dropdown-item"
-																							onClick={e => {
-																								setFiltroTiposPergunta(0)
-																								setFiltroTiposPerguntaDesc('Tipo de Pergunta')
-																							}}>
-
-
-																						</button>
-																					</li>
-
-																					<LoadTiposPergunta />
-																				</ul>
-																			</div>
-
-
-																		</td>
-
-																		<td>
-																			<input type="number" className="form-control" value={pergunta.valor_unitario}></input>
-																		</td>
-
-																		<td>
-																			<button type="button" className="btn btn btn-success me-1"> <i className="text-white bi bi-save m-1"></i>Guardar</button>
-																			<button type="button" className="btn btn btn-danger ms-1"> <i className="bi bi-folder-x"></i> Eliminar</button>
-
-																		</td>
-
-																	</tr>
-																)
-															})}
-													</tbody>
-												</table>
-											</div>
-										</div>
-									</div>
-								)
-							})}
-
-					</div>
-				</div>
-			)
-		})
-	}
-
-	function LoadForms2() {
 		return forms.map(form => {
 			return (
 				<div className="accordion-item border-0" key={form.id}>
@@ -286,6 +204,49 @@ export default function FormulariosComponente() {
 															})}
 														</tbody>
 													</table>
+													<h2> Adicionar Pergunta</h2>
+													<form onSubmit = {handleAddFormSubmit}>
+
+														<input
+														
+															type="text"
+															name="titulo"
+															required="required"
+															placeholder="Introduz o título da pergunta"
+															onChange={handleAddFormChange}
+													
+														/>
+
+														<input
+															type="text"
+															name="descricao"
+															required="required"
+															placeholder="Introduz a descrição da pergunta"
+															onChange={handleAddFormChange}
+												
+														/>
+
+														<input
+															type="text"
+															name="tipo_pergunta"
+															required="required"
+															placeholder="Introduz o tipo da pergunta"
+															onChange={handleAddFormChange}
+													
+														/>
+
+														<input
+															type="number"
+															name="valor_unitario"
+															required="required"
+															placeholder="Introduz valor da pergunta"
+															onChange={handleAddFormChange}
+												
+														/>
+
+														<button type="submit">Adicionar</button>
+
+													</form>
 												</div>
 											</div>
 										</div>
@@ -302,6 +263,8 @@ export default function FormulariosComponente() {
 
 	return (
 
+
+
 		<div className="col overflow-auto h-sm-100 px-5 pt-4">
 
 			<div className="mb-3 row">
@@ -315,10 +278,8 @@ export default function FormulariosComponente() {
 
 			<div className='row'>
 				<div className="accordion accordion-flush" id="form-accordion">
-					<LoadForms2 />
+					<LoadForms />
 				</div>
-				{/* <LoadForms /> */}
-
 			</div>
 
 		</div>
