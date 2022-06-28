@@ -24,6 +24,17 @@ jobs:
               jwtSecret: '${{ secrets.JWT_SECRET }}'
             }
 
+      - name: Commit & Push
+        uses: Andro999b/push@v1.3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: main
+          force: true
+          message: 'Overwritten by Github Actions - ${date}'
+
+      - name: Checkout repo again
+        uses: actions/checkout@v3
+
       - name: Push the backend folder to pi3-incommun-heroku-backend
         id: push_backend
         uses: cpina/github-action-push-to-another-repository@v1.4.2
