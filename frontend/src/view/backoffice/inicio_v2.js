@@ -9,20 +9,20 @@ export default function InicioV2Component() {
     const [pedidos, setPedidos] = useState([])
     const [totalPedidos, setTotalPedidos] = useState(0)
     const [estados, setEstados] = useState([])
-    const [fildivoEstadoPedido, setFildivoEstadoPedido] = useState(0)
-    const [fildivoEstadoPedidoDesc, setFildivoEstadoPedidoDesc] = useState('Todos os pedidos')
+    const [filtroEstadoPedido, setFiltroEstadoPedido] = useState(0)
+    const [filtroEstadoPedidoDesc, setFiltroEstadoPedidoDesc] = useState('Todos os pedidos')
 
     const [dicaDoDia, setDicaDoDia] = useState('')
     const [autorDica, setAutorDica] = useState('')
 
     useEffect(() => {
-        // Get os pedidos todos (por vezes fildivados e ordenados)
-        axios.get(ip + '/pedidos/all?estado_id=' + fildivoEstadoPedido)
+        // Get os pedidos todos (por vezes filtrados e ordenados)
+        axios.get(ip + '/pedidos/all?estado_id=' + filtroEstadoPedido)
             .then(res => {
                 // console.log(res.data)
                 setPedidos(res.data)
             })
-    }, [fildivoEstadoPedido])
+    }, [filtroEstadoPedido])
 
 
     useEffect(() => {
@@ -35,7 +35,7 @@ export default function InicioV2Component() {
                 setTotalPedidos(res.data.count)
             })
 
-        // Get os estados todos que houver na bd (para o fildivo/dropdown)
+        // Get os estados todos que houver na bd (para o filtro/dropdown)
         axios.get(ip + '/pedidos/all_estados')
             .then(res => {
                 setEstados(res.data)
@@ -133,36 +133,6 @@ export default function InicioV2Component() {
                                     </button>
                                 </div>
                             </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                         </div>
                     </div>
                 )
@@ -180,8 +150,8 @@ export default function InicioV2Component() {
                             className="dropdown-item"
                             type='button'
                             onClick={e => {
-                                setFildivoEstadoPedido(estado.id)
-                                setFildivoEstadoPedidoDesc(estado.descricao + 's')
+                                setFiltroEstadoPedido(estado.id)
+                                setFiltroEstadoPedidoDesc(estado.descricao + 's')
                             }}
                         >
                             {estado.descricao + 's'}
@@ -233,7 +203,7 @@ export default function InicioV2Component() {
 
                     <div className="dropdown bg-white me-2">
                         <button className=" btn btn-sm btn-outline-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                            <span className='me-2'>{fildivoEstadoPedidoDesc}</span>
+                            <span className='me-2'>{filtroEstadoPedidoDesc}</span>
                         </button>
                         <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                             <li>
@@ -241,8 +211,8 @@ export default function InicioV2Component() {
                                     className="dropdown-item"
                                     type='button'
                                     onClick={e => {
-                                        setFildivoEstadoPedido(0)
-                                        setFildivoEstadoPedidoDesc('Todos os pedidos')
+                                        setFiltroEstadoPedido(0)
+                                        setFiltroEstadoPedidoDesc('Todos os pedidos')
                                     }}>
                                     Todos os pedidos
                                 </button>
