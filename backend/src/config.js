@@ -1,3 +1,3 @@
 module.exports = {
-    jwtSecret: 'istoéumachavesecreta'
+  jwtSecret: 'sepi3nãosefizesseemrecursonãoerapi3'
 }
