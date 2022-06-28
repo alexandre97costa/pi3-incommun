@@ -31,29 +31,7 @@ app.use('/test', testRoutes)
 app.use('/', (req, res) => {
     res.sendFile(path.join(__dirname + '/index.html'));
 })
-/*
-app.use('/', (req, res) => {
-    res.json({
-        success: false,
-        intro: 'Olá! 👋 Isto é o ponto de entrada do nosso backend. Tira os sapatos antes de entrar 🧐',
-        rotas: {
-            forms: [
-                'GET /forms/all',
-                'GET /forms/all_form_names',
-                'GET /forms/one?id=1',
-            ],
-            pedidos: [
-                'GET /pedidos/all?id=0',
-                'GET /pedidos/all_estados',
-                'GET /pedidos/count?id=0&dias=30',
-            ],
-
-        }
-    });
-});
-*/
-
 
 app.listen(app.get('port'), () => {
-    console.log('Server online! http://localhost:' + app.get('port'))
+    console.log('Server online!')
 })
