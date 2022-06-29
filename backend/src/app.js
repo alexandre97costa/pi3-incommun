@@ -8,9 +8,10 @@ app.set('port', process.env.PORT || 4011)
 const formsRoutes = require('./routes/formsRoutes.js')
 const pedidosRoutes = require('./routes/pedidosRoutes.js')
 const clientesRoutes = require('./routes/clientesRoutes.js')
-const emailRoutes = require('./routes/emailRoutes.js')
 
-// teste
+// user incommun, não confundir com clientes
+const userRoutes = require('./routes/userRoutes.js')
+
 //* Middlewares
 app.use(cors());
 app.use(express.json());
@@ -23,9 +24,9 @@ app.use((req, res, next) => {
 app.use('/forms', formsRoutes)
 app.use('/pedidos', pedidosRoutes)
 app.use('/clientes', clientesRoutes)
-app.use('/email', emailRoutes)
+app.use('/user', userRoutes)
 
-// rota de introdução
+// rota de introdução, apresenta um html bonitinho só
 app.use('/', (req, res) => {
     res.sendFile(path.join(__dirname + '/index.html'));
 })
