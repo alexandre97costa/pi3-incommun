@@ -1,6 +1,7 @@
 const express = require('express')
 const path = require('path');
 const cors = require('cors')
+const jwt_middleware = require('./jwt_middleware')
 const app = express()
 app.set('port', process.env.PORT || 4011)
 
@@ -24,7 +25,7 @@ app.use((req, res, next) => {
 app.use('/forms', formsRoutes)
 app.use('/pedidos', pedidosRoutes)
 app.use('/clientes', clientesRoutes)
-app.use('/user', userRoutes)
+app.use('/user', jwt_middleware.checkToken, userRoutes)
 
 // rota de introdução, apresenta um html bonitinho só
 app.use('/', (req, res) => {
