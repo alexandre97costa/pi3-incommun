@@ -11,8 +11,11 @@ router.get('/', (req, res) => {
 router.get('/all_form_names', formController.all_form_names)
 router.get('/all', formController.all)
 router.get('/all_backoffice', formController.all_backoffice)
-router.get('/all_tipos_pergunta', formController.all_tipos_pergunta);
+router.post('/create', formController.create)
+router.get('/all_tipos_pergunta', formController.all_tipos_pergunta)
 router.get('/one', formController.one)
+
+
 
 
 /*
@@ -25,3 +28,4 @@ router.put('/update/:id', filmeController.filme_update);
 */
 
 module.exports = router;
+

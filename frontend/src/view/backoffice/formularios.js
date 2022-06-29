@@ -12,43 +12,11 @@ export default function FormulariosComponente() {
 	const [filtroTiposPergunta, setFiltroTiposPergunta] = useState(0)
 	const [filtroTiposPerguntaDesc, setFiltroTiposPerguntaDesc] = useState('Tipos de Pergunta')
 
-	const [addNovaPergunta, setAddNovaPergunta] = useState({
-		titulo: '',
-		descricao: '',
-		tipo_pergunta: '',
-		valor_unitario: ''
-	});
+	const [camptitulo, setcamptitulo] = useState("");
+	const [campdescricao, setcampdescricao] = useState("");
+	const [camptipo_pergunta, setcamptipo_pergunta] = useState("");
+	const [campvalor_unitario, setcampvalor_unitario] = useState("");
 
-	const handleAddFormChange = (event) => {
-		event.preventDefault();
-
-		const fieldName = event.target.getAttribute('name');
-		const fieldValue = event.target.value;
-
-		const newNovaPergunta = { ...addNovaPergunta };
-		console.log(newNovaPergunta);
-		newNovaPergunta[fieldName] = fieldValue;
-
-		setAddNovaPergunta(newNovaPergunta);
-	};
-
-	const handleAddFormSubmit = (event) => {
-		event.preventDefault();
-
-		const newPergunta = {
-			id: nanoid(),
-			titulo: addNovaPergunta.titulo,
-			descricao: addNovaPergunta.descricao,
-			tipo_pergunta: addNovaPergunta.tipo_pergunta,
-			valor_unitario: addNovaPergunta.valor_unitario,
-		};
-
-		const newPerguntas = [...forms, newPergunta];
-		setForms = (newPerguntas);
-
-
-
-	};
 
 
 	useEffect(() => {
@@ -58,6 +26,16 @@ export default function FormulariosComponente() {
 				setForms(res.data.formularios)
 			})
 	}, [])
+
+	useEffect(() => {
+		// Get os pedidos todos (por vezes filtrados e ordenados)
+		axios.get(ip + '/forms/all_tipos_pergunta')
+			.then(res => {
+				console.log(res.data)
+				setTiposPergunta(res.data.data)
+			})
+	}, [filtroTiposPergunta])
+
 
 	function LoadTiposPergunta() {
 		return (
@@ -205,16 +183,19 @@ export default function FormulariosComponente() {
 														</tbody>
 													</table>
 													<h2> Adicionar Pergunta</h2>
-													<form onSubmit = {handleAddFormSubmit}>
+													<form>
+
 
 														<input
-														
+
 															type="text"
 															name="titulo"
 															required="required"
 															placeholder="Introduz o título da pergunta"
-															onChange={handleAddFormChange}
-													
+															value={camptitulo} onChange={value =>
+																setcamptitulo(value.target.value)}
+
+
 														/>
 
 														<input
@@ -222,8 +203,10 @@ export default function FormulariosComponente() {
 															name="descricao"
 															required="required"
 															placeholder="Introduz a descrição da pergunta"
-															onChange={handleAddFormChange}
-												
+															value={campdescricao} onChange={value =>
+																setcampdescricao(value.target.value)}
+
+
 														/>
 
 														<input
@@ -231,8 +214,10 @@ export default function FormulariosComponente() {
 															name="tipo_pergunta"
 															required="required"
 															placeholder="Introduz o tipo da pergunta"
-															onChange={handleAddFormChange}
-													
+															value={camptipo_pergunta} onChange={value =>
+																setcamptipo_pergunta(value.target.value)}
+
+
 														/>
 
 														<input
@@ -240,11 +225,15 @@ export default function FormulariosComponente() {
 															name="valor_unitario"
 															required="required"
 															placeholder="Introduz valor da pergunta"
-															onChange={handleAddFormChange}
-												
+															value={campvalor_unitario} onChange={value =>
+																setcampvalor_unitario(value.target.value)}
+
+
+
 														/>
 
-														<button type="submit">Adicionar</button>
+														<button type="submit" className="btn btn-primary"
+															onClick={() => NovaPergunta()}>Adicionar</button>
 
 													</form>
 												</div>
@@ -252,13 +241,53 @@ export default function FormulariosComponente() {
 										</div>
 									)
 								})}
+
+
 							</div>
 
-						</div>
-					</div>
-				</div>
+						</div >
+
+					</div >
+
+				</div >
+
 			)
 		})
+	}
+
+	function NovaPergunta() {
+		if (camptitulo === "") {
+			alert("Insere o título")
+		}
+		else if (campdescricao === "") {
+			alert("Insere a descrição")
+		}
+		else if (camptipo_pergunta === "") {
+			alert("Escolhe o tipo de pergunta")
+		}
+		else if (campvalor_unitario === "") {
+			alert("Define o valor")
+		}
+		else {
+			const baseUrl = "http://localhost:4011/forms/create"
+			const datapost = {
+				titulo: camptitulo,
+				descricao: campdescricao,
+				tipo_pergunta: camptipo_pergunta,
+				valor_unitario: campvalor_unitario,
+			}
+			axios.post(baseUrl, datapost)
+				.then(response => {
+					if (response.data.success === true) {
+						alert(response.data.message)
+					}
+					else {
+						alert(response.data.message)
+					}
+				}).catch(error => {
+					alert("Error 34 " + error)
+				})
+		}
 	}
 
 	return (
