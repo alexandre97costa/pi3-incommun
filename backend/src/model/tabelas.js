@@ -1,6 +1,6 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('./db');
-const bcrypt = require('bcryptjs')
+const bcrypt = require('bcrypt')
 
 // ######################################################
 // ################### DEFINIÇÕES #######################
@@ -352,20 +352,45 @@ Resposta.belongsTo(Pergunta, {
 // ######################################################
 
 const UserIncommun = sequelize.define('user_incommun', {
+    email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+            notNull: {
+                args: true,
+                msg: '\x1b[31mO email não pode estar vazio.\x1b[0m'
+            },
+            isEmail: {
+                args: true,
+                msg: '\x1b[31mO email inserido não é válido.\x1b[0m'
+            }
+        }
+    },
     username: {
         type: DataTypes.STRING,
         allowNull: false,
+        validate: {
+            notNull: {
+                args: true,
+                msg: '\x1b[31mO username não pode estar vazio.\x1b[0m'
+            }
+        }
     },
     password: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        validate: {
+            notNull: {
+                args: true,
+                msg: '\x1b[31mA password não pode estar vazia.\x1b[0m'
+            }
+        }
     }
 }, {
     freezeTableName: true,
     timestamps: false
 })
 
-// https://www.npmjs.com/package/bcryptjs#usage---sync
 UserIncommun.beforeCreate(user => {
 
     return bcrypt.hash(user.password, 10)
