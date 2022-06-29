@@ -9,16 +9,18 @@ import { Link } from "react-router-dom";
 export default function ClientesComponent() {
     const [clientes, setClientes] = useState([])
     const [totalClientes, setTotalClientes] = useState(0)
-    const [filtroCliente, setFiltroCliente] = useState(0)
-
+    const [filtroCliente, setFiltroCliente] = useState('id')
+    const [ordemCliente, setOrdemCliente] = useState('ASC')
 
     
     useEffect(() => {
-        axios.get(ip + '/clientes/list?filtro=' + filtroCliente)
+
+        axios.get(ip + '/clientes/list?ordem=' + ordemCliente + '&filtro=' + filtroCliente )
         .then(res => {
             if (res.data.success) {
                 const data = res.data.data;
                 setClientes(data);
+               
             } else {
                 alert("Error Web Service!");
             }
@@ -26,7 +28,7 @@ export default function ClientesComponent() {
         .catch(error => {
             alert(error)
         });
-    }, [filtroCliente])
+    }, [filtroCliente,ordemCliente])
 
     useEffect(() => {
 
@@ -36,6 +38,11 @@ export default function ClientesComponent() {
         });
     }, [])
 
+    function handleFiltro(filtro, ordem, texto) {
+        setFiltroCliente(filtro);
+        setOrdemCliente(ordem);
+        document.getElementById('dropdown-filtro').textContent = texto
+    }
     
     function LoadClientes() {
         return (
@@ -119,14 +126,15 @@ export default function ClientesComponent() {
                             </span>
 
                             <div className="dropdown bg-white me-2">
-                                <button className=" btn btn-sm btn-outline-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                <button className=" btn btn-sm btn-outline-dark dropdown-toggle" type="button" id="dropdown-filtro" data-bs-toggle="dropdown" aria-expanded="false">
                                     <span className='me-2'></span>
+                                    id
                                 </button>
-                                <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    <li><button className="dropdown-item" onClick={e => {setFiltroCliente(1) }} type='button'>Nome de cliente (A-Z)</button></li>
-                                    <li><button className="dropdown-item" onClick={e => {setFiltroCliente(2) }} type='button'>Nome de cliente (Z-A)</button></li>
-                                    <li><button className="dropdown-item" onClick={e => {setFiltroCliente(3) }} type='button'>ID</button></li>
-                                    <li><button className="dropdown-item" onClick={e => {setFiltroCliente(4) }} type='button'>Data de criação</button></li>
+                                <ul className="dropdown-menu" aria-labelledby="dropdown-filtro">
+                                    <li><button className="dropdown-item" onClick={e => {handleFiltro('nome',            'ASC',  e.target.textContent) }} type='button'>Nome de cliente (A-Z)</button></li>
+                                    <li><button className="dropdown-item" onClick={e => {handleFiltro('nome','DESC',  e.target.textContent) }} type='button'>Nome de cliente (Z-A)</button></li>
+                                    <li><button className="dropdown-item" onClick={e => {handleFiltro('id',            'ASC',  e.target.textContent)  }} type='button'>id</button></li>
+                                    <li><button className="dropdown-item" onClick={e => {handleFiltro('created_at','ASC',  e.target.textContent) }} type='button'>Data de criação</button></li>
                                 </ul>
                             </div>
 

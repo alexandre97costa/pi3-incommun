@@ -14,7 +14,7 @@ export default function Pedidos_clienteComponent() {
     const { Cliente } = useParams();
     
     useEffect(() => {
-        axios.get(ip + '/clientes/list_pedidos/?cliente=' + Cliente + '&?filtro=' + filtroPedido + '&?ordem=' + ordemPedido)
+        axios.get(ip + '/clientes/list_pedidos/?cliente=' + Cliente + '&filtro=' + filtroPedido + '&ordem=' + ordemPedido)
         .then(res => {
             if (res.data.success) {
                 //alert(filtroPedido + "," + Cliente);

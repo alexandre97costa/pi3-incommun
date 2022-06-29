@@ -67,27 +67,16 @@ module.exports = {
     // devolve todos os clientes
     list: async (req, res) => {
         // para filtrar por estado
-        const filtro = req.query.filtro ?? 0
+        const filtro = req.query.filtro ?? 'id'
+        const ordem = req.query.ordem ??  'ASC'
 
         await sequelize.sync()
             .then(async () => {
-                // sem filtro por estado_id
-                if (filtro == 0) {
-                    const data = await Cliente.findAll({
-                    })
-                        .then(function (data) {
-                            return data;
-                        })
-                        .catch(error => {
-                            return error;
-                        });
-                    res.json({ success: true, data: data });
-                }
-                if (filtro == 1) {
+               
                     const data = await Cliente.findAll({
                         order: [
-                            ['nome', 'ASC']
-                        ],
+                            [filtro,ordem]
+                        ]
                     })
                         .then(function (data) {
                             return data;
@@ -96,51 +85,7 @@ module.exports = {
                             return error;
                         });
                     res.json({ success: true, data: data });
-                }
-                if (filtro == 2) {
-                    const data = await Cliente.findAll({
-                        order: [
-                            ['nome', 'DESC']
-                        ],
-                    })
-                        .then(function (data) {
-                            return data;
-                        })
-                        .catch(error => {
-                            return error;
-                        });
-                    res.json({ success: true, data: data });
-                }
-                if (filtro == 3) {
-                    const data = await Cliente.findAll({
-                        order: [
-                            ['id', 'ASC']
-                        ],
-                    })
-                        .then(function (data) {
-                            return data;
-                        })
-                        .catch(error => {
-                            return error;
-                        });
-                    res.json({ success: true, data: data });
-                }
-                if (filtro == 4) {
-                    const data = await Cliente.findAll({
-                        order: [
-                            ['created_at', 'ASC']
-                        ],
-                    })
-                        .then(function (data) {
-                            return data;
-                        })
-                        .catch(error => {
-                            return error;
-                        });
-                    res.json({ success: true, data: data });
-                }
-
-            })
+                })
     },
 
     // devolve todos os pedidos de um determinado cliente
