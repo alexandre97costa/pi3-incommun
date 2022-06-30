@@ -12,6 +12,9 @@ export default function FormulariosComponente() {
 	const [filtroTiposPergunta, setFiltroTiposPergunta] = useState(0)
 	const [filtroTiposPerguntaDesc, setFiltroTiposPerguntaDesc] = useState('Tipos de Pergunta')
 
+	const [test, setTest] = useState("")
+
+
 	useEffect(() => {
 		axios.get(ip + '/forms/all_backoffice')
 			.then(res => {
@@ -49,6 +52,42 @@ export default function FormulariosComponente() {
 			})
 		)
 	}
+
+	function Update(e) {
+		e.preventDefault()
+
+		axios.
+		console.log(test);
+	}
+
+	function SendUpdate() {
+		// url de backend
+		axios.get(ip + '/forms/all_tipos_pergunta')
+		const datapost = {
+
+			titulo: forms.formulario.titulo,
+			descricao: forms.formulario.descricao,
+			tipo_pergunta: forms.formulario.tipo_pergunta,
+			valor_unitario: forms.formulario.valor_unitario
+
+		}
+		console.log(datapost)
+		axios.post(datapost)
+			.then(response => {
+				if (response.data.success === true) {
+					alert(response.data.message)
+				}
+				else {
+					alert("Error")
+				}
+			}).catch(error => {
+				alert("Error 34 " + error)
+			})
+
+	}
+
+
+
 
 
 	function LoadForms() {
@@ -112,15 +151,15 @@ export default function FormulariosComponente() {
 																		<td><input
 																			type="text"
 																			className="form-control focus-warning"
-																			value={pergunta.titulo}
-																			
+																			//value={pergunta.titulo}
+
 																		/></td>
 
 																		<td><textarea
 																			rows={1}
 																			className="form-control focus-warning"
-																			value={pergunta.descricao}
-																			
+																			//value={pergunta.descricao}
+
 																		/></td>
 
 																		<td>
@@ -134,7 +173,7 @@ export default function FormulariosComponente() {
 																						<button
 																							type='button'
 																							className="dropdown-item"
-																							>
+																						>
 																						</button>
 																					</li>
 
@@ -146,22 +185,22 @@ export default function FormulariosComponente() {
 																		<td><input
 																			type="number"
 																			className="form-control"
-																			value={pergunta.valor_unitario}
-																			
+																			//value={pergunta.valor_unitario}
+
 																		></input></td>
 
 																		<td>
 																			<button
 																				type="button"
 																				className="btn btn btn-outline-success me-2"
-																				
+
 																			>
-																				<i className="bi bi-save"></i>
+																				<i className="bi bi-save" onClick={() => SendUpdate()}></i>
 																			</button>
 																			<button
 																				type="button"
 																				className="btn btn btn-outline-danger"
-																				
+
 																			>
 																				<i className="bi bi-trash3"></i>
 																			</button>
@@ -172,50 +211,70 @@ export default function FormulariosComponente() {
 															})}
 														</tbody>
 													</table>
+
+
 													<h2> Adicionar Pergunta</h2>
 													<form className='newformpergunta'>
 
+														<table className="table table-borderless pb-2">
+															<thead className='fw-semibold'>
 
-														<input
+																<tr>
+																	<td style={{ width: "30%" }}>Titulo</td>
+																	<td style={{ width: "40%" }}>Descrição</td>
+																	<td style={{ width: "10%" }}>Tipo</td>
+																	<td style={{ width: "10%" }}>Valor</td>
+																	<td style={{ width: "10%" }}>Ação</td>
+																</tr>
 
-															type="text"
-															name="titulo"
-															required="required"
-															placeholder="Introduz o título da pergunta"
-
-														/>
-
-														<input
-															type="text"
-															name="descricao"
-															required="required"
-															placeholder="Introduz a descrição da pergunta"
+															</thead>
+															<tbody>
 
 
-														/>
+																<td><input
+																	className="form-control focus-warning"
+																	type="text"
+																	name="titulo"
+																	required="required"
+																	placeholder="Introduz o título da pergunta"
 
-														<input
-															type="text"
-															name="tipo_pergunta"
-															required="required"
-															placeholder="Introduz o tipo da pergunta"
+																/></td>
 
-
-														/>
-
-														<input
-															type="number"
-															name="valor_unitario"
-															required="required"
-															placeholder="Introduz valor da pergunta"
-
+																<td><input
+																	className="form-control focus-warning"
+																	type="text"
+																	name="descricao"
+																	required="required"
+																	placeholder="Introduz a descrição da pergunta"
 
 
-														/>
+																/></td>
 
-														<button type="submit" className="btn btn-primary">Adicionar</button>
+																<td><input
+																	className="form-control focus-warning"
 
+																	type="dropdown"
+																	name="tipo_pergunta"
+																	required="required"
+																	placeholder="Introduz o tipo da pergunta"
+
+
+																/></td>
+
+																<td>	<input
+																	className="form-control focus-warning"
+																	type="number"
+																	name="valor_unitario"
+																	required="required"
+																	placeholder="Introduz valor da pergunta"
+
+																/></td>
+
+																<button type="submit" className="btn btn-primary" >Adicionar</button>
+															</tbody>
+														</table>
 													</form>
+
 												</div>
 											</div>
 										</div>
@@ -237,8 +296,6 @@ export default function FormulariosComponente() {
 
 	return (
 
-
-
 		<div className="col overflow-auto h-sm-100 px-5 pt-4">
 
 			<div className="mb-3 row">
@@ -251,12 +308,30 @@ export default function FormulariosComponente() {
 			</div>
 
 			<div className='row'>
+
+				<form onSubmit={ e => Update(e)}>
+					<input
+						className="form-control focus-warning"
+						type="text"
+						name="titulo"
+						required="required"
+						placeholder="Introduz o titulo"
+						value = {test} onChange = {e => setTest(e.target.value)}
+					/>
+
+					<button type="submit" className="btn btn-primary" >Adicionar</button>
+
+				</form>
+
+
+
 				<div className="accordion accordion-flush" id="form-accordion">
 					<LoadForms />
+
 				</div>
 			</div>
 
 		</div>
 	)
 
-}
+};
