@@ -10,8 +10,9 @@ class AuthService {
                     localStorage.setItem('user', JSON.stringify(res.data))
                 }
                 return res.data
-            }, rejected => { throw new Error('Utilizador inválido') })
+            }, rejected => { return rejected })
     }
+
     logout() { localStorage.removeItem('user') }
     getCurrentUser() { return JSON.parse(localStorage.getItem('user')) }
 }

@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios'
 import ip from '../../ip'
 import '../../styles/navdelado.css'
 import LogoIncommun from '../../assets/imgs/logotipoincommun.png'
 
+import authService from '../auth.service';
+
 export default function NavDeLadoComponent() {
 
     const [pedidosPendentes, setPedidosPendentes] = useState(0)
+    const [username, setUsername] = useState('')
+    const navigate = useNavigate()
 
     useEffect(() => {
         axios
@@ -15,6 +19,10 @@ export default function NavDeLadoComponent() {
             .then(res => {
                 setPedidosPendentes(res.data.count)
             })
+
+        console.log(authService.getCurrentUser())
+        let username = authService.getCurrentUser()?.username ?? ''
+        setUsername(username)
     }, [])
 
 
@@ -119,7 +127,11 @@ export default function NavDeLadoComponent() {
                                 aria-expanded="false"
                             >
                                 <i className="bi bi-person fs-4 ms-sm-3 ms-md-4 me-sm-2"></i>
-                                <span className="fs-6 mx-1">User</span>
+                                <span className="fs-6 mx-1">
+                                    {!!username ?
+                                        username : 'User'
+                                    }
+                                </span>
                             </Link>
 
                             <ul className="dropdown-menu dropdown-menu-dark rounded-0 m-0" aria-labelledby="dropdown-user">
@@ -131,10 +143,12 @@ export default function NavDeLadoComponent() {
 
                                 <li><hr className="dropdown-divider" /></li>
 
-                                <li><Link className="dropdown-item" to="#">
+                                <li><button className="dropdown-item" 
+                                    onClick={e => { authService.logout(); navigate('/');  }}
+                                >
                                     <i className='bi bi-door-open me-2'></i>
                                     Log out
-                                </Link></li>
+                                </button></li>
                             </ul>
                         </div>
                     </li>

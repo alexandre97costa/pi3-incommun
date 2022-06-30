@@ -12,6 +12,7 @@ export default function MainComponent() {
 
         axios.get(ip + '/forms/all_form_names')
             .then(res => { setForms(res.data) })
+
     }, [])
 
     useEffect(() => { console.log(forms) }, [forms])
