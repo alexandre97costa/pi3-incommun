@@ -1,23 +1,16 @@
 import axios from 'axios';
-import { nanoid } from 'nanoid';
+
 import React, { useEffect, useState } from "react";
 
 import ip from '../../ip'
 
-export default function FormulariosComponente() {
+export default function FormulariosComponente(props) {
 
 	const [forms, setForms] = useState([])
 	const [tiposPergunta, setTiposPergunta] = useState([])
 
 	const [filtroTiposPergunta, setFiltroTiposPergunta] = useState(0)
 	const [filtroTiposPerguntaDesc, setFiltroTiposPerguntaDesc] = useState('Tipos de Pergunta')
-
-	const [camptitulo, setcamptitulo] = useState("");
-	const [campdescricao, setcampdescricao] = useState("");
-	const [camptipo_pergunta, setcamptipo_pergunta] = useState("");
-	const [campvalor_unitario, setcampvalor_unitario] = useState("");
-
-
 
 	useEffect(() => {
 		axios.get(ip + '/forms/all_backoffice')
@@ -120,14 +113,14 @@ export default function FormulariosComponente() {
 																			type="text"
 																			className="form-control focus-warning"
 																			value={pergunta.titulo}
-																			onChange={e => { }}
+																			
 																		/></td>
 
 																		<td><textarea
 																			rows={1}
 																			className="form-control focus-warning"
 																			value={pergunta.descricao}
-																			onChange={e => { }}
+																			
 																		/></td>
 
 																		<td>
@@ -157,21 +150,21 @@ export default function FormulariosComponente() {
 																			type="number"
 																			className="form-control"
 																			value={pergunta.valor_unitario}
-																			onChange={e => { }}
+																			
 																		></input></td>
 
 																		<td>
 																			<button
 																				type="button"
 																				className="btn btn btn-outline-success me-2"
-																				onClick={e => { }}
+																				
 																			>
 																				<i className="bi bi-save"></i>
 																			</button>
 																			<button
 																				type="button"
 																				className="btn btn btn-outline-danger"
-																				onClick={e => { }}
+																				
 																			>
 																				<i className="bi bi-trash3"></i>
 																			</button>
@@ -183,7 +176,7 @@ export default function FormulariosComponente() {
 														</tbody>
 													</table>
 													<h2> Adicionar Pergunta</h2>
-													<form>
+													<form className='newformpergunta'>
 
 
 														<input
@@ -192,9 +185,6 @@ export default function FormulariosComponente() {
 															name="titulo"
 															required="required"
 															placeholder="Introduz o título da pergunta"
-															value={camptitulo} onChange={value =>
-																setcamptitulo(value.target.value)}
-
 
 														/>
 
@@ -203,8 +193,6 @@ export default function FormulariosComponente() {
 															name="descricao"
 															required="required"
 															placeholder="Introduz a descrição da pergunta"
-															value={campdescricao} onChange={value =>
-																setcampdescricao(value.target.value)}
 
 
 														/>
@@ -214,8 +202,6 @@ export default function FormulariosComponente() {
 															name="tipo_pergunta"
 															required="required"
 															placeholder="Introduz o tipo da pergunta"
-															value={camptipo_pergunta} onChange={value =>
-																setcamptipo_pergunta(value.target.value)}
 
 
 														/>
@@ -225,15 +211,12 @@ export default function FormulariosComponente() {
 															name="valor_unitario"
 															required="required"
 															placeholder="Introduz valor da pergunta"
-															value={campvalor_unitario} onChange={value =>
-																setcampvalor_unitario(value.target.value)}
 
 
 
 														/>
 
-														<button type="submit" className="btn btn-primary"
-															onClick={() => NovaPergunta()}>Adicionar</button>
+														<button type="submit" className="btn btn-primary">Adicionar</button>
 
 													</form>
 												</div>
@@ -253,41 +236,6 @@ export default function FormulariosComponente() {
 
 			)
 		})
-	}
-
-	function NovaPergunta() {
-		if (camptitulo === "") {
-			alert("Insere o título")
-		}
-		else if (campdescricao === "") {
-			alert("Insere a descrição")
-		}
-		else if (camptipo_pergunta === "") {
-			alert("Escolhe o tipo de pergunta")
-		}
-		else if (campvalor_unitario === "") {
-			alert("Define o valor")
-		}
-		else {
-			const baseUrl = "http://localhost:4011/forms/create"
-			const datapost = {
-				titulo: camptitulo,
-				descricao: campdescricao,
-				tipo_pergunta: camptipo_pergunta,
-				valor_unitario: campvalor_unitario,
-			}
-			axios.post(baseUrl, datapost)
-				.then(response => {
-					if (response.data.success === true) {
-						alert(response.data.message)
-					}
-					else {
-						alert(response.data.message)
-					}
-				}).catch(error => {
-					alert("Error 34 " + error)
-				})
-		}
 	}
 
 	return (
