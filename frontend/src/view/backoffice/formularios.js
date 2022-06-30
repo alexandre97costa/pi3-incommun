@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 
 import ip from '../../ip'
 
-export default function FormulariosComponente(props) {
+export default function FormulariosComponente() {
 
 	const [forms, setForms] = useState([])
 	const [tiposPergunta, setTiposPergunta] = useState([])
