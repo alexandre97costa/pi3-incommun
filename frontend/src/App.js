@@ -16,6 +16,8 @@ import BoClientes from './view/backoffice/clientes'
 import BoPiechart from './view/backoffice/piechart'
 import BoPedidosCliente from './view/backoffice/pedidos_cliente'
 
+import BoLogin from './view/backoffice/login'
+
 
 export default function App() {
 
@@ -42,6 +44,12 @@ export default function App() {
 							/>
 						</>
 					} />
+
+					<Route 
+						path='/back-office/login'
+						element={<BoLogin />}
+
+					/>
 
 					<Route path='/back-office/' element={
 						<div className="container-fluid">

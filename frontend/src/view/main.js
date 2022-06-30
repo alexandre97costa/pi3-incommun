@@ -14,6 +14,8 @@ export default function MainComponent() {
             .then(res => { setForms(res.data) })
     }, [])
 
+    useEffect(() => { console.log(forms) }, [forms])
+
     function nomeTransform(nome = '') {
         // TODO: transformar o nome com regex
         // maneira rápida de conseguir alterar o nome
