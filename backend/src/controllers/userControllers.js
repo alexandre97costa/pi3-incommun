@@ -1,75 +1,129 @@
 const jwt = require('jsonwebtoken');
+const config = require('../config');
 const bcrypt = require('bcrypt');
 var { Formulario, Grupo, Pergunta, Resposta, Pedido, EstadoPedido, MotivoRecusa, Cliente, UserIncommun, UserIncommunRole } = require('../model/tabelas')
 const sequelize = require('../model/db');
-const config = require('../config');
+const { Op } = require("sequelize");
 
 module.exports = {
-
 
     list: async (req, res) => {
         await sequelize.sync()
             .then(async () => {
-
                 await UserIncommun
-                    .findAll()
+                    .findAll({
+                        attributes: ['username', 'email'],
+                        include: {
+                            model: UserIncommunRole,
+                            attributes: ['descricao', 'obs']
+                        }
+                    })
                     .then(data => { res.json({ success: true, data }) })
                     .catch(error => { return error })
             })
 
     },
+
     register: async (req, res) => {
-        const { name, email, password } = req.body;
-        const data = await UserIncommun.create({
-            name: name,
-            email: email,
-            password: password
-        })
-            .then(data => {
-                return data;
+        if (
+            !req.body.username ||
+            !req.body.email ||
+            !req.body.password ||
+            !req.body.role
+        ) {
+            res.status(400).json({
+                success: false,
+                message: 'Faltam dados! É preciso username, email, password, e role.'
             })
-            .catch(error => {
-                console.log("Erro: " + error);
-                return error;
-            })
-        res.status(200).json({
-            success: true,
-            message: "Registado",
-            data: data
-        });
-    },
-    login: async (req, res) => {
-        if (req.body.email && req.body.password) {
-            var email = req.body.email;
-            var password = req.body.password;
+            return
         }
-        var user = await UserIncommun.findOne({ where: { email: email } })
-            .then(data => {
-                return data;
+
+        const username = req.body.username
+        const email = req.body.email
+        const password = req.body.password
+        const role = req.body.role
+
+        await sequelize.sync()
+            .then(async () => {
+
+                let userJaExiste = await UserIncommun
+                    .findOne({
+                        where: {
+                            [Op.or]: [
+                                { email: email },
+                                { username: username }
+                            ]
+                        }
+                    })
+
+                if (userJaExiste) {
+                    res.status(400).json({
+                        success: false,
+                        message: 'Utilizador já existe'
+                    })
+                    return
+                }
+
+                await UserIncommun
+                    .create({
+                        username: username,
+                        email: email,
+                        password: password,
+                        role_id: role
+                    })
+                    .then(data => {
+                        res.status(200).json({
+                            success: true,
+                            message: "Utilizador registado com sucesso!",
+                            data
+                        });
+                    })
+                    .catch(error => { throw new Error(error) })
+
             })
-            .catch(error => {
-                console.log("Erro: " + error);
-                return error;
-            })
-        if (password === null || typeof password === "undefined") {
+    },
+
+    login: async (req, res) => {
+
+        let email, password = null
+
+        if (!!req.body.email && !!req.body.password) {
+            email = req.body.email
+            password = req.body.password
+        } else {
             res.status(403).json({
                 success: false,
-                message: 'Campos em Branco'
+                message: 'Dados necessários: email e password'
             });
-        } else {
-            if (req.body.email && req.body.password && user) {
-                const isMatch = bcrypt.compareSync(password, user.password);
-                if (req.body.email === user.email && isMatch) {
-                    let token = jwt.sign({ email: req.body.email }, config.secret, { expiresIn: '1h' });
-                    
-                    res.json({ success: true, message: 'Autenticação realizada com sucesso!', token: token });
-                } else {
-                    res.status(403).json({ success: false, message: 'Dados de autenticação inválidos.' });
-                }
-            } else {
-                res.status(400).json({ success: false, message: 'Erro no processo de autenticação. Tente de novo mais tarde.' });
-            }
+            return
         }
+
+        let user = await UserIncommun
+            .findOne({ where: { email: email } })
+            .then(data => { return data })
+            .catch(error => { throw new Error(error) })
+        const passwordMatch = bcrypt.compareSync(password, user.password);
+
+        if (!!user && passwordMatch) {
+            let token = jwt.sign(
+                { email: email },
+                config.JWT_SECRET,
+                { expiresIn: '1h' }
+            );
+
+            res.status(200).json({
+                success: true,
+                message: 'Autenticação realizada com sucesso!',
+                token: token
+            });
+
+        } else {
+            res.status(403).json({
+                success: false,
+                message: 'Dados inválidos.'
+            });
+        }
+
     }
 }
 

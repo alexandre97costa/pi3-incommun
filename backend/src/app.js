@@ -25,7 +25,8 @@ app.use((req, res, next) => {
 app.use('/forms', formsRoutes)
 app.use('/pedidos', pedidosRoutes)
 app.use('/clientes', clientesRoutes)
-app.use('/user', jwt_middleware.checkToken, userRoutes)
+app.use('/user', userRoutes)
+// app.use('/user', jwt_middleware.checkToken, userRoutes)
 
 // rota de introdução, apresenta um html bonitinho só
 app.use('/', (req, res) => {
