@@ -134,10 +134,7 @@ export default function FormulariosComponente() {
 																						<button
 																							type='button'
 																							className="dropdown-item"
-																							onClick={e => {
-																								setFiltroTiposPergunta(0)
-																								setFiltroTiposPerguntaDesc('Tipo de Pergunta')
-																							}}>
+																							>
 																						</button>
 																					</li>
 
