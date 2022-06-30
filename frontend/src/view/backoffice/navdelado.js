@@ -104,7 +104,7 @@ export default function NavDeLado2Component() {
                         onFocus={e => setTimeout(() => {e.target.blur()}, 200)}
                         >
                             <i className="bi bi-pie-chart fs-4 ms-sm-3 ms-md-4 me-sm-2"></i>
-                            <span className="d-none d-sm-inline ">Pie Chart</span>
+                            <span className="d-none d-sm-inline ">Resumo</span>
                         </Link>
                     </li>
 
