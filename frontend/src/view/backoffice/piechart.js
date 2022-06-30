@@ -14,9 +14,16 @@ export default function InicioComponent() {
     const [contMotivoConcorrencia, setMotivoConcorrencia] = useState(0)
     const [contMotivoNaoEstavaEspera, setMotivoNaoEstavaEspera] = useState(0)
     const [contMotivoOutro, setMotivoOutro] = useState(0)
+    const [totalPedidos, setTotalPedidos] = useState(0)
 
+    
 
     useEffect(() => {
+        axios.get(ip + '/pedidos/count?estado_id=0')
+        .then(res => {
+            setTotalPedidos(res.data.count)
+        })
+
         // Get dica do dia
         axios.get('https://api.quotable.io/random?tags=success|inspirational|happiness')
             .then(res => {
@@ -83,6 +90,10 @@ export default function InicioComponent() {
                         {dicaDoDia + ' ~' + autorDica}
                     </span>
                 </div>
+            </div>
+
+            <div className='mb-4 g-3 row row-cols-1 row-cols-md-2 row-cols-lg-4 row-cols-xl-4'>
+                <Count estadoId={4} />
             </div>
 
 
