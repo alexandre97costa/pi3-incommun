@@ -101,29 +101,33 @@ module.exports = {
         let user = await UserIncommun
             .findOne({ where: { email: email } })
             .then(data => { return data })
-            .catch(error => { throw new Error(error) })
-        const passwordMatch = bcrypt.compareSync(password, user.password);
+            .catch(error => { console.log(error) })
 
-        if (!!user && passwordMatch) {
-            let token = jwt.sign(
-                { email: email },
-                config.JWT_SECRET,
-                { expiresIn: '1h' }
-            );
 
-            res.status(200).json({
-                success: true,
-                message: 'Autenticação realizada com sucesso!',
-                token: token
-            });
+        if (!!user) {
+            const passwordMatch = bcrypt.compareSync(password, user.password);
+            if (passwordMatch) {
 
-        } else {
-            res.status(403).json({
-                success: false,
-                message: 'Dados inválidos.'
-            });
+                let token = jwt.sign(
+                    { email: email },
+                    config.JWT_SECRET,
+                    { expiresIn: '1h' }
+                );
+
+                res.status(200).json({
+                    success: true,
+                    message: 'Autenticação realizada com sucesso!',
+                    token: token,
+                    username: user.username
+                });
+                return
+            }
         }
 
+        res.status(403).json({
+            success: false,
+            message: 'Dados inválidos.'
+        });
     }
 }
 

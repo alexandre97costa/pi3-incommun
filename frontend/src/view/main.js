@@ -12,6 +12,7 @@ export default function MainComponent() {
 
         axios.get(ip + '/forms/all_form_names')
             .then(res => { setForms(res.data) })
+
     }, [])
 
     useEffect(() => { console.log(forms) }, [forms])
@@ -50,6 +51,76 @@ export default function MainComponent() {
 
     return (
         <div className='container p-5'>
+            <div className='row row-cols-sm-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-5 gy-3'>
+                <div className='col border border-warning border-5 rounded  icon-center' >
+                    <i className="bi bi-journal-text text-warning resize-icon"><h1 className='text-dark'>Mini Questinário</h1></i>
+                </div>
+
+                <div className='icon-center margin-top-5'>
+                    <i className="bi bi-chevron-right text-warning resize-icon"></i>
+                </div>
+
+                <div className='col border border-warning border-5 rounded icon-center'>
+                    <i className="bi bi-wallet2 text-warning resize-icon"><h1 className='text-dark'>Receba o orçamento</h1></i>
+                </div>
+
+                <div className='icon-center margin-top-5'>
+                    <i className="bi bi-chevron-right text-warning resize-icon"></i>
+                </div>
+
+                <div className='col border border-warning border-5 rounded icon-center'>
+                    <i className="bi bi-geo-alt-fill text-warning resize-icon"><h1 className='text-dark'>Pedido entregue!</h1></i>
+                </div>
+            </div>
+
+            <div className='text-center margin-top-bottom-10'>
+                <button
+                    className='rounded-pill bg-purple text-white'
+                    style={{ width: '300px' }}
+                >
+                    <h3>Pedir Orçamento</h3>
+                </button>
+            </div>
+
+            <div className='text-a-right margin-top-bottom-10'>
+                <span><h1><i className="bi bi-twitter text-warning" style={{padding: '2%'}}></i>Gestão de Redes Sociais</h1></span>
+                <h3>Na incommun, impulsionamos as redes sociais da sua marca.
+                    Se ainda não implementou a gestão de redes sociais na sua empresa, está no sítio certo.
+                    A estratégia é definida aqui. Na incommmun contamos com pacotes mensais ou
+                    anuais que são adaptados às necessidades de cada cliente.
+                </h3>
+                <button
+                    className='bg-warning text-white'
+                    style={{ width: '300px' }}>
+                    <h3>Orçamento</h3>
+                </button>
+            </div>
+
+            <div className='text-a-left margin-top-bottom-10'>
+                <span><h1>Criação de Website<i className="bi bi-window-desktop text-warning"  style={{padding: '2%'}}></i></h1></span>
+                <h3>Aqui na incommun podemos criar um site para a sua empresa
+                    Temos algumas opções para si desde landing pages, útil como cartão de visita
+                    Ou então talvez queria um loja online ou um site para promover a sua empresa
+                    sendo até possível uma combinação entre ambos
+                </h3>
+                <button
+                    className='bg-warning text-white'
+                    style={{ width: '300px' }}>
+                    <h3>Orçamento</h3>
+                </button>
+            </div>
+
+            <div className='text-a-right margin-top-bottom-10'>
+                <span><h1><i className="bi bi-pencil-fill text-warning"  style={{padding: '2%'}}></i>Identidade Visual</h1></span>
+                <h3>A incommunn oferecemos também um serviço de criação de identidades visuais
+                    Quaçlquer empresa necessita dum logotipo
+                </h3>
+                <button
+                    className='bg-warning text-white'
+                    style={{ width: '300px' }}>
+                    <h3>Orçamento</h3>
+                </button>
+            </div>
 
             <div className='display-3 text-indigo fw-bold mb-5'>
                 Página Inicial
