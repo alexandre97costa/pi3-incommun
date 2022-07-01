@@ -11,6 +11,15 @@ export default function NavDeCimaComponent(props) {
             </Link>
 
             {
+                process.env.REACT_APP_MODE === 'development' &&
+                <span className='text-danger text-center fs-5 font-monospace lh-sm'>
+                    ⚠ Em modo de desenvolvimento ⚠
+                    <br/>
+                    back office = bar aberto
+                </span>
+            }
+
+            {
                 props.auth ?
 
                     <Link
@@ -18,7 +27,8 @@ export default function NavDeCimaComponent(props) {
                         className='btn btn-outline-dark rounded-0 me-4'
                     >
                         Back Office
-                    </Link> :
+                    </Link> 
+                    :
                     <Link
                         to='/back-office/login'
                         className='btn btn-outline-dark rounded-0 me-4'

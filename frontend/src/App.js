@@ -25,11 +25,11 @@ import JumboTron from './view/forms/jumbotron'
 export default function App() {
 
 	const [perguntasObject, setPerguntasObj] = useState({})
-	const [login, setLogin] = useState(true)
+	const [login, setLogin] = useState( process.env.REACT_APP_MODE ==='development' || (!!authService?.getCurrentUser() ?? false))
 
 	useEffect(() => {
 		// console.log('user', process.env.REACT_APP_MODE === 'development' || (authService?.getCurrentUser() ?? false))
-		console.log('user', authService?.getCurrentUser() ?? false)
+		console.log('user', !!authService?.getCurrentUser() ?? false)
 		console.log('login', login)
 	}, [login])
 
