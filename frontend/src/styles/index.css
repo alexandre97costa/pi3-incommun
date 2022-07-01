@@ -17,6 +17,8 @@ body, html { scroll-behavior: smooth; }
 .text-teal { color: var(--bs-teal) }
 .bg-teal { background-color: var(--bs-teal) }
 
+.bg-purple {background-color: #660FF1;}
+
 .bg-primary-semi    { background-color: rgba( var(--bs-primary-rgb),    0.15 );}
 .bg-secondary-semi  { background-color: rgba( var(--bs-secondary-rgb),  0.2 );}
 .bg-success-semi    { background-color: rgba( var(--bs-success-rgb),    0.15);}
@@ -24,3 +26,26 @@ body, html { scroll-behavior: smooth; }
 .bg-info-semi       { background-color: rgba( var(--bs-info-rgb),       0.2 );}
 .bg-warning-semi    { background-color: rgba( var(--bs-warning-rgb),    0.18);}
 .bg-danger-semi     { background-color: rgba( var(--bs-danger-rgb),     0.18 );}
+.bg-dark-secondary-semi { background-color: rgba( var(--bs-dark-rgb),    0.65);}
+
+
+
+.icon-center{
+    text-align: center;
+}
+.text-a-left{
+    text-align: left;
+}
+.text-a-right{
+    text-align: right;
+}
+.resize-icon{
+    font-size: 50pt;
+}
+.margin-top-5{
+    margin-top: 5%;
+}
+.margin-top-bottom-10{
+    margin-top: 10%;
+    margin-bottom: 10%;
+}

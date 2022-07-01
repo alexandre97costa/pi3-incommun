@@ -17,6 +17,7 @@ import BoPiechart from './view/backoffice/piechart'
 import BoPedidosCliente from './view/backoffice/pedidos_cliente'
 
 import BoLogin from './view/backoffice/login'
+import JumboTron from './view/forms/jumbotron'
 
 
 export default function App() {
@@ -31,6 +32,7 @@ export default function App() {
 					<Route exact path='/' element={
 						<>
 							<NavDeCima />
+							<JumboTron />
 							<Main />
 						</>
 					} />
