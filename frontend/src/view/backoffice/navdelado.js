@@ -35,6 +35,10 @@ export default function NavDeLadoComponent(props) {
                     <img src={LogoIncommun} alt='incommun' className='w-75 ms-4' />
                 </Link>
 
+                {process.env.REACT_APP_MODE === 'development' &&
+                    <div className='text-danger text-center  w-100 mb-0 mb-sm-3'>BAR ABERTO</div>
+                }
+
 
                 {/* <ul id='menu' className=' nav nav-pills d-flex flex-sm-column flex-row flex-nowrap flex-shrink-1 flex-sm-grow-0 flex-grow-1 mb-sm-auto mb-0 justify-content-center align-items-center align-items-sm-start'> */}
                 <ul id='menu' className='nav d-flex flex-row flex-sm-column h-100 w-100'>
@@ -141,8 +145,8 @@ export default function NavDeLadoComponent(props) {
 
                                 <li><hr className='dropdown-divider' /></li>
 
-                                <li><button className='dropdown-item' 
-                                    onClick={e => { authService.logout(); props.setLogin(false);  navigate('/');  }}
+                                <li><button className='dropdown-item'
+                                    onClick={e => { authService.logout(); props.setLogin(false); navigate('/'); }}
                                 >
                                     <i className='bi bi-door-open me-2'></i>
                                     Log out

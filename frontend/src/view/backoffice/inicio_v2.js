@@ -173,7 +173,7 @@ export default function InicioV2Component() {
             <div className="mb-3 row">
                 <div className='col-6'>
                     <span className='h2 text-dark fw-bold'>
-                        {!!username ? 'Bem-vindo(a), ' + username +'!' : 'Bem-vindo(a)'}
+                        {!!username ? 'Bem-vindo(a), ' + username +'!' : 'Bem-vindo(a)!'}
                     </span>
                     <br />
                     <span className='fs-6 fw-normal text-muted'>
