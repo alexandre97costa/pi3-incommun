@@ -70,6 +70,17 @@ module.exports = {
                 }
             })
 
+            .then(async () => {
+                if (estadoId > 0) {
+                    await Pedido.count({
+                            where: {
+                                estado_id: estadoId
+                            }
+                        })
+                        .then(count => { response = { ...response, count: count } })
+                }
+            })
+
             
         res.json(response)
     },
