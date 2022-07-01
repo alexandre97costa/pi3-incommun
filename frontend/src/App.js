@@ -1,14 +1,15 @@
-import React, { useState, useContext, createContext, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
+import { BrowserRouter as Router, Route, Routes, Navigate, useNavigate } from 'react-router-dom'
+import authService from './view/auth.service';
 import './styles/index.css'
-import AuthService from "./view/auth.service"; 
 
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom'
 
 import NavDeCima from './view/forms/navdecima'
 import NavDeLado from './view/backoffice/navdelado'
 import Main from './view/main'
 import Form from './view/forms/form'
 
+import BoLogin from './view/backoffice/login'
 import PrivateRoute from './view/backoffice/private_route'
 import BoInicio from './view/backoffice/inicio'
 import BoInicioV2 from './view/backoffice/inicio_v2'
@@ -18,14 +19,27 @@ import BoClientes from './view/backoffice/clientes'
 import BoPiechart from './view/backoffice/piechart'
 import BoPedidosCliente from './view/backoffice/pedidos_cliente'
 
-import BoLogin from './view/backoffice/login'
 import JumboTron from './view/forms/jumbotron'
-import authService from './view/auth.service';
 
 
 export default function App() {
 
 	const [perguntasObject, setPerguntasObj] = useState({})
+	const [login, setLogin] = useState(false)
+	const [auth, setAuth] = useState(false)
+
+	useEffect(() => {
+		setAuth(process.env.REACT_APP_MODE === 'development' || (authService?.getCurrentUser() ?? false))
+		console.log('login', process.env.REACT_APP_MODE === 'development' || (authService?.getCurrentUser() ?? false))
+	}, [login])
+
+	useEffect(() => {
+		if (auth) {
+			
+
+		}
+	}, [auth])
+
 
 	return (
 		<Router>
@@ -34,7 +48,7 @@ export default function App() {
 				<Routes>
 					<Route exact path='/' element={
 						<>
-							<NavDeCima auth={!!authService.getCurrentUser()}/>
+							<NavDeCima auth={auth} />
 							<JumboTron />
 							<Main />
 						</>
@@ -42,7 +56,7 @@ export default function App() {
 
 					<Route path='/servicos-personalizados/:nome' element={
 						<>
-							<NavDeCima auth={!!authService.getCurrentUser()}/>
+							<NavDeCima auth={auth} />
 							<Form
 								perguntasObject={perguntasObject}
 								setPerguntasObj={setPerguntasObj}
@@ -52,7 +66,7 @@ export default function App() {
 
 					<Route
 						path='/back-office/login'
-						element={<BoLogin />}
+						element={<BoLogin setLogin={setLogin} />}
 
 					/>
 
@@ -61,10 +75,10 @@ export default function App() {
 
 
 					<Route path='/back-office/' element={
-						<PrivateRoute auth={!!authService.getCurrentUser()}>
-							<div className="container-fluid">
-								<div className="row vh-100">
-									<NavDeLado/>
+						<PrivateRoute auth={auth}>
+							<div className='container-fluid'>
+								<div className='row vh-100'>
+									<NavDeLado setLogin={setLogin} />
 									<BoInicio />
 								</div>
 							</div>
@@ -74,19 +88,19 @@ export default function App() {
 
 
 					<Route path='/back-office/inicio_v2' element={
-						<PrivateRoute auth={!!authService.getCurrentUser()}>
-							<div className="container-fluid">
-								<div className="row vh-100">
-									<NavDeLado/>
+						<PrivateRoute auth={auth}>
+							<div className='container-fluid'>
+								<div className='row vh-100'>
+									<NavDeLado setLogin={setLogin} />
 									<BoInicioV2 />
 								</div>
 							</div>
 						</PrivateRoute>
 					} />
 					<Route path='/back-office/clientes' element={
-						<PrivateRoute auth={!!authService.getCurrentUser()}>
-							<div className="container-fluid">
-								<div className="row vh-100">
+						<PrivateRoute auth={auth}>
+							<div className='container-fluid'>
+								<div className='row vh-100'>
 
 									<BoClientes />
 								</div>
@@ -94,9 +108,9 @@ export default function App() {
 						</PrivateRoute>
 					} />
 					<Route path='/back-office/pedidos_cliente/:Cliente' element={
-						<PrivateRoute auth={!!authService.getCurrentUser()}>
-							<div className="container-fluid">
-								<div className="row vh-100">
+						<PrivateRoute auth={auth}>
+							<div className='container-fluid'>
+								<div className='row vh-100'>
 
 									<BoPedidosCliente />
 								</div>
@@ -105,10 +119,10 @@ export default function App() {
 					} />
 
 					<Route path='/back-office/formularios' element={
-						<PrivateRoute auth={!!authService.getCurrentUser()}>
-							<div className="container-fluid">
-								<div className="row vh-100">
-									<NavDeLado/>
+						<PrivateRoute auth={auth}>
+							<div className='container-fluid'>
+								<div className='row vh-100'>
+									<NavDeLado setLogin={setLogin} />
 									<BoFormularios />
 								</div>
 							</div>
@@ -116,10 +130,10 @@ export default function App() {
 					} />
 
 					<Route path='/back-office/pedidos' element={
-						<PrivateRoute auth={!!authService.getCurrentUser()}>
-							<div className="container-fluid">
-								<div className="row vh-100">
-									<NavDeLado/>
+						<PrivateRoute auth={auth}>
+							<div className='container-fluid'>
+								<div className='row vh-100'>
+									<NavDeLado setLogin={setLogin} />
 									<BoPedidos />
 								</div>
 							</div>
@@ -127,10 +141,10 @@ export default function App() {
 					} />
 
 					<Route path='/back-office/piechart' element={
-						<PrivateRoute auth={!!authService.getCurrentUser()}>
-							<div className="container-fluid">
-								<div className="row vh-100">
-									<NavDeLado/>
+						<PrivateRoute auth={auth}>
+							<div className='container-fluid'>
+								<div className='row vh-100'>
+									<NavDeLado setLogin={setLogin} />
 									<BoPiechart />
 								</div>
 							</div>

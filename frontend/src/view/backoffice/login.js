@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
+
 import axios from 'axios';
 import AuthService from "../../view/auth.service";
 import ip from '../../ip'
@@ -36,7 +37,7 @@ export default function LoginComponent(props) {
             .then(res => {
 
                 if (res.success) {
-                    navigate('/back-office/inicio_v2')
+                    props.setLogin(true)
                 } else {
                     console.log(res)
                     setLoading(false)
