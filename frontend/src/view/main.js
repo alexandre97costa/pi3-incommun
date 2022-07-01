@@ -53,23 +53,23 @@ export default function MainComponent() {
         <div className='container p-5'>
             <div className='row row-cols-sm-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-5 gy-3'>
                 <div className='col border border-warning border-5 rounded  icon-center' >
-                    <i class="bi bi-journal-text text-warning resize-icon"><h1 className='text-dark'>Mini Questinário</h1></i>
+                    <i className="bi bi-journal-text text-warning resize-icon"><h1 className='text-dark'>Mini Questinário</h1></i>
                 </div>
 
                 <div className='icon-center margin-top-5'>
-                    <i class="bi bi-chevron-right text-warning resize-icon"></i>
+                    <i className="bi bi-chevron-right text-warning resize-icon"></i>
                 </div>
 
                 <div className='col border border-warning border-5 rounded icon-center'>
-                    <i class="bi bi-wallet2 text-warning resize-icon"><h1 className='text-dark'>Receba o orçamento</h1></i>
+                    <i className="bi bi-wallet2 text-warning resize-icon"><h1 className='text-dark'>Receba o orçamento</h1></i>
                 </div>
 
                 <div className='icon-center margin-top-5'>
-                    <i class="bi bi-chevron-right text-warning resize-icon"></i>
+                    <i className="bi bi-chevron-right text-warning resize-icon"></i>
                 </div>
 
                 <div className='col border border-warning border-5 rounded icon-center'>
-                    <i class="bi bi-geo-alt-fill text-warning resize-icon"><h1 className='text-dark'>Pedido entregue!</h1></i>
+                    <i className="bi bi-geo-alt-fill text-warning resize-icon"><h1 className='text-dark'>Pedido entregue!</h1></i>
                 </div>
             </div>
 
@@ -82,8 +82,8 @@ export default function MainComponent() {
                 </button>
             </div>
 
-            <div class='text-a-right margin-top-bottom-10'>
-                <span><h1><i class="bi bi-twitter text-warning" style={{padding: '2%'}}></i>Gestão de Redes Sociais</h1></span>
+            <div className='text-a-right margin-top-bottom-10'>
+                <span><h1><i className="bi bi-twitter text-warning" style={{padding: '2%'}}></i>Gestão de Redes Sociais</h1></span>
                 <h3>Na incommun, impulsionamos as redes sociais da sua marca.
                     Se ainda não implementou a gestão de redes sociais na sua empresa, está no sítio certo.
                     A estratégia é definida aqui. Na incommmun contamos com pacotes mensais ou
@@ -96,8 +96,8 @@ export default function MainComponent() {
                 </button>
             </div>
 
-            <div class='text-a-left margin-top-bottom-10'>
-                <span><h1>Criação de Website<i class="bi bi-window-desktop text-warning"  style={{padding: '2%'}}></i></h1></span>
+            <div className='text-a-left margin-top-bottom-10'>
+                <span><h1>Criação de Website<i className="bi bi-window-desktop text-warning"  style={{padding: '2%'}}></i></h1></span>
                 <h3>Aqui na incommun podemos criar um site para a sua empresa
                     Temos algumas opções para si desde landing pages, útil como cartão de visita
                     Ou então talvez queria um loja online ou um site para promover a sua empresa
@@ -110,8 +110,8 @@ export default function MainComponent() {
                 </button>
             </div>
 
-            <div class='text-a-right margin-top-bottom-10'>
-                <span><h1><i class="bi bi-pencil-fill text-warning"  style={{padding: '2%'}}></i>Identidade Visual</h1></span>
+            <div className='text-a-right margin-top-bottom-10'>
+                <span><h1><i className="bi bi-pencil-fill text-warning"  style={{padding: '2%'}}></i>Identidade Visual</h1></span>
                 <h3>A incommunn oferecemos também um serviço de criação de identidades visuais
                     Quaçlquer empresa necessita dum logotipo
                 </h3>
