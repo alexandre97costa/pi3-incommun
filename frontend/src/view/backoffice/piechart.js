@@ -178,11 +178,11 @@ export default function InicioComponent() {
 
                     <div className="dropdown bg-white me-2">
                         <button className=" btn btn-sm btn-outline-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                            <span className='me-2'>Resumo Estado de Pedidos</span>
+                            <span className='me-2'>Resumo de Pedidos Recusados</span>
                         </button>
                         <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><button className="dropdown-item" onClick={e => { }} type='button'>Resumo de Pedidos Recusados</button></li>
                             <li><button className="dropdown-item" onClick={e => { }} type='button'>Resumo Estado de Pedidos</button></li>
-                            <li><button className="dropdown-item" onClick={e => { }} type='button'>Resumo Motivos Recusados</button></li>
                         </ul>
                     </div>
             </div>
