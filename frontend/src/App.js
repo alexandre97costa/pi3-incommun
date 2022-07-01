@@ -25,20 +25,13 @@ import JumboTron from './view/forms/jumbotron'
 export default function App() {
 
 	const [perguntasObject, setPerguntasObj] = useState({})
-	const [login, setLogin] = useState(false)
-	const [auth, setAuth] = useState(false)
+	const [login, setLogin] = useState(true)
 
 	useEffect(() => {
-		setAuth(process.env.REACT_APP_MODE === 'development' || (authService?.getCurrentUser() ?? false))
-		console.log('login', process.env.REACT_APP_MODE === 'development' || (authService?.getCurrentUser() ?? false))
+		// console.log('user', process.env.REACT_APP_MODE === 'development' || (authService?.getCurrentUser() ?? false))
+		console.log('user', authService?.getCurrentUser() ?? false)
+		console.log('login', login)
 	}, [login])
-
-	useEffect(() => {
-		if (auth) {
-			
-
-		}
-	}, [auth])
 
 
 	return (
@@ -48,7 +41,7 @@ export default function App() {
 				<Routes>
 					<Route exact path='/' element={
 						<>
-							<NavDeCima auth={auth} />
+							<NavDeCima auth={login} />
 							<JumboTron />
 							<Main />
 						</>
@@ -56,7 +49,7 @@ export default function App() {
 
 					<Route path='/servicos-personalizados/:nome' element={
 						<>
-							<NavDeCima auth={auth} />
+							<NavDeCima auth={login} />
 							<Form
 								perguntasObject={perguntasObject}
 								setPerguntasObj={setPerguntasObj}
@@ -75,7 +68,7 @@ export default function App() {
 
 
 					<Route path='/back-office/' element={
-						<PrivateRoute auth={auth}>
+						<PrivateRoute auth={login}>
 							<div className='container-fluid'>
 								<div className='row vh-100'>
 									<NavDeLado setLogin={setLogin} />
@@ -88,7 +81,7 @@ export default function App() {
 
 
 					<Route path='/back-office/inicio_v2' element={
-						<PrivateRoute auth={auth}>
+						<PrivateRoute auth={login}>
 							<div className='container-fluid'>
 								<div className='row vh-100'>
 									<NavDeLado setLogin={setLogin} />
@@ -98,7 +91,7 @@ export default function App() {
 						</PrivateRoute>
 					} />
 					<Route path='/back-office/clientes' element={
-						<PrivateRoute auth={auth}>
+						<PrivateRoute auth={login}>
 							<div className='container-fluid'>
 								<div className='row vh-100'>
 
@@ -108,7 +101,7 @@ export default function App() {
 						</PrivateRoute>
 					} />
 					<Route path='/back-office/pedidos_cliente/:Cliente' element={
-						<PrivateRoute auth={auth}>
+						<PrivateRoute auth={login}>
 							<div className='container-fluid'>
 								<div className='row vh-100'>
 
@@ -119,7 +112,7 @@ export default function App() {
 					} />
 
 					<Route path='/back-office/formularios' element={
-						<PrivateRoute auth={auth}>
+						<PrivateRoute auth={login}>
 							<div className='container-fluid'>
 								<div className='row vh-100'>
 									<NavDeLado setLogin={setLogin} />
@@ -130,7 +123,7 @@ export default function App() {
 					} />
 
 					<Route path='/back-office/pedidos' element={
-						<PrivateRoute auth={auth}>
+						<PrivateRoute auth={login}>
 							<div className='container-fluid'>
 								<div className='row vh-100'>
 									<NavDeLado setLogin={setLogin} />
@@ -141,7 +134,7 @@ export default function App() {
 					} />
 
 					<Route path='/back-office/piechart' element={
-						<PrivateRoute auth={auth}>
+						<PrivateRoute auth={login}>
 							<div className='container-fluid'>
 								<div className='row vh-100'>
 									<NavDeLado setLogin={setLogin} />

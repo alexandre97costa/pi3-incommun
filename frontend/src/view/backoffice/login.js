@@ -38,6 +38,7 @@ export default function LoginComponent(props) {
 
                 if (res.success) {
                     props.setLogin(true)
+                    navigate('/back-office/inicio_v2')
                 } else {
                     console.log(res)
                     setLoading(false)
