@@ -4,6 +4,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import Count from './count'
 import ip from '../../ip'
+import authHeader from '../auth-header'
 
 export default function InicioComponent() {
 
@@ -19,7 +20,7 @@ export default function InicioComponent() {
     
 
     useEffect(() => {
-        axios.get(ip + '/pedidos/count?estado_id=0')
+        axios.get(ip + '/pedidos/count?estado_id=0', authHeader())
         .then(res => {
             setTotalPedidos(res.data.count)
         })
@@ -31,27 +32,27 @@ export default function InicioComponent() {
                 setDicaDoDia(res.data.content)
             })
 
-        axios.get(ip + '/pedidos/count?estado_id=4')
+        axios.get(ip + '/pedidos/count?estado_id=4', authHeader())
             .then(res => {
                 setTotalPedidosRecusados(res.data.count)
             })
 
-            axios.get(ip + '/pedidos/count?motivo_id=1')
+            axios.get(ip + '/pedidos/count?motivo_id=1', authHeader())
             .then(res => {
                 setMotivoPreco(res.data.count)
             })
 
-            axios.get(ip + '/pedidos/count?motivo_id=2')
+            axios.get(ip + '/pedidos/count?motivo_id=2', authHeader())
             .then(res => {
                 setMotivoConcorrencia(res.data.count)
             })
 
-            axios.get(ip + '/pedidos/count?motivo_id=3')
+            axios.get(ip + '/pedidos/count?motivo_id=3', authHeader())
             .then(res => {
                 setMotivoNaoEstavaEspera(res.data.count)
             })
 
-            axios.get(ip + '/pedidos/count?motivo_id=4')
+            axios.get(ip + '/pedidos/count?motivo_id=4', authHeader())
             .then(res => {
                 setMotivoOutro(res.data.count)
             })

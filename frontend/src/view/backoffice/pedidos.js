@@ -3,8 +3,9 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import Count from './count'
 import ip from '../../ip'
-
+import authHeader from '../auth-header'
 import mailImg from '../../assets/imgs/mail2.png'
+
 
 
 export default function PedidosComponent() {
@@ -20,7 +21,8 @@ export default function PedidosComponent() {
 
     useEffect(() => {
         // Get os pedidos todos (por vezes filtrados e ordenados)
-        axios.get(ip + '/pedidos/all?estado_id=' + filtroEstadoPedido)
+        axios
+            .get(ip + '/pedidos/all?estado_id=' + filtroEstadoPedido, authHeader())
             .then(res => {
                 // console.log(res.data)
                 setPedidos(res.data)
@@ -33,13 +35,13 @@ export default function PedidosComponent() {
         // Get total de pedidos
         // por defeito, sem mandar nenhuma query (nem estado nem dias),
         // conta todos os pedidos dos ultimos 30 dias
-        axios.get(ip + '/pedidos/count?estado_id=0')
+        axios.get(ip + '/pedidos/count?estado_id=0', authHeader())
             .then(res => {
                 setTotalPedidos(res.data.count)
             })
 
         // Get os estados todos que houver na bd (para o filtro/dropdown)
-        axios.get(ip + '/pedidos/all_estados')
+        axios.get(ip + '/pedidos/all_estados', authHeader())
             .then(res => {
                 setEstados(res.data)
             })
@@ -300,8 +302,8 @@ export default function PedidosComponent() {
                         <div className="modal-body">
 
                             <div className="form-floating mb-3">
-                                <input type="email" className="form-control" id="floatingInput" placeholder="name@example.com"/>
-                                    <label htmlFor="floatingInput">Email address</label>
+                                <input type="email" className="form-control" id="floatingInput" placeholder="name@example.com" />
+                                <label htmlFor="floatingInput">Email address</label>
                             </div>
                             <div className="form-floating">
                                 <textarea className="form-control" rows={4} placeholder="Leave a comment here" id="floatingTextarea"></textarea>

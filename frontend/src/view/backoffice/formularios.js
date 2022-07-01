@@ -1,7 +1,5 @@
 import axios from 'axios';
-
 import React, { useEffect, useState } from "react";
-
 import ip from '../../ip'
 
 export default function FormulariosComponente() {
