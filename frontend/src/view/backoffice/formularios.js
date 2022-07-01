@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 
 import React, { useEffect, useState } from "react";
 import ip from '../../ip'
+import authHeader from '../auth-header'
 
 export default function FormulariosComponente() {
 
@@ -19,7 +20,7 @@ export default function FormulariosComponente() {
 
 
 	useEffect(() => {
-		axios.get(ip + '/forms/all_backoffice')
+		axios.get(ip + '/forms/all_backoffice', authHeader())
 			.then(res => {
 				console.table(res.data.formularios, ['id', 'nome'])
 				setForms(res.data.formularios)
@@ -28,7 +29,7 @@ export default function FormulariosComponente() {
 
 	useEffect(() => {
 		// Get os pedidos todos (por vezes filtrados e ordenados)
-		axios.get(ip + '/forms/all_tipos_pergunta')
+		axios.get(ip + '/forms/all_tipos_pergunta', authHeader())
 			.then(res => {
 				console.log(res.data)
 				setTiposPergunta(res.data.data)
@@ -69,7 +70,7 @@ export default function FormulariosComponente() {
 				tipo_pergunta: parseInt(edittipopergunta),
 				valor_unitario: parseFloat(editvalorpergunta),
 
-			})
+			}, authHeader())
 
 			.then(function (data) {
 				window.location.reload()
