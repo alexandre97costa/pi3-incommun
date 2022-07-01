@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import authService from '../auth.service';
+import authHeader from '../auth-header'
 import Count from './count'
 import ip from '../../ip'
 
@@ -19,7 +20,7 @@ export default function InicioV2Component() {
 
     useEffect(() => {
         // Get os pedidos todos (por vezes filtrados e ordenados)
-        axios.get(ip + '/pedidos/all?estado_id=' + filtroEstadoPedido)
+        axios.get(ip + '/pedidos/all?estado_id=' + filtroEstadoPedido, authHeader())
             .then(res => {
                 // console.log(res.data)
                 setPedidos(res.data)
@@ -32,13 +33,13 @@ export default function InicioV2Component() {
         // Get total de pedidos
         // por defeito, sem mandar nenhuma query (nem estado nem dias),
         // conta todos os pedidos dos ultimos 30 dias
-        axios.get(ip + '/pedidos/count?estado_id=0')
+        axios.get(ip + '/pedidos/count?estado_id=0', authHeader())
             .then(res => {
                 setTotalPedidos(res.data.count)
             })
 
         // Get os estados todos que houver na bd (para o filtro/dropdown)
-        axios.get(ip + '/pedidos/all_estados')
+        axios.get(ip + '/pedidos/all_estados', authHeader())
             .then(res => {
                 setEstados(res.data)
             })

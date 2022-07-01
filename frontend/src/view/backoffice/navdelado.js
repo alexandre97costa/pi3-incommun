@@ -6,6 +6,7 @@ import '../../styles/navdelado.css'
 import LogoIncommun from '../../assets/imgs/logotipoincommun.png'
 
 import authService from '../auth.service';
+import authHeader from '../auth-header'
 
 export default function NavDeLadoComponent(props) {
 
@@ -15,12 +16,11 @@ export default function NavDeLadoComponent(props) {
 
     useEffect(() => {
         axios
-            .get(ip + '/pedidos/count?estado_id=1')
+            .get(ip + '/pedidos/count?estado_id=1', authHeader())
             .then(res => {
                 setPedidosPendentes(res.data.count)
             })
 
-        console.log(authService.getCurrentUser())
         let username = authService.getCurrentUser()?.username ?? 'User'
         setUsername(username)
     }, [])

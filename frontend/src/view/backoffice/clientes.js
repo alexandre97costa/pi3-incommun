@@ -3,6 +3,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import NavDeLado from './navdelado'
 import ip from '../../ip'
+import authHeader from '../auth-header'
 import mailImg from '../../assets/imgs/mail2.png'
 import { Link } from "react-router-dom";
 
@@ -15,7 +16,7 @@ export default function ClientesComponent() {
     
     useEffect(() => {
 
-        axios.get(ip + '/clientes/list?ordem=' + ordemCliente + '&filtro=' + filtroCliente )
+        axios.get(ip + '/clientes/list?ordem=' + ordemCliente + '&filtro=' + filtroCliente, authHeader() )
         .then(res => {
             if (res.data.success) {
                 const data = res.data.data;
@@ -32,7 +33,7 @@ export default function ClientesComponent() {
 
     useEffect(() => {
 
-        axios.get(ip + '/clientes/total')
+        axios.get(ip + '/clientes/total', authHeader())
         .then(res => {
             setTotalClientes(res.data.data)
         });

@@ -2,6 +2,7 @@ import axios from 'axios';
 // import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 import React, { useEffect, useState } from 'react';
 import ip from '../../ip'
+import authHeader from '../auth-header'
 
 export default function CountComponent(props) {
 
@@ -9,7 +10,7 @@ export default function CountComponent(props) {
     const [estado, setEstado] = useState('')
 
     useEffect(() => {
-        axios.get(ip + '/pedidos/count?estado_id=' + props.estadoId)
+        axios.get(ip + '/pedidos/count?estado_id=' + props.estadoId, authHeader())
         .then(res => {
             setCount(res.data.count)
             setEstado(res.data.estado)

@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import NavDeLado from './navdelado'
 import Count from './count'
 import ip from '../../ip'
+import authHeader from '../auth-header'
 import mailImg from '../../assets/imgs/mail2.png'
 import { useParams } from "react-router-dom";
 
