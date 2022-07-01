@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { nanoid } from 'nanoid';
+
 import React, { useEffect, useState } from "react";
 
 import ip from '../../ip'
@@ -12,11 +12,7 @@ export default function FormulariosComponente() {
 	const [filtroTiposPergunta, setFiltroTiposPergunta] = useState(0)
 	const [filtroTiposPerguntaDesc, setFiltroTiposPerguntaDesc] = useState('Tipos de Pergunta')
 
-	const [camptitulo, setcamptitulo] = useState("");
-	const [campdescricao, setcampdescricao] = useState("");
-	const [camptipo_pergunta, setcamptipo_pergunta] = useState("");
-	const [campvalor_unitario, setcampvalor_unitario] = useState("");
-
+	const [test, setTest] = useState("")
 
 
 	useEffect(() => {
@@ -56,6 +52,42 @@ export default function FormulariosComponente() {
 			})
 		)
 	}
+
+	function Update(e) {
+		e.preventDefault()
+
+		axios.
+		console.log(test);
+	}
+
+	function SendUpdate() {
+		// url de backend
+		axios.get(ip + '/forms/all_tipos_pergunta')
+		const datapost = {
+
+			titulo: forms.formulario.titulo,
+			descricao: forms.formulario.descricao,
+			tipo_pergunta: forms.formulario.tipo_pergunta,
+			valor_unitario: forms.formulario.valor_unitario
+
+		}
+		console.log(datapost)
+		axios.post(datapost)
+			.then(response => {
+				if (response.data.success === true) {
+					alert(response.data.message)
+				}
+				else {
+					alert("Error")
+				}
+			}).catch(error => {
+				alert("Error 34 " + error)
+			})
+
+	}
+
+
+
 
 
 	function LoadForms() {
@@ -119,15 +151,15 @@ export default function FormulariosComponente() {
 																		<td><input
 																			type="text"
 																			className="form-control focus-warning"
-																			value={pergunta.titulo}
-																			onChange={e => { }}
+																			//value={pergunta.titulo}
+
 																		/></td>
 
 																		<td><textarea
 																			rows={1}
 																			className="form-control focus-warning"
-																			value={pergunta.descricao}
-																			onChange={e => { }}
+																			//value={pergunta.descricao}
+
 																		/></td>
 
 																		<td>
@@ -141,10 +173,7 @@ export default function FormulariosComponente() {
 																						<button
 																							type='button'
 																							className="dropdown-item"
-																							onClick={e => {
-																								setFiltroTiposPergunta(0)
-																								setFiltroTiposPerguntaDesc('Tipo de Pergunta')
-																							}}>
+																						>
 																						</button>
 																					</li>
 
@@ -156,22 +185,22 @@ export default function FormulariosComponente() {
 																		<td><input
 																			type="number"
 																			className="form-control"
-																			value={pergunta.valor_unitario}
-																			onChange={e => { }}
+																			//value={pergunta.valor_unitario}
+
 																		></input></td>
 
 																		<td>
 																			<button
 																				type="button"
 																				className="btn btn btn-outline-success me-2"
-																				onClick={e => { }}
+
 																			>
-																				<i className="bi bi-save"></i>
+																				<i className="bi bi-save" onClick={() => SendUpdate()}></i>
 																			</button>
 																			<button
 																				type="button"
 																				className="btn btn btn-outline-danger"
-																				onClick={e => { }}
+
 																			>
 																				<i className="bi bi-trash3"></i>
 																			</button>
@@ -182,60 +211,70 @@ export default function FormulariosComponente() {
 															})}
 														</tbody>
 													</table>
+
+
 													<h2> Adicionar Pergunta</h2>
-													<form>
+													<form className='newformpergunta'>
+
+														<table className="table table-borderless pb-2">
+															<thead className='fw-semibold'>
+
+																<tr>
+																	<td style={{ width: "30%" }}>Titulo</td>
+																	<td style={{ width: "40%" }}>Descrição</td>
+																	<td style={{ width: "10%" }}>Tipo</td>
+																	<td style={{ width: "10%" }}>Valor</td>
+																	<td style={{ width: "10%" }}>Ação</td>
+																</tr>
+
+															</thead>
+															<tbody>
 
 
-														<input
+																<td><input
+																	className="form-control focus-warning"
+																	type="text"
+																	name="titulo"
+																	required="required"
+																	placeholder="Introduz o título da pergunta"
 
-															type="text"
-															name="titulo"
-															required="required"
-															placeholder="Introduz o título da pergunta"
-															value={camptitulo} onChange={value =>
-																setcamptitulo(value.target.value)}
+																/></td>
 
-
-														/>
-
-														<input
-															type="text"
-															name="descricao"
-															required="required"
-															placeholder="Introduz a descrição da pergunta"
-															value={campdescricao} onChange={value =>
-																setcampdescricao(value.target.value)}
+																<td><input
+																	className="form-control focus-warning"
+																	type="text"
+																	name="descricao"
+																	required="required"
+																	placeholder="Introduz a descrição da pergunta"
 
 
-														/>
+																/></td>
 
-														<input
-															type="text"
-															name="tipo_pergunta"
-															required="required"
-															placeholder="Introduz o tipo da pergunta"
-															value={camptipo_pergunta} onChange={value =>
-																setcamptipo_pergunta(value.target.value)}
+																<td><input
+																	className="form-control focus-warning"
 
-
-														/>
-
-														<input
-															type="number"
-															name="valor_unitario"
-															required="required"
-															placeholder="Introduz valor da pergunta"
-															value={campvalor_unitario} onChange={value =>
-																setcampvalor_unitario(value.target.value)}
+																	type="dropdown"
+																	name="tipo_pergunta"
+																	required="required"
+																	placeholder="Introduz o tipo da pergunta"
 
 
+																/></td>
 
-														/>
+																<td>	<input
+																	className="form-control focus-warning"
+																	type="number"
+																	name="valor_unitario"
+																	required="required"
+																	placeholder="Introduz valor da pergunta"
 
-														<button type="submit" className="btn btn-primary"
-															onClick={() => NovaPergunta()}>Adicionar</button>
+																/></td>
 
+																<button type="submit" className="btn btn-primary" >Adicionar</button>
+															</tbody>
+														</table>
 													</form>
+
 												</div>
 											</div>
 										</div>
@@ -255,44 +294,7 @@ export default function FormulariosComponente() {
 		})
 	}
 
-	function NovaPergunta() {
-		if (camptitulo === "") {
-			alert("Insere o título")
-		}
-		else if (campdescricao === "") {
-			alert("Insere a descrição")
-		}
-		else if (camptipo_pergunta === "") {
-			alert("Escolhe o tipo de pergunta")
-		}
-		else if (campvalor_unitario === "") {
-			alert("Define o valor")
-		}
-		else {
-			const baseUrl = "http://localhost:4011/forms/create"
-			const datapost = {
-				titulo: camptitulo,
-				descricao: campdescricao,
-				tipo_pergunta: camptipo_pergunta,
-				valor_unitario: campvalor_unitario,
-			}
-			axios.post(baseUrl, datapost)
-				.then(response => {
-					if (response.data.success === true) {
-						alert(response.data.message)
-					}
-					else {
-						alert(response.data.message)
-					}
-				}).catch(error => {
-					alert("Error 34 " + error)
-				})
-		}
-	}
-
 	return (
-
-
 
 		<div className="col overflow-auto h-sm-100 px-5 pt-4">
 
@@ -306,12 +308,30 @@ export default function FormulariosComponente() {
 			</div>
 
 			<div className='row'>
+
+				<form onSubmit={ e => Update(e)}>
+					<input
+						className="form-control focus-warning"
+						type="text"
+						name="titulo"
+						required="required"
+						placeholder="Introduz o titulo"
+						value = {test} onChange = {e => setTest(e.target.value)}
+					/>
+
+					<button type="submit" className="btn btn-primary" >Adicionar</button>
+
+				</form>
+
+
+
 				<div className="accordion accordion-flush" id="form-accordion">
 					<LoadForms />
+
 				</div>
 			</div>
 
 		</div>
 	)
 
-}
+};

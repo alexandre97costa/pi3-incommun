@@ -88,8 +88,7 @@ module.exports = {
     },
 
     // ADICIONAR NOVA PERGUNTA
-
-    create : async (req, res) => {
+    create: async (req, res) => {
         // data
         const { titulo, descricao, tipo_pergunta, valor_unitario
         } = req.body;
@@ -115,48 +114,66 @@ module.exports = {
         });
     },
 
+    //EDITAR PERGUNTA
+
+    edit: async (req, res) => {
+        const { titulo } = req.body;
+
+        const data = await Formulario.update(
+            {
+                titulo: titulo,
+            })
+            .then(function (data) {
+                return data;
+            })
+            .catch(error => {
+                return error;
+            })
+
+        res.json({ success: true, data: data, message: "Atualizado com sucesso" });
+    },
 
 
-        one: async (req, res) => {
+    one: async (req, res) => {
 
-            const id = req.query.id
-            if (id == undefined) {
-                throw new Error('id undefined!!')
-                return
-            }
+        const id = req.query.id
+        if (id == undefined) {
+            throw new Error('id undefined!!')
+            return
+        }
 
-            await sequelize.sync()
-                .then(async () => {
-                    await Formulario
-                        .findOne({
-                            where: {
-                                id: id
-                            },
+        await sequelize.sync()
+            .then(async () => {
+                await Formulario
+                    .findOne({
+                        where: {
+                            id: id
+                        },
+                        include: [{
+                            model: Grupo,
+                            attributes: ['id', 'titulo'],
                             include: [{
-                                model: Grupo,
-                                attributes: ['id', 'titulo'],
+                                model: Pergunta,
+                                // Não se inclui o attr valor_unitario para que não esteja 
+                                // acessivel de maneira nenhuma no lado do cliente
+                                attributes: ['id', 'titulo', 'descricao', 'tipo_id'],
                                 include: [{
-                                    model: Pergunta,
-                                    // Não se inclui o attr valor_unitario para que não esteja 
-                                    // acessivel de maneira nenhuma no lado do cliente
-                                    attributes: ['id', 'titulo', 'descricao', 'tipo_id'],
-                                    include: [{
-                                        model: TipoPergunta,
-                                        as: 'tipo_pergunta',
-                                        attributes: ['id', 'titulo']
-                                    }]
+                                    model: TipoPergunta,
+                                    as: 'tipo_pergunta',
+                                    attributes: ['id', 'titulo']
                                 }]
-                            }],
-                            order: [
-                                [Grupo, 'id', 'ASC'],
-                                [Grupo, Pergunta, 'id', 'ASC'],
-                                [Grupo, Pergunta, TipoPergunta, 'id', 'ASC']
-                            ]
-                        })
-                        .then(formulario => {
-                            console.log('\x1b[36m/forms/one \x1b[0m' + formulario.titulo)
-                            res.send(formulario)
-                        })
-                })
-        },
+                            }]
+                        }],
+                        order: [
+                            [Grupo, 'id', 'ASC'],
+                            [Grupo, Pergunta, 'id', 'ASC'],
+                            [Grupo, Pergunta, TipoPergunta, 'id', 'ASC']
+                        ]
+                    })
+                    .then(formulario => {
+                        console.log('\x1b[36m/forms/one \x1b[0m' + formulario.titulo)
+                        res.send(formulario)
+                    })
+            })
+    },
 }

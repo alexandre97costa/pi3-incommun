@@ -13,6 +13,9 @@ module.exports = {
         // filtra por dias de idade (conta pedidos com até 30 dias de idade por exemplo)
         const dias = req.query.dias ?? 30
 
+        //motivo recusa bd
+        const motivoId = req.query.motivo_id ?? 0
+
         let response = {}
 
         await sequelize.sync()
@@ -55,6 +58,19 @@ module.exports = {
                     })
                 }
             })
+
+            .then(async () => {
+                if (motivoId > 0) {
+                    await Pedido.count({
+                            where: {
+                                motivo_id: motivoId
+                            }
+                        })
+                        .then(count => { response = { ...response, count: count } })
+                }
+            })
+
+            
         res.json(response)
     },
 

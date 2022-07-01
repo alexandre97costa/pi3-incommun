@@ -98,7 +98,7 @@ INSERT INTO pergunta (id, grupo_id, valor_unitario, tipo_id, created_at, updated
 /*Extras*/
 (1, 1,   12.3, 1,    CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Deseja comprar um dominio?',        'O domínio é a url do seu site. (www.oseusite.pt)'),
 (2, 1,   12.3, 1,    CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Pretende obter hospedagem?',        'A hospedagem é o local onde o seu site é guardado'),
-(3, 1,   12.3, 1,    CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Deseja a criação dum portfolio?',   'Caso tenha trabalhos anterioes que queira mostrar um portfolio é a melhor opção para tal'),
+(3, 1,   12.3, 1,    CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Deseja a criação de um portfolio?',   'Caso tenha trabalhos anteriores que queira mostrar um portfolio é a melhor opção para tal'),
 (4, 1,   12.3, 1,    CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Ja possui conteudos textuais?',     'Já possui os textos que iram aparecer no site para falar sobre o seu negocio'),
 
 /****************************************** Perguntas Site Institucional ******************************************/
