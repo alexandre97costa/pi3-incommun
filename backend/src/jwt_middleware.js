@@ -12,9 +12,7 @@ module.exports = {
             return;
         }
 
-        console.log(req.headers)
         let token = req.headers['x-access-token'] || req.headers['authorization'];
-        console.log('token', !!token)
 
         if (!token) {
             res.status(401).json({
