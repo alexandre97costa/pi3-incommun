@@ -1,5 +1,6 @@
 import React, { useState, useContext, createContext, useEffect } from 'react'
 import './styles/index.css'
+import AuthService from "./view/auth.service"; 
 
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom'
 
@@ -19,28 +20,12 @@ import BoPedidosCliente from './view/backoffice/pedidos_cliente'
 
 import BoLogin from './view/backoffice/login'
 import JumboTron from './view/forms/jumbotron'
+import authService from './view/auth.service';
 
 
 export default function App() {
 
 	const [perguntasObject, setPerguntasObj] = useState({})
-
-	// ! false para funcionar como deve ser, true para entrada livre 
-	const [isLoggedIn, setLoggedIn] = useState(true)
-
-	useEffect(() => {
-		console.log('isLoggedIn =>', isLoggedIn)
-	}, [isLoggedIn])
-
-	// function isLoggedIn() {
-	// 	console.log(JSON.parse(localStorage.getItem('user')))
-
-	// 	// ! Usa-se este quando se tem um user_incommun na BD
-	// 	return JSON.parse(localStorage.getItem('user'))?.success ?? false
-
-	// 	// 		⬇    se quiserem simular um logout, trocar o true por false 
-	// 	// return true
-	// }
 
 	return (
 		<Router>
@@ -49,7 +34,7 @@ export default function App() {
 				<Routes>
 					<Route exact path='/' element={
 						<>
-							<NavDeCima auth={isLoggedIn}/>
+							<NavDeCima auth={!!authService.getCurrentUser()}/>
 							<JumboTron />
 							<Main />
 						</>
@@ -57,7 +42,7 @@ export default function App() {
 
 					<Route path='/servicos-personalizados/:nome' element={
 						<>
-							<NavDeCima auth={isLoggedIn}/>
+							<NavDeCima auth={!!authService.getCurrentUser()}/>
 							<Form
 								perguntasObject={perguntasObject}
 								setPerguntasObj={setPerguntasObj}
@@ -67,7 +52,7 @@ export default function App() {
 
 					<Route
 						path='/back-office/login'
-						element={<BoLogin setLoggedIn={setLoggedIn} />}
+						element={<BoLogin />}
 
 					/>
 
@@ -76,10 +61,10 @@ export default function App() {
 
 
 					<Route path='/back-office/' element={
-						<PrivateRoute auth={isLoggedIn}>
+						<PrivateRoute auth={!!authService.getCurrentUser()}>
 							<div className="container-fluid">
 								<div className="row vh-100">
-									<NavDeLado setLoggedIn={setLoggedIn}/>
+									<NavDeLado/>
 									<BoInicio />
 								</div>
 							</div>
@@ -89,17 +74,17 @@ export default function App() {
 
 
 					<Route path='/back-office/inicio_v2' element={
-						<PrivateRoute auth={isLoggedIn}>
+						<PrivateRoute auth={!!authService.getCurrentUser()}>
 							<div className="container-fluid">
 								<div className="row vh-100">
-									<NavDeLado setLoggedIn={setLoggedIn}/>
+									<NavDeLado/>
 									<BoInicioV2 />
 								</div>
 							</div>
 						</PrivateRoute>
 					} />
 					<Route path='/back-office/clientes' element={
-						<PrivateRoute auth={isLoggedIn}>
+						<PrivateRoute auth={!!authService.getCurrentUser()}>
 							<div className="container-fluid">
 								<div className="row vh-100">
 
@@ -109,7 +94,7 @@ export default function App() {
 						</PrivateRoute>
 					} />
 					<Route path='/back-office/pedidos_cliente/:Cliente' element={
-						<PrivateRoute auth={isLoggedIn}>
+						<PrivateRoute auth={!!authService.getCurrentUser()}>
 							<div className="container-fluid">
 								<div className="row vh-100">
 
@@ -120,10 +105,10 @@ export default function App() {
 					} />
 
 					<Route path='/back-office/formularios' element={
-						<PrivateRoute auth={isLoggedIn}>
+						<PrivateRoute auth={!!authService.getCurrentUser()}>
 							<div className="container-fluid">
 								<div className="row vh-100">
-									<NavDeLado setLoggedIn={setLoggedIn}/>
+									<NavDeLado/>
 									<BoFormularios />
 								</div>
 							</div>
@@ -131,10 +116,10 @@ export default function App() {
 					} />
 
 					<Route path='/back-office/pedidos' element={
-						<PrivateRoute auth={isLoggedIn}>
+						<PrivateRoute auth={!!authService.getCurrentUser()}>
 							<div className="container-fluid">
 								<div className="row vh-100">
-									<NavDeLado setLoggedIn={setLoggedIn}/>
+									<NavDeLado/>
 									<BoPedidos />
 								</div>
 							</div>
@@ -142,10 +127,10 @@ export default function App() {
 					} />
 
 					<Route path='/back-office/piechart' element={
-						<PrivateRoute auth={isLoggedIn}>
+						<PrivateRoute auth={!!authService.getCurrentUser()}>
 							<div className="container-fluid">
 								<div className="row vh-100">
-									<NavDeLado setLoggedIn={setLoggedIn}/>
+									<NavDeLado/>
 									<BoPiechart />
 								</div>
 							</div>

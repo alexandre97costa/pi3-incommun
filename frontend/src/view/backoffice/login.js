@@ -36,11 +36,9 @@ export default function LoginComponent(props) {
             .then(res => {
 
                 if (res.success) {
-                    props.setLoggedIn(true)
                     navigate('/back-office/inicio_v2')
                 } else {
                     console.log(res)
-                    props.setLoggedIn(false)
                     setLoading(false)
                     btn.classList.add('btn-danger')
                     btnText.textContent = res.response.data.message

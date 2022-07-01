@@ -7,7 +7,7 @@ import LogoIncommun from '../../assets/imgs/logotipoincommun.png'
 
 import authService from '../auth.service';
 
-export default function NavDeLadoComponent(props) {
+export default function NavDeLadoComponent() {
 
     const [pedidosPendentes, setPedidosPendentes] = useState(0)
     const [username, setUsername] = useState('')
@@ -20,6 +20,7 @@ export default function NavDeLadoComponent(props) {
                 setPedidosPendentes(res.data.count)
             })
 
+        console.log(authService.getCurrentUser())
         let username = authService.getCurrentUser()?.username ?? 'User'
         setUsername(username)
     }, [])
@@ -141,7 +142,7 @@ export default function NavDeLadoComponent(props) {
                                 <li><hr className="dropdown-divider" /></li>
 
                                 <li><button className="dropdown-item" 
-                                    onClick={e => { authService.logout(); props.setLoggedIn(false); navigate('/');  }}
+                                    onClick={e => { authService.logout();  navigate('/');  }}
                                 >
                                     <i className='bi bi-door-open me-2'></i>
                                     Log out
