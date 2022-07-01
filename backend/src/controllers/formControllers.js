@@ -95,7 +95,7 @@ module.exports = {
         const data = await Pergunta.update(
             
                 { titulo: titulo},
-                { where: {id : idpergunta} }
+                { where: {id : 2} }
             )
             .then(function (data) {
                 return data;

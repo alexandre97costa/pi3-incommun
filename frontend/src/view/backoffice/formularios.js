@@ -12,7 +12,7 @@ export default function FormulariosComponente() {
 	const [filtroTiposPergunta, setFiltroTiposPergunta] = useState(0)
 	const [filtroTiposPerguntaDesc, setFiltroTiposPerguntaDesc] = useState('Tipos de Pergunta')
 
-	const [test, setTest] = useState("")
+	const [edittitulopergunta, seteditTituloPergunta] = useState("")
 
 	const [idpergunta, setidpergunta] = useState("")
 
@@ -57,12 +57,12 @@ export default function FormulariosComponente() {
 
 
 
-	function Update(e) {
+	function UpdateTituloPergunta(e) {
 		e.preventDefault()
 		let idpergunta = e.target.getAttribute('data-id')
 
 		axios.post(ip + '/forms/edit', {
-			titulo: test ,
+			titulo: edittitulopergunta ,
 			idpergunta : idpergunta,
 		})
 
@@ -294,14 +294,14 @@ export default function FormulariosComponente() {
 
 			<div className='row'>
 
-				<form onSubmit={ e => Update(e)}>
+				<form onSubmit={ e => UpdateTituloPergunta(e)}>
 					<input
 						className="form-control focus-warning"
 						type="text"
 						name="titulo"
 						required="required"
 						placeholder="Introduz o titulo"
-						value = {test} onChange = {e => setTest(e.target.value)}
+						value = {edittitulopergunta} onChange = {e => seteditTituloPergunta(e.target.value)}
 					/>
 
 					<button type="submit" className="btn btn-primary" >Adicionar</button>
