@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
+
 import axios from 'axios';
 import AuthService from "../../view/auth.service";
 import ip from '../../ip'
@@ -8,7 +9,7 @@ import LogoIncommun from '../../assets/imgs/logotipoincommun.png'
 
 
 
-export default function LoginComponent() {
+export default function LoginComponent(props) {
 
     const [loading, setLoading] = useState(false)
     const [userEmail, setUserEmail] = useState('')
@@ -36,6 +37,7 @@ export default function LoginComponent() {
             .then(res => {
 
                 if (res.success) {
+                    props.setLogin(true)
                     navigate('/back-office/inicio_v2')
                 } else {
                     console.log(res)

@@ -12,7 +12,9 @@ export default function FormulariosComponente() {
 	const [filtroTiposPergunta, setFiltroTiposPergunta] = useState(0)
 	const [filtroTiposPerguntaDesc, setFiltroTiposPerguntaDesc] = useState('Tipos de Pergunta')
 
-	const [test, setTest] = useState("")
+	const [edittitulopergunta, seteditTituloPergunta] = useState("")
+
+	const [idpergunta, setidpergunta] = useState("")
 
 
 	useEffect(() => {
@@ -53,41 +55,24 @@ export default function FormulariosComponente() {
 		)
 	}
 
-	function Update(e) {
+
+
+	function UpdateTituloPergunta(e) {
 		e.preventDefault()
+		let idpergunta = e.target.getAttribute('data-id')
 
-		axios.
-		console.log(test);
+		axios.post(ip + '/forms/edit', {
+			titulo: edittitulopergunta ,
+			idpergunta : idpergunta,
+		})
+
+		.then(function (data) {
+			window.location.reload()
+        })
+        .catch(error => {
+            return error;
+        })
 	}
-
-	function SendUpdate() {
-		// url de backend
-		axios.get(ip + '/forms/all_tipos_pergunta')
-		const datapost = {
-
-			titulo: forms.formulario.titulo,
-			descricao: forms.formulario.descricao,
-			tipo_pergunta: forms.formulario.tipo_pergunta,
-			valor_unitario: forms.formulario.valor_unitario
-
-		}
-		console.log(datapost)
-		axios.post(datapost)
-			.then(response => {
-				if (response.data.success === true) {
-					alert(response.data.message)
-				}
-				else {
-					alert("Error")
-				}
-			}).catch(error => {
-				alert("Error 34 " + error)
-			})
-
-	}
-
-
-
 
 
 	function LoadForms() {
@@ -151,14 +136,14 @@ export default function FormulariosComponente() {
 																		<td><input
 																			type="text"
 																			className="form-control focus-warning"
-																			//value={pergunta.titulo}
+																			value={pergunta.titulo}
 
 																		/></td>
 
 																		<td><textarea
 																			rows={1}
 																			className="form-control focus-warning"
-																			//value={pergunta.descricao}
+																			value={pergunta.descricao}
 
 																		/></td>
 
@@ -185,7 +170,7 @@ export default function FormulariosComponente() {
 																		<td><input
 																			type="number"
 																			className="form-control"
-																			//value={pergunta.valor_unitario}
+																			value={pergunta.valor_unitario}
 
 																		></input></td>
 
@@ -195,7 +180,7 @@ export default function FormulariosComponente() {
 																				className="btn btn btn-outline-success me-2"
 
 																			>
-																				<i className="bi bi-save" onClick={() => SendUpdate()}></i>
+																				<i className="bi bi-save"></i>
 																			</button>
 																			<button
 																				type="button"
@@ -309,14 +294,14 @@ export default function FormulariosComponente() {
 
 			<div className='row'>
 
-				<form onSubmit={ e => Update(e)}>
+				<form onSubmit={ e => UpdateTituloPergunta(e)}>
 					<input
 						className="form-control focus-warning"
 						type="text"
 						name="titulo"
 						required="required"
 						placeholder="Introduz o titulo"
-						value = {test} onChange = {e => setTest(e.target.value)}
+						value = {edittitulopergunta} onChange = {e => seteditTituloPergunta(e.target.value)}
 					/>
 
 					<button type="submit" className="btn btn-primary" >Adicionar</button>

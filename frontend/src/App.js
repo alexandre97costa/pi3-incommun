@@ -1,13 +1,16 @@
-import React, { useState, useContext, createContext } from 'react'
+import React, { useState, useEffect } from 'react'
+import { BrowserRouter as Router, Route, Routes, Navigate, useNavigate } from 'react-router-dom'
+import authService from './view/auth.service';
 import './styles/index.css'
 
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom'
 
 import NavDeCima from './view/forms/navdecima'
 import NavDeLado from './view/backoffice/navdelado'
 import Main from './view/main'
 import Form from './view/forms/form'
 
+import BoLogin from './view/backoffice/login'
+import PrivateRoute from './view/backoffice/private_route'
 import BoInicio from './view/backoffice/inicio'
 import BoInicioV2 from './view/backoffice/inicio_v2'
 import BoPedidos from './view/backoffice/pedidos'
@@ -16,21 +19,20 @@ import BoClientes from './view/backoffice/clientes'
 import BoPiechart from './view/backoffice/piechart'
 import BoPedidosCliente from './view/backoffice/pedidos_cliente'
 
-import BoLogin from './view/backoffice/login'
 import JumboTron from './view/forms/jumbotron'
 
 
 export default function App() {
 
 	const [perguntasObject, setPerguntasObj] = useState({})
+	const [login, setLogin] = useState( process.env.REACT_APP_MODE ==='development' || (!!authService?.getCurrentUser() ?? false))
 
-	function isLoggedIn() {
-		// ! Usa-se este quando se tem um user_incommun na BD
-		// return !!localStorage.getItem('user')
+	useEffect(() => {
+		// console.log('user', process.env.REACT_APP_MODE === 'development' || (authService?.getCurrentUser() ?? false))
+		console.log('user', !!authService?.getCurrentUser() ?? false)
+		console.log('login', login)
+	}, [login])
 
-		// 		⬇    se quiserem simular um logout, trocar o true por false 
-		return true
-	}
 
 	return (
 		<Router>
@@ -39,7 +41,7 @@ export default function App() {
 				<Routes>
 					<Route exact path='/' element={
 						<>
-							<NavDeCima />
+							<NavDeCima auth={login} />
 							<JumboTron />
 							<Main />
 						</>
@@ -47,7 +49,7 @@ export default function App() {
 
 					<Route path='/servicos-personalizados/:nome' element={
 						<>
-							<NavDeCima />
+							<NavDeCima auth={login} />
 							<Form
 								perguntasObject={perguntasObject}
 								setPerguntasObj={setPerguntasObj}
@@ -55,88 +57,101 @@ export default function App() {
 						</>
 					} />
 
-					<Route 
+					<Route
 						path='/back-office/login'
-						element={<BoLogin />}
+						element={<BoLogin setLogin={setLogin} />}
 
 					/>
 
+
+
+
+
 					<Route path='/back-office/' element={
-						isLoggedIn() ?
-						<div className="container-fluid">
-							<div className="row vh-100">
-								<NavDeLado />
-								<BoInicio />
+						<PrivateRoute auth={login}>
+							<div className='container-fluid'>
+								<div className='row vh-100'>
+									<NavDeLado setLogin={setLogin} />
+									<BoInicio />
+								</div>
 							</div>
-						</div>
-						:<Navigate to='/' replace={true} />
+						</PrivateRoute>
 					} />
 
+
+
 					<Route path='/back-office/inicio_v2' element={
-						isLoggedIn() ?
-						<div className="container-fluid">
-							<div className="row vh-100">
-								<NavDeLado />
-								<BoInicioV2 />
+						<PrivateRoute auth={login}>
+							<div className='container-fluid'>
+								<div className='row vh-100'>
+									<NavDeLado setLogin={setLogin} />
+									<BoInicioV2 />
+								</div>
 							</div>
-						</div>
-						:<Navigate to='/' replace={true} />
+						</PrivateRoute>
 					} />
 					<Route path='/back-office/clientes' element={
-						isLoggedIn() ?
-						<div className="container-fluid">
-							<div className="row vh-100">
-								
-								<BoClientes />
+						<PrivateRoute auth={login}>
+							<div className='container-fluid'>
+								<div className='row vh-100'>
+
+									<BoClientes />
+								</div>
 							</div>
-						</div>
-						:<Navigate to='/' replace={true} />
+						</PrivateRoute>
 					} />
 					<Route path='/back-office/pedidos_cliente/:Cliente' element={
-						isLoggedIn() ?
-						<div className="container-fluid">
-							<div className="row vh-100">
-								
-								<BoPedidosCliente />
+						<PrivateRoute auth={login}>
+							<div className='container-fluid'>
+								<div className='row vh-100'>
+
+									<BoPedidosCliente />
+								</div>
 							</div>
-						</div>
-						:<Navigate to='/' replace={true} />
+						</PrivateRoute>
 					} />
 
 					<Route path='/back-office/formularios' element={
-						isLoggedIn() ?
-						<div className="container-fluid">
-							<div className="row vh-100">
-								<NavDeLado />
-								<BoFormularios />
+						<PrivateRoute auth={login}>
+							<div className='container-fluid'>
+								<div className='row vh-100'>
+									<NavDeLado setLogin={setLogin} />
+									<BoFormularios />
+								</div>
 							</div>
-						</div>
-						:<Navigate to='/' replace={true} />
+						</PrivateRoute>
 					} />
 
 					<Route path='/back-office/pedidos' element={
-						isLoggedIn() ?
-						<div className="container-fluid">
-							<div className="row vh-100">
-								<NavDeLado />
-								<BoPedidos />
+						<PrivateRoute auth={login}>
+							<div className='container-fluid'>
+								<div className='row vh-100'>
+									<NavDeLado setLogin={setLogin} />
+									<BoPedidos />
+								</div>
 							</div>
-						</div>
-						:<Navigate to='/' replace={true} />
+						</PrivateRoute>
 					} />
 
 					<Route path='/back-office/piechart' element={
-						isLoggedIn() ?
-						<div className="container-fluid">
-							<div className="row vh-100">
-								<NavDeLado />
-								<BoPiechart />
+						<PrivateRoute auth={login}>
+							<div className='container-fluid'>
+								<div className='row vh-100'>
+									<NavDeLado setLogin={setLogin} />
+									<BoPiechart />
+								</div>
 							</div>
-						</div>
-						:<Navigate to='/' replace={true} />
+						</PrivateRoute>
 					} />
 
+
+
+					{/* se o link nao existir (404), aparece a pagina inicial */}
+					<Route path='*' element={
+						<Navigate to='/' replace={true} />
+					} />
 				</Routes>
+
 			</div>
 		</Router>
 	);

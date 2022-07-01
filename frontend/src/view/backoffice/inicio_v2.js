@@ -1,6 +1,7 @@
-import axios from 'axios';
 // import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import authService from '../auth.service';
 import Count from './count'
 import ip from '../../ip'
 
@@ -12,6 +13,7 @@ export default function InicioV2Component() {
     const [filtroEstadoPedido, setFiltroEstadoPedido] = useState(0)
     const [filtroEstadoPedidoDesc, setFiltroEstadoPedidoDesc] = useState('Todos os pedidos')
 
+    const [username, setUsername] = useState('')
     const [dicaDoDia, setDicaDoDia] = useState('')
     const [autorDica, setAutorDica] = useState('')
 
@@ -48,7 +50,7 @@ export default function InicioV2Component() {
                 setDicaDoDia(res.data.content)
             })
 
-
+        setUsername(authService.getCurrentUser()?.username ?? '')
     }, [])
 
 
@@ -171,7 +173,7 @@ export default function InicioV2Component() {
             <div className="mb-3 row">
                 <div className='col-6'>
                     <span className='h2 text-dark fw-bold'>
-                        BEM VINDO
+                        {!!username ? 'Bem-vindo(a), ' + username +'!' : 'Bem-vindo(a)!'}
                     </span>
                     <br />
                     <span className='fs-6 fw-normal text-muted'>

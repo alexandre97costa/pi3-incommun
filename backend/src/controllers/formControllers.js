@@ -87,42 +87,16 @@ module.exports = {
         res.json({ success: true, data: data })
     },
 
-    // ADICIONAR NOVA PERGUNTA
-    create: async (req, res) => {
-        // data
-        const { titulo, descricao, tipo_pergunta, valor_unitario
-        } = req.body;
-        // create
-        const data = await formController.create({
-            titulo: titulo,
-            descricao: descricao,
-            tipo_pergunta: tipo_pergunta,
-            valor_unitario: valor_unitario,
-        })
-            .then(function (data) {
-                return data;
-            })
-            .catch(error => {
-                console.log("Erro: " + error)
-                return error;
-            })
-        // return res
-        res.status(200).json({
-            success: true,
-            message: "Pergunta Adicionada",
-            data: data
-        });
-    },
-
-    //EDITAR PERGUNTA
-
+    //EDITAR TITULO DE FORMULÁRIO 
     edit: async (req, res) => {
-        const { titulo } = req.body;
+        console.log(req.body)
+        const { titulo, idpergunta } = req.body;
 
-        const data = await Formulario.update(
-            {
-                titulo: titulo,
-            })
+        const data = await Pergunta.update(
+            
+                { titulo: titulo},
+                { where: {id : 2} }
+            )
             .then(function (data) {
                 return data;
             })
