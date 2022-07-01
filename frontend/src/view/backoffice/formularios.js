@@ -1,6 +1,4 @@
 import axios from 'axios';
-import { useParams } from "react-router-dom";
-
 import React, { useEffect, useState } from "react";
 import ip from '../../ip'
 import authHeader from '../auth-header'
@@ -124,7 +122,7 @@ export default function FormulariosComponente() {
 												aria-labelledby={'#grupo-' + grupo.id}
 											>
 												<div className='accordion-body'>
-													<table className="table table-borderless">
+													<table className="table table-hover">
 														<thead className='fw-semibold'>
 															<tr>
 																<td style={{ width: "30%" }}>Titulo</td>
@@ -141,25 +139,28 @@ export default function FormulariosComponente() {
 																	<tr key={pergunta.id}>
 
 																		<td>
-
-																			<input
-																				type="text"
-																				className="form-control focus-warning"
-																				defaultValue={pergunta.titulo}
-																			/>
+																			<div className="">
+																				<p className="fs-6 fw-normal text-secundary text-start p-2" >{pergunta.titulo}</p>
+																			</div>
 																		</td>
 
-																		<td><textarea
-																			rows={1}
-																			className="form-control focus-warning"
-																			defaultValue={pergunta.descricao}
+																		<td>
 
-																		/></td>
+																			<div className="">
+																				<p className="fs-6 fw-normal text-secundary text-start p-2">{pergunta.descricao}</p>
+																			</div></td>
 
 																		<td>
-																			<div className="dropdown bg-white me-2">
+
+																			<div className="">
+																				<p className="fs-6 fw-normal text-secundary text-center p-2">{pergunta.tipo_pergunta.titulo}</p>
+																			</div>
+
+
+
+																			{/* <div className="dropdown bg-white me-2">
 																				<button className=" btn btn btn-outline-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-																					
+
 																					<span className='me-2'>{pergunta.tipo_pergunta.titulo}</span>
 																				</button>
 																				<ul className="dropdown-menu">
@@ -173,20 +174,91 @@ export default function FormulariosComponente() {
 
 																					<LoadTiposPergunta />
 																				</ul>
+																			</div> */}
+																		</td>
+
+																		<td>
+																			<div className="">
+																				<p className="fs-6 fw-normal text-secundary text-center p-2">{pergunta.valor_unitario}</p>
 																			</div>
 																		</td>
 
-																		<td><input
-																			type="number"
-																			className="form-control"
-																			defaultValue={pergunta.valor_unitario}
-
-																		></input></td>
-
+																		{/* BOTÃO EDITAR QUE NOS LEVA Á MODAL EDITAR PERGUNTA */}
 																		<td>
-																			<button type="submit" className="btn btn btn-outline-success me-2"
-																				onClick={() => UpdateTituloPergunta()}>edit<i className="bi bi-save"></i></button>
+																			<div>
+																				<button type="button" className="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#editarPergunta">
+																					<i className="bi bi-save"></i>
+																				</button>
 
+																				{/* MODAL QUE SE ABRE */}
+
+
+																				<div className="modal fade" id="editarPergunta" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+																					<div className="modal-dialog">
+																						<div className="modal-content">
+																							<div className="modal-header">
+																								<h5 className="modal-title" id="exampleModalLabel">Editar Pergunta</h5>
+																								<button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+																							</div>
+																							<div className="modal-body">
+
+
+																								<form onSubmit={e => UpdateTituloPergunta(e)}>
+																									<input
+																										className="form-control focus-warning"
+																										type="text"
+																										name="titulo"
+																										required="required"
+																										placeholder="Introduz o titulo"
+																										value={edittitulopergunta} onChange={e => seteditTituloPergunta(e.target.value)}
+																									/>
+
+																									<input
+																										className="form-control focus-warning"
+																										type="text"
+																										name="descricao"
+																										required="required"
+																										placeholder="Introduz a descrição"
+																										value={editdescricaopergunta} onChange={e => seteditdescricaopergunta(e.target.value)}
+																									/>
+
+
+																									<input
+																										className="form-control focus-warning"
+																										type="text"
+																										name="tipo_pergunta"
+																										required="required"
+																										placeholder="Introduz o tipo de pergunta"
+																										value={edittipopergunta} onChange={e => setedittipopergunta(e.target.value)}
+																									/>
+
+
+
+
+																									<input
+																										className="form-control focus-warning"
+																										type="number"
+																										name="valor_unitario"
+																										required="required"
+																										placeholder="Introduz o valor da pergunta"
+																										value={editvalorpergunta} onChange={e => seteditvalorpergunta(e.target.value)}
+																									/>																								
+
+																								</form>
+
+
+
+
+
+																							</div>
+																							<div className="modal-footer">
+																								<button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+																								<button type="button" className="btn btn-primary">Guardar Alterações</button>
+																							</div>
+																						</div>
+																					</div>
+																				</div>
+																			</div>
 
 
 																			<button type="button" className="btn btn btn-outline-danger"
@@ -301,49 +373,7 @@ export default function FormulariosComponente() {
 
 			<div className='row'>
 
-				<form onSubmit={e => UpdateTituloPergunta(e)}>
-					<input
-						className="form-control focus-warning"
-						type="text"
-						name="titulo"
-						required="required"
-						placeholder="Introduz o titulo"
-						value={edittitulopergunta} onChange={e => seteditTituloPergunta(e.target.value)}
-					/>
-
-					<input
-						className="form-control focus-warning"
-						type="text"
-						name="descricao"
-						required="required"
-						placeholder="Introduz a descrição"
-						value={editdescricaopergunta} onChange={e => seteditdescricaopergunta(e.target.value)}
-					/>
-
-
-					<input
-						className="form-control focus-warning"
-						type="text"
-						name="tipo_pergunta"
-						required="required"
-						placeholder="Introduz o tipo de pergunta"
-						value={edittipopergunta} onChange={e => setedittipopergunta(e.target.value)}
-					/>
-
-					<input
-						className="form-control focus-warning"
-						type="number"
-						name="valor_unitario"
-						required="required"
-						placeholder="Introduz o valor da pergunta"
-						value={editvalorpergunta} onChange={e => seteditvalorpergunta(e.target.value)}
-					/>
-
-					<button type="submit" className="btn btn-primary" >Adicionar</button>
-
-				</form>
-
-
+	
 				<div className="accordion accordion-flush" id="form-accordion">
 					<LoadForms />
 

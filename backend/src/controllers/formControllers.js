@@ -103,7 +103,7 @@ module.exports = {
 
                 },
 
-                { where: {id : 3} }
+                { where: {id : id} }
             )
             .then(function (data) {
                 return data;
