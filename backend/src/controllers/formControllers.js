@@ -89,13 +89,21 @@ module.exports = {
 
     //EDITAR TITULO DE FORMULÁRIO 
     edit: async (req, res) => {
+        const {id} = req.params;
         console.log(req.body)
-        const { titulo, idpergunta } = req.body;
+        const { titulo, descricao, tipo_pergunta, valor_unitario } = req.body;
 
         const data = await Pergunta.update(
             
-                { titulo: titulo},
-                { where: {id : 2} }
+                { 
+                    titulo: titulo,
+                    descricao: descricao,
+                    tipo_id: tipo_pergunta,
+                    valor_unitario: valor_unitario
+
+                },
+
+                { where: {id : 3} }
             )
             .then(function (data) {
                 return data;

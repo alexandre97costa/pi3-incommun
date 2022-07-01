@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { useParams } from "react-router-dom";
 
 import React, { useEffect, useState } from "react";
 
@@ -13,8 +14,9 @@ export default function FormulariosComponente() {
 	const [filtroTiposPerguntaDesc, setFiltroTiposPerguntaDesc] = useState('Tipos de Pergunta')
 
 	const [edittitulopergunta, seteditTituloPergunta] = useState("")
-
-	const [idpergunta, setidpergunta] = useState("")
+	const [editdescricaopergunta, seteditdescricaopergunta] = useState("")
+	const [edittipopergunta, setedittipopergunta] = useState("")
+	const [editvalorpergunta, seteditvalorpergunta] = useState("")
 
 
 	useEffect(() => {
@@ -61,17 +63,21 @@ export default function FormulariosComponente() {
 		e.preventDefault()
 		let idpergunta = e.target.getAttribute('data-id')
 
-		axios.post(ip + '/forms/edit', {
-			titulo: edittitulopergunta ,
-			idpergunta : idpergunta,
-		})
+		axios.post(ip + '/forms/edit?id=' + idpergunta,
+			{
+				titulo: edittitulopergunta,
+				descricao: editdescricaopergunta,
+				tipo_pergunta: parseInt(edittipopergunta),
+				valor_unitario: parseFloat(editvalorpergunta),
 
-		.then(function (data) {
-			window.location.reload()
-        })
-        .catch(error => {
-            return error;
-        })
+			})
+
+			.then(function (data) {
+				window.location.reload()
+			})
+			.catch(error => {
+				return error;
+			})
 	}
 
 
@@ -82,7 +88,7 @@ export default function FormulariosComponente() {
 					<div className="accordion-header" id={'form-' + form.id}>
 						<button
 							type="button"
-							className="accordion-button collapsed fs-3"
+							className="accordion-button collapsed.show fs-3"
 							data-bs-toggle="collapse" data-bs-target={'#form-collapse-' + form.id}
 							aria-expanded="false" aria-controls={'form-collapse-' + form.id}
 						>
@@ -91,7 +97,7 @@ export default function FormulariosComponente() {
 					</div>
 					<div
 						id={'form-collapse-' + form.id}
-						className="accordion-collapse collapse"
+						className="accordion-collapse collapse.show"
 						data-bs-parent="#form-accordion"
 						aria-labelledby={'#form-' + form.id}
 					>
@@ -104,7 +110,7 @@ export default function FormulariosComponente() {
 											<div className='accordion-header' id={'grupo-' + grupo.id}>
 												<button
 													type='button'
-													className='accordion-button collapsed fs-4 bg-light'
+													className='accordion-button collapsed.show fs-4 bg-light'
 													data-bs-toggle="collapse" data-bs-target={'#grupo-collapse-' + grupo.id}
 													aria-expanded="false" aria-controls={'grupo-collapse-' + grupo.id}
 												>
@@ -113,7 +119,7 @@ export default function FormulariosComponente() {
 											</div>
 											<div
 												id={'grupo-collapse-' + grupo.id}
-												className="accordion-collapse collapse"
+												className="accordion-collapse collapse.show"
 												data-bs-parent={"#form-grupo-accordion-" + form.id}
 												aria-labelledby={'#grupo-' + grupo.id}
 											>
@@ -128,29 +134,32 @@ export default function FormulariosComponente() {
 																<td style={{ width: "10%" }}>Ações</td>
 															</tr>
 														</thead>
+
 														<tbody>
 															{grupo.pergunta.map(pergunta => {
 																return (
 																	<tr key={pergunta.id}>
 
-																		<td><input
-																			type="text"
-																			className="form-control focus-warning"
-																			value={pergunta.titulo}
+																		<td>
 
-																		/></td>
+																			<input
+																				type="text"
+																				className="form-control focus-warning"
+																				defaultValue={pergunta.titulo}
+																			/>
+																		</td>
 
 																		<td><textarea
 																			rows={1}
 																			className="form-control focus-warning"
-																			value={pergunta.descricao}
+																			defaultValue={pergunta.descricao}
 
 																		/></td>
 
 																		<td>
 																			<div className="dropdown bg-white me-2">
 																				<button className=" btn btn btn-outline-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-																					{/* <span className='me-2'>{filtroTiposPerguntaDesc}</span> */}
+																					
 																					<span className='me-2'>{pergunta.tipo_pergunta.titulo}</span>
 																				</button>
 																				<ul className="dropdown-menu">
@@ -170,21 +179,17 @@ export default function FormulariosComponente() {
 																		<td><input
 																			type="number"
 																			className="form-control"
-																			value={pergunta.valor_unitario}
+																			defaultValue={pergunta.valor_unitario}
 
 																		></input></td>
 
 																		<td>
-																			<button
-																				type="button"
-																				className="btn btn btn-outline-success me-2"
+																			<button type="submit" className="btn btn btn-outline-success me-2"
+																				onClick={() => UpdateTituloPergunta()}>edit<i className="bi bi-save"></i></button>
 
-																			>
-																				<i className="bi bi-save"></i>
-																			</button>
-																			<button
-																				type="button"
-																				className="btn btn btn-outline-danger"
+
+
+																			<button type="button" className="btn btn btn-outline-danger"
 
 																			>
 																				<i className="bi bi-trash3"></i>
@@ -192,13 +197,15 @@ export default function FormulariosComponente() {
 																		</td>
 
 																	</tr>
+
 																)
 															})}
 														</tbody>
 													</table>
 
 
-													<h2> Adicionar Pergunta</h2>
+
+													{/* <h2> Adicionar Pergunta</h2>
 													<form className='newformpergunta'>
 
 														<table className="table table-borderless pb-2">
@@ -258,7 +265,7 @@ export default function FormulariosComponente() {
 																<button type="submit" className="btn btn-primary" >Adicionar</button>
 															</tbody>
 														</table>
-													</form>
+													</form> */}
 
 												</div>
 											</div>
@@ -294,20 +301,47 @@ export default function FormulariosComponente() {
 
 			<div className='row'>
 
-				<form onSubmit={ e => UpdateTituloPergunta(e)}>
+				<form onSubmit={e => UpdateTituloPergunta(e)}>
 					<input
 						className="form-control focus-warning"
 						type="text"
 						name="titulo"
 						required="required"
 						placeholder="Introduz o titulo"
-						value = {edittitulopergunta} onChange = {e => seteditTituloPergunta(e.target.value)}
+						value={edittitulopergunta} onChange={e => seteditTituloPergunta(e.target.value)}
+					/>
+
+					<input
+						className="form-control focus-warning"
+						type="text"
+						name="descricao"
+						required="required"
+						placeholder="Introduz a descrição"
+						value={editdescricaopergunta} onChange={e => seteditdescricaopergunta(e.target.value)}
+					/>
+
+
+					<input
+						className="form-control focus-warning"
+						type="text"
+						name="tipo_pergunta"
+						required="required"
+						placeholder="Introduz o tipo de pergunta"
+						value={edittipopergunta} onChange={e => setedittipopergunta(e.target.value)}
+					/>
+
+					<input
+						className="form-control focus-warning"
+						type="number"
+						name="valor_unitario"
+						required="required"
+						placeholder="Introduz o valor da pergunta"
+						value={editvalorpergunta} onChange={e => seteditvalorpergunta(e.target.value)}
 					/>
 
 					<button type="submit" className="btn btn-primary" >Adicionar</button>
 
 				</form>
-
 
 
 				<div className="accordion accordion-flush" id="form-accordion">
