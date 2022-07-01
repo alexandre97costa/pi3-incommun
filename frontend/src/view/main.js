@@ -83,7 +83,7 @@ export default function MainComponent() {
             </div>
 
             <div class='text-a-right margin-top-bottom-10'>
-                <span><h1><i class="bi bi-twitter text-warning" style={{padding: '2%'}}></i>Gestão de Redes Sociais</h1></span>
+                <span><h1><i class="bi bi-twitter text-warning" style={{ padding: '2%' }}></i>Gestão de Redes Sociais</h1></span>
                 <h3>Na incommun, impulsionamos as redes sociais da sua marca.
                     Se ainda não implementou a gestão de redes sociais na sua empresa, está no sítio certo.
                     A estratégia é definida aqui. Na incommmun contamos com pacotes mensais ou
@@ -97,7 +97,7 @@ export default function MainComponent() {
             </div>
 
             <div class='text-a-left margin-top-bottom-10'>
-                <span><h1>Criação de Website<i class="bi bi-window-desktop text-warning"  style={{padding: '2%'}}></i></h1></span>
+                <span><h1>Criação de Website<i class="bi bi-window-desktop text-warning" style={{ padding: '2%' }}></i></h1></span>
                 <h3>Aqui na incommun podemos criar um site para a sua empresa
                     Temos algumas opções para si desde landing pages, útil como cartão de visita
                     Ou então talvez queria um loja online ou um site para promover a sua empresa
@@ -111,7 +111,7 @@ export default function MainComponent() {
             </div>
 
             <div class='text-a-right margin-top-bottom-10'>
-                <span><h1><i class="bi bi-pencil-fill text-warning"  style={{padding: '2%'}}></i>Identidade Visual</h1></span>
+                <span><h1><i class="bi bi-pencil-fill text-warning" style={{ padding: '2%' }}></i>Identidade Visual</h1></span>
                 <h3>A incommunn oferecemos também um serviço de criação de identidades visuais
                     Quaçlquer empresa necessita dum logotipo
                 </h3>
@@ -120,6 +120,32 @@ export default function MainComponent() {
                     style={{ width: '300px' }}>
                     <h3>Orçamento</h3>
                 </button>
+            </div>
+
+            <div>
+                <form className='bg-warning'>
+                    <div class="m-5">
+                        <label for="InputNome" class="form-label">Nome</label>
+                        <input type="text" class="form-control" id="InputNome" />
+                    </div>
+                    <div class="m-5">
+                        <label for="InputEmail" class="form-label">Email address</label>
+                        <input type="email" class="form-control" id="InputEmail" aria-describedby="emailHelp" />
+                    </div>
+                    <div class="m-5">
+                        <label for="InputMensagem" class="form-label">Mensagem</label>
+                        <input type="text" class="form-control" id="InputMensagem" />
+                    </div>
+                    <div className='text-center' style={{margin: '5%'}}>
+                        <button
+                            className='rounded-pill bg-purple text-white'
+                            style={{ width: '300px', height: '70px' }}
+                        >
+                            <h3>Pedir Orçamento</h3>
+                        </button>
+                    </div>
+
+                </form>
             </div>
 
             <div className='display-3 text-indigo fw-bold mb-5'>
