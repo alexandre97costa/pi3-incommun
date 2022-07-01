@@ -17,7 +17,7 @@ export default function UsersModalComponent(props) {
             })
     }, [])
 
-    useEffect(() => { console.log(users) }, [users])
+    // useEffect(() => { console.log(users) }, [users])
 
     function LoadUsers() {
         return users.map((user, index) => {
@@ -51,7 +51,11 @@ export default function UsersModalComponent(props) {
 
                             </tbody>
                         </table>
-                        <button type="button" className="btn btn-warning w-100 rounded-3">Criar novo utilizador</button>
+                        <button 
+                        type="button" 
+                        className="btn btn-warning w-100 rounded-3"
+                        data-bs-toggle="modal" data-bs-target="#criar-user-modal"
+                        >Criar novo utilizador</button>
                     </div>
                 </div>
             </div>

@@ -59,7 +59,7 @@ module.exports = {
                 if (userJaExiste) {
                     res.status(400).json({
                         success: false,
-                        message: 'Utilizador já existe'
+                        message: 'Utilizador com esse email já existe.'
                     })
                     return
                 }
