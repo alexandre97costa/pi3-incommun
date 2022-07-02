@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ip from '../../ip'
 import authHeader from '../auth-header'
+import ReadOnlyRow from './ReadOnlyRow';
+import EditableRow from './EditableRow';
 
 export default function FormulariosComponente() {
 
@@ -11,6 +13,16 @@ export default function FormulariosComponente() {
 
 	const [filtroTiposPergunta, setFiltroTiposPergunta] = useState(0)
 	const [filtroTiposPerguntaDesc, setFiltroTiposPerguntaDesc] = useState('Tipos de Pergunta')
+
+	const [editPerguntaId, setEditPerguntaId] = useState(null)
+
+	const [editForm, setEditForm] = useState({
+		titulo: "",
+		descricao: "",
+		tipo_pergunta: "",
+		valor_unitario: "",
+
+	})
 
 	useEffect(() => {
 		axios.get(ip + '/forms/all_backoffice', authHeader())
@@ -28,6 +40,37 @@ export default function FormulariosComponente() {
 				setTiposPergunta(res.data.data)
 			})
 	}, [filtroTiposPergunta])
+
+	const handleEditClick = (e, pergunta) => {
+		e.preventDefault();
+		setEditPerguntaId(pergunta.id);
+
+		const formValues = {
+			titulo: pergunta.titulo,
+			descricao: pergunta.descricao,
+			tipo_pergunta: pergunta.tipo_pergunta,
+			valor_unitario: pergunta.valor_unitario
+		}
+
+		setEditForm(formValues);
+
+	};
+
+
+
+	const handleEditForm = (e => {
+		e.preventDefault();
+
+		const fieldTitulo  = e.target.getAttribute("titulo");
+		const fieldValue = e.target.value;
+
+		const newForm = { ... editForm };
+		newForm [ fieldTitulo] = fieldValue;
+
+		setEditForm(newForm)
+
+	})
+
 
 
 	function LoadTiposPergunta() {
@@ -94,73 +137,42 @@ export default function FormulariosComponente() {
 												aria-labelledby={'#grupo-' + grupo.id}
 											>
 												<div className='accordion-body'>
-													<table className="table table-hover">
-														<thead className='fw-semibold'>
-															<tr>
-																<td style={{ width: "30%" }}>Titulo</td>
-																<td style={{ width: "40%" }}>Descrição</td>
-																<td style={{ width: "10%" }}>Tipo</td>
-																<td style={{ width: "10%" }}>Valor</td>
-																<td style={{ width: "10%" }}>Ações</td>
+													{grupo.pergunta.map(pergunta => {
+														return (
+															<tr key={pergunta.id}>
+
+
+															
+																<table className="table table-hover">
+																	<thead className='fw-semibold'>
+																		<tr>
+																			<td style={{ width: "30%" }}>Titulo</td>
+																			<td style={{ width: "40%" }}>Descrição</td>
+																			<td style={{ width: "10%" }}>Tipo</td>
+																			<td style={{ width: "10%" }}>Valor</td>
+																			<td style={{ width: "10%" }}>Ações</td>
+																		</tr>
+																	</thead>
+
+																	<tbody>
+																		
+																		{editPerguntaId === pergunta.id ? (
+																		<EditableRow />
+																		 ) : (
+																		<ReadOnlyRow pergunta={pergunta}
+																		 handleEditClick={handleEditClick}
+																		/>
+																		)}
+																	</tbody>
+
+
+																</table>
+																
+
 															</tr>
-														</thead>
 
-														<tbody>
-															{grupo.pergunta.map(pergunta => {
-																return (
-																	<tr key={pergunta.id}>
-
-																		<td>
-																			<div className="">
-																				<p className="fs-6 fw-normal text-secundary text-start p-2" >{pergunta.titulo}</p>
-																			</div>
-																		</td>
-
-																		<td>
-
-																			<div className="">
-																				<p className="fs-6 fw-normal text-secundary text-start p-2">{pergunta.descricao}</p>
-																			</div></td>
-
-																		<td>
-
-																			<div className="">
-																				<p className="fs-6 fw-normal text-secundary text-center p-2">{pergunta.tipo_pergunta.titulo}</p>
-																			</div>
-
-																		</td>
-
-																		<td>
-																			<div className="">
-																				<p className="fs-6 fw-normal text-secundary text-center p-2">{pergunta.valor_unitario}</p>
-																			</div>
-																		</td>
-
-																		{/* BOTÃO EDITAR QUE NOS LEVA Á MODAL EDITAR PERGUNTA */}
-																		<td>
-																			<div>
-
-																				<button
-																					type="button"
-																					className="btn btn-outline-info"
-																					data-bs-toggle="modal" data-bs-target="#editar-pergunta-modal"
-																				><i className="bi bi-save"></i></button>
-
-																				{/* MODAL QUE SE ABRE */}
-
-																			</div>
-																			<button type="button" className="btn btn btn-outline-danger"
-																			>
-																				<i className="bi bi-trash3"></i>
-																			</button>
-																		</td>
-
-																	</tr>
-																)
-															})}
-														</tbody>
-													</table>
-
+														)
+													})}
 
 
 												</div>
