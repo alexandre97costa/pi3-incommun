@@ -5,27 +5,37 @@ import authHeader from '../auth-header'
 
 
 
-export default function EliminarUserModalComponent(props) {
+export default function EliminarUserModalComponent() {
 
     const [loading, setLoading] = useState(false)
     const [email, setEmail] = useState('')
+    const [dataEmail, setDataEmail] = useState('w')
+
+    useEffect(() => {
+        const EliminarUserModal = document.querySelector('#eliminar-user-modal')
+        EliminarUserModal.addEventListener('show.bs.modal', e => {
+            const btn = e.relatedTarget
+            setDataEmail(btn.getAttribute('data-email'))
+        })
+
+    }, [])
+
+
 
     function handleEliminar(e) {
         e.preventDefault()
         setLoading(true)
 
-        const body = { email: email }
-
         const btnEliminarUserText = document.querySelector('#btn-eliminar-user-text')
 
         axios
-            .post(ip + '/user/delete', body, authHeader())
+            .delete(ip + '/user/delete', {data: { email: email }, ...authHeader()})
             .then(res => {
                 console.log(res)
                 setLoading(false)
 
                 btnEliminarUserText.textContent = res.data.success ? 'Utilizador eliminado!' : res.data.message
-                
+
                 setTimeout(() => {
                     document.querySelector('#btn-users-modal').click()
                     btnEliminarUserText.textContent = 'Eliminar'
@@ -43,8 +53,8 @@ export default function EliminarUserModalComponent(props) {
                         <h5 className="modal-title" id="eliminar-user-modal-label">
                             <button
                                 className='btn btn-sm btn-outline-light rounded-circle border-0 align-top me-2'
-                                onClick={e => {document.querySelector('#btn-users-modal').click()}}
-                                >
+                                onClick={e => { document.querySelector('#btn-users-modal').click() }}
+                            >
                                 <i className='bi bi-arrow-left'></i>
                             </button>
                             Eliminar utilizador
@@ -53,6 +63,14 @@ export default function EliminarUserModalComponent(props) {
                     </div>
                     <div className="modal-body rounded-4 bg-light border-0 shadow">
                         <form onSubmit={e => handleEliminar(e)}>
+
+                            <div className='mb-3'>
+                                <span>
+                                    Pretende eliminar definitivamente este utilizador? Para confirmar insira o email na caixa de texto.&nbsp;
+                                </span>
+                                <span className='fw-bold'>{'(' + dataEmail + ')'}</span>
+
+                            </div>
 
                             <div className="form-floating mb-3">
                                 <input
@@ -70,13 +88,13 @@ export default function EliminarUserModalComponent(props) {
                                 <label className='text-dark' htmlFor="user-email-input">Email</label>
                             </div>
 
-                            <button id='btn-eliminar-user' type="submit" className="btn btn-danger w-100 rounded-3 ">
+                            <button id='btn-eliminar-user' type="submit" className="btn btn-danger w-100 rounded-3 " disabled={email === dataEmail ? false : true}>
                                 {loading &&
                                     <div className="spinner-border spinner-border-sm fs-6 text-dark me-2" role="status">
                                         <span className="visually-hidden">Loading...</span>
                                     </div>
                                 }
-                                <span id='btn-eliminar-user-text'>Eliminar</span>
+                                <span id='btn-eliminar-user-text'>Eliminar definitivamente</span>
                             </button>
                         </form>
                     </div>

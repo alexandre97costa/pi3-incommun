@@ -7,6 +7,50 @@ const { Op } = require("sequelize");
 
 module.exports = {
 
+    login: async (req, res) => {
+
+        let email, password = null
+
+        if (!!req.body.email && !!req.body.password) {
+            email = req.body.email
+            password = req.body.password
+        } else {
+            res.status(403).json({
+                success: false,
+                message: 'Dados necessários: email e password'
+            });
+            return
+        }
+
+        let user = await UserIncommun
+            .findOne({ where: { email: email } })
+            .then(data => { return data })
+            .catch(error => { console.log(error) })
+
+
+        if (!!user) {
+            const passwordMatch = bcrypt.compareSync(password, user.password);
+            if (passwordMatch) {
+
+                let token = jwt.sign({ email: email }, config.JWT_SECRET, {});
+
+                res.status(200).json({
+                    success: true,
+                    message: 'Autenticação realizada com sucesso!',
+                    token: token,
+                    username: user.username,
+                    email: user.email
+                });
+                return
+            }
+        }
+
+        res.status(403).json({
+            success: false,
+            message: 'Dados inválidos.'
+        });
+    },
+
     list: async (req, res) => {
         await sequelize.sync()
             .then(async () => {
@@ -83,48 +127,39 @@ module.exports = {
             })
     },
 
-    login: async (req, res) => {
-
-        let email, password = null
-
-        if (!!req.body.email && !!req.body.password) {
-            email = req.body.email
-            password = req.body.password
-        } else {
-            res.status(403).json({
+    delete: async (req, res) => {
+        if (!req.body.email) {
+            res.json({
                 success: false,
-                message: 'Dados necessários: email e password'
-            });
+                message: 'Faltam dados! É preciso email.'
+            })
             return
         }
 
-        let user = await UserIncommun
-            .findOne({ where: { email: email } })
-            .then(data => { return data })
-            .catch(error => { console.log(error) })
+        const email = req.body.email
 
-
-        if (!!user) {
-            const passwordMatch = bcrypt.compareSync(password, user.password);
-            if (passwordMatch) {
-
-                let token = jwt.sign({ email: email },config.JWT_SECRET,{} );
-
-                res.status(200).json({
-                    success: true,
-                    message: 'Autenticação realizada com sucesso!',
-                    token: token,
-                    username: user.username,
-                    email: user.email
-                });
-                return
-            }
-        }
-
-        res.status(403).json({
-            success: false,
-            message: 'Dados inválidos.'
-        });
-    }
+        await sequelize.sync()
+            .then(async () => {
+                await UserIncommun
+                    .findOne({ where: { email: email } })
+                    .then(async found => {
+                        if (!!found) {
+                            await UserIncommun
+                                .destroy({ where: { email: email } })
+                                .then(destroyed => {
+                                    res.json({
+                                        success: true,
+                                        message: 'Utilizador eliminado.'
+                                    })
+                                })
+                        } else {
+                            res.json({
+                                success: false,
+                                message: 'Utilizador não encontrado.'
+                            })
+                        }
+                    })
+            })
+    },
 }
 

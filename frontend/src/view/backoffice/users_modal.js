@@ -24,15 +24,20 @@ export default function UsersModalComponent(props) {
                         <td>{user.username}</td>
                         <td>{user.email}</td>
                         <td className='text-end' >
-                        {loggedInEmail === user.email ?
-                            <button className='btn btn-sm btn-outline-secondary' disabled>
-                                <i className='bi bi-trash-fill'></i>
-                            </button>
-                            :
-                            <button data-email={user.email} className='btn btn-sm btn-outline-danger'>
-                                <i className='bi bi-trash-fill'></i>
-                            </button>
-                        }
+                            {loggedInEmail === user.email ?
+                                <button className='btn btn-sm btn-outline-secondary' disabled>
+                                    <i className='bi bi-trash-fill'></i>
+                                </button>
+                                :
+                                <button
+                                    data-email={user.email}
+                                    className='btn btn-sm btn-outline-danger'
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#eliminar-user-modal"
+                                >
+                                    <i className='bi bi-trash-fill'></i>
+                                </button>
+                            }
                         </td>
                     </tr>
                 )

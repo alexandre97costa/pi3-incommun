@@ -13,6 +13,9 @@ module.exports = {
         }
 
         let token = req.headers['x-access-token'] || req.headers['authorization'];
+        if (!token) {
+            console.log('token niete', req.headers)
+        }
 
         if (!token) {
             res.status(401).json({
