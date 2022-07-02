@@ -27,4 +27,4 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: main
           force: true
-          message: 'Overwritten by Github Actions - ${{date}}'
+          message: 'Overwritten by Github Actions'
