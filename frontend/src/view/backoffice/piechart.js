@@ -26,13 +26,21 @@ export default function InicioComponent() {
     const [filtroEstadoPedido, setFiltroEstadoPedido] = useState(0)
     const [estados, setEstados] = useState([])
 
-    
+    const [isShown, setIsShown] = useState(true);
+    const toggle = () =>
+        setIsShown(isShow => !isShown);
+
+    const [isShownEstado, setIsShownEstado] = useState(false);
+    const toggleEstado = () =>
+        setIsShownEstado(isShow => !isShownEstado);
+
+
 
     useEffect(() => {
         axios.get(ip + '/pedidos/count?estado_id=0', authHeader())
-        .then(res => {
-            setTotalPedidos(res.data.count)
-        })
+            .then(res => {
+                setTotalPedidos(res.data.count)
+            })
 
         // Get dica do dia
         axios.get('https://api.quotable.io/random?tags=success|inspirational|happiness')
@@ -46,43 +54,43 @@ export default function InicioComponent() {
                 setTotalPedidosRecusados(res.data.count)
             })
 
-            axios.get(ip + '/pedidos/count?motivo_id=1', authHeader())
+        axios.get(ip + '/pedidos/count?motivo_id=1', authHeader())
             .then(res => {
                 setMotivoPreco(res.data.count)
             })
 
-            axios.get(ip + '/pedidos/count?motivo_id=2', authHeader())
+        axios.get(ip + '/pedidos/count?motivo_id=2', authHeader())
             .then(res => {
                 setMotivoConcorrencia(res.data.count)
             })
 
-            axios.get(ip + '/pedidos/count?motivo_id=3', authHeader())
+        axios.get(ip + '/pedidos/count?motivo_id=3', authHeader())
             .then(res => {
                 setMotivoNaoEstavaEspera(res.data.count)
             })
 
-            axios.get(ip + '/pedidos/count?motivo_id=4', authHeader())
+        axios.get(ip + '/pedidos/count?motivo_id=4', authHeader())
             .then(res => {
                 setMotivoOutro(res.data.count)
             })
-            
-            //get estado pedido
-            axios.get(ip + '/pedidos/count?estado_id=1')
+
+        //get estado pedido
+        axios.get(ip + '/pedidos/count?estado_id=1')
             .then(res => {
                 setEstadoPendente(res.data.count)
             })
-            
-            axios.get(ip + '/pedidos/count?estado_id=2')
+
+        axios.get(ip + '/pedidos/count?estado_id=2')
             .then(res => {
                 setEstadoEnviado(res.data.count)
             })
 
-            axios.get(ip + '/pedidos/count?estado_id=3')
+        axios.get(ip + '/pedidos/count?estado_id=3')
             .then(res => {
                 setEstadoAceite(res.data.count)
             })
 
-            axios.get(ip + '/pedidos/count?estado_id=4')
+        axios.get(ip + '/pedidos/count?estado_id=4')
             .then(res => {
                 setEstadoRecusado(res.data.count)
             })
@@ -169,47 +177,33 @@ export default function InicioComponent() {
                 <Count estadoId={4} />
             </div>
 
-            <div className='col d-flex justify-content-start align-items-center fs-6 fw-normal text-muted'>
-                    <span className='me-2'>
-                        Ver
-                    </span>
-
-                    <div className="dropdown bg-white me-2">
-                        <button className=" btn btn-sm btn-outline-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                            <span className='me-2'>Resumo de Pedidos Recusados</span>
-                        </button>
-                        <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            <li><button className="dropdown-item" onClick={e => { }} type='button'>Resumo de Pedidos Recusados</button></li>
-                            <li><button className="dropdown-item" onClick={e => { }} type='button'>Resumo Estado de Pedidos</button></li>
-                        </ul>
-                    </div>
-            </div>
-
             <br></br>
 
+            <div className='mb-5 w row'>
+                <div className="mb-5 w">
+                    <button onClick={toggle} type='button' className="btn btn-secondary bi-pie-chart "> Resumo Pedidos Recusados</button>
+                    {isShown && <div className="mb-3 w">
+                        <Chart
+                            chartType="PieChart"
+                            data={data}
+                            width={"100%"}
+                            height={"400px"}
+                        />
+                    </div>}
+                </div>
 
-            <p className="fs-normal d-flex"> Resumo Pedidos Recusados</p>
-
-            <div className="mb-3 w">
-                <Chart
-                    chartType="PieChart"
-                    data={data}
-                    width={"100%"}
-                    height={"400px"}
-                />
+                <div className="mb-5 w">
+                    <button onClick={toggleEstado} type='button' className="btn btn-secondary bi-pie-chart "> Resumo Estado de Pedidos</button>
+                    {isShownEstado && <div className="mb-3 w">
+                        <Chart
+                            chartType="PieChart"
+                            data={data1}
+                            width={"100%"}
+                            height={"400px"}
+                        />
+                    </div>}
+                </div>
             </div>
-
-            <p className="fs-normal d-flex"> Resumo Estado de Pedidos</p>
-
-            <div className="mb-3 w">
-                <Chart
-                    chartType="PieChart"
-                    data={data1}
-                    width={"100%"}
-                    height={"400px"}
-                />
-            </div>
-
         </div>
-    )  
+    )
 }
