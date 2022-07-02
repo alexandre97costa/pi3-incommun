@@ -41,7 +41,7 @@ export default function UsersModalComponent(props) {
     }
 
     function getUsersList() {
-        setLoggedInEmail(authService?.getCurrentUser().email ?? '')
+        setLoggedInEmail(authService?.getCurrentUser()?.email ?? '')
         axios
             .get(ip + '/user/list', authHeader())
             .then(res => {
