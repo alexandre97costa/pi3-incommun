@@ -75,7 +75,7 @@ module.exports = {
             !req.body.password ||
             !req.body.role
         ) {
-            res.json({
+            res.status(400).json({
                 success: false,
                 message: 'Faltam dados! É preciso username, email, password, e role.'
             })
