@@ -1,6 +1,5 @@
 import axios from 'axios';
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import ip from '../../ip'
 import authHeader from '../auth-header'
 import ReadOnlyRow from './ReadOnlyRow';
@@ -32,14 +31,30 @@ export default function FormulariosComponente() {
 			})
 	}, [])
 
-	useEffect(() => {
-		// Get os pedidos todos (por vezes filtrados e ordenados)
-		axios.get(ip + '/forms/all_tipos_pergunta', authHeader())
-			.then(res => {
-				console.log(res.data)
-				setTiposPergunta(res.data.data)
-			})
-	}, [filtroTiposPergunta])
+	// useEffect(() => {
+	// 	// Get os pedidos todos (por vezes filtrados e ordenados)
+	// 	axios.get(ip + '/forms/all_tipos_pergunta', authHeader())
+	// 		.then(res => {
+	// 			console.log(res.data)
+	// 			setTiposPergunta(res.data.data)
+	// 		})
+	// }, [filtroTiposPergunta])
+
+
+const handleEditForm = (e => {
+		e.preventDefault();
+
+		const fieldTitulo  = e.target.getAttribute("titulo");
+		const fieldValue = e.target.value;
+
+		const newForm = { ... editForm };
+		newForm [ fieldTitulo] = fieldValue;
+
+		setEditForm(newForm)
+
+	})
+
+
 
 	const handleEditClick = (e, pergunta) => {
 		e.preventDefault();
@@ -58,19 +73,7 @@ export default function FormulariosComponente() {
 
 
 
-	const handleEditForm = (e => {
-		e.preventDefault();
-
-		const fieldTitulo  = e.target.getAttribute("titulo");
-		const fieldValue = e.target.value;
-
-		const newForm = { ... editForm };
-		newForm [ fieldTitulo] = fieldValue;
-
-		setEditForm(newForm)
-
-	})
-
+	
 
 
 	function LoadTiposPergunta() {
@@ -93,6 +96,7 @@ export default function FormulariosComponente() {
 		)
 	}
 
+	
 	function LoadForms() {
 		return forms.map(form => {
 			return (
@@ -139,7 +143,7 @@ export default function FormulariosComponente() {
 												<div className='accordion-body'>
 													{grupo.pergunta.map(pergunta => {
 														return (
-															<tr key={pergunta.id}>
+															<div key={pergunta.id}>
 
 
 															
@@ -157,7 +161,8 @@ export default function FormulariosComponente() {
 																	<tbody>
 																		
 																		{editPerguntaId === pergunta.id ? (
-																		<EditableRow />
+																		<EditableRow editForm = {editForm}
+																		 handleEditForm={handleEditForm}/>
 																		 ) : (
 																		<ReadOnlyRow pergunta={pergunta}
 																		 handleEditClick={handleEditClick}
@@ -169,7 +174,7 @@ export default function FormulariosComponente() {
 																</table>
 																
 
-															</tr>
+															</div>
 
 														)
 													})}

@@ -1,6 +1,6 @@
 import React from 'react'
 
-const EditableRow = () => {
+const EditableRow = ({ editForm, handleEditForm }) => {
     return (
         <tr>
 
@@ -11,6 +11,8 @@ const EditableRow = () => {
                     required="required"
                     placeholder="Introduz o título da pergunta"
                     name="titulo"
+                    value={editForm.titulo}
+                    onChange={handleEditForm}
                 ></input>
             </td>
 
@@ -20,28 +22,40 @@ const EditableRow = () => {
                     type="text"
                     required="required"
                     placeholder="Introduz a descrição da pergunta"
-                    name="titulo"
+                    name="descricao"
+                    value={editForm.descricao}
+                    onChange={handleEditForm}
                 ></input>
             </td>
 
-            <td>
+             <td>
                 <input
                     className="form-control focus-warning"
                     type="text"
                     required="required"
                     placeholder="Introduz o tipo da pergunta"
-                    name="titulo"
+                    name="tipo_pergunta"
+                    value={editForm.tipo_pergunta}
+                    onChange={handleEditForm}
+                ></input>
+            </td> 
+
+            <td>
+                <input
+                    type="number"
+                    required="required"
+                    placeholder="Introduz o valor da pergunta"
+                    name="valor_unitario"
+                    value={editForm.valor_unitario}
+                    onChange={handleEditForm}
                 ></input>
             </td>
 
             <td>
-                <input
-                    className="form-control focus-warning"
-                    type="number"
-                    required="required"
-                    placeholder="Introduz o valor da pergunta"
-                    name="titulo"
-                ></input>
+                <button type="submit"
+                    className="btn btn-outline-info"                 
+                ><i className="bi bi-save"></i></button>
+
             </td>
         </tr>
     )
