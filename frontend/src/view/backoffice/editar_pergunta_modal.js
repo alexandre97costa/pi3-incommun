@@ -5,6 +5,7 @@ import authHeader from '../auth-header'
 
 export default function EditPerguntaModal(props) {
 
+    const [forms, setForms] = useState([])
     const [edittituloperguntamodal, seteditTituloPerguntamodal] = useState("")
     const [editdescricaoperguntamodal, seteditdescricaoperguntamodal] = useState("")
     const [edittipoperguntamodal, setedittipoperguntamodal] = useState("")
@@ -31,6 +32,7 @@ export default function EditPerguntaModal(props) {
                 return error;
             })
     }
+
 
     return (
 
@@ -65,15 +67,23 @@ export default function EditPerguntaModal(props) {
                                 value={editdescricaoperguntamodal} onChange={e => seteditdescricaoperguntamodal(e.target.value)}
                             />
 
+                            <div className="dropdown bg-white me-2">
+                                <button className=" btn btn btn-outline-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
 
-                            <input
-                                className="form-control focus-warning"
-                                type="text"
-                                name="tipo_pergunta"
-                                required="required"
-                                placeholder="Introduz o tipo de pergunta"
-                                value={edittipoperguntamodal} onChange={e => setedittipoperguntamodal(e.target.value)}
-                            />
+                                </button> <ul className="dropdown-menu">
+                                    <li>
+                                        <button
+                                            type='button'
+                                            className="dropdown-item"
+                                            placeholder="Introduz o tipo de pergunta"
+                                            value={edittipoperguntamodal} onChange={e => setedittipoperguntamodal(e.target.value)}
+                                        >
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+
+
 
                             <input
                                 className="form-control focus-warning"
@@ -95,4 +105,5 @@ export default function EditPerguntaModal(props) {
             </div>
         </div>
     )
+    // })
 }

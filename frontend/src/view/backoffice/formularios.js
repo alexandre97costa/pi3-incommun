@@ -12,13 +12,6 @@ export default function FormulariosComponente() {
 	const [filtroTiposPergunta, setFiltroTiposPergunta] = useState(0)
 	const [filtroTiposPerguntaDesc, setFiltroTiposPerguntaDesc] = useState('Tipos de Pergunta')
 
-	const [edittitulopergunta, seteditTituloPergunta] = useState("")
-	const [editdescricaopergunta, seteditdescricaopergunta] = useState("")
-	const [edittipopergunta, setedittipopergunta] = useState("")
-	const [editvalorpergunta, seteditvalorpergunta] = useState("")
-
-
-
 	useEffect(() => {
 		axios.get(ip + '/forms/all_backoffice', authHeader())
 			.then(res => {
@@ -57,35 +50,10 @@ export default function FormulariosComponente() {
 		)
 	}
 
-
-	function Update(e) {
-		e.preventDefault()
-		let idpergunta = e.target.getAttribute('data-id')
-
-		axios.post(ip + '/forms/edit?id=' + idpergunta,
-			{
-				titulo: edittitulopergunta,
-				descricao: editdescricaopergunta,
-				tipo_pergunta: parseInt(edittipopergunta),
-				valor_unitario: parseFloat(editvalorpergunta),
-
-			}, authHeader())
-
-			.then(function (data) {
-				window.location.reload()
-			})
-			.catch(error => {
-				return error;
-			})
-	}
-
-
-
-
-
 	function LoadForms() {
 		return forms.map(form => {
 			return (
+
 				<div className="accordion-item border-0" key={form.id}>
 					<div className="accordion-header" id={'form-' + form.id}>
 						<button
@@ -160,26 +128,6 @@ export default function FormulariosComponente() {
 																				<p className="fs-6 fw-normal text-secundary text-center p-2">{pergunta.tipo_pergunta.titulo}</p>
 																			</div>
 
-
-
-																			{/* <div className="dropdown bg-white me-2">
-																				<button className=" btn btn btn-outline-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-
-																					<span className='me-2'>{pergunta.tipo_pergunta.titulo}</span>
-																				</button>
-																				<ul className="dropdown-menu">
-																					<li>
-																						<button
-																							type='button'
-																							className="dropdown-item"
-																						>
-																						</button>
-																					</li>
-
-																					<LoadTiposPergunta />
-																				</ul>
-																			</div> */}
-
 																		</td>
 
 																		<td>
@@ -192,101 +140,28 @@ export default function FormulariosComponente() {
 																		<td>
 																			<div>
 
-																
-
-
 																				<button
 																					type="button"
 																					className="btn btn-outline-info"
 																					data-bs-toggle="modal" data-bs-target="#editar-pergunta-modal"
 																				><i className="bi bi-save"></i></button>
 
-
-
 																				{/* MODAL QUE SE ABRE */}
 
-
-
 																			</div>
-
-
 																			<button type="button" className="btn btn btn-outline-danger"
-
 																			>
 																				<i className="bi bi-trash3"></i>
 																			</button>
 																		</td>
 
 																	</tr>
-
 																)
 															})}
 														</tbody>
 													</table>
 
 
-
-													{/* <h2> Adicionar Pergunta</h2>
-													<form className='newformpergunta'>
-
-														<table className="table table-borderless pb-2">
-															<thead className='fw-semibold'>
-
-																<tr>
-																	<td style={{ width: "30%" }}>Titulo</td>
-																	<td style={{ width: "40%" }}>Descrição</td>
-																	<td style={{ width: "10%" }}>Tipo</td>
-																	<td style={{ width: "10%" }}>Valor</td>
-																	<td style={{ width: "10%" }}>Ação</td>
-																</tr>
-
-															</thead>
-															<tbody>
-
-
-																<td><input
-																	className="form-control focus-warning"
-																	type="text"
-																	name="titulo"
-																	required="required"
-																	placeholder="Introduz o título da pergunta"
-
-																/></td>
-
-																<td><input
-																	className="form-control focus-warning"
-																	type="text"
-																	name="descricao"
-																	required="required"
-																	placeholder="Introduz a descrição da pergunta"
-
-
-																/></td>
-
-																<td><input
-																	className="form-control focus-warning"
-
-																	type="dropdown"
-																	name="tipo_pergunta"
-																	required="required"
-																	placeholder="Introduz o tipo da pergunta"
-
-
-																/></td>
-
-																<td>	<input
-																	className="form-control focus-warning"
-																	type="number"
-																	name="valor_unitario"
-																	required="required"
-																	placeholder="Introduz valor da pergunta"
-
-																/></td>
-
-																<button type="submit" className="btn btn-primary" >Adicionar</button>
-															</tbody>
-														</table>
-													</form> */}
 
 												</div>
 											</div>
