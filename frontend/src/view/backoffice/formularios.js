@@ -16,7 +16,7 @@ export default function FormulariosComponente() {
 	const [editdescricaopergunta, seteditdescricaopergunta] = useState("")
 	const [edittipopergunta, setedittipopergunta] = useState("")
 	const [editvalorpergunta, seteditvalorpergunta] = useState("")
-    const params = useParams();
+
 
 
 	useEffect(() => {

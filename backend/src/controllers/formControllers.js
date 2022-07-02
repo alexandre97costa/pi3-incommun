@@ -88,22 +88,6 @@ module.exports = {
     },
 
 
-    /* BUSCAR para EDITAR ----------------------------------------------- */
-    buscar : async (req, res) => {
-        const { id } = req.params;
-        const data = await Pergunta.findAll({
-            where: { id: id },
-        })
-            .then(function (data) {
-                return data;
-            })
-            .catch(error => {
-                return error;
-            })
-        res.json({ success: true, data: data });
-    },
-
-
     //EDITAR
     edit: async (req, res) => {
         const { id } = req.params;
@@ -119,7 +103,7 @@ module.exports = {
                 valor_unitario: valor_unitario
 
             },
-            { where: { id: id } }
+            { where: { id: 3 } }
         )
             .then(function (data) {
                 return data;
