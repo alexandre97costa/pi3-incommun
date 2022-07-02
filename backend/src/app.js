@@ -14,7 +14,10 @@ const clientesRoutes = require('./routes/clientesRoutes.js')
 const userRoutes = require('./routes/userRoutes.js')
 
 //* Middlewares
-app.use(cors({origin: ['http://localhost:3000', 'https://pi3-incommun-frontend.herokuapp.com/']}));
+app.use(cors({
+    origin: true,
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+}));
 app.use(express.json());
 app.use((req, res, next) => {
     console.log('\x1b[37m\x1b[42m ' + req.method + ' \x1b[0m ' + req.url);
