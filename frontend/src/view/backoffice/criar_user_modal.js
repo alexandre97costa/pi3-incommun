@@ -15,18 +15,38 @@ export default function CriarUserModalComponent(props) {
     function handleCriar(e) {
         e.preventDefault()
         setLoading(true)
-        
-        axios
-        .post(ip + 'user/register', {
+
+        const body = {
             username: username,
             email: email,
             password: password,
             role: 1
-        }, authHeader())
+        }
+
+        const btnCriarUser = document.querySelector('#btn-criar-user')
+        const btnCriarUserText = document.querySelector('#btn-criar-user-text')
+
+        axios
+            .post(ip + '/user/register', body, authHeader())
             .then(res => {
                 console.log(res)
                 setLoading(false)
-                // document.querySelector('#btn-close-criar-user').click()
+
+                if (res.data.success) {
+                    btnCriarUser.classList.add('btn-success')
+                    btnCriarUserText.textContent = 'Utilizador criado!'
+                } else {
+                    btnCriarUser.classList.add('btn-danger')
+                    btnCriarUserText.textContent = res.data.message
+                }
+                setTimeout(() => {
+                    document.querySelector('#btn-users-modal').click()
+                    btnCriarUser.classList.remove('btn-success', 'btn-danger')
+                    btnCriarUserText.textContent = 'Criar'
+                    setUsername('')
+                    setEmail('')
+                    setPassword('')
+                }, 3000);
             })
     }
 
@@ -36,7 +56,15 @@ export default function CriarUserModalComponent(props) {
             <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                 <div className="modal-content rounded-4 border-0 bg-dark-secondary shadow">
                     <div className="modal-header border-0 rounded-0 bg-dark-secondary text-white">
-                        <h5 className="modal-title" id="criar-user-modal-label">Criar novo utilizador</h5>
+                        <h5 className="modal-title" id="criar-user-modal-label">
+                            <button
+                                className='btn btn-sm btn-outline-light rounded-circle border-0 align-top me-2'
+                                onClick={e => {document.querySelector('#btn-users-modal').click()}}
+                                >
+                                <i className='bi bi-arrow-left'></i>
+                            </button>
+                            Criar novo utilizador
+                        </h5>
                         <button id='btn-close-criar-user' type="button" className="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div className="modal-body rounded-4 bg-light border-0 shadow">
@@ -70,7 +98,7 @@ export default function CriarUserModalComponent(props) {
                                         }
                                     }}
                                 />
-                                <label className='text-dark' htmlFor="floatingInput">Nome</label>
+                                <label className='text-dark' htmlFor="user-username-input">Nome</label>
                             </div>
                             <div className="form-floating mb-3">
                                 <input
@@ -105,7 +133,7 @@ export default function CriarUserModalComponent(props) {
                                         }
                                     }}
                                 />
-                                <label className='text-dark' htmlFor="floatingInput">Email</label>
+                                <label className='text-dark' htmlFor="user-email-input">Email</label>
                             </div>
                             <div className="form-floating mb-3">
                                 <input
@@ -130,17 +158,17 @@ export default function CriarUserModalComponent(props) {
                                         }
                                     }}
                                 />
-                                <label className='text-dark' htmlFor="floatingPassword">Password</label>
+                                <label className='text-dark' htmlFor="user-pass-input">Password</label>
                             </div>
 
 
-                            <button type="submit" className="btn btn-warning w-100 rounded-3 fs-5">
+                            <button id='btn-criar-user' type="submit" className="btn btn-warning w-100 rounded-3 ">
                                 {loading &&
                                     <div className="spinner-border spinner-border-sm fs-6 text-dark me-2" role="status">
                                         <span className="visually-hidden">Loading...</span>
                                     </div>
                                 }
-                                Criar
+                                <span id='btn-criar-user-text'>Criar</span>
                             </button>
                         </form>
                     </div>
