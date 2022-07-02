@@ -1,4 +1,4 @@
-name: Overwrite ip
+name: Overwrite .env
 
 on:
   push:
@@ -11,14 +11,16 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
-      - name: Overwrite ip.js
+
+      - name: Overwrite .env
         uses: "DamianReeves/write-file-action@v1.0"
         with:
-          path: src/ip.js
+          path: .env
           write-mode: overwrite
           contents: |
-            const ip = 'https://pi3-incommun-backend.herokuapp.com'
-            export default ip
+            # REACT_APP_MODE='development'
+            REACT_APP_MODE='production'
+            
       - name: Commit & Push
         uses: Andro999b/push@v1.3
         with:

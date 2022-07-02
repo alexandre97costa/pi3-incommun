@@ -1,4 +1,4 @@
-name: Overwrite ip
+name: Overwrite .env
 
 on:
   push:
@@ -11,14 +11,23 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
-      - name: Overwrite ip.js
+
+      - name: Overwrite .env
         uses: "DamianReeves/write-file-action@v1.0"
         with:
-          path: src/ip.js
+          path: .env
           write-mode: overwrite
           contents: |
-            const ip = 'https://pi3-incommun-backend.herokuapp.com'
-            export default ip
+            # MODE="development"
+            MODE="production"
+
+            MAIL_FROM="alexandre@tarantula.com"
+            MAIL_HOST="smtp.mailtrap.io"
+            MAIL_PORT=2525
+            MAIL_USER="910a67115889c3"
+            MAIL_PASS="cb580f8b54a229"
+            MAIL_CC="admin@incommun.com" 
+            
       - name: Commit & Push
         uses: Andro999b/push@v1.3
         with:
