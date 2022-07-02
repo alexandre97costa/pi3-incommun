@@ -192,11 +192,13 @@ export default function FormulariosComponente() {
 																		<td>
 																			<div>
 
+																
+
 
 																				<button
 																					type="button"
 																					className="btn btn-outline-info"
-																					data-bs-toggle="modal" data-bs-target="#editar_pergunta_modal"
+																					data-bs-toggle="modal" data-bs-target="#editar-pergunta-modal"
 																				><i className="bi bi-save"></i></button>
 
 
@@ -319,50 +321,6 @@ export default function FormulariosComponente() {
 			</div>
 
 			<div className='row'>
-
-				<form onSubmit={e => Update(e)}>
-					<input
-						className="form-control focus-warning"
-						type="text"
-						name="titulo"
-						required="required"
-						placeholder="Introduz o titulo"
-						value={edittitulopergunta} onChange={e => seteditTituloPergunta(e.target.value)}
-					/>
-
-					<input
-						className="form-control focus-warning"
-						type="text"
-						name="descricao"
-						required="required"
-						placeholder="Introduz a descrição"
-						value={editdescricaopergunta} onChange={e => seteditdescricaopergunta(e.target.value)}
-					/>
-
-
-					<input
-						className="form-control focus-warning"
-						type="text"
-						name="tipo_pergunta"
-						required="required"
-						placeholder="Introduz o tipo de pergunta"
-						value={edittipopergunta} onChange={e => setedittipopergunta(e.target.value)}
-					/>
-
-					<input
-						className="form-control focus-warning"
-						type="number"
-						name="valor_unitario"
-						required="required"
-						placeholder="Introduz o valor da pergunta"
-						value={editvalorpergunta} onChange={e => seteditvalorpergunta(e.target.value)}
-					/>
-
-					<button type="submit" className="btn btn-primary" >Adicionar</button>
-
-				</form>
-
-
 				<div className="accordion accordion-flush" id="form-accordion">
 					<LoadForms />
 
