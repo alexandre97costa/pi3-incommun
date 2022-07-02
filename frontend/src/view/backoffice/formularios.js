@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from "react";
-import {useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import ip from '../../ip'
 import authHeader from '../auth-header'
 
@@ -78,6 +78,9 @@ export default function FormulariosComponente() {
 				return error;
 			})
 	}
+
+
+
 
 
 	function LoadForms() {
@@ -176,6 +179,7 @@ export default function FormulariosComponente() {
 																					<LoadTiposPergunta />
 																				</ul>
 																			</div> */}
+
 																		</td>
 
 																		<td>
@@ -187,81 +191,20 @@ export default function FormulariosComponente() {
 																		{/* BOTÃO EDITAR QUE NOS LEVA Á MODAL EDITAR PERGUNTA */}
 																		<td>
 																			<div>
-																				<button type="button" className="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#editarPergunta">
-																					<i className="bi bi-save"></i>
-																				</button>
+
+
+																				<button
+																					type="button"
+																					className="btn btn-outline-info"
+																					data-bs-toggle="modal" data-bs-target="#editar_pergunta_modal"
+																				><i className="bi bi-save"></i></button>
+
+
 
 																				{/* MODAL QUE SE ABRE */}
 
 
-																				<div className="modal fade" id="editarPergunta" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-																					<div className="modal-dialog modal-xl">
-																						<div className="modal-content">
-																							<div className="modal-header">
-																								<h5 className="modal-title" id="exampleModalLabel">Editar Pergunta</h5>
-																								<button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-																							</div>
 
-
-																							<div className="modal-body">
-
-																								<form onSubmit={e => Update(e)}>
-																									<input
-																										className="form-control focus-warning"
-																										type="text"
-																										name="titulo2"
-																										required="required"
-																										placeholder="Introduz o titulo"
-																										value={edittitulopergunta} onChange={e => seteditTituloPergunta(e.target.value)}
-																									/>
-
-
-
-
-																									{/* <div className="form-group">
-																									<label htmlFor="inputTitulo">Titulo</label>
-																									<input
-																										type="text"
-																										className="form-control"
-																										placeholder="Descrição"
-																										value={editdescricaopergunta} onChange={e => seteditdescricaopergunta(e.target.value)}
-																									/>
-																								</div>
-
-
-																								<div className="form-group">
-																									<label htmlFor="inputTitulo">Titulo</label>
-																									<input
-																										type="text"
-																										className="form-control"
-																										placeholder="Tipo de Pergunta"
-																										value={edittipopergunta} onChange={e => setedittipopergunta(e.target.value)}
-																									/>
-																								</div>
-
-																								<div className="form-group">
-																									<label htmlFor="inputTitulo">Titulo</label>
-																									<input
-																										type="text"
-																										className="form-control"
-																										placeholder="Valor da Pergunta"
-																										value={editvalorpergunta} onChange={e => seteditvalorpergunta(e.target.value)}
-																									/>
-																								</div>  */}
-
-
-
-
-
-
-																									<button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-																									<button type="submit" className="btn btn-primary" >Guardar Alterações</button>
-																								</form>
-																							</div>
-
-																						</div>
-																					</div>
-																				</div>
 																			</div>
 
 

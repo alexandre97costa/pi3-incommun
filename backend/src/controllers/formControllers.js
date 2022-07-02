@@ -90,8 +90,6 @@ module.exports = {
 
     //EDITAR
     edit: async (req, res) => {
-        const { id } = req.params;
-
         const { titulo, descricao, tipo_pergunta, valor_unitario } = req.body;
 
         const data = await Pergunta.update(
