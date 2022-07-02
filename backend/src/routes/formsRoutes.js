@@ -11,7 +11,8 @@ router.get('/', (req, res) => {
 router.get('/all_form_names', formController.all_form_names)
 router.get('/all', formController.all)
 router.get('/all_backoffice', formController.all_backoffice)
-router.post('/edit', formController.edit)
+router.get('/get/:id', formController.buscar);
+router.post('/edit/:id', formController.edit)
 router.get('/all_tipos_pergunta', formController.all_tipos_pergunta)
 router.get('/one', formController.one)
 

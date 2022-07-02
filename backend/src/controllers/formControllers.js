@@ -87,24 +87,40 @@ module.exports = {
         res.json({ success: true, data: data })
     },
 
-    //EDITAR TITULO DE FORMULÁRIO 
+
+    /* BUSCAR para EDITAR ----------------------------------------------- */
+    buscar : async (req, res) => {
+        const { id } = req.params;
+        const data = await Pergunta.findAll({
+            where: { id: id },
+        })
+            .then(function (data) {
+                return data;
+            })
+            .catch(error => {
+                return error;
+            })
+        res.json({ success: true, data: data });
+    },
+
+
+    //EDITAR
     edit: async (req, res) => {
-        const {id} = req.params;
-        console.log(req.body)
+        const { id } = req.params;
+
         const { titulo, descricao, tipo_pergunta, valor_unitario } = req.body;
 
         const data = await Pergunta.update(
-            
-                { 
-                    titulo: titulo,
-                    descricao: descricao,
-                    tipo_id: tipo_pergunta,
-                    valor_unitario: valor_unitario
 
-                },
+            {
+                titulo: titulo,
+                descricao: descricao,
+                tipo_id: tipo_pergunta,
+                valor_unitario: valor_unitario
 
-                { where: {id : id} }
-            )
+            },
+            { where: { id: id } }
+        )
             .then(function (data) {
                 return data;
             })
@@ -112,7 +128,11 @@ module.exports = {
                 return error;
             })
 
-        res.json({ success: true, data: data, message: "Atualizado com sucesso" });
+        res.json({
+            success: true,
+            data: data,
+            message: "Atualizado com sucesso"
+        });
     },
 
 

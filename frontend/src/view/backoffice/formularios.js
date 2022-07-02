@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from "react";
+import {useParams } from "react-router-dom";
 import ip from '../../ip'
 import authHeader from '../auth-header'
 
@@ -15,6 +16,7 @@ export default function FormulariosComponente() {
 	const [editdescricaopergunta, seteditdescricaopergunta] = useState("")
 	const [edittipopergunta, setedittipopergunta] = useState("")
 	const [editvalorpergunta, seteditvalorpergunta] = useState("")
+    const params = useParams();
 
 
 	useEffect(() => {
@@ -56,8 +58,7 @@ export default function FormulariosComponente() {
 	}
 
 
-
-	function UpdateTituloPergunta(e) {
+	function Update(e) {
 		e.preventDefault()
 		let idpergunta = e.target.getAttribute('data-id')
 
@@ -194,67 +195,70 @@ export default function FormulariosComponente() {
 
 
 																				<div className="modal fade" id="editarPergunta" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-																					<div className="modal-dialog">
+																					<div className="modal-dialog modal-xl">
 																						<div className="modal-content">
 																							<div className="modal-header">
 																								<h5 className="modal-title" id="exampleModalLabel">Editar Pergunta</h5>
 																								<button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 																							</div>
+
+
 																							<div className="modal-body">
 
-
-																								<form onSubmit={e => UpdateTituloPergunta(e)}>
+																								<form onSubmit={e => Update(e)}>
 																									<input
 																										className="form-control focus-warning"
 																										type="text"
-																										name="titulo"
+																										name="titulo2"
 																										required="required"
 																										placeholder="Introduz o titulo"
 																										value={edittitulopergunta} onChange={e => seteditTituloPergunta(e.target.value)}
 																									/>
 
+
+
+
+																									{/* <div className="form-group">
+																									<label htmlFor="inputTitulo">Titulo</label>
 																									<input
-																										className="form-control focus-warning"
 																										type="text"
-																										name="descricao"
-																										required="required"
-																										placeholder="Introduz a descrição"
+																										className="form-control"
+																										placeholder="Descrição"
 																										value={editdescricaopergunta} onChange={e => seteditdescricaopergunta(e.target.value)}
 																									/>
+																								</div>
 
 
+																								<div className="form-group">
+																									<label htmlFor="inputTitulo">Titulo</label>
 																									<input
-																										className="form-control focus-warning"
 																										type="text"
-																										name="tipo_pergunta"
-																										required="required"
-																										placeholder="Introduz o tipo de pergunta"
+																										className="form-control"
+																										placeholder="Tipo de Pergunta"
 																										value={edittipopergunta} onChange={e => setedittipopergunta(e.target.value)}
 																									/>
+																								</div>
 
-
-
-
+																								<div className="form-group">
+																									<label htmlFor="inputTitulo">Titulo</label>
 																									<input
-																										className="form-control focus-warning"
-																										type="number"
-																										name="valor_unitario"
-																										required="required"
-																										placeholder="Introduz o valor da pergunta"
+																										type="text"
+																										className="form-control"
+																										placeholder="Valor da Pergunta"
 																										value={editvalorpergunta} onChange={e => seteditvalorpergunta(e.target.value)}
-																									/>																								
+																									/>
+																								</div>  */}
 
+
+
+
+
+
+																									<button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+																									<button type="submit" className="btn btn-primary" >Guardar Alterações</button>
 																								</form>
-
-
-
-
-
 																							</div>
-																							<div className="modal-footer">
-																								<button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-																								<button type="button" className="btn btn-primary">Guardar Alterações</button>
-																							</div>
+
 																						</div>
 																					</div>
 																				</div>
@@ -373,7 +377,49 @@ export default function FormulariosComponente() {
 
 			<div className='row'>
 
-	
+				<form onSubmit={e => Update(e)}>
+					<input
+						className="form-control focus-warning"
+						type="text"
+						name="titulo"
+						required="required"
+						placeholder="Introduz o titulo"
+						value={edittitulopergunta} onChange={e => seteditTituloPergunta(e.target.value)}
+					/>
+
+					<input
+						className="form-control focus-warning"
+						type="text"
+						name="descricao"
+						required="required"
+						placeholder="Introduz a descrição"
+						value={editdescricaopergunta} onChange={e => seteditdescricaopergunta(e.target.value)}
+					/>
+
+
+					<input
+						className="form-control focus-warning"
+						type="text"
+						name="tipo_pergunta"
+						required="required"
+						placeholder="Introduz o tipo de pergunta"
+						value={edittipopergunta} onChange={e => setedittipopergunta(e.target.value)}
+					/>
+
+					<input
+						className="form-control focus-warning"
+						type="number"
+						name="valor_unitario"
+						required="required"
+						placeholder="Introduz o valor da pergunta"
+						value={editvalorpergunta} onChange={e => seteditvalorpergunta(e.target.value)}
+					/>
+
+					<button type="submit" className="btn btn-primary" >Adicionar</button>
+
+				</form>
+
+
 				<div className="accordion accordion-flush" id="form-accordion">
 					<LoadForms />
 
