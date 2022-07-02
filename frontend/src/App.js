@@ -8,6 +8,7 @@ import NavDeCima from './view/forms/navdecima'
 import NavDeLado from './view/backoffice/navdelado'
 import Main from './view/main'
 import Form from './view/forms/form'
+import JumboTron from './view/forms/jumbotron'
 
 import BoLogin from './view/backoffice/login'
 import PrivateRoute from './view/backoffice/private_route'
@@ -19,14 +20,16 @@ import EditPerguntaModal from './view/backoffice/editar_pergunta_modal';
 import BoClientes from './view/backoffice/clientes'
 import BoPiechart from './view/backoffice/piechart'
 import BoPedidosCliente from './view/backoffice/pedidos_cliente'
+import UsersModalComponent from './view/backoffice/users_modal';
+import CriarUserModalComponent from './view/backoffice/criar_user_modal';
+import EliminarUserModalComponent from './view/backoffice/eliminar_user_modal';
 
-import JumboTron from './view/forms/jumbotron'
 
 
 export default function App() {
 
 	const [perguntasObject, setPerguntasObj] = useState({})
-	const [login, setLogin] = useState( process.env.REACT_APP_MODE ==='development' || (!!authService?.getCurrentUser() ?? false))
+	const [login, setLogin] = useState(process.env.REACT_APP_MODE === 'development' || (!!authService?.getCurrentUser() ?? false))
 
 	useEffect(() => {
 		// console.log('user', process.env.REACT_APP_MODE === 'development' || (authService?.getCurrentUser() ?? false))
@@ -74,6 +77,9 @@ export default function App() {
 								<div className='row vh-100'>
 									<NavDeLado setLogin={setLogin} />
 									<BoInicio />
+									<UsersModalComponent />
+									<CriarUserModalComponent />
+									<EliminarUserModalComponent />
 								</div>
 							</div>
 						</PrivateRoute>
@@ -87,6 +93,9 @@ export default function App() {
 								<div className='row vh-100'>
 									<NavDeLado setLogin={setLogin} />
 									<BoInicioV2 />
+									<UsersModalComponent />
+									<CriarUserModalComponent />
+									<EliminarUserModalComponent />
 								</div>
 							</div>
 						</PrivateRoute>
@@ -119,6 +128,9 @@ export default function App() {
 									<NavDeLado setLogin={setLogin} />
 									<BoFormularios />
 									<EditPerguntaModal/>
+									<UsersModalComponent />
+									<CriarUserModalComponent />
+									<EliminarUserModalComponent />
 								</div>
 							</div>
 						</PrivateRoute>
@@ -130,6 +142,9 @@ export default function App() {
 								<div className='row vh-100'>
 									<NavDeLado setLogin={setLogin} />
 									<BoPedidos />
+									<UsersModalComponent />
+									<CriarUserModalComponent />
+									<EliminarUserModalComponent />
 								</div>
 							</div>
 						</PrivateRoute>
@@ -141,6 +156,9 @@ export default function App() {
 								<div className='row vh-100'>
 									<NavDeLado setLogin={setLogin} />
 									<BoPiechart />
+									<UsersModalComponent />
+									<CriarUserModalComponent />
+									<EliminarUserModalComponent />
 								</div>
 							</div>
 						</PrivateRoute>

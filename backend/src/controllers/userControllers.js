@@ -31,7 +31,7 @@ module.exports = {
             !req.body.password ||
             !req.body.role
         ) {
-            res.status(400).json({
+            res.json({
                 success: false,
                 message: 'Faltam dados! É preciso username, email, password, e role.'
             })
@@ -57,7 +57,7 @@ module.exports = {
                     })
 
                 if (userJaExiste) {
-                    res.status(400).json({
+                    res.json({
                         success: false,
                         message: 'Utilizador com esse email já existe.'
                     })
@@ -114,7 +114,8 @@ module.exports = {
                     success: true,
                     message: 'Autenticação realizada com sucesso!',
                     token: token,
-                    username: user.username
+                    username: user.username,
+                    email: user.email
                 });
                 return
             }

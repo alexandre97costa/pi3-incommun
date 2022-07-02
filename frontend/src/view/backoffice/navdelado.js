@@ -138,7 +138,17 @@ export default function NavDeLadoComponent(props) {
 
                             <ul className='dropdown-menu dropdown-menu-dark rounded-0 m-0' aria-labelledby='dropdown-user'>
 
-                                <li><button type='button' className='dropdown-item' data-bs-toggle="modal" data-bs-target="#users-modal">
+                                <li><button 
+                                type='button' 
+                                id='btn-users-modal'
+                                className='dropdown-item' 
+                                data-bs-toggle="modal" 
+                                data-bs-target="#users-modal"
+                                onClick={e => {
+                                    // Isto executa uma função na modal para ir buscar outra vez a lista de users à BD
+                                    document.querySelector('#refresh-users-list').click()
+                                }}
+                                >
                                     <i className='bi bi-people me-2'></i>
                                     <span className='me-2'>Ver todos</span>
                                 </button></li>
