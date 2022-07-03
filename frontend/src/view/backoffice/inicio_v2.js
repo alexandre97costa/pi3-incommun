@@ -11,6 +11,8 @@ export default function InicioV2Component() {
     const [pedidos, setPedidos] = useState([])
     const [totalPedidos, setTotalPedidos] = useState(0)
     const [estados, setEstados] = useState([])
+    const [filtroPedido, setFiltroPedido] = useState('id')
+    const [ordemPedido, setOrdemPedido] = useState('ASC')
     const [filtroEstadoPedido, setFiltroEstadoPedido] = useState(0)
     const [filtroEstadoPedidoDesc, setFiltroEstadoPedidoDesc] = useState('Todos os pedidos')
 
@@ -19,11 +21,29 @@ export default function InicioV2Component() {
     const [autorDica, setAutorDica] = useState('')
 
     useEffect(() => {
+
+        axios.get(ip + '/pedidos/all?ordem=' + ordemPedido + '&filtro=' + filtroPedido )
+        .then(res => {
+            if (res.data.success) {
+                const data = res.data.data;
+                setPedidos(data);
+               
+            } else {
+                alert("Error Web Service!");
+            }
+        })
+        .catch(error => {
+            alert(error)
+        });
+    }, [filtroPedido,ordemPedido])
+
+
+    useEffect(() => {
         // Get os pedidos todos (por vezes filtrados e ordenados)
         axios.get(ip + '/pedidos/all?estado_id=' + filtroEstadoPedido, authHeader())
             .then(res => {
                 // console.log(res.data)
-                setPedidos(res.data)
+                setPedidos(res.data.data)
             })
     }, [filtroEstadoPedido])
 
@@ -53,6 +73,12 @@ export default function InicioV2Component() {
 
         setUsername(authService.getCurrentUser()?.username ?? '')
     }, [])
+
+    function handleFiltro(filtro, ordem, texto) {
+        setFiltroPedido(filtro);
+        setOrdemPedido(ordem);
+        document.getElementById('filtro_pedido').textContent = texto
+    }
 
 
     function LoadInfoPedidosCliente() {
@@ -230,18 +256,18 @@ export default function InicioV2Component() {
                     </span>
 
                     <div className="dropdown bg-white me-2">
-                        <button className=" btn btn-sm btn-outline-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                            <span className='me-2'>Pendentes mais antigos primeiro</span>
+                        <button className=" btn btn-sm btn-outline-dark dropdown-toggle" type="button" id="filtro_pedido" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span className='me-2'>Pedidos Pendentes</span>
                         </button>
                         <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            <li><button className="dropdown-item" onClick={e => { }} type='button'>Pendentes mais antigos primeiro</button></li>
-                            <li><button className="dropdown-item" onClick={e => { }} type='button'>Mais recentes primeiro</button></li>
+                            <li><button className="dropdown-item" onClick={e => {handleFiltro('created_at','ASC',  e.target.textContent) }} type='button'>Mais antigos primeiro</button></li>
+                            <li><button className="dropdown-item" onClick={e => {handleFiltro('created_at','DESC',  e.target.textContent) }} type='button'>Mais recentes primeiro</button></li>
                             <li><hr className="dropdown-divider" /></li>
-                            <li><button className="dropdown-item" onClick={e => { }} type='button'>Nome de cliente (A-Z)</button></li>
-                            <li><button className="dropdown-item" onClick={e => { }} type='button'>Nome de cliente (Z-A)</button></li>
+                            <li><button className="dropdown-item" onClick={e => {handleFiltro('nome',            'ASC',  e.target.textContent) }} type='button'>Nome de cliente (A-Z)</button></li>
+                            <li><button className="dropdown-item" onClick={e => {handleFiltro('nome',            'DESC',  e.target.textContent) }} type='button'>Nome de cliente (Z-A)</button></li>
                             <li><hr className="dropdown-divider" /></li>
-                            <li><button className="dropdown-item" onClick={e => { }} type='button'>Valor mais elevado primeiro</button></li>
-                            <li><button className="dropdown-item" onClick={e => { }} type='button'>Valor mais baixo primeiro</button></li>
+                            <li><button className="dropdown-item" onClick={e => {handleFiltro('valor_total',            'DESC',  e.target.textContent) }} type='button'>Valor mais elevado primeiro</button></li>
+                            <li><button className="dropdown-item" onClick={e => {handleFiltro('valor_total',            'ASC',  e.target.textContent) }} type='button'>Valor mais baixo primeiro</button></li>
                         </ul>
                     </div>
 

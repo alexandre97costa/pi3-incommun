@@ -88,7 +88,9 @@ module.exports = {
     all: async (req, res) => {
         // para filtrar por estado
         const estadoId = req.query.estado_id ?? 0
-
+        const filtro = req.query.filtro ?? 'id'
+        const ordem = req.query.ordem ??  'ASC'
+        let orderArray = (filtro === 'nome') ? [Cliente, filtro, ordem] : [filtro, ordem];
         await sequelize.sync()
             .then(async () => {
                 // sem filtro por estado_id
@@ -100,9 +102,9 @@ module.exports = {
                             { model: MotivoRecusa },
                             { model: Resposta }
                         ],
-                        order: [['id', 'ASC']]
+                        order: [orderArray]
                     })
-                        .then(response => res.send(response))
+                        .then(response => res.json({success: true, data: response}))
                 }
                 // com filtro por estado_id
                 if (estadoId > 0) {
@@ -117,9 +119,9 @@ module.exports = {
                                 { model: MotivoRecusa },
                                 { model: Resposta }
                             ],
-                            order: [['id', 'ASC']]
+                            order: [orderArray]
                         })
-                        .then(response => res.send(response))
+                        .then(response => res.json({success: true, data: response}))
                 }
 
             })
