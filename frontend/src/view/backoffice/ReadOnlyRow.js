@@ -34,9 +34,9 @@ const ReadOnlyRow = ({ pergunta, handleEditClick }) => {
 
             <td>
                 <button type="button" 
-                className="btn btn-outline-info"
+                className="btn btn-outline-warning"
                 onClick={(e) => handleEditClick(e, pergunta)}
-                ><i className="bi bi-save"></i></button>
+                ><i className="bi bi-pencil-square"></i></button>
             </td>
         </tr>
 
