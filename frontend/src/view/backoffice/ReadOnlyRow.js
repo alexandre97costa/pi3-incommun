@@ -1,6 +1,6 @@
 import React from 'react'
 
-const ReadOnlyRow = ({ pergunta, handleEditClick }) => {
+const ReadOnlyRow = ({ pergunta, handleEditClick, handlDeleteClick }) => {
     return (
 
 
@@ -33,10 +33,11 @@ const ReadOnlyRow = ({ pergunta, handleEditClick }) => {
             </td>
 
             <td>
-                <button type="button" 
-                className="btn btn-outline-warning"
-                onClick={(e) => handleEditClick(e, pergunta)}
+                <button type="button"
+                    className="btn btn-outline-warning mx-2"
+                    onClick={(e) => handleEditClick(e, pergunta)}
                 ><i className="bi bi-pencil-square"></i></button>
+
             </td>
         </tr>
 

@@ -46,6 +46,7 @@ const EditableRow = ({ editForm, handleEditForm, handleCancelClick }) => {
                     name="valor_unitario"
                     onChange={handleEditForm}
                 ></input>
+
             </td>
 
             <td>

@@ -9,12 +9,11 @@ export default function FormulariosComponente() {
 
 
 	// const [tiposPergunta, setTiposPergunta] = useState([])
-	// const [filtroTiposPergunta, setFiltroTiposPergunta] = useState(0)
+	//const [filtroTiposPergunta, setFiltroTiposPergunta] = useState(0)
 	// const [filtroTiposPerguntaDesc, setFiltroTiposPerguntaDesc] = useState('Tipos de Pergunta')
 
 	const [forms, setForms] = useState([])
 	const [editPerguntaId, setEditPerguntaId] = useState(null)
-	const [loading, setLoading] = useState(false)
 
 	const [editForm, setEditForm] = useState({
 		titulo: "",
@@ -69,10 +68,11 @@ export default function FormulariosComponente() {
 		setEditForm(formValues);
 	};
 
+
+
 	const handleCancelClick = () => {
 		setEditPerguntaId(null);
 	  };
-	
 
 
 
@@ -148,7 +148,7 @@ export default function FormulariosComponente() {
 															<div key={pergunta.id}>
 
 
-															
+															<form>
 																<table className="table table-hover">
 																	<thead className='fw-semibold'>
 																		<tr>
@@ -170,13 +170,14 @@ export default function FormulariosComponente() {
 																		) : (
 																			<ReadOnlyRow pergunta={pergunta}
 																				handleEditClick={handleEditClick}
+																
 																			/>
 																		)}
 																	</tbody>
 
 
 																</table>
-												
+																</form>
 
 
 															</div>
@@ -218,6 +219,9 @@ export default function FormulariosComponente() {
 			</div>
 
 			<div className='row'>
+
+
+
 				<div className="accordion accordion-flush" id="form-accordion">
 					<LoadForms />
 
