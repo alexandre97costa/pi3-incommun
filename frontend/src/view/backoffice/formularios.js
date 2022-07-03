@@ -9,7 +9,7 @@ export default function FormulariosComponente() {
 
 
 	// const [tiposPergunta, setTiposPergunta] = useState([])
-	//const [filtroTiposPergunta, setFiltroTiposPergunta] = useState(0)
+	// const [filtroTiposPergunta, setFiltroTiposPergunta] = useState(0)
 	// const [filtroTiposPerguntaDesc, setFiltroTiposPerguntaDesc] = useState('Tipos de Pergunta')
 
 	const [forms, setForms] = useState([])
@@ -40,26 +40,6 @@ export default function FormulariosComponente() {
 	// 		})
 	// }, [filtroTiposPergunta])
 
-	const handleEditFormSubmit = (e) => {
-		e.preventDefault();
-
-		const editedPergunta = {
-			id: editPerguntaId,
-			titulo: editForm.titulo,
-			descricao: editForm.descricao,
-			tipo_pergunta: editForm.tipo_pergunta,
-			valor_unitario: editForm.valor_unitario
-		}
-		const newPergunta = [...forms];
-
-		const index = forms.findIndex((forms) => forms.id === editPerguntaId)
-
-		newPergunta[index] = editedPergunta;
-
-		setForms(newPergunta);
-		setEditPerguntaId(null)
-
-	}
 
 
 	const handleEditForm = (e => {
@@ -166,53 +146,52 @@ export default function FormulariosComponente() {
 											>
 												<div className='accordion-body'>
 
-													<div key={grupo.id}>
 
 
 
-														<form onSubmit={handleEditFormSubmit}>
-															<table className="table table-hover">
-																<thead className='fw-semibold'>
-																	<tr>
-																		<td style={{ width: "30%" }}>Titulo</td>
-																		<td style={{ width: "40%" }}>Descrição</td>
-																		<td style={{ width: "10%" }}>Tipo</td>
-																		<td style={{ width: "10%" }}>Valor</td>
-																		<td style={{ width: "10%" }}>Ações</td>
-																	</tr>
-																</thead>
-																
-																<tbody>
-																	{grupo.pergunta.map(pergunta => {
-																		return (
 
+													
+														<table className="table table-hover">
+															<thead className='fw-semibold'>
+																<tr>
+																	<td style={{ width: "30%" }}>Titulo</td>
+																	<td style={{ width: "40%" }}>Descrição</td>
+																	<td style={{ width: "10%" }}>Tipo</td>
+																	<td style={{ width: "10%" }}>Valor</td>
+																	<td style={{ width: "10%" }}>Ações</td>
+																</tr>
+															</thead>
 
-																			<Fragment>
-																				{editPerguntaId === pergunta.id ? (
-																					<EditableRow editForm={editForm}
-																						handleEditForm={handleEditForm}
-																						handleCancelClick={handleCancelClick}
-																					/>
-																				) : (
-																					<ReadOnlyRow pergunta={pergunta}
-																						handleEditClick={handleEditClick}
-
-																					/>
-																				)}
-																			</Fragment>
+															<tbody>
+																{grupo.pergunta.map(pergunta => {
+																	return (
 
 
 
-																		)
-																	})}
-																</tbody>
+																		(editPerguntaId === pergunta.id) ?
+																			<EditableRow key={pergunta.id} editForm={editForm}
+																				handleEditForm={handleEditForm}
+																				handleCancelClick={handleCancelClick}
+																			/>
+																			:
+																			<ReadOnlyRow key={pergunta.id} pergunta={pergunta}
+																				handleEditClick={handleEditClick}
+
+																			/>
 
 
-															</table>
-														</form>
 
-													</div>
+
+																	)
+																})}
+															</tbody>
+
+
+														</table>
+												
+
 												</div>
+
 											</div>
 										</div>
 									)

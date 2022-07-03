@@ -17,7 +17,6 @@ import BoInicio from './view/backoffice/inicio'
 import BoInicioV2 from './view/backoffice/inicio_v2'
 import BoPedidos from './view/backoffice/pedidos'
 import BoFormularios from './view/backoffice/formularios'
-import EditPerguntaModal from './view/backoffice/editar_pergunta_modal';
 import BoClientes from './view/backoffice/clientes'
 import BoPiechart from './view/backoffice/piechart'
 import BoPedidosCliente from './view/backoffice/pedidos_cliente'
@@ -136,7 +135,6 @@ export default function App() {
 								<div className='row vh-100'>
 									<NavDeLado setLogin={setLogin} />
 									<BoFormularios />
-									<EditPerguntaModal/>
 									<UsersModalComponent />
 									<CriarUserModalComponent />
 									<EliminarUserModalComponent />

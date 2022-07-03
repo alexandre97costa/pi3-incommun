@@ -1,7 +1,15 @@
-import React from 'react'
+import React, { useEffect } from 'react' 
+
+
+
+
 
 const EditableRow = ({ editForm, handleEditForm, handleCancelClick }) => {
+
+    const [editTitulo, setEditTitulo] = useEffect('')
+
     return (
+        
         <tr>
 
             <td>
@@ -67,5 +75,7 @@ const EditableRow = ({ editForm, handleEditForm, handleCancelClick }) => {
         </tr>
     )
 }
+
+
 
 export default EditableRow
