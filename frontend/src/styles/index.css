@@ -18,6 +18,10 @@ body, html { scroll-behavior: smooth; }
 .bg-teal { background-color: var(--bs-teal) }
 
 .bg-purple {background-color: #660FF1;}
+.text-purple {color: #660FF1}
+.border-purple{border: #660FF1;}
+
+.border-warning{ border: rgba( var(--bs-warning-rgb));}
 
 .bg-primary-semi    { background-color: rgba( var(--bs-primary-rgb),    0.15 );}
 .bg-secondary-semi  { background-color: rgba( var(--bs-secondary-rgb),  0.2 );}
@@ -51,4 +55,12 @@ body, html { scroll-behavior: smooth; }
 }
 .margin-bottom-10{
     margin-bottom: 10%;
+}
+.margin-top-bottom-15{
+    margin-top: 15%;
+    margin-bottom: 5%;
+}
+.margin-10{
+    margin-left: 5%;
+    margin-right: 5%;
 }

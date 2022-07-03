@@ -9,6 +9,7 @@ import NavDeLado from './view/backoffice/navdelado'
 import Main from './view/main'
 import Form from './view/forms/form'
 import JumboTron from './view/forms/jumbotron'
+import Footer from './view/forms/footer'
 
 import BoLogin from './view/backoffice/login'
 import PrivateRoute from './view/backoffice/private_route'
@@ -48,8 +49,16 @@ export default function App() {
 							<NavDeCima auth={login} />
 							<JumboTron />
 							<Main />
+							<Footer />
 						</>
 					} />
+
+					<Route path='' element={
+						<>
+							<NavDeCima auth={login} />
+							<Footer />
+						</>
+					}/>
 
 					<Route path='/servicos-personalizados/:nome' element={
 						<>

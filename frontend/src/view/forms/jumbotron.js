@@ -9,7 +9,7 @@ export default function JumboTronComponent() {
                     <h1 className="mb-3" style={{padding: '5%'}}><b>INCOMMUN, a tornar o commun no fantastico!</b></h1>
                    
                     <button 
-                    className='rounded-pill bg-purple text-white'
+                    className='rounded-pill bg-purple text-white border-purple'
                     style={{width: '200px'}}
                     >
                         <h3>Atreve-te ;)</h3>
