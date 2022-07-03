@@ -4,9 +4,9 @@ import React, { useEffect, useState } from 'react';
 import NavDeLado from './navdelado'
 import Count from './count'
 import ip from '../../ip'
-import authHeader from '../auth-header'
 import mailImg from '../../assets/imgs/mail2.png'
 import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function Pedidos_clienteComponent() {
     const [pedidos, setPedidos] = useState([])
@@ -89,10 +89,10 @@ export default function Pedidos_clienteComponent() {
                         </td>
 
                         <td className=''>
-                            <button className='btn btn-secondary w-100'>
+                        <Link to={"/back-office/detalhes_pedido/" + pedido.id} className='btn btn-secondary w-100'>
                                 <i className='me-2 bi bi-card-checklist'></i>
                                 Ver pedido
-                            </button>
+                            </Link>
                         </td>
                     </tr>
                 )

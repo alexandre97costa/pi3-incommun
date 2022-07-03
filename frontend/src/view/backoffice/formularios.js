@@ -1,16 +1,27 @@
 import axios from 'axios';
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import ip from '../../ip'
 import authHeader from '../auth-header'
+import ReadOnlyRow from './ReadOnlyRow';
+import EditableRow from './EditableRow';
 
 export default function FormulariosComponente() {
 
-	const [forms, setForms] = useState([])
-	const [tiposPergunta, setTiposPergunta] = useState([])
 
-	const [filtroTiposPergunta, setFiltroTiposPergunta] = useState(0)
-	const [filtroTiposPerguntaDesc, setFiltroTiposPerguntaDesc] = useState('Tipos de Pergunta')
+	// const [tiposPergunta, setTiposPergunta] = useState([])
+	//const [filtroTiposPergunta, setFiltroTiposPergunta] = useState(0)
+	// const [filtroTiposPerguntaDesc, setFiltroTiposPerguntaDesc] = useState('Tipos de Pergunta')
+
+	const [forms, setForms] = useState([])
+	const [editPerguntaId, setEditPerguntaId] = useState(null)
+
+	const [editForm, setEditForm] = useState({
+		titulo: "",
+		descricao: "",
+		tipo_pergunta: "",
+		valor_unitario: "",
+
+	});
 
 	useEffect(() => {
 		axios.get(ip + '/forms/all_backoffice', authHeader())
@@ -18,37 +29,75 @@ export default function FormulariosComponente() {
 				console.table(res.data.formularios, ['id', 'nome'])
 				setForms(res.data.formularios)
 			})
-	}, [])
+	}, []);
 
-	useEffect(() => {
-		// Get os pedidos todos (por vezes filtrados e ordenados)
-		axios.get(ip + '/forms/all_tipos_pergunta', authHeader())
-			.then(res => {
-				console.log(res.data)
-				setTiposPergunta(res.data.data)
-			})
-	}, [filtroTiposPergunta])
+	// useEffect(() => {
+	// 	// Get os pedidos todos (por vezes filtrados e ordenados)
+	// 	axios.get(ip + '/forms/all_tipos_pergunta', authHeader())
+	// 		.then(res => {
+	// 			console.log(res.data)
+	// 			setTiposPergunta(res.data.data)
+	// 		})
+	// }, [filtroTiposPergunta])
 
 
-	function LoadTiposPergunta() {
-		return (
-			tiposPergunta.map(tipos_perguntas => {
-				return (
-					<li key={tipos_perguntas.id}>
-						<button
-							className="dropdown-item"
-							type='button'
-							onClick={e => {
-								setFiltroTiposPerguntaDesc(tipos_perguntas.titulo)
-							}}
-						>
-							{tipos_perguntas.titulo}
-						</button>
-					</li>
-				)
-			})
-		)
-	}
+	const handleEditForm = (e => {
+		e.preventDefault();
+
+		const fieldTitulo = e.target.getAttribute("titulo");
+		const fieldValue = e.target.value;
+
+		const newForm = { ...editForm };
+		newForm[fieldTitulo] = fieldValue;
+
+		setEditForm(newForm)
+
+	});
+
+	const handleEditClick = (e, pergunta) => {
+		e.preventDefault();
+		setEditPerguntaId(pergunta.id);
+
+		const formValues = {
+			titulo: pergunta.titulo,
+			descricao: pergunta.descricao,
+			tipo_pergunta: pergunta.tipo_pergunta,
+			valor_unitario: pergunta.valor_unitario
+		};
+
+		setEditForm(formValues);
+	};
+
+
+
+	const handleCancelClick = () => {
+		setEditPerguntaId(null);
+	  };
+
+
+
+
+
+	// function LoadTiposPergunta() {
+	// 	return (
+	// 		tiposPergunta.map(tipos_perguntas => {
+	// 			return (
+	// 				<li key={tipos_perguntas.id}>
+	// 					<button
+	// 						className="dropdown-item"
+	// 						type='button'
+	// 						onClick={e => {
+	// 							setFiltroTiposPerguntaDesc(tipos_perguntas.titulo)
+	// 						}}
+	// 					>
+	// 						{tipos_perguntas.titulo}
+	// 					</button>
+	// 				</li>
+	// 			)
+	// 		})
+	// 	)
+	// }
+
 
 	function LoadForms() {
 		return forms.map(form => {
@@ -94,73 +143,47 @@ export default function FormulariosComponente() {
 												aria-labelledby={'#grupo-' + grupo.id}
 											>
 												<div className='accordion-body'>
-													<table className="table table-hover">
-														<thead className='fw-semibold'>
-															<tr>
-																<td style={{ width: "30%" }}>Titulo</td>
-																<td style={{ width: "40%" }}>Descrição</td>
-																<td style={{ width: "10%" }}>Tipo</td>
-																<td style={{ width: "10%" }}>Valor</td>
-																<td style={{ width: "10%" }}>Ações</td>
-															</tr>
-														</thead>
+													{grupo.pergunta.map(pergunta => {
+														return (
+															<div key={pergunta.id}>
 
-														<tbody>
-															{grupo.pergunta.map(pergunta => {
-																return (
-																	<tr key={pergunta.id}>
 
-																		<td>
-																			<div className="">
-																				<p className="fs-6 fw-normal text-secundary text-start p-2" >{pergunta.titulo}</p>
-																			</div>
-																		</td>
+															<form>
+																<table className="table table-hover">
+																	<thead className='fw-semibold'>
+																		<tr>
+																			<td style={{ width: "30%" }}>Titulo</td>
+																			<td style={{ width: "40%" }}>Descrição</td>
+																			<td style={{ width: "10%" }}>Tipo</td>
+																			<td style={{ width: "10%" }}>Valor</td>
+																			<td style={{ width: "10%" }}>Ações</td>
+																		</tr>
+																	</thead>
 
-																		<td>
+																	<tbody>
 
-																			<div className="">
-																				<p className="fs-6 fw-normal text-secundary text-start p-2">{pergunta.descricao}</p>
-																			</div></td>
+																		{editPerguntaId === pergunta.id ? (
+																			<EditableRow editForm={editForm}
+																				handleEditForm={handleEditForm} 
+																				handleCancelClick={handleCancelClick}
+																				/>
+																		) : (
+																			<ReadOnlyRow pergunta={pergunta}
+																				handleEditClick={handleEditClick}
+																
+																			/>
+																		)}
+																	</tbody>
 
-																		<td>
 
-																			<div className="">
-																				<p className="fs-6 fw-normal text-secundary text-center p-2">{pergunta.tipo_pergunta.titulo}</p>
-																			</div>
+																</table>
+																</form>
 
-																		</td>
 
-																		<td>
-																			<div className="">
-																				<p className="fs-6 fw-normal text-secundary text-center p-2">{pergunta.valor_unitario}</p>
-																			</div>
-																		</td>
+															</div>
 
-																		{/* BOTÃO EDITAR QUE NOS LEVA Á MODAL EDITAR PERGUNTA */}
-																		<td>
-																			<div>
-
-																				<button
-																					type="button"
-																					className="btn btn-outline-info"
-																					data-bs-toggle="modal" data-bs-target="#editar-pergunta-modal"
-																				><i className="bi bi-save"></i></button>
-
-																				{/* MODAL QUE SE ABRE */}
-
-																			</div>
-																			<button type="button" className="btn btn btn-outline-danger"
-																			>
-																				<i className="bi bi-trash3"></i>
-																			</button>
-																		</td>
-
-																	</tr>
-																)
-															})}
-														</tbody>
-													</table>
-
+														)
+													})}
 
 
 												</div>
@@ -196,6 +219,9 @@ export default function FormulariosComponente() {
 			</div>
 
 			<div className='row'>
+
+
+
 				<div className="accordion accordion-flush" id="form-accordion">
 					<LoadForms />
 
