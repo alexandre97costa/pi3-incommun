@@ -63,87 +63,7 @@ module.exports = {
 
         res.status(200).send('Email enviado!')
     },
-    count: async (req, res) => {
-        // count conta por estado_id
-        // Para contar todos os pedidos, nao passes estado na query
-        const estadoId = req.query.estado_id ?? 0
-        const cliente = req.query.cliente_id ?? 0
-        // filtra por dias de idade (conta pedidos com até 30 dias de idade por exemplo)
-        const dias = req.query.dias ?? 30
 
-        //motivo recusa bd
-        const motivoId = req.query.motivo_id ?? 0
-
-        let response = {}
-
-        await sequelize.sync()
-            .then(async () => {
-                if (estadoId > 0) {
-                    await EstadoPedido
-                        .findOne({
-                            where: { id: estadoId }
-                        })
-                        .then(res => { response.estado = res })
-                }
-            })
-            .then(async () => {
-                if (estadoId > 0) {
-                    await Pedido
-                        .count({
-                            where: {
-                                estado_id: estadoId,
-                                cliente_id:cliente
-                            }
-                        })
-                        .then(count => { response = { ...response, count: count } })
-                }
-                if (estadoId === '0') {
-                    await Pedido.count({
-                        where: {
-                            created_at: {
-                                [Op.gte]: sequelize.literal('NOW() - INTERVAL \'' + dias + 'd\'')
-                            }
-                        }
-                    }).then(count => {
-                        
-                        response = {
-                            count: count,
-                            estado: {
-                                icon: 'bi-ui-radios',
-                                cor: 'primary',
-                                descricao: 'Todo'
-                            }
-                        }
-                    })
-                }
-            })
-
-            .then(async () => {
-                if (motivoId > 0) {
-                    await Pedido.count({
-                            where: {
-                                motivo_id: motivoId
-                            }
-                        })
-                        .then(count => { response = { ...response, count: count } })
-                }
-            })
-
-            .then(async () => {
-                if (estadoId > 0) {
-                    await Pedido.count({
-                            where: {
-                                estado_id: estadoId,
-                                cliente_id:cliente
-                            }
-                        })
-                        .then(count => { response = { ...response, count: count } })
-                }
-            })
-
-            
-        res.json(response)
-    },
     // devolve todos os clientes
     list: async (req, res) => {
         // para filtrar por estado
@@ -216,24 +136,6 @@ module.exports = {
     // devolve o numero de clientes na BD
     total: async (req, res) => {
         const data = await Cliente.count({
-           
-        })
-        
-            .then(function (data) {
-                return data;
-            })
-            .catch(error => {
-                return error;
-            });
-        res.json({ success: true, data: data });
-    },
-    total_recusados: async (req, res) => {
-        const data = await Cliente.count({
-            where: { 
-                deleted_at: {
-                    ne: 'null'
-                  }},
-            
         })
             .then(function (data) {
                 return data;
