@@ -26,6 +26,8 @@ module.exports = {
             .findOne({ where: { email: email } })
             .then(data => { return data })
             .catch(error => { console.log(error) })
+        
+        console.log(user)
 
 
         if (!!user) {
