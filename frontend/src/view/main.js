@@ -83,8 +83,8 @@ export default function MainComponent() {
                 </button>
             </div>
 
-            <div class='text-a-right margin-top-bottom-10'>
-                <span><h1><i class="bi bi-twitter text-warning" style={{ padding: '2%' }}></i>Gestão de Redes Sociais</h1></span>
+            <div className='text-a-right margin-top-bottom-10'>
+                <span><h1><i className="bi bi-twitter text-warning" style={{ padding: '2%' }}></i>Gestão de Redes Sociais</h1></span>
                 <h3>Na incommun, impulsionamos as redes sociais da sua marca.
                     Se ainda não implementou a gestão de redes sociais na sua empresa, está no sítio certo.
                     A estratégia é definida aqui. Na incommmun contamos com pacotes mensais ou
@@ -129,14 +129,14 @@ export default function MainComponent() {
                         <h1 className='text-white text-center'>Fala Conosco</h1>
                         <h6 className='text-white text-center'>NÂO MORDEMOS! ;) SINTA-SE À VONTADE DE TIRAR QUALQUER DÚVIDA QUE TENHA!</h6>
                     </div>
-                    <div class="m-5">
-                        <input type="text" class="form-control" id="InputNome" placeholder='Nome....' />
+                    <div className="m-5">
+                        <input type="text" className="form-control" id="InputNome" placeholder='Nome....' />
                     </div>
-                    <div class="m-5">
-                        <input type="email" class="form-control" id="InputEmail" aria-describedby="emailHelp" placeholder='Email.....' />
+                    <div className="m-5">
+                        <input type="email" className="form-control" id="InputEmail" aria-describedby="emailHelp" placeholder='Email.....' />
                     </div>
-                    <div class="input-group">
-                        <textarea class="form-control m-5" aria-label="Mensage" placeholder='Mensagem....' rows="10" cols="20"/>
+                    <div className="input-group">
+                        <textarea className="form-control m-5" aria-label="Mensage" placeholder='Mensagem....' rows="10" cols="20"/>
                     </div>
                     <div className='text-center'>
                     <img src={Cat} alt='cat icon' style={{width: '100px'}}/>
@@ -156,12 +156,12 @@ export default function MainComponent() {
             </div>
 
             <div className='resize-icon text-purple margin-bottom-10'>
-            <i class="bi bi-twitter margin-10" style={{width: '50px'}}/>
-            <i class="bi bi-instagram margin-10"/>
-            <i class="bi bi-facebook margin-10"/>
-            <i class="bi bi-linkedin margin-10"/>
-            <i class="bi bi-youtube margin-10"/>
-            <i class="bi bi-tiktok margin-10"/>
+            <i className="bi bi-twitter margin-10" style={{width: '50px'}}/>
+            <i className="bi bi-instagram margin-10"/>
+            <i className="bi bi-facebook margin-10"/>
+            <i className="bi bi-linkedin margin-10"/>
+            <i className="bi bi-youtube margin-10"/>
+            <i className="bi bi-tiktok margin-10"/>
             </div>
 
             <div className='display-3 text-indigo fw-bold mb-5'>

@@ -137,7 +137,7 @@ INSERT INTO pergunta (id, grupo_id, valor_unitario, tipo_id, created_at, updated
 (25, 11, 12.3, 3,   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Isólogo', 'O texto e o ícone são agrupados num só e funcionam melhor juntos.'),
 (26, 11, 12.3, 3,   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Imagotipo', 'O texto e o ícone estão juntos mas podem ser usados em separado. A opção mais versátil!'),
 /*Adora o logo de alguma marca*/
-(27, 12, 12.3, 4,   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Adora o logo de alguma marca?', 'Existe alguma marca que adora simplesmente pelo seu design? Algum logo que acha genial? Diga-nos qual! Os nossos designers vão usar as suas referências como inspiração para a criação da sua identidade visual. Pode adicionar quantas referências quiser!'),
+(27, 12, 12.3, 5,   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Adora o logo de alguma marca?', 'Existe alguma marca que adora simplesmente pelo seu design? Algum logo que acha genial? Diga-nos qual! Os nossos designers vão usar as suas referências como inspiração para a criação da sua identidade visual. Pode adicionar quantas referências quiser!'),
 /*Que cores não podem faltar no seu logo?*/
 (28, 13, 12.3, 1,   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Cores quentes', 'Vermelho, laranja, amarelo'),
 (29, 13, 12.3, 1,   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Cores frias', 'Azul, roxo, verde'),

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 
 // Tipos de Pergunta
-import Card from './tipos/card'
-import Text from './tipos/text'
-import Checkbox from './tipos/checkbox'
-import RedeSocial from './tipos/rede_social'
+import TipoCard from './tipos/card'
+import TipoArray from './tipos/array'
+import TipoCheckbox from './tipos/checkbox'
+import TipoRedeSocial from './tipos/rede_social'
 
 export default function GrupoComponent(props) {
 
@@ -56,8 +56,8 @@ export default function GrupoComponent(props) {
     }
 
     return (
-        <div>
-            <div id={'accordion-header-' + props.id} className='accordion-header position-relative border-bottom border-3 border-white'>
+        <>
+            <div id={'accordion-header-' + props.id} className='accordion-header position-relative border-start border-1 border-white'>
                 <button
                     id={'g-' + props.id}
                     type='button'
@@ -86,83 +86,80 @@ export default function GrupoComponent(props) {
                 className={(props.selectedGroup === props.id ? 'show' : '') + ' accordion-collapse collapse '}
                 aria-labelledby={'#accordion-header-' + props.id} data-bs-parent='#accordion'
             >
-                <div className='accordion-body bg-light rounded-0 pt-4'
-                    onClick={(e) => {
+                <div className='accordion-body bg-light rounded-0 pt-4'>
+                    <div className='row'>
+                        {props.grupo.pergunta.map((pergunta, indexPergunta) => {
+                            switch (pergunta.tipo_pergunta.titulo) {
+                                case 'card':
+                                    arrayDeIdsDosCards.push(pergunta.id)
+                                    return (
+                                        <TipoCard
+                                            key={pergunta.id}
+                                            pergunta={pergunta}
 
-                    }}
-                >
-                    {props.grupo.pergunta.map((pergunta, indexPergunta) => {
+                                            idGrupo={props.id}
+                                            perguntasObject={props.perguntasObject}
+                                            setPerguntasObject={props.setPerguntasObject}
 
-                        if (pergunta.tipo_pergunta.titulo.startsWith('r-social')) {
-                            return (
-                                <RedeSocial
-                                    exemplo={pergunta.tipo_pergunta.titulo}
+                                            resetCards={resetCards}
 
-                                    key={pergunta.id}
-                                    pergunta={pergunta}
+                                            setResposta={setResposta}
+                                        />
+                                    )
+                                case 'array':
+                                    return (
+                                        <TipoArray
+                                            key={pergunta.id}
+                                            pergunta={pergunta}
 
-                                    idGrupo={props.id}
-                                    perguntasObject={props.perguntasObject}
-                                    setPerguntasObject={props.setPerguntasObject}
+                                            perguntasObject={props.perguntasObject}
+                                            setPerguntasObject={props.setPerguntasObject}
 
-                                />
-                            )
-                        }
-
-                        switch (pergunta.tipo_pergunta.titulo) {
-                            case 'card':
-                                arrayDeIdsDosCards.push(pergunta.id)
-                                return (
-                                    <Card
-                                        key={pergunta.id}
-                                        pergunta={pergunta}
-
-                                        idGrupo={props.id}
-                                        perguntasObject={props.perguntasObject}
-                                        setPerguntasObject={props.setPerguntasObject}
-
-                                        resetCards={resetCards}
-
-                                        setResposta={setResposta}
-                                    />
-                                )
-                            case 'text':
-                                return (
-                                    <Text
-                                        key={pergunta.id}
-                                        pergunta={pergunta}
-
-                                        perguntasObject={props.perguntasObject}
-                                        setPerguntasObject={props.setPerguntasObject}
-
-                                        setResposta={setResposta}
+                                            setResposta={setResposta}
 
 
-                                    />
-                                )
+                                        />
+                                    )
 
-                            case 'checkbox':
-                                return (
-                                    <Checkbox
-                                        key={pergunta.id}
-                                        pergunta={pergunta}
+                                case 'checkbox':
+                                    return (
+                                        <TipoCheckbox
+                                            key={pergunta.id}
+                                            pergunta={pergunta}
 
-                                        perguntasObject={props.perguntasObject}
-                                        setPerguntasObject={props.setPerguntasObject}
+                                            perguntasObject={props.perguntasObject}
+                                            setPerguntasObject={props.setPerguntasObject}
 
-                                        setRespostaCheckbox={setRespostaCheckbox}
-                                    />
-                                )
+                                            setRespostaCheckbox={setRespostaCheckbox}
+                                        />
+                                    )
 
-                            default:
-                                return (console.log('Tipo de pergunta não aceite'));
-                                {/* return null; */ }
-                        }
+                                case 'r-social-posts':
+                                case 'r-social-posts-stories':
+                                case 'r-social-posts-reels':
+                                case 'r-social-posts-stories-reels':
+                                    return (
+                                        <TipoRedeSocial
+                                            exemplo={pergunta.tipo_pergunta.titulo}
 
-                    })}
+                                            key={pergunta.id}
+                                            pergunta={pergunta}
+
+                                            idGrupo={props.id}
+                                            perguntasObject={props.perguntasObject}
+                                            setPerguntasObject={props.setPerguntasObject}
+
+                                        />
+                                    )
+
+                                default:
+                                    return (console.log('Tipo de pergunta não aceite ->', pergunta.tipo_pergunta.titulo));
+                            }
+                        })}
+                    </div>
                 </div>
             </div>
-        </div>
+        </>
     )
 
 }

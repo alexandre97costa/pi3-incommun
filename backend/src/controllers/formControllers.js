@@ -130,9 +130,7 @@ module.exports = {
             .then(async () => {
                 await Formulario
                     .findOne({
-                        where: {
-                            id: id
-                        },
+                        where: { id: id },
                         include: [{
                             model: Grupo,
                             attributes: ['id', 'titulo'],

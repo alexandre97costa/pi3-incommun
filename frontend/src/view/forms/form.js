@@ -14,8 +14,27 @@ export default function FormComponent(props) {
     if (formId === undefined) { throw new Error('id is undefined!') }
     const [form, setForm] = useState([])
 
-    let arrayDeIdsDeGrupos = []
     const [selectedGroup, setSelectedGroup] = useState(-1)
+
+    useEffect(() => {
+
+        let grupo = document.querySelector('#accordion-header-' + selectedGroup)
+        if (!grupo) { return }
+
+        let rect = grupo.getBoundingClientRect()
+        let isNotInView = !( // <- atenção aqui ao !
+            rect.top >= 0 &&
+            rect.top <= (window.innerHeight || document.documentElement.clientHeight) 
+        )
+
+        if (isNotInView) {
+            grupo.scrollIntoView({
+                behaviour: 'smooth',
+                block: 'center',
+                inline: 'center'
+            })
+        }
+    }, [selectedGroup])
 
     // 🥐 client info
     const [clienteNome, setClienteNome] = useState('')
@@ -24,7 +43,6 @@ export default function FormComponent(props) {
     const [clienteTlm, setClienteTlm] = useState('')
 
     useEffect(() => {
-        console.log('%caxios get forms/civ', 'color: skyblue')
         axios
             .get(ip + '/forms/one?id=' + formId)
             .then(res => { setForm(res.data) })
@@ -55,6 +73,9 @@ export default function FormComponent(props) {
                     // Output final: { 1:false, 2:false, ... }
                 )
             props.setPerguntasObj(perguntasObject)
+
+            // Definir o primeiro grupo como aberto
+            setSelectedGroup(form.grupos[0].id)
         }
     }, [form])
 
@@ -101,8 +122,6 @@ export default function FormComponent(props) {
                 <div id='accordion' className='accordion accordion-flush border-start border-warning border-5 ps-1 ms-3'>
 
                     {form.length !== 0 && form.grupos.map((grupo, index) => {
-
-                        arrayDeIdsDeGrupos.push(index)
 
                         return (
                             <Grupo
@@ -198,12 +217,6 @@ export default function FormComponent(props) {
 
             </div>
 
-            {/* Testes */}
-            <div className='row d-none'>
-                <div className='col-12 border-top border-start border-warning border-5 ps-1 ms-3 py-2'>
-
-                </div>
-            </div>
 
             {/* 🤹‍♂️ Formulário */}
             <LoadForm />
