@@ -53,38 +53,38 @@ export default function MainComponent() {
     return (
         <div className='container p-5 margin-top-bottom-10'>
             <div className='row row-cols-sm-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-5 gy-3'>
-                <div className='col border border-warning border-5 rounded  icon-center'>
+                <div className='col border border-warning border-5 rounded  text-center'>
                     <i className="bi bi-journal-text text-warning resize-icon"><h1 className='text-dark'>Mini Questinário</h1></i>
                 </div>
 
-                <div className='icon-center margin-top-5'>
+                <div className='text-center margin-top-5'>
                     <i className="bi bi-chevron-right text-warning resize-icon"></i>
                 </div>
 
-                <div className='col border border-warning border-5 rounded icon-center'>
+                <div className='col border border-warning border-5 rounded text-center'>
                     <i className="bi bi-wallet2 text-warning resize-icon"><h1 className='text-dark'>Receba o orçamento</h1></i>
                 </div>
 
-                <div className='icon-center margin-top-5'>
+                <div className='text-center margin-top-5'>
                     <i className="bi bi-chevron-right text-warning resize-icon"></i>
                 </div>
 
-                <div className='col border border-warning border-5 rounded icon-center'>
+                <div className='col border border-warning border-5 rounded text-center'>
                     <i className="bi bi-geo-alt-fill text-warning resize-icon"><h1 className='text-dark'>Pedido entregue!</h1></i>
                 </div>
             </div>
 
             <div className='text-center p-5 margin-top-bottom-10'>
                 <button
-                    className='rounded-pill bg-purple text-white border-purple'
+                    className='rounded-pill bg-indigo text-white '
                     style={{ width: '300px' }}
                 >
                     <h3>Pedir Orçamento</h3>
                 </button>
             </div>
 
-            <div class='text-a-right margin-top-bottom-10'>
-                <span><h1><i class="bi bi-twitter text-warning" style={{ padding: '2%' }}></i>Gestão de Redes Sociais</h1></span>
+            <div className='text-end margin-top-bottom-10'>
+                <span><h1><i className="bi bi-twitter text-warning" style={{ padding: '2%' }}></i>Gestão de Redes Sociais</h1></span>
                 <h3>Na incommun, impulsionamos as redes sociais da sua marca.
                     Se ainda não implementou a gestão de redes sociais na sua empresa, está no sítio certo.
                     A estratégia é definida aqui. Na incommmun contamos com pacotes mensais ou
@@ -97,7 +97,7 @@ export default function MainComponent() {
                 </button>
             </div>
 
-            <div className='text-a-left margin-top-bottom-10'>
+            <div className='text-start margin-top-bottom-10'>
                 <span><h1>Criação de Website<i className="bi bi-window-desktop text-warning" style={{ padding: '2%' }}></i></h1></span>
                 <h3>Aqui na incommun podemos criar um site para a sua empresa
                     Temos algumas opções para si desde landing pages, útil como cartão de visita
@@ -111,7 +111,7 @@ export default function MainComponent() {
                 </button>
             </div>
 
-            <div className='text-a-right margin-top-bottom-10'>
+            <div className='text-end margin-top-bottom-10'>
                 <span><h1><i className="bi bi-pencil-fill text-warning" style={{ padding: '2%' }}></i>Identidade Visual</h1></span>
                 <h3>A incommunn oferecemos também um serviço de criação de identidades visuais
                     Quaçlquer empresa necessita dum logotipo
@@ -129,19 +129,19 @@ export default function MainComponent() {
                         <h1 className='text-white text-center'>Fala Conosco</h1>
                         <h6 className='text-white text-center'>NÂO MORDEMOS! ;) SINTA-SE À VONTADE DE TIRAR QUALQUER DÚVIDA QUE TENHA!</h6>
                     </div>
-                    <div class="m-5">
-                        <input type="text" class="form-control" id="InputNome" placeholder='Nome....' />
+                    <div className="m-5">
+                        <input type="text" className="form-control" id="InputNome" placeholder='Nome....' />
                     </div>
-                    <div class="m-5">
-                        <input type="email" class="form-control" id="InputEmail" aria-describedby="emailHelp" placeholder='Email.....' />
+                    <div className="m-5">
+                        <input type="email" className="form-control" id="InputEmail" aria-describedby="emailHelp" placeholder='Email.....' />
                     </div>
-                    <div class="input-group">
-                        <textarea class="form-control m-5" aria-label="Mensage" placeholder='Mensagem....' rows="10" cols="20"/>
+                    <div className="input-group">
+                        <textarea className="form-control m-5" aria-label="Mensage" placeholder='Mensagem....' rows="10" cols="20" />
                     </div>
                     <div className='text-center'>
-                    <img src={Cat} alt='cat icon' style={{width: '100px'}}/>
+                        <img src={Cat} alt='cat icon' style={{ width: '100px' }} />
                         <button
-                            className='rounded-pill bg-purple text-white border-purple'
+                            className='rounded-pill bg-indigo text-white '
                             style={{ width: '300px', height: '70px' }}
                         >
                             <h3>Pedir Orçamento</h3>
@@ -150,18 +150,18 @@ export default function MainComponent() {
 
                 </form>
             </div>
-            
+
             <div>
                 <h1 className='text-center margin-top-bottom-15'>Acompanhe o nosso trabalho:</h1>
             </div>
 
-            <div className='resize-icon text-purple margin-bottom-10'>
-            <i class="bi bi-twitter margin-10" style={{width: '50px'}}/>
-            <i class="bi bi-instagram margin-10"/>
-            <i class="bi bi-facebook margin-10"/>
-            <i class="bi bi-linkedin margin-10"/>
-            <i class="bi bi-youtube margin-10"/>
-            <i class="bi bi-tiktok margin-10"/>
+            <div className='resize-icon text-indigo margin-bottom-10'>
+                <i className="bi bi-twitter margin-10" style={{ width: '50px' }} />
+                <i className="bi bi-instagram margin-10" />
+                <i className="bi bi-facebook margin-10" />
+                <i className="bi bi-linkedin margin-10" />
+                <i className="bi bi-youtube margin-10" />
+                <i className="bi bi-tiktok margin-10" />
             </div>
 
             <div className='display-3 text-indigo fw-bold mb-5'>
