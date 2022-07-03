@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Fragment } from "react";
 import ip from '../../ip'
 import authHeader from '../auth-header'
 import ReadOnlyRow from './ReadOnlyRow';
@@ -40,15 +40,36 @@ export default function FormulariosComponente() {
 	// 		})
 	// }, [filtroTiposPergunta])
 
+	const handleEditFormSubmit = (e) => {
+		e.preventDefault();
+
+		const editedPergunta = {
+			id: editPerguntaId,
+			titulo: editForm.titulo,
+			descricao: editForm.descricao,
+			tipo_pergunta: editForm.tipo_pergunta,
+			valor_unitario: editForm.valor_unitario
+		}
+		const newPergunta = [...forms];
+
+		const index = forms.findIndex((forms) => forms.id === editPerguntaId)
+
+		newPergunta[index] = editedPergunta;
+
+		setForms(newPergunta);
+		setEditPerguntaId(null)
+
+	}
+
 
 	const handleEditForm = (e => {
 		e.preventDefault();
 
-		const fieldTitulo = e.target.getAttribute("titulo");
+		const fieldName = e.target.getAttribute("name");
 		const fieldValue = e.target.value;
 
 		const newForm = { ...editForm };
-		newForm[fieldTitulo] = fieldValue;
+		newForm[fieldName] = fieldValue;
 
 		setEditForm(newForm)
 
@@ -63,16 +84,17 @@ export default function FormulariosComponente() {
 			descricao: pergunta.descricao,
 			tipo_pergunta: pergunta.tipo_pergunta,
 			valor_unitario: pergunta.valor_unitario
-		};
+		}
 
 		setEditForm(formValues);
 	};
 
 
-
 	const handleCancelClick = () => {
 		setEditPerguntaId(null);
-	  };
+	};
+
+
 
 
 
@@ -143,49 +165,53 @@ export default function FormulariosComponente() {
 												aria-labelledby={'#grupo-' + grupo.id}
 											>
 												<div className='accordion-body'>
-													{grupo.pergunta.map(pergunta => {
-														return (
-															<div key={pergunta.id}>
+
+													<div key={grupo.id}>
 
 
-															<form>
-																<table className="table table-hover">
-																	<thead className='fw-semibold'>
-																		<tr>
-																			<td style={{ width: "30%" }}>Titulo</td>
-																			<td style={{ width: "40%" }}>Descrição</td>
-																			<td style={{ width: "10%" }}>Tipo</td>
-																			<td style={{ width: "10%" }}>Valor</td>
-																			<td style={{ width: "10%" }}>Ações</td>
-																		</tr>
-																	</thead>
 
-																	<tbody>
-
-																		{editPerguntaId === pergunta.id ? (
-																			<EditableRow editForm={editForm}
-																				handleEditForm={handleEditForm} 
-																				handleCancelClick={handleCancelClick}
-																				/>
-																		) : (
-																			<ReadOnlyRow pergunta={pergunta}
-																				handleEditClick={handleEditClick}
+														<form onSubmit={handleEditFormSubmit}>
+															<table className="table table-hover">
+																<thead className='fw-semibold'>
+																	<tr>
+																		<td style={{ width: "30%" }}>Titulo</td>
+																		<td style={{ width: "40%" }}>Descrição</td>
+																		<td style={{ width: "10%" }}>Tipo</td>
+																		<td style={{ width: "10%" }}>Valor</td>
+																		<td style={{ width: "10%" }}>Ações</td>
+																	</tr>
+																</thead>
 																
-																			/>
-																		)}
-																	</tbody>
+																<tbody>
+																	{grupo.pergunta.map(pergunta => {
+																		return (
 
 
-																</table>
-																</form>
+																			<Fragment>
+																				{editPerguntaId === pergunta.id ? (
+																					<EditableRow editForm={editForm}
+																						handleEditForm={handleEditForm}
+																						handleCancelClick={handleCancelClick}
+																					/>
+																				) : (
+																					<ReadOnlyRow pergunta={pergunta}
+																						handleEditClick={handleEditClick}
+
+																					/>
+																				)}
+																			</Fragment>
 
 
-															</div>
 
-														)
-													})}
+																		)
+																	})}
+																</tbody>
 
 
+															</table>
+														</form>
+
+													</div>
 												</div>
 											</div>
 										</div>

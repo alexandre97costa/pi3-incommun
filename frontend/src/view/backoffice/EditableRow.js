@@ -9,7 +9,7 @@ const EditableRow = ({ editForm, handleEditForm, handleCancelClick }) => {
                     className="form-control focus-warning"
                     type="text"
                     required="required"
-                    placeholder={editForm.titulo}
+                    value={editForm.titulo}
                     name="titulo"
                     onChange={handleEditForm}
                 ></input>
@@ -20,7 +20,8 @@ const EditableRow = ({ editForm, handleEditForm, handleCancelClick }) => {
                     className="form-control focus-warning"
                     type="text"
                     required="required"
-                    placeholder={editForm.descricao}
+
+                    value={editForm.descricao}
                     name="descricao"
                     onChange={handleEditForm}
                 ></input>
@@ -31,7 +32,8 @@ const EditableRow = ({ editForm, handleEditForm, handleCancelClick }) => {
                     className="form-control focus-warning"
                     type="text"
                     required="required"
-                    placeholder={editForm.tipo_pergunta}
+
+                    value={editForm.tipo_pergunta}
                     name="tipo_pergunta"
                     onChange={handleEditForm}
                 ></input>
@@ -42,7 +44,7 @@ const EditableRow = ({ editForm, handleEditForm, handleCancelClick }) => {
                     className="form-control focus-warning"
                     type="number"
                     required="required"
-                    placeholder={editForm.valor_unitario}
+                    value={editForm.valor_unitario}
                     name="valor_unitario"
                     onChange={handleEditForm}
                 ></input>
