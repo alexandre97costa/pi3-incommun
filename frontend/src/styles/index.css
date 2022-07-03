@@ -47,20 +47,20 @@ body, html { scroll-behavior: smooth; }
     font-size: 50pt;
 }
 .margin-top-5{
-    margin-top: 5%;
+    margin-top: 5rem;
 }
 .margin-top-bottom-10{
-    margin-top: 10%;
-    margin-bottom: 10%;
+    margin-top: 10rem;
+    margin-bottom: 10rem;
 }
 .margin-bottom-10{
-    margin-bottom: 10%;
+    margin-bottom: 10rem;
 }
 .margin-top-bottom-15{
-    margin-top: 15%;
-    margin-bottom: 5%;
+    margin-top: 15rem;
+    margin-bottom: 5rem;
 }
 .margin-10{
-    margin-left: 5%;
-    margin-right: 5%;
+    margin-left: 4rem;
+    margin-right: 4rem;
 }
