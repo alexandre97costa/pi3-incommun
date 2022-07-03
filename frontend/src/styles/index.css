@@ -17,6 +17,9 @@ body, html { scroll-behavior: smooth; }
 .text-teal { color: var(--bs-teal) }
 .bg-teal { background-color: var(--bs-teal) }
 
+.bg-purple {background-color: #660FF1;}
+.text-purple {color: #660FF1}
+.border-purple{border: #660FF1;}
 
 .border-warning{ border: rgba( var(--bs-warning-rgb));}
 
@@ -30,24 +33,34 @@ body, html { scroll-behavior: smooth; }
 .bg-dark-secondary-semi { background-color: rgba( var(--bs-dark-rgb),    0.65);}
 
 
+
+.icon-center{
+    text-align: center;
+}
+.text-a-left{
+    text-align: left;
+}
+.text-a-right{
+    text-align: right;
+}
 .resize-icon{
     font-size: 50pt;
 }
 .margin-top-5{
-    margin-top: 5rem;
+    margin-top: 5%;
 }
 .margin-top-bottom-10{
-    margin-top: 10rem;
-    margin-bottom: 10rem;
+    margin-top: 10%;
+    margin-bottom: 10%;
 }
 .margin-bottom-10{
-    margin-bottom: 10rem;
+    margin-bottom: 10%;
 }
 .margin-top-bottom-15{
-    margin-top: 15rem;
-    margin-bottom: 5rem;
+    margin-top: 15%;
+    margin-bottom: 5%;
 }
 .margin-10{
-    margin-left: 4rem;
-    margin-right: 4rem;
+    margin-left: 5%;
+    margin-right: 5%;
 }

@@ -4,7 +4,7 @@ const { Sequelize } = require('sequelize');
 const sequelize = new Sequelize(
     'pi3-sequelize',
     'postgres',
-    'postgres',
+    'gatinhos',
     {
         host: 'localhost',
         port: '5432',
