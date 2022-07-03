@@ -27,14 +27,6 @@ export default function InicioComponent() {
     const [estados, setEstados] = useState([])
 
     const [isShown, setIsShown] = useState(true);
-    const toggle = () =>
-        setIsShown(isShow => !isShown);
-
-    const [isShownEstado, setIsShownEstado] = useState(false);
-    const toggleEstado = () =>
-        setIsShownEstado(isShow => !isShownEstado);
-
-
 
     useEffect(() => {
         axios.get(ip + '/pedidos/count?estado_id=0', authHeader())
@@ -180,8 +172,35 @@ export default function InicioComponent() {
             <br></br>
 
             <div className='mb-5 w row'>
+
+                <div className="dropdown bg-white me-2">
+                        <button className=" btn btn-sm btn-outline-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span className='me-2'>{isShown ? 'Resumo Pedidos Recusados' : 'Resumo Estado de Pedidos'}</span>
+                        </button>
+                        <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li> 
+                                <button
+                                    className="dropdown-item"
+                                    type='button'
+                                    onClick={e => {
+                                        setIsShown(true)
+                                    }}>
+                                    Resumo Pedidos Recusados
+                                </button>
+                                <button
+                                    className="dropdown-item"
+                                    type='button'
+                                    onClick={e => {
+                                        setIsShown(false)
+                                    }}>
+                                    Resumo Estado de Pedidos
+                                </button>
+                            </li>
+
+                        </ul>
+                </div>
+
                 <div className="mb-5 w">
-                    <button onClick={toggle} type='button' className="btn btn-secondary bi-pie-chart "> Resumo Pedidos Recusados</button>
                     {isShown && <div className="mb-3 w">
                         <Chart
                             chartType="PieChart"
@@ -193,8 +212,7 @@ export default function InicioComponent() {
                 </div>
 
                 <div className="mb-5 w">
-                    <button onClick={toggleEstado} type='button' className="btn btn-secondary bi-pie-chart "> Resumo Estado de Pedidos</button>
-                    {isShownEstado && <div className="mb-3 w">
+                    { !isShown && <div className="mb-3 w">
                         <Chart
                             chartType="PieChart"
                             data={data1}

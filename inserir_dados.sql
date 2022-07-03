@@ -107,7 +107,7 @@ INSERT INTO pergunta (id, grupo_id, valor_unitario, tipo_id, created_at, updated
 /*Extras*/
 (6, 3,   12.3, 1,    CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Deseja comprar um dominio?',        'O domínio é a url do seu site. (www.oseusite.pt)'),
 (7, 3,   12.3, 1,    CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Pretende obter alojamento?',        'O alojamento é o local onde o seu site é guardado '),
-(8, 3,   12.3, 1,    CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Deseja a criação dum portfolio?',   'Caso tenha trabalhos anterioes que queira mostrar, um portfolio é a melhor opção para tal'),
+(8, 3,   12.3, 1,    CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Deseja a criação de um portfolio?',   'Caso tenha trabalhos anterioes que queira mostrar, um portfolio é a melhor opção para tal'),
 (9, 3,   12.3, 1,    CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Ja possui conteudos textuais?',     'Já possui os textos que iram aparecer no site para falar sobre o seu negocio'),
 
 /****************************************** Loja Online ******************************************/
@@ -116,7 +116,7 @@ INSERT INTO pergunta (id, grupo_id, valor_unitario, tipo_id, created_at, updated
 /*Extras*/
 (14, 6,  12.3, 1,   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Deseja comprar um dominio?', 'O domínio é a url do seu site. (www.oseusite.pt)'),
 (15, 6,  12.3, 1,   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Pretende obter alojamento?', 'O alojamento é o local onde o seu site é guardado '),
-(16, 6,  12.3, 1,   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Deseja a criação dum portfolio?', 'Caso tenha trabalhos anterioes que queira mostrar, um portfolio é a melhor opção para tal'),
+(16, 6,  12.3, 1,   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Deseja a criação de um portfolio?', 'Caso tenha trabalhos anterioes que queira mostrar, um portfolio é a melhor opção para tal'),
 (17, 6,  12.3, 1,   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Ja possui conteudos textuais?', 'Já possui os textos que iram aparecer no site para falar sobre o seu negocio'),
 
 /****************************************** Hibrido ******************************************/
@@ -125,7 +125,7 @@ INSERT INTO pergunta (id, grupo_id, valor_unitario, tipo_id, created_at, updated
 /*Extras*/
 (19, 9,  12.3, 1,   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Deseja comprar um dominio?', 'O domínio é a url do seu site. (www.oseusite.pt)'),
 (20, 9,  12.3, 1,   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Pretende obter alojamento?', 'O alojamento é o local onde o seu site é guardado '),
-(21, 9,  12.3, 1,   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Deseja a criação dum portfolio?', 'Caso tenha trabalhos anterioes que queira mostrar, um portfolio é a melhor opção para tal'),
+(21, 9,  12.3, 1,   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Deseja a criação de um portfolio?', 'Caso tenha trabalhos anterioes que queira mostrar, um portfolio é a melhor opção para tal'),
 (22, 9,  12.3, 1,   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Ja possui conteudos textuais?', 'Já possui os textos que iram aparecer no site para falar sobre o seu negocio'),
 
 /*************************************** Criação Identidade Visual **********************************/
