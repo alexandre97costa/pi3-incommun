@@ -1,7 +1,15 @@
-import React from 'react'
+import React, { useEffect } from 'react' 
+
+
+
+
 
 const EditableRow = ({ editForm, handleEditForm, handleCancelClick }) => {
+
+    const [editTitulo, setEditTitulo] = useEffect('')
+
     return (
+        
         <tr>
 
             <td>
@@ -9,7 +17,7 @@ const EditableRow = ({ editForm, handleEditForm, handleCancelClick }) => {
                     className="form-control focus-warning"
                     type="text"
                     required="required"
-                    placeholder={editForm.titulo}
+                    value={editForm.titulo}
                     name="titulo"
                     onChange={handleEditForm}
                 ></input>
@@ -20,7 +28,8 @@ const EditableRow = ({ editForm, handleEditForm, handleCancelClick }) => {
                     className="form-control focus-warning"
                     type="text"
                     required="required"
-                    placeholder={editForm.descricao}
+
+                    value={editForm.descricao}
                     name="descricao"
                     onChange={handleEditForm}
                 ></input>
@@ -31,7 +40,8 @@ const EditableRow = ({ editForm, handleEditForm, handleCancelClick }) => {
                     className="form-control focus-warning"
                     type="text"
                     required="required"
-                    placeholder={editForm.tipo_pergunta}
+
+                    value={editForm.tipo_pergunta}
                     name="tipo_pergunta"
                     onChange={handleEditForm}
                 ></input>
@@ -42,7 +52,7 @@ const EditableRow = ({ editForm, handleEditForm, handleCancelClick }) => {
                     className="form-control focus-warning"
                     type="number"
                     required="required"
-                    placeholder={editForm.valor_unitario}
+                    value={editForm.valor_unitario}
                     name="valor_unitario"
                     onChange={handleEditForm}
                 ></input>
@@ -65,5 +75,7 @@ const EditableRow = ({ editForm, handleEditForm, handleCancelClick }) => {
         </tr>
     )
 }
+
+
 
 export default EditableRow

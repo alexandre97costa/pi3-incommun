@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Fragment } from "react";
 import ip from '../../ip'
 import authHeader from '../auth-header'
 import ReadOnlyRow from './ReadOnlyRow';
@@ -9,7 +9,7 @@ export default function FormulariosComponente() {
 
 
 	// const [tiposPergunta, setTiposPergunta] = useState([])
-	//const [filtroTiposPergunta, setFiltroTiposPergunta] = useState(0)
+	// const [filtroTiposPergunta, setFiltroTiposPergunta] = useState(0)
 	// const [filtroTiposPerguntaDesc, setFiltroTiposPerguntaDesc] = useState('Tipos de Pergunta')
 
 	const [forms, setForms] = useState([])
@@ -41,14 +41,15 @@ export default function FormulariosComponente() {
 	// }, [filtroTiposPergunta])
 
 
+
 	const handleEditForm = (e => {
 		e.preventDefault();
 
-		const fieldTitulo = e.target.getAttribute("titulo");
+		const fieldName = e.target.getAttribute("name");
 		const fieldValue = e.target.value;
 
 		const newForm = { ...editForm };
-		newForm[fieldTitulo] = fieldValue;
+		newForm[fieldName] = fieldValue;
 
 		setEditForm(newForm)
 
@@ -63,16 +64,17 @@ export default function FormulariosComponente() {
 			descricao: pergunta.descricao,
 			tipo_pergunta: pergunta.tipo_pergunta,
 			valor_unitario: pergunta.valor_unitario
-		};
+		}
 
 		setEditForm(formValues);
 	};
 
 
-
 	const handleCancelClick = () => {
 		setEditPerguntaId(null);
-	  };
+	};
+
+
 
 
 
@@ -143,50 +145,53 @@ export default function FormulariosComponente() {
 												aria-labelledby={'#grupo-' + grupo.id}
 											>
 												<div className='accordion-body'>
-													{grupo.pergunta.map(pergunta => {
-														return (
-															<div key={pergunta.id}>
 
 
-															<form>
-																<table className="table table-hover">
-																	<thead className='fw-semibold'>
-																		<tr>
-																			<td style={{ width: "30%" }}>Titulo</td>
-																			<td style={{ width: "40%" }}>Descrição</td>
-																			<td style={{ width: "10%" }}>Tipo</td>
-																			<td style={{ width: "10%" }}>Valor</td>
-																			<td style={{ width: "10%" }}>Ações</td>
-																		</tr>
-																	</thead>
 
-																	<tbody>
 
-																		{editPerguntaId === pergunta.id ? (
-																			<EditableRow editForm={editForm}
-																				handleEditForm={handleEditForm} 
+
+													
+														<table className="table table-hover">
+															<thead className='fw-semibold'>
+																<tr>
+																	<td style={{ width: "30%" }}>Titulo</td>
+																	<td style={{ width: "40%" }}>Descrição</td>
+																	<td style={{ width: "10%" }}>Tipo</td>
+																	<td style={{ width: "10%" }}>Valor</td>
+																	<td style={{ width: "10%" }}>Ações</td>
+																</tr>
+															</thead>
+
+															<tbody>
+																{grupo.pergunta.map(pergunta => {
+																	return (
+
+
+
+																		(editPerguntaId === pergunta.id) ?
+																			<EditableRow key={pergunta.id} editForm={editForm}
+																				handleEditForm={handleEditForm}
 																				handleCancelClick={handleCancelClick}
-																				/>
-																		) : (
-																			<ReadOnlyRow pergunta={pergunta}
-																				handleEditClick={handleEditClick}
-																
 																			/>
-																		)}
-																	</tbody>
+																			:
+																			<ReadOnlyRow key={pergunta.id} pergunta={pergunta}
+																				handleEditClick={handleEditClick}
+
+																			/>
 
 
-																</table>
-																</form>
 
 
-															</div>
+																	)
+																})}
+															</tbody>
 
-														)
-													})}
 
+														</table>
+												
 
 												</div>
+
 											</div>
 										</div>
 									)

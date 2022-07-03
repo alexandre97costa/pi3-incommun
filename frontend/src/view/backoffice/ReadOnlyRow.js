@@ -1,6 +1,6 @@
 import React from 'react'
 
-const ReadOnlyRow = ({ pergunta, handleEditClick, handlDeleteClick }) => {
+const ReadOnlyRow = ({ pergunta, handleEditClick}) => {
     return (
 
 
