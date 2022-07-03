@@ -3,20 +3,22 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import NavDeLado from './navdelado'
 import ip from '../../ip'
-import authHeader from '../auth-header'
 import mailImg from '../../assets/imgs/mail2.png'
 import { Link } from "react-router-dom";
+import $ from 'jquery';
 
 export default function ClientesComponent() {
     const [clientes, setClientes] = useState([])
     const [totalClientes, setTotalClientes] = useState(0)
     const [filtroCliente, setFiltroCliente] = useState('id')
     const [ordemCliente, setOrdemCliente] = useState('ASC')
-
-    
+    const [Email, setEmail] = useState("")
+    const [Assunto, setAssunto] = useState("")
+    const [Titulo, setTitulo] = useState("")
+    const [Corpo, setCorpo] = useState("")
     useEffect(() => {
 
-        axios.get(ip + '/clientes/list?ordem=' + ordemCliente + '&filtro=' + filtroCliente, authHeader() )
+        axios.get(ip + '/clientes/list?ordem=' + ordemCliente + '&filtro=' + filtroCliente )
         .then(res => {
             if (res.data.success) {
                 const data = res.data.data;
@@ -33,29 +35,67 @@ export default function ClientesComponent() {
 
     useEffect(() => {
 
-        axios.get(ip + '/clientes/total', authHeader())
+        axios.get(ip + '/clientes/total')
         .then(res => {
             setTotalClientes(res.data.data)
         });
     }, [])
-
+    $('#modal-contactar').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var email = button.data('email') // Extract info from data-* attributes
+        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+        var modal = $(this)
+        console.log(email);
+        modal.find('.modal-body input').val(email)
+      })
+   
+    
     function handleFiltro(filtro, ordem, texto) {
         setFiltroCliente(filtro);
         setOrdemCliente(ordem);
         document.getElementById('dropdown-filtro').textContent = texto
     }
-    
+    function Cancelar() {
+        // url de backend
+        
+        setEmail("")
+        setAssunto("")
+        setTitulo("")
+        setCorpo("")
+        
+    }
+    function EnviarMail() {
+        // url de backend
+        const url = ip + '/clientes/enviar_email'
+        const datapost = {
+            email_cliente: Email,
+            assunto: Assunto,
+            titulo: Titulo,
+            corpo: Corpo
+        }
+        setEmail("")
+        setAssunto("")
+        setTitulo("")
+        setCorpo("")
+        console.log(datapost);
+        axios.post(url, datapost)
+            .then(response => {
+                if (response.data.success === true) {
+                    alert(response.data.message)
+                }
+                else {
+                    alert("Error" + response.data.message)
+                }
+            }).catch(error => {
+                alert("Error 34 " + error)
+            })
+    }
     function LoadClientes() {
         return (
             clientes.map(cliente => {
                 return (
                     <tr className='align-middle' key={cliente.id}>
-                        {/* Data */}
-                        <td className='text-center '>
-                            <span className='text-muted badge fw-normal align-middle'>
-                                {cliente.id}
-                            </span>
-                        </td>
                         {/* Cliente */}
                         <td className='text-start text-dark lh-sm'>
                             <span className='fs-5 fw-semibold position-relative'>
@@ -65,18 +105,20 @@ export default function ClientesComponent() {
                         <td className='text-start text-dark lh-sm'>
                             <span className='fs-5 fw-semibold position-relative'>
                                 {cliente.email}
+                               
                             </span>
                         </td>
                         <td className='text-start text-dark lh-sm'>
                             <span className='fs-5 fw-semibold position-relative'>
-                                {cliente.tlm}
+                                {cliente.tlm} 
                             </span>
                         </td>
                         <td >
                         <Link to={"/back-office/pedidos_cliente/" + cliente.id} className="btn btn-warning fs-6 bi-cash-stack me-2">&nbsp;Pedidos Cliente</Link>
                         </td>
                         <td >
-                        <button type="button" data-bs-toggle="modal" data-bs-target="#modal-contactar" className="btn btn-secondary fs-6 bi-send ">Contactar Cliente</button>
+
+                        <button type="button"  data-bs-toggle="modal" data-bs-target="#modal-contactar" data-email={cliente.email}  className="btn btn-secondary fs-6 bi-send ">Contactar Cliente</button>
                         </td>
                         
                     </tr>
@@ -129,12 +171,11 @@ export default function ClientesComponent() {
                             <div className="dropdown bg-white me-2">
                                 <button className=" btn btn-sm btn-outline-dark dropdown-toggle" type="button" id="dropdown-filtro" data-bs-toggle="dropdown" aria-expanded="false">
                                     <span className='me-2'></span>
-                                    id
+                                    Data de criação
                                 </button>
                                 <ul className="dropdown-menu" aria-labelledby="dropdown-filtro">
                                     <li><button className="dropdown-item" onClick={e => {handleFiltro('nome',            'ASC',  e.target.textContent) }} type='button'>Nome de cliente (A-Z)</button></li>
                                     <li><button className="dropdown-item" onClick={e => {handleFiltro('nome','DESC',  e.target.textContent) }} type='button'>Nome de cliente (Z-A)</button></li>
-                                    <li><button className="dropdown-item" onClick={e => {handleFiltro('id',            'ASC',  e.target.textContent)  }} type='button'>id</button></li>
                                     <li><button className="dropdown-item" onClick={e => {handleFiltro('created_at','ASC',  e.target.textContent) }} type='button'>Data de criação</button></li>
                                 </ul>
                             </div>
@@ -146,9 +187,8 @@ export default function ClientesComponent() {
                 <table className='table'>
                     <thead>
                         <tr className=''>
-                            <th className='text-center' style={{ width: '10%' }}>ID</th>
                             <th className='text-start' style={{ width: '20%' }}>Nome</th>
-                            <th className='text-start' style={{ width: '15%' }}>Email</th>
+                            <th className='text-start'  style={{ width: '15%' }}>Email</th>
                             <th className='text-start' style={{ width: '15%' }}>Telemóvel</th>
                             <th className='text-center' style={{ width: '20%' }} colSpan={1}></th>
                             <th className='text-center' style={{ width: '20%' }} colSpan={1}></th> 
@@ -184,7 +224,7 @@ export default function ClientesComponent() {
                                     </div>
                                     <div className="modal-footer">
                                         <button type="button" className="btn btn-outline-secondary rounded-0" data-bs-dismiss="modal">Cancelar</button>
-                                        <button type="button" className="btn btn-warning rounded-0 fw-semibold">Enviar email</button>
+                                        <button type="button" className="btn btn-warning rounded-0 fw-semibold" >Enviar email</button>
                                     </div>
                                 </div>
                             </div>
@@ -198,18 +238,30 @@ export default function ClientesComponent() {
                         <div className="modal-body">
 
                             <div className="form-floating mb-3">
-                                <input type="email" className="form-control" id="floatingInput" placeholder="name@example.com"/>
-                                    <label htmlFor="floatingInput">Email address</label>
+                                <input type="email" className="form-control" id="floatingInput" placeholder="name@example.com"   onChange={(value) =>
+                            setEmail(value.target.value)}/>
+                                    <label htmlFor="floatingInput">Email</label>
                             </div>
-                            <div className="form-floating">
-                                <textarea className="form-control" rows={4} placeholder="Leave a comment here" id="floatingTextarea"></textarea>
-                                <label htmlFor="floatingTextarea">Comments</label>
+                            <div className="form-floating mb-3">
+                                <textarea className="form-control" placeholder="Leave a comment here" id="floatingTextarea" value={Assunto}  onChange={(value) =>
+                            setAssunto(value.target.value)}></textarea>
+                                <label htmlFor="floatingTextarea">Assunto</label>
+                            </div>
+                            <div className="form-floating mb-3">
+                                <textarea className="form-control" placeholder="Leave a comment here" id="floatingTextarea" value={Titulo}  onChange={(value) =>
+                            setTitulo(value.target.value)}></textarea>
+                                <label htmlFor="floatingTextarea">Título</label>
+                            </div>
+                            <div className="form-floating mb-3">
+                                <textarea className="form-control" rows={4} placeholder="Leave a comment here" id="floatingTextarea" value={Corpo}  onChange={(value) =>
+                            setCorpo(value.target.value)}></textarea>
+                                <label htmlFor="floatingTextarea">Corpo</label>
                             </div>
 
                         </div>
                         <div className="modal-footer border-0">
-                            <button type="button" className="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
-                            <button type="button" className="btn btn-warning fw-semibold">Enviar email</button>
+                            <button type="button" className="btn btn-outline-secondary" onClick={() => Cancelar()} data-bs-dismiss="modal">Cancelar</button>
+                            <button type="button" className="btn btn-warning fw-semibold" onClick={() => EnviarMail()}>Enviar email</button>
                         </div>
                     </div>
                 </div>
