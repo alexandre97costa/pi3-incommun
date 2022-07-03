@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate, Link } from 'react-router-dom'
-// import { Link } from 'react-router-dom';
 import axios from 'axios'
 import Grupo from './grupo'
 import Contacto from './contacto'
-
 import ip from '../../ip'
 
 export default function FormComponent(props) {
     const navigate = useNavigate()
-    
+
     // 🌭 form info
     const location = useLocation()
     const formId = location.state.id
@@ -34,7 +32,7 @@ export default function FormComponent(props) {
     }, [])
 
     useEffect(() => {
-        document.title = form.titulo ?? '...'
+        document.title = form.titulo ?? 'A carregar...'
 
         if (form.length !== 0) {
             const perguntasObject =
@@ -92,6 +90,43 @@ export default function FormComponent(props) {
             })
             .then(res => res.status === 200 ? navigate('/') : console.log(res))
             .catch(error => console.log(error))
+    }
+
+    function LoadForm() {
+        if (form.length === 0) { return } // guard clause
+
+        return (
+            <div className='row'>
+
+                <div id='accordion' className='accordion accordion-flush border-start border-warning border-5 ps-1 ms-3'>
+
+                    {form.length !== 0 && form.grupos.map((grupo, index) => {
+
+                        arrayDeIdsDeGrupos.push(index)
+
+                        return (
+                            <Grupo
+                                key={grupo.id}
+                                id={grupo.id}
+                                grupo={grupo}
+
+                                // sync das respostas
+                                perguntasObject={props.perguntasObject}
+                                setPerguntasObject={props.setPerguntasObj}
+
+                                // sync do grupo que estiver aberto
+                                // responsavel por addicionar/remover a classe 'show'
+                                // Faz com que o grupo fique aberto no re-render
+                                selectedGroup={selectedGroup}
+                                setSelectedGroup={setSelectedGroup}
+                            />
+                        )
+
+                    })}
+                </div>
+
+            </div>
+        )
     }
 
     return (
@@ -191,42 +226,5 @@ export default function FormComponent(props) {
             />
         </div>
     )
-
-    function LoadForm() {
-        // if (form) { return } // guard clause
-
-        return (
-            <div className='row'>
-
-                <div id='accordion' className='accordion accordion-flush border-start border-warning border-5 ps-1 ms-3'>
-
-                    {form.length !== 0 && form.grupos.map((grupo, index) => {
-
-                        arrayDeIdsDeGrupos.push(index)
-
-                        return (
-                            <Grupo
-                                key={grupo.id}
-                                id={grupo.id}
-                                grupo={grupo}
-
-                                // sync das respostas
-                                perguntasObject={props.perguntasObject}
-                                setPerguntasObject={props.setPerguntasObj}
-
-                                // sync do grupo que estiver aberto
-                                // responsavel por addicionar/remover a classe 'show'
-                                // Faz com que o grupo fique aberto no re-render
-                                selectedGroup={selectedGroup}
-                                setSelectedGroup={setSelectedGroup}
-                            />
-                        )
-
-                    })}
-                </div>
-
-            </div>
-        )
-    }
 }
 

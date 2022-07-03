@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react'
+
+// Tipos de Pergunta
 import Card from './tipos/card'
 import Text from './tipos/text'
 import Checkbox from './tipos/checkbox'
+import RedeSocial from './tipos/rede_social'
 
 export default function GrupoComponent(props) {
 
@@ -45,7 +48,7 @@ export default function GrupoComponent(props) {
                 return cb.checked ? cb.value : null
             })
             .filter(cb => cb !== null)
-        
+
         const grupoIsCheckbox = (props.grupo.pergunta[0].tipo_pergunta.titulo === 'checkbox')
         if (grupoIsCheckbox) {
             setResposta(checkboxesChecked.join(', '))
@@ -89,6 +92,23 @@ export default function GrupoComponent(props) {
                     }}
                 >
                     {props.grupo.pergunta.map((pergunta, indexPergunta) => {
+
+                        if (pergunta.tipo_pergunta.titulo.startsWith('r-social')) {
+                            return (
+                                <RedeSocial
+                                    exemplo={pergunta.tipo_pergunta.titulo}
+
+                                    key={pergunta.id}
+                                    pergunta={pergunta}
+
+                                    idGrupo={props.id}
+                                    perguntasObject={props.perguntasObject}
+                                    setPerguntasObject={props.setPerguntasObject}
+
+                                />
+                            )
+                        }
+
                         switch (pergunta.tipo_pergunta.titulo) {
                             case 'card':
                                 arrayDeIdsDosCards.push(pergunta.id)
@@ -136,7 +156,7 @@ export default function GrupoComponent(props) {
 
                             default:
                                 return (console.log('Tipo de pergunta não aceite'));
-                                {/* return null; */}
+                                {/* return null; */ }
                         }
 
                     })}
