@@ -1,6 +1,6 @@
 import React from 'react'
 
-const EditableRow = ({ editForm, handleEditForm }) => {
+const EditableRow = ({ editForm, handleEditForm, handleCancelClick }) => {
     return (
         <tr>
 
@@ -9,9 +9,8 @@ const EditableRow = ({ editForm, handleEditForm }) => {
                     className="form-control focus-warning"
                     type="text"
                     required="required"
-                    placeholder="Introduz o título da pergunta"
+                    placeholder={editForm.titulo}
                     name="titulo"
-                    value={editForm.titulo}
                     onChange={handleEditForm}
                 ></input>
             </td>
@@ -21,40 +20,45 @@ const EditableRow = ({ editForm, handleEditForm }) => {
                     className="form-control focus-warning"
                     type="text"
                     required="required"
-                    placeholder="Introduz a descrição da pergunta"
+                    placeholder={editForm.descricao}
                     name="descricao"
-                    value={editForm.descricao}
                     onChange={handleEditForm}
                 ></input>
             </td>
 
-             <td>
+            <td>
                 <input
                     className="form-control focus-warning"
                     type="text"
                     required="required"
-                    placeholder="Introduz o tipo da pergunta"
+                    placeholder={editForm.tipo_pergunta}
                     name="tipo_pergunta"
-                    value={editForm.tipo_pergunta}
                     onChange={handleEditForm}
                 ></input>
-            </td> 
+            </td>
 
             <td>
                 <input
+                    className="form-control focus-warning"
                     type="number"
                     required="required"
-                    placeholder="Introduz o valor da pergunta"
+                    placeholder={editForm.valor_unitario}
                     name="valor_unitario"
-                    value={editForm.valor_unitario}
                     onChange={handleEditForm}
                 ></input>
             </td>
 
             <td>
                 <button type="submit"
-                    className="btn btn-outline-info"                 
-                ><i className="bi bi-save"></i></button>
+                    className="btn btn-outline-info mx-2">
+                    <i className="bi bi-box-arrow-down"></i>
+                </button>
+
+                <button type="button"
+                    className="btn btn-outline-danger"
+                    onClick={handleCancelClick}>
+                    <i className="bi bi-x-circle"></i>
+                </button>
 
             </td>
         </tr>

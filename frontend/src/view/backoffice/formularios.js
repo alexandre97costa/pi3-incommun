@@ -7,13 +7,14 @@ import EditableRow from './EditableRow';
 
 export default function FormulariosComponente() {
 
+
+	// const [tiposPergunta, setTiposPergunta] = useState([])
+	// const [filtroTiposPergunta, setFiltroTiposPergunta] = useState(0)
+	// const [filtroTiposPerguntaDesc, setFiltroTiposPerguntaDesc] = useState('Tipos de Pergunta')
+
 	const [forms, setForms] = useState([])
-	const [tiposPergunta, setTiposPergunta] = useState([])
-
-	const [filtroTiposPergunta, setFiltroTiposPergunta] = useState(0)
-	const [filtroTiposPerguntaDesc, setFiltroTiposPerguntaDesc] = useState('Tipos de Pergunta')
-
 	const [editPerguntaId, setEditPerguntaId] = useState(null)
+	const [loading, setLoading] = useState(false)
 
 	const [editForm, setEditForm] = useState({
 		titulo: "",
@@ -21,7 +22,7 @@ export default function FormulariosComponente() {
 		tipo_pergunta: "",
 		valor_unitario: "",
 
-	})
+	});
 
 	useEffect(() => {
 		axios.get(ip + '/forms/all_backoffice', authHeader())
@@ -29,7 +30,7 @@ export default function FormulariosComponente() {
 				console.table(res.data.formularios, ['id', 'nome'])
 				setForms(res.data.formularios)
 			})
-	}, [])
+	}, []);
 
 	// useEffect(() => {
 	// 	// Get os pedidos todos (por vezes filtrados e ordenados)
@@ -41,20 +42,18 @@ export default function FormulariosComponente() {
 	// }, [filtroTiposPergunta])
 
 
-const handleEditForm = (e => {
+	const handleEditForm = (e => {
 		e.preventDefault();
 
-		const fieldTitulo  = e.target.getAttribute("titulo");
+		const fieldTitulo = e.target.getAttribute("titulo");
 		const fieldValue = e.target.value;
 
-		const newForm = { ... editForm };
-		newForm [ fieldTitulo] = fieldValue;
+		const newForm = { ...editForm };
+		newForm[fieldTitulo] = fieldValue;
 
 		setEditForm(newForm)
 
-	})
-
-
+	});
 
 	const handleEditClick = (e, pergunta) => {
 		e.preventDefault();
@@ -65,38 +64,41 @@ const handleEditForm = (e => {
 			descricao: pergunta.descricao,
 			tipo_pergunta: pergunta.tipo_pergunta,
 			valor_unitario: pergunta.valor_unitario
-		}
+		};
 
 		setEditForm(formValues);
-
 	};
 
-
-
+	const handleCancelClick = () => {
+		setEditPerguntaId(null);
+	  };
 	
 
 
-	function LoadTiposPergunta() {
-		return (
-			tiposPergunta.map(tipos_perguntas => {
-				return (
-					<li key={tipos_perguntas.id}>
-						<button
-							className="dropdown-item"
-							type='button'
-							onClick={e => {
-								setFiltroTiposPerguntaDesc(tipos_perguntas.titulo)
-							}}
-						>
-							{tipos_perguntas.titulo}
-						</button>
-					</li>
-				)
-			})
-		)
-	}
 
-	
+
+
+	// function LoadTiposPergunta() {
+	// 	return (
+	// 		tiposPergunta.map(tipos_perguntas => {
+	// 			return (
+	// 				<li key={tipos_perguntas.id}>
+	// 					<button
+	// 						className="dropdown-item"
+	// 						type='button'
+	// 						onClick={e => {
+	// 							setFiltroTiposPerguntaDesc(tipos_perguntas.titulo)
+	// 						}}
+	// 					>
+	// 						{tipos_perguntas.titulo}
+	// 					</button>
+	// 				</li>
+	// 			)
+	// 		})
+	// 	)
+	// }
+
+
 	function LoadForms() {
 		return forms.map(form => {
 			return (
@@ -159,20 +161,23 @@ const handleEditForm = (e => {
 																	</thead>
 
 																	<tbody>
-																		
+
 																		{editPerguntaId === pergunta.id ? (
-																		<EditableRow editForm = {editForm}
-																		 handleEditForm={handleEditForm}/>
-																		 ) : (
-																		<ReadOnlyRow pergunta={pergunta}
-																		 handleEditClick={handleEditClick}
-																		/>
+																			<EditableRow editForm={editForm}
+																				handleEditForm={handleEditForm} 
+																				handleCancelClick={handleCancelClick}
+																				/>
+																		) : (
+																			<ReadOnlyRow pergunta={pergunta}
+																				handleEditClick={handleEditClick}
+																			/>
 																		)}
 																	</tbody>
 
 
 																</table>
-																
+												
+
 
 															</div>
 
