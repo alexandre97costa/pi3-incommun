@@ -87,7 +87,27 @@ module.exports = {
                     res.json({ success: true, data: data });
                 })
     },
+    detalhes_pedido: async (req, res) => {
+        const id_pedido = req.query.id_pedido ?? 0
 
+        await sequelize.sync()
+            .then(async () => {
+                await Pedido
+                    .findAll({
+                        where: { id: id_pedido },
+                        include: [
+                            { model: Cliente },
+                            { model: EstadoPedido },
+                            { model: MotivoRecusa },
+                            { model: Resposta }
+                        ]
+                        
+                    })
+                    .then(data => { res.status(200).json({ success: true, data: data }) })
+                    .catch(error => { res.status(400); throw new Error(error); });
+
+            })
+    },
     // devolve todos os pedidos de um determinado cliente
     list_pedidos: async (req, res) => {
         const cliente = req.query.cliente ?? 0
