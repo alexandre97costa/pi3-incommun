@@ -2,8 +2,9 @@ import axios from 'axios';
 // import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 import React, { useEffect, useState } from 'react';
 import NavDeLado from './navdelado'
-import Count from './count'
+import Count from './count2'
 import ip from '../../ip'
+import authHeader from '../auth-header'
 import mailImg from '../../assets/imgs/mail2.png'
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -13,31 +14,76 @@ export default function Pedidos_clienteComponent() {
     const [filtroPedido, setFiltroPedido] = useState('id')
     const [ordemPedido, setOrdemPedido] = useState('ASC')
     const { Cliente } = useParams();
-    
+    const [Email, setEmail] = useState("")
+    const [Assunto, setAssunto] = useState("")
+    const [Titulo, setTitulo] = useState("")
+    const [Corpo, setCorpo] = useState("")
+
+
     useEffect(() => {
         axios.get(ip + '/clientes/list_pedidos/?cliente=' + Cliente + '&filtro=' + filtroPedido + '&ordem=' + ordemPedido)
-        .then(res => {
-            if (res.data.success) {
-                //alert(filtroPedido + "," + Cliente);
-                setPedidos(res.data.data);
-            }
-        })
-        .catch(error => { throw new Error(error) });
+            .then(res => {
+                if (res.data.success) {
+                    //alert(filtroPedido + "," + Cliente);
+                    setPedidos(res.data.data);
+                }
+            })
+            .catch(error => { throw new Error(error) });
     }, [Cliente, filtroPedido, ordemPedido])
 
 
+    
+
+
+
     function handleFiltro(filtro, ordem, texto) {
-        setFiltroPedido(filtro) 
+        setFiltroPedido(filtro)
         setOrdemPedido(ordem)
         document.getElementById('dropdown-filtro').textContent = texto
     }
+    function Cancelar() {
 
+        setEmail("")
+        setAssunto("")
+        setTitulo("")
+        setCorpo("")
 
+    }
+
+    function mudarEmail(id) {
+        const div1 = document.getElementById(id)
+        const exampleAttr = div1.getAttribute('data-email');
+        setEmail(exampleAttr);
+    }
+    function EnviarMail() {
+        // url de backend
+
+        const url = ip + '/clientes/enviar_email'
+        const datapost = {
+            email_cliente: Email,
+            assunto: Assunto,
+            titulo: Titulo,
+            corpo: Corpo
+        }
+        setAssunto("")
+        setTitulo("")
+        setCorpo("")
+        console.log(datapost);
+        axios.post(url, datapost)
+            .then(response => {
+                if (response.data.success === true) {
+                    alert(response.data.message)
+                }
+
+            }).catch(error => {
+                alert("Error 34 " + error)
+            })
+    }
     function LoadPedidos() {
         return (
             pedidos.map(pedido => {
                 return (
-                    <tr className='align-middle' key={pedido.id}>
+                    <tr className='align-middle' key={pedido.id} id={pedido.id} data-email={pedido.cliente.email}>
                         {/* Data */}
                         <td className='text-center '>
                             <span className='text-muted badge fw-normal align-middle'>
@@ -75,31 +121,31 @@ export default function Pedidos_clienteComponent() {
                         {/* Opções */}
                         <td className=''>
                             {(pedido.estado_id === 1 || pedido.estado_id === 2) &&
-                                <button data-bs-toggle="modal" data-bs-target="#modal-contactar" className='btn btn-warning w-100 fw-semibold' >
+                                <button data-bs-toggle="modal" data-bs-target="#modal-contactar" onClick={() => mudarEmail(pedido.id)} className='btn btn-warning w-100 fw-semibold' >
                                     <i className='me-2 bi bi-send-fill'></i>
                                     Contactar cliente
                                 </button>
                             }
                             {(pedido.estado_id === 3 || pedido.estado_id === 4) &&
-                                <button data-bs-toggle="modal" data-bs-target="#modal-contactar" className='btn btn-warning w-100' disabled>
+                                <button data-bs-toggle="modal" data-bs-target="#modal-contactar" onClick={() => mudarEmail(pedido.id)} className='btn btn-warning w-100' disabled>
                                     <i className='me-2 bi bi-send-slash-fill'></i>
                                     Contactar cliente
                                 </button>
                             }
                         </td>
 
-                        <td className=''>
+                        {/*<td className=''>
                         <Link to={"/back-office/detalhes_pedido/" + pedido.id} className='btn btn-secondary w-100'>
                                 <i className='me-2 bi bi-card-checklist'></i>
                                 Ver pedido
                             </Link>
-                        </td>
+                        </td>*/}
                     </tr>
                 )
             })
         )
     }
-  
+
     return (
         <div className="container-fluid">
             <div className="row vh-100">
@@ -113,17 +159,17 @@ export default function Pedidos_clienteComponent() {
                         <div className='col-6'>
                             <span className='h2 text-dark fw-bold'>
                                 Pedidos do Cliente
-                                
                             </span>
-                           
                             <br />
-                            <br />
-                        
-                            
                         </div>
-                        
+                        <div className='mb-4 g-3 row row-cols-1 row-cols-md-2 row-cols-lg-4 row-cols-xl-4'>
+                            <Count estadoId={1} cliente={Cliente}/>
+                            <Count estadoId={2} cliente={Cliente}/>
+                            <Count estadoId={3} cliente={Cliente}/>
+                            <Count estadoId={4} cliente={Cliente}/>
+                        </div>
                     </div>
-                    
+
 
                     <div className="mb-3 row">
                         <div className='col d-flex justify-content-start align-items-center fs-6 fw-normal text-muted'>
@@ -133,39 +179,38 @@ export default function Pedidos_clienteComponent() {
 
                             <div className="dropdown bg-white me-2">
                                 <button className=" btn btn-sm btn-outline-dark dropdown-toggle" type="button" id="dropdown-filtro" data-bs-toggle="dropdown" aria-expanded="false">
-                                    id
+                                    Data de criação(mais recente - mais antigo)
                                 </button>
                                 <ul className="dropdown-menu" aria-labelledby="dropdown-filtro">
-                                    <li><button className="dropdown-item" onClick={e => { handleFiltro('id',            'ASC',  e.target.textContent) }} type='button'>id</button></li>
-                                    <li><button className="dropdown-item" onClick={e => { handleFiltro('valor_total',   'DESC', e.target.textContent) }} type='button'>Valor mais elevado primeiro</button></li>
-                                    <li><button className="dropdown-item" onClick={e => { handleFiltro('valor_total',   'ASC',  e.target.textContent) }} type='button'>Valor mais baixo primeiro</button></li>
-                                    <li><button className="dropdown-item" onClick={e => { handleFiltro('created_at',    'ASC',  e.target.textContent) }} type='button'>Data de criação (mais antigo - mais recente)</button></li>
-                                    <li><button className="dropdown-item" onClick={e => { handleFiltro('created_at',    'DESC', e.target.textContent) }} type='button'>Data de criação(mais recente - mais antigo)</button></li>
+                                    <li><button className="dropdown-item" onClick={e => { handleFiltro('valor_total', 'DESC', e.target.textContent) }} type='button'>Valor mais elevado primeiro</button></li>
+                                    <li><button className="dropdown-item" onClick={e => { handleFiltro('valor_total', 'ASC', e.target.textContent) }} type='button'>Valor mais baixo primeiro</button></li>
+                                    <li><button className="dropdown-item" onClick={e => { handleFiltro('created_at', 'ASC', e.target.textContent) }} type='button'>Data de criação (mais antigo - mais recente)</button></li>
+                                    <li><button className="dropdown-item" onClick={e => { handleFiltro('created_at', 'DESC', e.target.textContent) }} type='button'>Data de criação(mais recente - mais antigo)</button></li>
                                 </ul>
                             </div>
 
                         </div>
                     </div>
                     <div className="mb-3 row px-2">
-                <div className='col p-3 bg-white rounded-4 border shadow'>
-                    <table className='table'>
-                        <thead>
-                            <tr className=''>
-                                <th className='text-center' style={{ width: '10%' }}>Data</th>
-                                <th className='text-start' style={{ width: '25%' }}>Cliente</th>
-                                <th className='text-start' style={{ width: '15%' }}>Estado</th>
-                                <th className='text-end position-relative' style={{ width: '12%' }}>Valor Total €</th>
-                                <th className='text-center' style={{ width: '40%' }} colSpan={2}></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <LoadPedidos />
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-                    
-                  
+                        <div className='col p-3 bg-white rounded-4 border shadow'>
+                            <table className='table'>
+                                <thead>
+                                    <tr className=''>
+                                        <th className='text-center' style={{ width: '10%' }}>Data</th>
+                                        <th className='text-start' style={{ width: '25%' }}>Cliente</th>
+                                        <th className='text-start' style={{ width: '15%' }}>Estado</th>
+                                        <th className='text-end position-relative' style={{ width: '12%' }}>Valor Total €</th>
+                                        <th className='text-center' style={{ width: '15%' }} colSpan={1}></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <LoadPedidos />
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+
                 </div>
 
             </div>
@@ -188,7 +233,7 @@ export default function Pedidos_clienteComponent() {
                                     </div>
                                     <div className="modal-footer">
                                         <button type="button" className="btn btn-outline-secondary rounded-0" data-bs-dismiss="modal">Cancelar</button>
-                                        <button type="button" className="btn btn-warning rounded-0 fw-semibold">Enviar email</button>
+                                        <button type="button" className="btn btn-warning rounded-0 fw-semibold" >Enviar email</button>
                                     </div>
                                 </div>
                             </div>
@@ -202,18 +247,30 @@ export default function Pedidos_clienteComponent() {
                         <div className="modal-body">
 
                             <div className="form-floating mb-3">
-                                <input type="email" className="form-control" id="floatingInput" placeholder="name@example.com"/>
-                                    <label htmlFor="floatingInput">Email address</label>
+                                <input type="email" className="form-control" id="floatingInput" placeholder="name@example.com" value={Email} onChange={(value) =>
+                                    setEmail(value.target.value)} />
+                                <label htmlFor="floatingInput">Email</label>
                             </div>
-                            <div className="form-floating">
-                                <textarea className="form-control" rows={4} placeholder="Leave a comment here" id="floatingTextarea"></textarea>
-                                <label htmlFor="floatingTextarea">Comments</label>
+                            <div className="form-floating mb-3">
+                                <textarea className="form-control" placeholder="Leave a comment here" id="floatingTextarea" value={Assunto} onChange={(value) =>
+                                    setAssunto(value.target.value)}></textarea>
+                                <label htmlFor="floatingTextarea">Assunto</label>
+                            </div>
+                            <div className="form-floating mb-3">
+                                <textarea className="form-control" placeholder="Leave a comment here" id="floatingTextarea" value={Titulo} onChange={(value) =>
+                                    setTitulo(value.target.value)}></textarea>
+                                <label htmlFor="floatingTextarea">Título</label>
+                            </div>
+                            <div className="form-floating mb-3">
+                                <textarea className="form-control" rows={4} placeholder="Leave a comment here" id="floatingTextarea" value={Corpo} onChange={(value) =>
+                                    setCorpo(value.target.value)}></textarea>
+                                <label htmlFor="floatingTextarea">Corpo</label>
                             </div>
 
                         </div>
                         <div className="modal-footer border-0">
-                            <button type="button" className="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
-                            <button type="button" className="btn btn-warning fw-semibold">Enviar email</button>
+                            <button type="button" className="btn btn-outline-secondary" onClick={() => Cancelar()} data-bs-dismiss="modal">Cancelar</button>
+                            <button type="button" className="btn btn-warning fw-semibold" onClick={() => EnviarMail()}>Enviar email</button>
                         </div>
                     </div>
                 </div>
