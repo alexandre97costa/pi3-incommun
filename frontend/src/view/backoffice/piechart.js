@@ -209,9 +209,7 @@ export default function InicioComponent() {
                             height={"400px"}
                         />
                     </div>}
-                </div>
 
-                <div className="mb-5 w">
                     { !isShown && <div className="mb-3 w">
                         <Chart
                             chartType="PieChart"
