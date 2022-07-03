@@ -11,6 +11,7 @@ export default function InicioComponent() {
     const [dicaDoDia, setDicaDoDia] = useState('')
     const [autorDica, setAutorDica] = useState('')
     const [totalPedidosRecusados, setTotalPedidosRecusados] = useState(0)
+    
     const [contMotivoPreco, setMotivoPreco] = useState(0)
     const [contMotivoConcorrencia, setMotivoConcorrencia] = useState(0)
     const [contMotivoNaoEstavaEspera, setMotivoNaoEstavaEspera] = useState(0)
@@ -22,13 +23,18 @@ export default function InicioComponent() {
     const [contEstadoRecusado, setEstadoRecusado] = useState(0)
 
     const [totalPedidos, setTotalPedidos] = useState(0)
-    const [pedidos, setPedidos] = useState([])
-    const [filtroEstadoPedido, setFiltroEstadoPedido] = useState(0)
-    const [estados, setEstados] = useState([])
 
     const [isShown, setIsShown] = useState(true);
 
     useEffect(() => {
+        // Get total de pedidos
+        // por defeito, sem mandar nenhuma query (nem estado nem dias),
+        // conta todos os pedidos dos ultimos 30 dias
+        axios.get(ip + '/pedidos/count?estado_id=0', authHeader())
+            .then(res => {
+                setTotalPedidos(res.data.count)
+        })
+
         axios.get(ip + '/pedidos/count?estado_id=0', authHeader())
             .then(res => {
                 setTotalPedidos(res.data.count)
@@ -85,39 +91,6 @@ export default function InicioComponent() {
         axios.get(ip + '/pedidos/count?estado_id=4', authHeader())
             .then(res => {
                 setEstadoRecusado(res.data.count)
-            })
-    }, [])
-
-    useEffect(() => {
-        // Get os pedidos todos (por vezes filtrados e ordenados)
-        axios.get(ip + '/pedidos/all?estado_id=' + filtroEstadoPedido, authHeader())
-            .then(res => {
-                // console.log(res.data)
-                setPedidos(res.data)
-            })
-    }, [filtroEstadoPedido])
-
-    useEffect(() => {
-
-        // Get total de pedidos
-        // por defeito, sem mandar nenhuma query (nem estado nem dias),
-        // conta todos os pedidos dos ultimos 30 dias
-        axios.get(ip + '/pedidos/count?estado_id=0', authHeader())
-            .then(res => {
-                setTotalPedidos(res.data.count)
-            })
-
-        // Get os estados todos que houver na bd (para o filtro/dropdown)
-        axios.get(ip + '/pedidos/all_estados', authHeader())
-            .then(res => {
-                setEstados(res.data)
-            })
-
-        // Get dica do dia
-        axios.get('https://api.quotable.io/random?tags=success|inspirational|happiness')
-            .then(res => {
-                setAutorDica(res.data.author)
-                setDicaDoDia(res.data.content)
             })
     }, [])
 
