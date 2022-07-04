@@ -84,7 +84,7 @@ export default function EditableRow_v2({ handleCancelClick, handleEditClick, id,
                         <td style={{ width: "10%" }}>
 
 
-                             <input
+                              <input
                                 className="form-control focus-warning"
                                 type="text"
                                 name="tipo_pergunta"
@@ -92,9 +92,9 @@ export default function EditableRow_v2({ handleCancelClick, handleEditClick, id,
                                 placeholder="Introduz o tipo de pergunta"
                                 value={edittipopergunta}
                                 onChange={e => setedittipopergunta(e.target.value)}
-                            /> 
-
-                            {/* <div class="dropdown">
+                            />  
+{/* 
+                            <div class="dropdown">
                                 <button class="form-control focus-warning dropdown-toggle"
                                     type="button"
                                     id="dropdownMenu2"
@@ -110,9 +110,9 @@ export default function EditableRow_v2({ handleCancelClick, handleEditClick, id,
                                         </button>
                                     </li>
                                 </ul>
-                            </div> */}
+                            </div> 
 
-
+ */}
 
 
 
