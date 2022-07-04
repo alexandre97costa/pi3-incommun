@@ -88,12 +88,7 @@ export default function Pedidos_clienteComponent() {
                             }
                         </td>
 
-                        <td className=''>
-                        <Link to={"/back-office/detalhes_pedido/" + pedido.id} className='btn btn-secondary w-100'>
-                                <i className='me-2 bi bi-card-checklist'></i>
-                                Ver pedido
-                            </Link>
-                        </td>
+                        
                     </tr>
                 )
             })
@@ -158,10 +153,10 @@ export default function Pedidos_clienteComponent() {
                         <thead>
                             <tr className=''>
                                 <th className='text-center' style={{ width: '10%' }}>Data</th>
-                                <th className='text-start' style={{ width: '25%' }}>Cliente</th>
-                                <th className='text-start' style={{ width: '15%' }}>Estado</th>
-                                <th className='text-end position-relative' style={{ width: '12%' }}>Valor Total €</th>
-                                <th className='text-center' style={{ width: '40%' }} colSpan={2}></th>
+                                <th className='text-start' style={{ width: '35%' }}>Cliente</th>
+                                <th className='text-start' style={{ width: '20%' }}>Estado</th>
+                                <th className='text-end position-relative' style={{ width: '15%' }}>Valor Total €</th>
+                                <th className='text-center' style={{ width: '20%' }} colSpan={1}></th>
                             </tr>
                         </thead>
                         <tbody>
