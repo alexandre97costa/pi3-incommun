@@ -8,7 +8,6 @@ import { Link } from "react-router-dom";
 export default function ClientesComponent() {
     const [clientes, setClientes] = useState([])
     const [totalClientes, setTotalClientes] = useState(0)
-    const [totalrecusadosClientes, setTotalRecusadosClientes] = useState(0)
     const [filtroCliente, setFiltroCliente] = useState('id')
     const [ordemCliente, setOrdemCliente] = useState('ASC')
     const [Email, setEmail] = useState("")
@@ -39,9 +38,6 @@ export default function ClientesComponent() {
                 setTotalClientes(res.data.data)
             });
     }, [])
-    
-
-
     function handleFiltro(filtro, ordem, texto) {
         setFiltroCliente(filtro);
         setOrdemCliente(ordem);

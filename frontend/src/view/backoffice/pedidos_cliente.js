@@ -2,7 +2,7 @@ import axios from 'axios';
 // import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 import React, { useEffect, useState } from 'react';
 import NavDeLado from './navdelado'
-import Count from './count2'
+import Count from './count'
 import ip from '../../ip'
 import mailImg from '../../assets/imgs/mail2.png'
 import { useParams } from "react-router-dom";

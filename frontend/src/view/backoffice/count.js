@@ -8,14 +8,29 @@ export default function CountComponent(props) {
 
     const [count, setCount] = useState(0)
     const [estado, setEstado] = useState('')
+    const [count2, setCount2] = useState(0)
+    const [estado2, setEstado2] = useState('')
 
     useEffect(() => {
-        axios.get(ip + '/pedidos/count?estado_id=' + props.estadoId, authHeader())
-        .then(res => {
-            setCount(res.data.count)
-            setEstado(res.data.estado)
-        })
+        if(props.cliente==undefined){
+            axios.get(ip + '/pedidos/count?estado_id=' + props.estadoId, authHeader())
+            .then(res => {
+                setCount(res.data.count)
+                setEstado(res.data.estado)
+            })
+        }
+        else if(props.cliente!=undefined){
+            axios.get(ip + '/clientes/count?estado_id=' + props.estadoId + '&cliente_id=' + props.cliente, authHeader())
+            .then(res => {
+                setCount(res.data.count)
+                setEstado(res.data.estado)
+            })
+        }
+        
     }, [])
+    
+    
+    
 
     return (
         <div className='col'>
