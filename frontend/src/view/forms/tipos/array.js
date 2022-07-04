@@ -1,4 +1,4 @@
-import React, {  useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 
 export default function ArrayComponent(props) {
@@ -6,34 +6,39 @@ export default function ArrayComponent(props) {
     const id = parseInt(props.pergunta.id)
     const [text, setText] = useState('')
     const [arrayItems, setArrayItems] = useState(
-        Array.isArray(props.perguntasObject[id])
-            ? props.perguntasObject[id]
-            : []
+        Array.isArray(props.perguntasObject[id]?.texto)
+            ? { texto: props.perguntasObject[id].texto, inteiro: 0 }
+            : { texto: [], inteiro: 0 }
     )
 
     useEffect(() => {
-        if (Array.isArray(arrayItems) && arrayItems.length) {
+        console.log('arrayItems', arrayItems)
+        if (Array.isArray(arrayItems) && !!arrayItems.length) {
 
             const updateObj = {}
-            updateObj[id] = arrayItems
-            const newObj = {
-                ...props.perguntasObject,
-                ...updateObj
+            updateObj[id] = {
+                texto: arrayItems,
+                inteiro: 1
             }
+            console.log(updateObj)
 
-            if (arrayItems !== props.perguntasObject[id]) {
-                props.setPerguntasObject(newObj)
+            if (JSON.stringify(arrayItems) !== JSON.stringify(props.perguntasObject[id]?.texto)) {
+                props.setPerguntasObject({
+                    ...props.perguntasObject,
+                    ...updateObj
+                })
             }
-
         }
     }, [arrayItems])
 
     useEffect(() => {
 
         if (props.perguntasObject.hasOwnProperty(id)
-            && props.perguntasObject[id] !== undefined
-            && props.perguntasObject[id] !== false) {
-            props.setResposta(props.perguntasObject[id].join(', '))
+            && !!props.perguntasObject[id]?.texto
+            && !!props.perguntasObject[id]?.inteiro) {
+
+            console.log(props.perguntasObject[id].texto)
+            props.setResposta(props.perguntasObject[id].texto.join(', '))
         }
     }, [props.perguntaObject])
 
@@ -72,7 +77,7 @@ export default function ArrayComponent(props) {
                             className='btn btn-warning focus-warning fw-semibold'
                             onClick={e => {
                                 if (text !== '') {
-                                    setArrayItems(arrayItems => [text, ...arrayItems])
+                                    setArrayItems({ ...arrayItems, ...{ texto: [...arrayItems.texto, text], inteiro: 1 } })
                                     setText('')
                                 }
                             }}
@@ -84,7 +89,7 @@ export default function ArrayComponent(props) {
                     <ul className='list-group mb-3 shadow'>
                         {/* <li className='list-group-item text-muted small py-2'>{text === '' ? props.pergunta.titulo : text}</li> */}
                         {
-                            arrayItems.map((item, index) => {
+                            arrayItems.texto.map((item, index) => {
                                 return (<li className='list-group-item fw-semibold' key={index}><i className='bi bi-arrow-right-short me-2'></i>{item}</li>)
                             })
                         }

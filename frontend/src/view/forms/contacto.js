@@ -1,6 +1,31 @@
 import React from 'react'
+import axios from 'axios'
 
 export default function ContactoComponent(props) {
+
+    function handleSubmitPedido(e) {
+        e.preventDefault();
+
+        // axios
+        //     .get('https://api.ipify.org?')
+        //     .then(res => {
+        //         const ip_cliente = res.data
+
+        //         axios
+        //             .get('http://api.ipstack.com/' + ip_cliente + '?access_key=' + process.env.REACT_APP_IPSTACK_API_KEY)
+        //             .then(res => console.log(res.data))
+        //             .catch(error => console.log(error))
+        //     })
+        //     .catch(error => console.log(error))
+
+        axios
+            .get('http://ip-api.com/json/')
+            .then(res => alert('Estás a fazer o pedido a partir de ' + res.data.city + ', ' + res.data.regionName + ' :)'))
+            .catch(error => console.log(error))
+
+
+        props.postPedido(e)
+    }
 
     return (
         <div className='row mb-5'>
@@ -20,7 +45,7 @@ export default function ContactoComponent(props) {
                     Usar o onSubmit no form em vez de onClick no botão permite que a 
                     função postPedido só seja efectuada se os inputs forem todos validos.
                  */}
-                <form onSubmit={e => { e.preventDefault(); props.postPedido(e) }}>
+                <form onSubmit={e => handleSubmitPedido(e)}>
                     {/* Nome */}
                     <div className="form-floating mb-3">
                         <input
@@ -34,7 +59,7 @@ export default function ContactoComponent(props) {
                             autoCapitalize='words'
                             required
                             value={props.clienteNome}
-                            onChange={e => {props.setClienteNome(e.target.value)}}
+                            onChange={e => { props.setClienteNome(e.target.value) }}
                             onInput={e => {
                                 if (!e.target.validity.valid) {
                                     e.target.classList.add('focus-danger')
@@ -73,7 +98,7 @@ export default function ContactoComponent(props) {
                             autoCapitalize='none'
                             required
                             value={props.clienteEmail}
-                            onChange={e => {props.setClienteEmail(e.target.value)}}
+                            onChange={e => { props.setClienteEmail(e.target.value) }}
                             onInput={e => {
                                 if (!e.target.validity.valid) {
                                     e.target.classList.add('focus-danger')
@@ -107,7 +132,7 @@ export default function ContactoComponent(props) {
                             autoComplete='organization'
                             autoCapitalize='words'
                             value={props.clienteEmpresa}
-                            onChange={e => {props.setClienteEmpresa(e.target.value)}}
+                            onChange={e => { props.setClienteEmpresa(e.target.value) }}
                         />
                         <label htmlFor="input-empresa">Nome da sua empresa</label>
                     </div>
@@ -123,7 +148,7 @@ export default function ContactoComponent(props) {
                             placeholder="tlm"
                             autoComplete='tel-national'
                             value={props.clienteTlm}
-                            onChange={e => {props.setClienteTlm(e.target.value)}}
+                            onChange={e => { props.setClienteTlm(e.target.value) }}
                             onInput={e => {
                                 if (!e.target.validity.valid) {
                                     e.target.classList.add('focus-danger')
@@ -145,7 +170,7 @@ export default function ContactoComponent(props) {
                         <span className='text-danger fw-bold me-1'>*</span>
                         <span className='text-secondary fw-normal'>Requisito obrigatório</span>
                     </div>
-                    
+
                     <div className='d-grid'>
                         <button
                             type='submit'
