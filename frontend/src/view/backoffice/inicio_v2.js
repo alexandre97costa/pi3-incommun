@@ -22,7 +22,7 @@ export default function InicioV2Component() {
 
     useEffect(() => {
 
-        axios.get(ip + '/pedidos/all?ordem=' + ordemPedido + '&filtro=' + filtroPedido )
+        axios.get(ip + '/pedidos/all?ordem=' + ordemPedido + '&filtro=' + filtroPedido, authHeader())
         .then(res => {
             if (res.data.success) {
                 const data = res.data.data;
