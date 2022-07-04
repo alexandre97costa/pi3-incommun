@@ -14,7 +14,6 @@ import Footer from './view/forms/footer'
 import BoLogin from './view/backoffice/login'
 import PrivateRoute from './view/backoffice/private_route'
 import BoInicio from './view/backoffice/inicio'
-import BoInicioV2 from './view/backoffice/inicio_v2'
 import BoPedidos from './view/backoffice/pedidos'
 import BoFormularios from './view/backoffice/formularios'
 import BoClientes from './view/backoffice/clientes'
@@ -93,21 +92,6 @@ export default function App() {
 						</PrivateRoute>
 					} />
 
-
-
-					<Route path='/back-office/inicio_v2' element={
-						<PrivateRoute auth={login}>
-							<div className='container-fluid'>
-								<div className='row vh-100'>
-									<NavDeLado setLogin={setLogin} />
-									<BoInicioV2 />
-									<UsersModalComponent />
-									<CriarUserModalComponent />
-									<EliminarUserModalComponent />
-								</div>
-							</div>
-						</PrivateRoute>
-					} />
 					<Route path='/back-office/clientes' element={
 						<PrivateRoute auth={login}>
 							<div className='container-fluid'>

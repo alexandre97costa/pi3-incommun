@@ -22,7 +22,7 @@ export default function PedidosComponent() {
     const [autorDica, setAutorDica] = useState('')
     useEffect(() => {
 
-        axios.get(ip + '/pedidos/all?ordem=' + ordemPedido + '&filtro=' + filtroPedido )
+        axios.get(ip + '/pedidos/all?ordem=' + ordemPedido + '&filtro=' + filtroPedido, authHeader() )
         .then(res => {
             if (res.data.success) {
                 const data = res.data.data;
