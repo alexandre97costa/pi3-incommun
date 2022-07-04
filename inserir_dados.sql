@@ -50,12 +50,12 @@ INSERT INTO pedido (id, cliente_id, valor_total, estado_id, motivo_id, created_a
 /***************************************** Fim Pedidos *****************************************/
 
 /**************************************** formulario ********************************************************/
-INSERT INTO formulario (id, titulo, descricao, created_at, updated_at)  VALUES 
-(1, 'Criação de Website Institucional', 'Descrição Criação de Website Institucional',  CURRENT_TIMESTAMP, CURRENT_TIMESTAMP  ),
-(2, 'Criação de Loja Online',           'Descrição Criação de Loja Online',            CURRENT_TIMESTAMP, CURRENT_TIMESTAMP  ),
-(3, 'Criação de Website Hibrido',       'Descrição Criação de Website Hibrido',        CURRENT_TIMESTAMP, CURRENT_TIMESTAMP  ),
-(4, 'Criação de Identidade Visual',     'Descrição Criação de Identidade Visual',      CURRENT_TIMESTAMP, CURRENT_TIMESTAMP  ),
-(5, 'Gestão de Redes Sociais',          'Descrição Gestão de Redes Sociais',           CURRENT_TIMESTAMP, CURRENT_TIMESTAMP  );
+INSERT INTO formulario (id, titulo, created_at, updated_at, descricao)  VALUES 
+(1, 'Criação de Website Institucional', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Falta aqui uma descrição jeitosa.'  ),
+(2, 'Criação de Loja Online',           CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Falta aqui uma descrição jeitosa.'  ),
+(3, 'Criação de Website Hibrido',       CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Falta aqui uma descrição jeitosa.'  ),
+(4, 'Criação de Identidade Visual',     CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Falta aqui uma descrição jeitosa.'  ),
+(5, 'Gestão de Redes Sociais',          CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Falta aqui uma descrição jeitosa.'  );
 
 /**************************************** fim formulario *****************************************************/
 

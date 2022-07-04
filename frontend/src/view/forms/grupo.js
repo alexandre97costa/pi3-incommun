@@ -13,6 +13,8 @@ export default function GrupoComponent(props) {
     useEffect(() => {
         let collapsible = document.getElementById('accordion-collapse-' + props.id)
         collapsible.addEventListener('shown.bs.collapse', e => { props.setSelectedGroup(props.id) })
+
+        console.log('o grupo deu reset')
     }, [])
 
     useEffect(() => {
@@ -116,8 +118,6 @@ export default function GrupoComponent(props) {
                                             setPerguntasObject={props.setPerguntasObject}
 
                                             setResposta={setResposta}
-
-
                                         />
                                     )
 
@@ -140,15 +140,13 @@ export default function GrupoComponent(props) {
                                 case 'r-social-posts-stories-reels':
                                     return (
                                         <TipoRedeSocial
-                                            exemplo={pergunta.tipo_pergunta.titulo}
-
                                             key={pergunta.id}
                                             pergunta={pergunta}
 
-                                            idGrupo={props.id}
                                             perguntasObject={props.perguntasObject}
                                             setPerguntasObject={props.setPerguntasObject}
 
+                                            setResposta={setResposta}
                                         />
                                     )
 

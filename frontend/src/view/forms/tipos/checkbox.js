@@ -1,5 +1,5 @@
 // import React, { useContext, useEffect, useState } from 'react';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 
 export default function CheckboxComponent(props) {
@@ -14,17 +14,22 @@ export default function CheckboxComponent(props) {
     //     }
     // }, [props.perguntasObject])
 
+
     return (
 
         <div className="form-check mb-3 ms-3">
             <input className="form-check-input my-0 mt-2 me-3 "
                 type="checkbox"
                 id={'p-' + props.pergunta.id}
-                checked={props.perguntasObject[id]}
+                checked={!!props.perguntasObject[id]?.inteiro}
                 value={props.pergunta.titulo}
                 onChange={e => {
                     const updateObj = {}
-                    updateObj[id] = e.target.checked
+                    const updateResposta = {
+                        texto: props.pergunta.titulo,
+                        inteiro: !!e.target.checked ? 1 : 0
+                    }
+                    updateObj[id] = updateResposta;
                     props.setPerguntasObject({
                         ...props.perguntasObject,
                         ...updateObj

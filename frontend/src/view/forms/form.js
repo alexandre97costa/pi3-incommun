@@ -24,7 +24,7 @@ export default function FormComponent(props) {
         let rect = grupo.getBoundingClientRect()
         let isNotInView = !( // <- atenção aqui ao !
             rect.top >= 0 &&
-            rect.top <= (window.innerHeight || document.documentElement.clientHeight) 
+            rect.top <= (window.innerHeight || document.documentElement.clientHeight)
         )
 
         if (isNotInView) {
@@ -43,6 +43,7 @@ export default function FormComponent(props) {
     const [clienteTlm, setClienteTlm] = useState('')
 
     useEffect(() => {
+        console.log('o form deu reset')
         axios
             .get(ip + '/forms/one?id=' + formId)
             .then(res => { setForm(res.data) })
@@ -62,7 +63,12 @@ export default function FormComponent(props) {
                             return grupo.pergunta.map((pergunta) => {
                                 // ...e devolver uma array para cada id.
                                 // * Esta array equivale a um par key/value no objecto final
-                                return [pergunta.id, pergunta.tipo_pergunta.titulo === 'text' ? [] : false]
+
+                                // return [pergunta.id, pergunta.tipo_pergunta.titulo === 'text' ? [] : false]
+                                return [pergunta.id, {
+                                    texto: pergunta.tipo_pergunta.titulo,
+                                    inteiro: 0
+                                }]
                             })
                         })
                         // As arrays provenientes de cada grupo são concatenadas numa só
@@ -157,21 +163,22 @@ export default function FormComponent(props) {
                     <table className='table table-dark m-0'>
                         <tbody>
                             {
-
                                 Object.keys(props.perguntasObject).map((key, index) => {
-                                    const value = props.perguntasObject[key].toString();
+                                    const respostaObj = props.perguntasObject[key];
                                     return (
                                         <tr key={index}>
                                             <td className='text-secondary'>
                                                 {key}
                                             </td>
                                             <td
-                                                className={
-                                                    (value === 'true' ? 'text-success' : '') +
-                                                    (value === 'false' ? 'text-danger' : '')
-                                                }
+                                                className={' small text-start'}
                                             >
-                                                {props.perguntasObject[key].toString()}
+                                                {respostaObj.texto}
+                                            </td>
+                                            <td
+                                                className={' small text-start'}
+                                            >
+                                                {respostaObj.inteiro}
                                             </td>
                                         </tr>
                                     )

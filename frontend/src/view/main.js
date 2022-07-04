@@ -32,18 +32,36 @@ export default function MainComponent() {
     }
 
     function LoadLinks() {
-        return forms.map(form => {
+        return forms.map((form, index) => {
             return (
-                <div className='col' key={form.id}>
+                // <div className='col' key={form.id}>
+                //     <Link
+                //         className='btn btn-outline-dark h-100 fs-3 fw-bold rounded-0 py-3 lh-1'
+                //         to={'/servicos-personalizados/' + nomeTransform(form.titulo)}
+                //         state={{ id: form.id }}
+                //     >
+                //         {form.titulo}
+                //         <small className='fs-6 lh-1 fw-normal d-none'>
+                //             {form.descricao}
+                //         </small>
+                //     </Link>
+                // </div>
+
+
+                <div className={((index % 2 === 0) ? 'text-end' : 'text-start') + ' mb-3'}>
+
+                    <div className='fs-1 text-indigo lh-1'>
+                        {form.titulo}
+                    </div>
+
+                    <div className='fs-5 my-3'>{form.descricao}</div>
+
                     <Link
-                        className='btn btn-outline-dark h-100 fs-3 fw-bold rounded-0 py-3 lh-1'
+                        className='btn btn-warning fs-4 fw-normal rounded-0 p-3'
                         to={'/servicos-personalizados/' + nomeTransform(form.titulo)}
                         state={{ id: form.id }}
                     >
-                        {form.titulo}
-                        <small className='fs-6 lh-1 fw-normal d-none'>
-                            {form.descricao}
-                        </small>
+                        Preencher formulário
                     </Link>
                 </div>
             )
@@ -51,142 +69,57 @@ export default function MainComponent() {
     }
 
     return (
-        <div className='container p-5 margin-top-bottom-10'>
-            <div className='row row-cols-sm-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-5 gy-3'>
-                <div className='col border border-warning border-5 rounded  icon-center'>
-                    <i className="bi bi-journal-text text-warning resize-icon"><h1 className='text-dark'>Mini Questinário</h1></i>
+        <div className='container py-5 '>
+            <div className='row flex-column flex-md-row justify-content-center mb-5 text-center'>
+
+                <div className='col-3 border border-warning border-3 rounded-4 py-2'>
+                    <i className="bi bi-journal-text text-warning fs-1"></i>
+                    <div className='h3'>Complete um formulário</div>
                 </div>
 
-                <div className='icon-center margin-top-5'>
-                    <i className="bi bi-chevron-right text-warning resize-icon"></i>
+                <div className='col-1 d-flex justify-content-center align-items-center'>
+                    <i className="bi bi-chevron-right text-warning fs-1"></i>
                 </div>
 
-                <div className='col border border-warning border-5 rounded icon-center'>
-                    <i className="bi bi-wallet2 text-warning resize-icon"><h1 className='text-dark'>Receba o orçamento</h1></i>
+                <div className='col-3 border border-warning border-3 rounded-4 py-2'>
+                    <i className="bi bi-wallet2 text-warning fs-1"></i>
+                    <div className='h3'>Receba o orçamento</div>
                 </div>
 
-                <div className='icon-center margin-top-5'>
-                    <i className="bi bi-chevron-right text-warning resize-icon"></i>
+                <div className='col-1 d-flex justify-content-center align-items-center'>
+                    <i className="bi bi-chevron-right text-warning fs-1"></i>
                 </div>
 
-                <div className='col border border-warning border-5 rounded icon-center'>
-                    <i className="bi bi-geo-alt-fill text-warning resize-icon"><h1 className='text-dark'>Pedido entregue!</h1></i>
+                <div className='col-3 border border-warning border-3 rounded-4 py-2'>
+                    <i className="bi bi-geo-alt-fill text-warning fs-1"></i>
+                    <div className='h3'>Pedido entregue!</div>
                 </div>
             </div>
 
-            <div className='text-center p-5 margin-top-bottom-10'>
-                <button
-                    className='rounded-pill bg-purple text-white border-purple'
-                    style={{ width: '300px' }}
-                >
-                    <h3>Pedir Orçamento</h3>
-                </button>
-            </div>
 
-            <div className='text-a-right margin-top-bottom-10'>
-                <span><h1><i className="bi bi-twitter text-warning" style={{ padding: '2%' }}></i>Gestão de Redes Sociais</h1></span>
-                <h3>Na incommun, impulsionamos as redes sociais da sua marca.
-                    Se ainda não implementou a gestão de redes sociais na sua empresa, está no sítio certo.
-                    A estratégia é definida aqui. Na incommmun contamos com pacotes mensais ou
-                    anuais que são adaptados às necessidades de cada cliente.
-                </h3>
-                <button
-                    className='bg-warning text-white border-warning'
-                    style={{ width: '300px' }}>
-                    <h3>Orçamento</h3>
-                </button>
-            </div>
-
-            <div className='text-a-left margin-top-bottom-10'>
-                <span><h1>Criação de Website<i className="bi bi-window-desktop text-warning" style={{ padding: '2%' }}></i></h1></span>
-                <h3>Aqui na incommun podemos criar um site para a sua empresa
-                    Temos algumas opções para si desde landing pages, útil como cartão de visita
-                    Ou então talvez queria um loja online ou um site para promover a sua empresa
-                    sendo até possível uma combinação entre ambos
-                </h3>
-                <button
-                    className='bg-warning text-white border-warning'
-                    style={{ width: '300px' }}>
-                    <h3>Orçamento</h3>
-                </button>
-            </div>
-
-            <div className='text-a-right margin-top-bottom-10'>
-                <span><h1><i className="bi bi-pencil-fill text-warning" style={{ padding: '2%' }}></i>Identidade Visual</h1></span>
-                <h3>A incommunn oferecemos também um serviço de criação de identidades visuais
-                    Quaçlquer empresa necessita dum logotipo
-                </h3>
-                <button
-                    className='bg-warning text-white border-warning'
-                    style={{ width: '300px' }}>
-                    <h3>Orçamento</h3>
-                </button>
-            </div>
-
-            <div>
-                <form className='bg-warning' style={{ height: '900px' }}>
-                    <div className='p-5'>
-                        <h1 className='text-white text-center'>Fala Conosco</h1>
-                        <h6 className='text-white text-center'>NÂO MORDEMOS! ;) SINTA-SE À VONTADE DE TIRAR QUALQUER DÚVIDA QUE TENHA!</h6>
-                    </div>
-                    <div className="m-5">
-                        <input type="text" className="form-control" id="InputNome" placeholder='Nome....' />
-                    </div>
-                    <div className="m-5">
-                        <input type="email" className="form-control" id="InputEmail" aria-describedby="emailHelp" placeholder='Email.....' />
-                    </div>
-                    <div className="input-group">
-                        <textarea className="form-control m-5" aria-label="Mensage" placeholder='Mensagem....' rows="10" cols="20"/>
-                    </div>
-                    <div className='text-center'>
-                    <img src={Cat} alt='cat icon' style={{width: '100px'}}/>
-                        <button
-                            className='rounded-pill bg-purple text-white border-purple'
-                            style={{ width: '300px', height: '70px' }}
-                        >
-                            <h3>Pedir Orçamento</h3>
-                        </button>
-                    </div>
-
-                </form>
-            </div>
-            
-            <div>
-                <h1 className='text-center margin-top-bottom-15'>Acompanhe o nosso trabalho:</h1>
-            </div>
-
-            <div className='resize-icon text-purple margin-bottom-10'>
-            <i className="bi bi-twitter margin-10" style={{width: '50px'}}/>
-            <i className="bi bi-instagram margin-10"/>
-            <i className="bi bi-facebook margin-10"/>
-            <i className="bi bi-linkedin margin-10"/>
-            <i className="bi bi-youtube margin-10"/>
-            <i className="bi bi-tiktok margin-10"/>
-            </div>
-
-            <div className='display-3 text-indigo fw-bold mb-5'>
-                Página Inicial
-                {forms.length === 0 &&
-                    <div className="spinner-grow text-secondary ms-3 align-baseline" role="status">
+            {forms.length === 0 &&
+                <div className='row justify-content-center mt-5 mb-3'>
+                    <div className="spinner-grow text-secondary" role="status">
                         <span className="visually-hidden">Loading...</span>
                     </div>
-                }
-            </div>
-            <div className='row row-cols-sm-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 gy-3'>
-
-                <div className='col'>
-                    <Link
-                        type='button'
-                        className='btn btn-success h-100 w-100 fs-2 fw-bold rounded-0 py-4 '
-                        to='/back-office'
-                    >
-                        <i className='bi bi-graph-up-arrow me-3'></i>
-                        Back Office
-                    </Link>
                 </div>
+            }
+            <LoadLinks />
 
-                <LoadLinks />
+            
+            <div>
+                <h1 className='text-center my-4'>Acompanhe o nosso trabalho:</h1>
             </div>
+
+            <div className='text-indigo row row-cols-8 text-center justify-content-center'>
+                <i className="col-1 fs-2 bi bi-twitter" />
+                <i className="col-1 fs-2 bi bi-instagram" />
+                <i className="col-1 fs-2 bi bi-facebook" />
+                <i className="col-1 fs-2 bi bi-linkedin" />
+                <i className="col-1 fs-2 bi bi-youtube" />
+                <i className="col-1 fs-2 bi bi-tiktok" />
+            </div>
+
         </div>
     )
 
