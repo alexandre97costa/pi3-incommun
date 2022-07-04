@@ -63,7 +63,39 @@ module.exports = {
 
         res.status(200).send('Email enviado!')
     },
-
+    count: async (req, res) => {
+        // count conta por estado_id
+        // Para contar todos os pedidos, nao passes estado na query
+        const estadoId = req.query.estado_id ?? 0
+        const cliente = req.query.cliente_id ?? 0
+        // filtra por dias de idade (conta pedidos com até 30 dias de idade por exemplo)
+        let response = {}
+        await sequelize.sync()
+            .then(async () => {
+                if (estadoId > 0) {
+                    await EstadoPedido
+                        .findOne({
+                            where: { id: estadoId,
+                                
+                             }
+                        })
+                        .then(res => { response.estado = res })
+                }
+            })
+            .then(async () => {
+                if (estadoId > 0) {
+                    await Pedido
+                        .count({
+                            where: {
+                                estado_id: estadoId,
+                                cliente_id:cliente
+                            }
+                        })
+                        .then(count => { response = { ...response, count: count } })
+                }
+            })  
+        res.json(response)
+    },
     // devolve todos os clientes
     list: async (req, res) => {
         // para filtrar por estado
@@ -87,27 +119,7 @@ module.exports = {
                     res.json({ success: true, data: data });
                 })
     },
-    detalhes_pedido: async (req, res) => {
-        const id_pedido = req.query.id_pedido ?? 0
-
-        await sequelize.sync()
-            .then(async () => {
-                await Pedido
-                    .findAll({
-                        where: { id: id_pedido },
-                        include: [
-                            { model: Cliente },
-                            { model: EstadoPedido },
-                            { model: MotivoRecusa },
-                            { model: Resposta }
-                        ]
-                        
-                    })
-                    .then(data => { res.status(200).json({ success: true, data: data }) })
-                    .catch(error => { res.status(400); throw new Error(error); });
-
-            })
-    },
+    
     // devolve todos os pedidos de um determinado cliente
     list_pedidos: async (req, res) => {
         const cliente = req.query.cliente ?? 0
@@ -136,7 +148,9 @@ module.exports = {
     // devolve o numero de clientes na BD
     total: async (req, res) => {
         const data = await Cliente.count({
+           
         })
+        
             .then(function (data) {
                 return data;
             })
@@ -144,5 +158,6 @@ module.exports = {
                 return error;
             });
         res.json({ success: true, data: data });
-    }
+    },
+   
 }
