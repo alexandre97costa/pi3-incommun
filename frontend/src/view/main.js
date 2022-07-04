@@ -34,21 +34,7 @@ export default function MainComponent() {
     function LoadLinks() {
         return forms.map((form, index) => {
             return (
-                // <div className='col' key={form.id}>
-                //     <Link
-                //         className='btn btn-outline-dark h-100 fs-3 fw-bold rounded-0 py-3 lh-1'
-                //         to={'/servicos-personalizados/' + nomeTransform(form.titulo)}
-                //         state={{ id: form.id }}
-                //     >
-                //         {form.titulo}
-                //         <small className='fs-6 lh-1 fw-normal d-none'>
-                //             {form.descricao}
-                //         </small>
-                //     </Link>
-                // </div>
-
-
-                <div className={((index % 2 === 0) ? 'text-end' : 'text-start') + ' mb-3'}>
+                <div key={form.id} className={((index % 2 === 0) ? 'text-end' : 'text-start') + ' mb-3'}>
 
                     <div className='fs-1 text-indigo lh-1'>
                         {form.titulo}
