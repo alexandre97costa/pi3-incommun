@@ -23,7 +23,7 @@ export default function NavDeCimaComponent(props) {
                 props.auth ?
 
                     <Link
-                        to='/back-office/inicio_v2'
+                        to='/back-office/'
                         className='btn btn-outline-dark rounded-0 me-4'
                     >
                         Back Office
