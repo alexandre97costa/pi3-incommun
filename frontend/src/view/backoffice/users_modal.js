@@ -24,7 +24,7 @@ export default function UsersModalComponent(props) {
                         <td>{user.username}</td>
                         <td>{user.email}</td>
                         <td className='text-end' >
-                            {loggedInEmail === user.email ?
+                            {loggedInEmail !== user.email ?
                                 <button className='btn btn-sm btn-outline-secondary' disabled>
                                     <i className='bi bi-trash-fill'></i>
                                 </button>
