@@ -8,9 +8,13 @@ import EditableRow from './EditableRow';
 export default function FormulariosComponente() {
 
 
-	// const [tiposPergunta, setTiposPergunta] = useState([])
-	// const [filtroTiposPergunta, setFiltroTiposPergunta] = useState(0)
-	// const [filtroTiposPerguntaDesc, setFiltroTiposPerguntaDesc] = useState('Tipos de Pergunta')
+	//  const [tiposPergunta, setTiposPergunta] = useState([])
+	//  const [filtroTiposPergunta, setFiltroTiposPergunta] = useState(0)
+	//  const [filtroTiposPerguntaDesc, setFiltroTiposPerguntaDesc] = useState('Tipos de Pergunta')
+	const [edittitulopergunta, seteditTituloPergunta] = useState("")
+	const [editdescricaopergunta, seteditdescricaopergunta] = useState("")
+	const [edittipopergunta, setedittipopergunta] = useState("")
+	const [editvalorpergunta, seteditvalorpergunta] = useState("")
 
 	const [forms, setForms] = useState([])
 	const [editPerguntaId, setEditPerguntaId] = useState(null)
@@ -42,18 +46,20 @@ export default function FormulariosComponente() {
 
 
 
-	const handleEditForm = (e => {
-		e.preventDefault();
+	// const handleEditForm = (e => {
+	// 	e.preventDefault();
 
-		const fieldName = e.target.getAttribute("name");
-		const fieldValue = e.target.value;
+	// 	const fieldName = e.target.getAttribute("name");
+	// 	const fieldValue = e.target.value;
 
-		const newForm = { ...editForm };
-		newForm[fieldName] = fieldValue;
+	// 	const newForm = { ...editForm };
+	// 	newForm[fieldName] = fieldValue;
 
-		setEditForm(newForm)
+	// 	setEditForm(newForm)
 
-	});
+	// });
+
+
 
 	const handleEditClick = (e, pergunta) => {
 		e.preventDefault();
@@ -100,6 +106,27 @@ export default function FormulariosComponente() {
 	// 	)
 	// }
 
+
+	function UpdatePergunta(e) {
+		e.preventDefault()
+		let idpergunta = e.target.getAttribute('data-id')
+
+		axios.post(ip + '/forms/edit?id=' + idpergunta,
+			{
+				titulo: edittitulopergunta,
+				descricao: editdescricaopergunta,
+				tipo_pergunta: parseInt(edittipopergunta),
+				valor_unitario: parseFloat(editvalorpergunta),
+
+			})
+
+			.then(function (data) {
+				window.location.reload()
+			})
+			.catch(error => {
+				return error;
+			})
+	}
 
 	function LoadForms() {
 		return forms.map(form => {
@@ -150,45 +177,46 @@ export default function FormulariosComponente() {
 
 
 
-													
-														<table className="table table-hover">
-															<thead className='fw-semibold'>
-																<tr>
-																	<td style={{ width: "30%" }}>Titulo</td>
-																	<td style={{ width: "40%" }}>Descrição</td>
-																	<td style={{ width: "10%" }}>Tipo</td>
-																	<td style={{ width: "10%" }}>Valor</td>
-																	<td style={{ width: "10%" }}>Ações</td>
-																</tr>
-															</thead>
 
-															<tbody>
-																{grupo.pergunta.map(pergunta => {
-																	return (
+													<table className="table table-hover">
+														<thead className='fw-semibold'>
+															<tr>
+																<td style={{ width: "30%" }}>Titulo</td>
+																<td style={{ width: "40%" }}>Descrição</td>
+																<td style={{ width: "10%" }}>Tipo</td>
+																<td style={{ width: "10%" }}>Valor</td>
+																<td style={{ width: "10%" }}>Ações</td>
+															</tr>
+														</thead>
+																</table>
 
+														{grupo.pergunta.map(pergunta => {
+															return (
 
+																
 
-																		(editPerguntaId === pergunta.id) ?
-																			<EditableRow key={pergunta.id} editForm={editForm}
-																				handleEditForm={handleEditForm}
-																				handleCancelClick={handleCancelClick}
-																			/>
-																			:
-																			<ReadOnlyRow key={pergunta.id} pergunta={pergunta}
-																				handleEditClick={handleEditClick}
+																	(editPerguntaId === pergunta.id) ?
+		
+																			<EditableRow key={pergunta.id} id={pergunta.id} editForm={editForm}
 
-																			/>
+																		handleCancelClick={handleCancelClick}
+																	/>
+																	:
+																	<ReadOnlyRow key={pergunta.id} pergunta={pergunta}
+																		handleEditClick={handleEditClick}
+
+																	/>
 
 
 
 
 																	)
 																})}
-															</tbody>
+															
 
-
-														</table>
 												
+
+
 
 												</div>
 
@@ -224,6 +252,50 @@ export default function FormulariosComponente() {
 			</div>
 
 			<div className='row'>
+
+
+
+				<form onSubmit={e => UpdatePergunta(e)}>
+					<input
+						className="form-control focus-warning"
+						type="text"
+						name="titulo"
+						required="required"
+						placeholder="Introduz o titulo"
+						value={edittitulopergunta} onChange={e => seteditTituloPergunta(e.target.value)}
+
+					/>
+
+					<input
+						className="form-control focus-warning"
+						type="text"
+						name="descricao"
+						required="required"
+						placeholder="Introduz a descrição"
+						value={editdescricaopergunta} onChange={e => seteditdescricaopergunta(e.target.value)}
+					/>
+
+
+					<input
+						className="form-control focus-warning"
+						type="text"
+						name="tipo_pergunta"
+						required="required"
+						placeholder="Introduz o tipo de pergunta"
+						value={edittipopergunta} onChange={e => setedittipopergunta(e.target.value)}
+					/>
+
+					<input
+						className="form-control focus-warning"
+						type="number"
+						name="valor_unitario"
+						required="required"
+						placeholder="Introduz o valor da pergunta"
+						value={editvalorpergunta} onChange={e => seteditvalorpergunta(e.target.value)}
+					/>
+
+					<button type="submit" className="btn btn-primary" >Adicionar</button>
+				</form>
 
 
 

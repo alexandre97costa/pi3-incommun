@@ -90,8 +90,9 @@ module.exports = {
 
     //EDITAR
     edit: async (req, res) => {
-        const { titulo, descricao, tipo_pergunta, valor_unitario } = req.body;
+        const { id, titulo, descricao, tipo_pergunta, valor_unitario } = req.body;
 
+        console.log(req.body)
         const data = await Pergunta.update(
 
             {
@@ -100,8 +101,9 @@ module.exports = {
                 tipo_id: tipo_pergunta,
                 valor_unitario: valor_unitario
 
+
             },
-            { where: { id: 3 } }
+            { where: { id: id } }
         )
             .then(function (data) {
                 return data;
