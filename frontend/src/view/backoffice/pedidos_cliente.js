@@ -6,7 +6,6 @@ import Count from './count'
 import ip from '../../ip'
 import mailImg from '../../assets/imgs/mail2.png'
 import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
 
 export default function Pedidos_clienteComponent() {
     const [pedidos, setPedidos] = useState([])
@@ -18,7 +17,6 @@ export default function Pedidos_clienteComponent() {
         axios.get(ip + '/clientes/list_pedidos/?cliente=' + Cliente + '&filtro=' + filtroPedido + '&ordem=' + ordemPedido)
         .then(res => {
             if (res.data.success) {
-                //alert(filtroPedido + "," + Cliente);
                 setPedidos(res.data.data);
             }
         })
@@ -94,29 +92,21 @@ export default function Pedidos_clienteComponent() {
             })
         )
     }
-  
     return (
         <div className="container-fluid">
             <div className="row vh-100">
                 {/* <NavDeLado /> */}
                 <NavDeLado />
-
                 <div className="col overflow-auto h-sm-100 px-5 pt-4">
-
                     {/* Titulo */}
                     <div className="mb-3 row">
                         <div className='col-6'>
                             <span className='h2 text-dark fw-bold'>
                                 Pedidos do Cliente
-                                
                             </span>
-                           
                             <br />
                             <br />
-                        
-                            
                         </div>
-                        
                     </div>
                     <div className='mb-4 g-3 row row-cols-1 row-cols-md-2 row-cols-lg-4 row-cols-xl-4'>
                 <Count estadoId={1} cliente={Cliente}/>

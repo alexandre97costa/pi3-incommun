@@ -92,14 +92,19 @@ export default function ClientesComponent() {
                             </span>
                         </td>
                         <td className='text-start text-dark lh-sm'>
-                            <span className='fs-5 fw-semibold position-relative'>
+                            <span className='fs-6 fw-semibold position-relative'>
                                 {cliente.email}
 
                             </span>
                         </td>
                         <td className='text-start text-dark lh-sm'>
-                            <span className='fs-5 fw-semibold position-relative'>
+                            <span className='fs-6 fw-semibold position-relative'>
                                 {cliente.tlm}
+                            </span>
+                        </td>
+                        <td className='text-start text-dark lh-sm'>
+                            <span className='fs-5 fw-semibold position-relative'>
+                                {cliente.distrito}
                             </span>
                         </td>
                         <td >
@@ -176,11 +181,12 @@ export default function ClientesComponent() {
                             <table className='table'>
                                 <thead>
                                     <tr className=''>
-                                        <th className='text-start' style={{ width: '20%' }}>Nome</th>
-                                        <th className='text-start' style={{ width: '15%' }}>Email</th>
-                                        <th className='text-start' style={{ width: '15%' }}>Telemóvel</th>
-                                        <th className='text-center' style={{ width: '20%' }} colSpan={1}></th>
-                                        <th className='text-center' style={{ width: '20%' }} colSpan={1}></th>
+                                        <th className='text-start' style={{ width: '18%' }}>Nome</th>
+                                        <th className='text-start' style={{ width: '16%' }}>Email</th>
+                                        <th className='text-start' style={{ width: '11%' }}>Telemóvel</th>
+                                        <th className='text-start' style={{ width: '5%' }}>Distrito</th>
+                                        <th className='text-center' style={{ width: '17%' }} colSpan={1}></th>
+                                        <th className='text-center' style={{ width: '18%' }} colSpan={1}></th>
                                     </tr>
                                 </thead>
                                 <tbody>
