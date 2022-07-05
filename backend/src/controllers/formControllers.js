@@ -226,8 +226,8 @@ module.exports = {
                         // as horas como deve ser (das 00h00 às 23h59) quando vista=semana
                         // Entao isto dá override às horas nesse caso especifico
                         if (vista === 'semana') {
-                            inicio.setHours(1, 0, 0 , 0)
-                            fim.setHours(24, 59, 59 , 999)
+                            inicio.setHours(1, 0, 0, 0)
+                            fim.setHours(24, 59, 59, 999)
                         }
                         // console.log(inicio, fim)
 
@@ -251,12 +251,12 @@ module.exports = {
                                         return
 
                                     // case 'dia': linha.push([i + 'h', count]); break;
-                                    case 'dia': linha.push([i, count]); break;
-                                    case 'semana': linha.push([(7-(i/24))+(7*j) + 'd', count]); break;
-                                        
-                                    default:break;
+                                    case 'dia': linha.push([i+'h', count]); break;
+                                    case 'semana': linha.push([(7 - (i / 24)) + (7 * j) + 'd', count]); break;
+
+                                    default: break;
                                 }
-                                
+
                             })
                             .catch(error => console.log(error))
                     }
@@ -264,12 +264,15 @@ module.exports = {
                 }
 
                 let contagemChart = Array.from(contagem[0], (item, index) => {
-                    return [item[0], ...contagem.map(linha => {return linha[index][1]})]
+                    return [item[0], ...contagem.map(linha => { return linha[index][1] })]
                 })
 
-                // console.log('contagemChart', contagemChart)
 
-                res.json({ contagem: contagemChart })
+                let header = Array.from(contagemChart[0], (item, index) => {
+                    return !!index ? vista + ' ' + index : 'unidade'
+                })
+
+                res.json({ contagem: [header, ...contagemChart] })
             })
     },
 }
