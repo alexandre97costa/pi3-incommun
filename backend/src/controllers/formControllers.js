@@ -154,10 +154,42 @@ module.exports = {
                             [Grupo, Pergunta, TipoPergunta, 'id', 'ASC']
                         ]
                     })
-                    .then(formulario => {
-                        console.log('\x1b[36m/forms/one \x1b[0m' + formulario.titulo)
-                        res.send(formulario)
+                    .then(async (formulario) => {
+                        // Sempre que este formulário é requerido,
+                        // é lhe acrescentada uma visita
+                        await Visita
+                            .create({ form_id: formulario.id })
+                            .then(() => {
+                                console.log('\x1b[36m[visita] \x1b[0m' + formulario.titulo)
+                                res.send(formulario)
+                            })
                     })
+            })
+    },
+
+    count_visitas: async (req, res) => {
+        // se for 0, conta todas as visitas a formulários
+        const formulario_id = parseInt(req.query.formulario_id ?? 0)
+
+        await sequelize.sync()
+            .then(async () => {
+                if (formulario_id === 0) {
+                    await Visita
+                        .count()
+                        .then(totalVisitas => {
+                            res.json({ coise: totalVisitas })
+                            console.log('totalVisitas', totalVisitas)
+                        })
+                        .catch(error => console.log(error))
+                } else {
+                    await Visita
+                        .count({ where: { form_id: formulario_id } })
+                        .then(totalVisitas => {
+                            res.json({ coise: totalVisitas })
+                            console.log('visitas por id:', totalVisitas)
+                        })
+                        .catch(error => console.log(error))
+                }
             })
     },
 }

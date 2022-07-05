@@ -10,15 +10,15 @@ export default function ContactoComponent(props) {
     const [clientePermiteLocal, setClientePermiteLocal] = useState(true)
     const [clienteDistrito, setClienteDistrito] = useState('')
 
-    function handleSubmitPedido(e) {
-        e.preventDefault();
+    useEffect(() => {
+        axios
+            .get('http://ip-api.com/json/')
+            .then(res => setClienteDistrito(res.data.regionName))
+            .catch(error => console.log(error))
+    }, [])
 
-        if (clientePermiteLocal) {
-            axios
-                .get('http://ip-api.com/json/')
-                .then(res => setClienteDistrito(res.data.regionName))
-                .catch(error => console.log(error))
-        }
+    function handleSubmitPedido(e) {
+        e.preventDefault()
 
         const cliente = {
             nome: clienteNome,
@@ -171,9 +171,9 @@ export default function ContactoComponent(props) {
                         <label htmlFor="input-tlm">Número de telemóvel</label>
                     </div>
 
-                    <div class="mb-3 form-check form-switch">
+                    <div className="mb-3 form-check form-switch">
                         <input
-                            class="form-check-input"
+                            className="form-check-input"
                             type="checkbox"
                             role="switch"
                             id="flexSwitchCheckChecked"
@@ -182,7 +182,7 @@ export default function ContactoComponent(props) {
                             onChange={e => setClientePermiteLocal(e.target.checked)}
 
                         />
-                        <label class="form-check-label text-dark-secondary ms-2" for="flexSwitchCheckChecked">
+                        <label className="form-check-label text-dark-secondary ms-2" htmlFor="flexSwitchCheckChecked">
                             Enviar a minha localização (apenas o distrito), para efeitos estatísticos.
                         </label>
                     </div>

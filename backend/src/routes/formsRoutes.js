@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const jwt_middleware = require('../jwt_middleware')
 const formController = require('../controllers/formControllers')
 
 
@@ -9,24 +10,12 @@ router.get('/', (req, res) => {
 
 
 router.get('/all_form_names', formController.all_form_names)
-router.get('/all', formController.all)
-router.get('/all_backoffice', formController.all_backoffice)
-router.put('/edit', formController.edit)
-router.get('/all_tipos_pergunta', formController.all_tipos_pergunta)
+router.get('/all', formController.all) // Eu acho que esta já não é necessária
+router.get('/all_backoffice', jwt_middleware.checkToken, formController.all_backoffice)
+router.put('/edit', jwt_middleware.checkToken, formController.edit)
+router.get('/all_tipos_pergunta', jwt_middleware.checkToken, formController.all_tipos_pergunta)
 router.get('/one', formController.one)
-
-
-
-
-
-/*
-router.get('/testdata',filmeController.testdata );
-router.get('/list',filmeController.filme_list );
-router.get('/get/:id', filmeController.filme_detail);
-router.get('/get_all_generos', filmeController.genero_list);
-router.post('/create', filmeController.filme_create);
-router.put('/update/:id', filmeController.filme_update);
-*/
+router.get('/count_visitas', jwt_middleware.checkToken, formController.count_visitas)
 
 module.exports = router;
 
