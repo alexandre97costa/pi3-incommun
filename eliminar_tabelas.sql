@@ -9,5 +9,6 @@ DROP TABLE IF EXISTS
     tipo_pergunta,
     resposta,
     user_incommun,
-    user_incommun_role
+    user_incommun_role,
+    visita
     CASCADE;

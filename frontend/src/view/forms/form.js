@@ -22,6 +22,8 @@ export default function FormComponent(props) {
     const [clienteEmpresa, setClienteEmpresa] = useState('')
     const [clienteTlm, setClienteTlm] = useState('')
     const [clientePermiteLocal, setClientePermiteLocal] = useState(true)
+    const [clienteDistrito, setClienteDistrito] = useState('')
+
 
     useEffect(() => {
         console.log('o form deu reset')
@@ -246,6 +248,9 @@ export default function FormComponent(props) {
 
                 clientePermiteLocal={clientePermiteLocal}
                 setClientePermiteLocal={setClientePermiteLocal}
+
+                clienteDistrito={clienteDistrito}
+                setClienteDistrito={setClienteDistrito}
 
                 postPedido={postPedido}
             />

@@ -8,7 +8,7 @@ export default function ContactoComponent(props) {
 
         axios
             .get('http://ip-api.com/json/')
-            .then(res => alert('Estás a fazer o pedido a partir de ' + res.data.city + ', ' + res.data.regionName + ' :)'))
+            .then(res => props.setClienteDistrito(res.data.regionName))
             .catch(error => console.log(error))
 
 
