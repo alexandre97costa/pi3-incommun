@@ -2,7 +2,6 @@ import axios from 'axios';
 import { Link } from "react-router-dom";
 import React, { useEffect, useState } from 'react';
 import ip from '../ip'
-import Cat from '../assets/imgs/cat-icon.svg'
 
 export default function MainComponent() {
 

@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom'
 import LogoIncommun from '../../assets/imgs/logotipoincommun.png'
-import authService from '../auth.service';
 
 export default function NavDeCimaComponent(props) {
     return (

@@ -80,7 +80,6 @@ module.exports = {
                         .then(count => { response = { ...response, count: count } })
                 }
             })
-
             
         res.json(response)
     },
@@ -123,7 +122,6 @@ module.exports = {
                         })
                         .then(response => res.json({success: true, data: response}))
                 }
-
             })
     },
 
@@ -169,7 +167,6 @@ module.exports = {
                             resposta.valor_unitario = pergunta.valor_unitario
                             bodyPedido.valor_total += resposta.valor_unitario * resposta.inteiro
                         })
-
                 })
             })
             // inserir pedido 🥶
@@ -207,7 +204,6 @@ module.exports = {
                                         })
                                         .then(response => res.status(200).json(response))
                                 })
-
                         } else {
                             // Se é um cliente novo
                             await Pedido
@@ -219,7 +215,8 @@ module.exports = {
                                         nome: bodyCliente.nome,
                                         email: bodyCliente.email,
                                         empresa: bodyCliente.empresa ?? null,
-                                        tlm: bodyCliente.tlm ?? null
+                                        tlm: bodyCliente.tlm ?? null,
+                                        distrito: bodyCliente.distrito ?? null
                                     }
                                 }, {
                                     include: [Resposta, Cliente]
@@ -237,11 +234,8 @@ module.exports = {
                                         })
                                         .then(response => res.status(200).json(response))
                                 })
-
                         }
-
                     })
             })
-
     },
 }

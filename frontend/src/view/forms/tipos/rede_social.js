@@ -53,25 +53,6 @@ export default function RedeSocial(props) {
     useEffect(() => { if (!isNaN(stories) ) { setSelected(posts + stories + reels) } }, [stories])
     useEffect(() => { if (!isNaN(reels) ) { setSelected(posts + stories + reels) } }, [reels])
 
-
-    function handleClickNumber(e, tipo, n) {
-
-        setTimeout(() => {
-            e.target.blur()
-        }, 100);
-
-        let number = parseInt(n)
-
-        switch (tipo) {
-            case 'Posts': (number !== posts) && setPosts(number); break;
-            case 'Stories': (number !== stories) && setStories(number); break;
-            case 'Reels': (number !== reels) && setReels(number); break;
-            default: console.log('algo de errado no handleClickNumber'); break;
-        }
-
-        
-    }
-
     function PickANumber(props) {
         return (
             <div className='mt-3'>

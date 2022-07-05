@@ -16,15 +16,6 @@ export default function FormComponent(props) {
 
     const [selectedGroup, setSelectedGroup] = useState(-1)
 
-    // 🥐 client info
-    const [clienteNome, setClienteNome] = useState('')
-    const [clienteEmail, setClienteEmail] = useState('')
-    const [clienteEmpresa, setClienteEmpresa] = useState('')
-    const [clienteTlm, setClienteTlm] = useState('')
-    const [clientePermiteLocal, setClientePermiteLocal] = useState(true)
-    const [clienteDistrito, setClienteDistrito] = useState('')
-
-
     useEffect(() => {
         console.log('o form deu reset')
         axios
@@ -88,13 +79,8 @@ export default function FormComponent(props) {
         }
     }, [form])
 
-    function postPedido(e) {
-        const cliente = {
-            nome: clienteNome,
-            email: clienteEmail,
-            empresa: clienteEmpresa,
-            tlm: parseInt(clienteTlm)
-        }
+    function postPedido(clienteObj) {
+        const cliente = clienteObj
         const respostas = Object.keys(props.perguntasObject).map((key) => {
             let resposta = props.perguntasObject[key]
             let texto = Array.isArray(resposta) ? resposta.join(', ') : ''
@@ -215,7 +201,6 @@ export default function FormComponent(props) {
 
             <div className='row'>
                 <div className='col-12 ps-1 pe-5 ms-3 pb-5 pt-3  position-relative'>
-
                     <div className='display-5 text-start'>
                         <i className='bi bi-sliders text-indigo fs-1 me-3' ></i>
                         Responda a algumas perguntas
@@ -224,36 +209,10 @@ export default function FormComponent(props) {
                         Personalize o serviço à sua medida em 5 minutos! Basta responder às seguintes perguntas.
                     </div>
                 </div>
-
             </div>
 
-
-            {/* 🤹‍♂️ Formulário */}
             <LoadForm />
-
-            {/* 🏄‍♂️ Contacto do cliente */}
-            {/* ❗❗❗ Talvez seja melhor passar estes hooks todos num objecto */}
-            <Contacto
-                clienteNome={clienteNome}
-                setClienteNome={setClienteNome}
-
-                clienteEmail={clienteEmail}
-                setClienteEmail={setClienteEmail}
-
-                clienteEmpresa={clienteEmpresa}
-                setClienteEmpresa={setClienteEmpresa}
-
-                clienteTlm={clienteTlm}
-                setClienteTlm={setClienteTlm}
-
-                clientePermiteLocal={clientePermiteLocal}
-                setClientePermiteLocal={setClientePermiteLocal}
-
-                clienteDistrito={clienteDistrito}
-                setClienteDistrito={setClienteDistrito}
-
-                postPedido={postPedido}
-            />
+            <Contacto postPedido={postPedido} />
         </div>
     )
 }
