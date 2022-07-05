@@ -6,18 +6,6 @@ export default function ContactoComponent(props) {
     function handleSubmitPedido(e) {
         e.preventDefault();
 
-        // axios
-        //     .get('https://api.ipify.org?')
-        //     .then(res => {
-        //         const ip_cliente = res.data
-
-        //         axios
-        //             .get('http://api.ipstack.com/' + ip_cliente + '?access_key=' + process.env.REACT_APP_IPSTACK_API_KEY)
-        //             .then(res => console.log(res.data))
-        //             .catch(error => console.log(error))
-        //     })
-        //     .catch(error => console.log(error))
-
         axios
             .get('http://ip-api.com/json/')
             .then(res => alert('Estás a fazer o pedido a partir de ' + res.data.city + ', ' + res.data.regionName + ' :)'))
@@ -164,6 +152,22 @@ export default function ContactoComponent(props) {
                             }}
                         />
                         <label htmlFor="input-tlm">Número de telemóvel</label>
+                    </div>
+
+                    <div class="mb-3 form-check form-switch">
+                        <input 
+                            class="form-check-input"
+                            type="checkbox"
+                            role="switch"
+                            id="flexSwitchCheckChecked"
+                            style={{width: '2.5rem', margin: 0}}
+                            checked={props.clientePermiteLocal}
+                            onChange={e => props.setClientePermiteLocal(e.target.checked)}
+
+                            />
+                        <label class="form-check-label text-dark-secondary ms-2" for="flexSwitchCheckChecked">
+                            Enviar a minha localização (apenas o distrito), para efeitos estatísticos.
+                        </label>
                     </div>
 
                     <div className='mb-3'>

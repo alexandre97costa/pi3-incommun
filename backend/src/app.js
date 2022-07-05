@@ -26,7 +26,7 @@ app.use((req, res, next) => {
 
 //* Rotas
 app.use('/forms', formsRoutes)
-app.use('/pedidos', jwt_middleware.checkToken, pedidosRoutes)
+app.use('/pedidos', pedidosRoutes)
 app.use('/clientes', jwt_middleware.checkToken, clientesRoutes)
 app.use('/user', userRoutes)
 // app.use('/user', jwt_middleware.checkToken, userRoutes)

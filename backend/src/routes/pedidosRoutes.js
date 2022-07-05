@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const jwt_middleware = require('../jwt_middleware')
 const pedidosController = require('../controllers/pedidosController')
 
 
@@ -8,9 +9,9 @@ router.get('/', (req, res) => {
 })
 
 
-router.get('/all', pedidosController.all)
-router.get('/all_estados', pedidosController.all_estados)
-router.get('/count', pedidosController.count)
+router.get('/all', jwt_middleware.checkToken, pedidosController.all)
+router.get('/all_estados', jwt_middleware.checkToken, pedidosController.all_estados)
+router.get('/count', jwt_middleware.checkToken, pedidosController.count)
 
 router.post('/new', pedidosController.new)
 

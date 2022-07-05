@@ -16,6 +16,21 @@ export default function FormComponent(props) {
 
     const [selectedGroup, setSelectedGroup] = useState(-1)
 
+    // 🥐 client info
+    const [clienteNome, setClienteNome] = useState('')
+    const [clienteEmail, setClienteEmail] = useState('')
+    const [clienteEmpresa, setClienteEmpresa] = useState('')
+    const [clienteTlm, setClienteTlm] = useState('')
+    const [clientePermiteLocal, setClientePermiteLocal] = useState(true)
+
+    useEffect(() => {
+        console.log('o form deu reset')
+        axios
+            .get(ip + '/forms/one?id=' + formId)
+            .then(res => { setForm(res.data); console.log('setForm()') })
+            .catch(error => console.log(error))
+    }, [])
+
     useEffect(() => {
 
         let grupo = document.querySelector('#accordion-header-' + selectedGroup)
@@ -35,20 +50,6 @@ export default function FormComponent(props) {
             })
         }
     }, [selectedGroup])
-
-    // 🥐 client info
-    const [clienteNome, setClienteNome] = useState('')
-    const [clienteEmail, setClienteEmail] = useState('')
-    const [clienteEmpresa, setClienteEmpresa] = useState('')
-    const [clienteTlm, setClienteTlm] = useState('')
-
-    useEffect(() => {
-        console.log('o form deu reset')
-        axios
-            .get(ip + '/forms/one?id=' + formId)
-            .then(res => { setForm(res.data) })
-            .catch(error => console.log(error))
-    }, [])
 
     useEffect(() => {
         document.title = form.titulo ?? 'A carregar...'
@@ -229,6 +230,7 @@ export default function FormComponent(props) {
             <LoadForm />
 
             {/* 🏄‍♂️ Contacto do cliente */}
+            {/* ❗❗❗ Talvez seja melhor passar estes hooks todos num objecto */}
             <Contacto
                 clienteNome={clienteNome}
                 setClienteNome={setClienteNome}
@@ -241,6 +243,9 @@ export default function FormComponent(props) {
 
                 clienteTlm={clienteTlm}
                 setClienteTlm={setClienteTlm}
+
+                clientePermiteLocal={clientePermiteLocal}
+                setClientePermiteLocal={setClientePermiteLocal}
 
                 postPedido={postPedido}
             />
