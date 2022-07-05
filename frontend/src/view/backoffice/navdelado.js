@@ -106,6 +106,17 @@ export default function NavDeLadoComponent(props) {
                         </Link>
                     </li>
 
+                    {/* Visitas */}
+                    <li className='mb-2'>
+                        <Link to='/back-office/visitas'
+                            className='btn btn-outline-secondary border-0 rounded-0 px-2 px-sm-0 d-flex align-items-center'
+                            onFocus={e => setTimeout(() => { e.target.blur() }, 200)}
+                        >
+                            <i className='bi bi-graph-up fs-4 ms-sm-3 ms-md-4 me-sm-2'></i>
+                            <span className='d-none d-sm-inline '>Visitas</span>
+                        </Link>
+                    </li>
+
                     {/* User */}
                     <li className='mb-2 mt-auto'>
                         <div className='dropend py-sm-4 mt-sm-auto ms-auto ms-sm-0 flex-shrink-1'>

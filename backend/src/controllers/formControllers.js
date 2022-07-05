@@ -230,7 +230,7 @@ module.exports = {
                             fim.setHours(24, 59, 59 , 999)
                         }
                         // console.log(inicio, fim)
-                        
+
                         await Visita
                             .count({
                                 where: {
@@ -250,7 +250,8 @@ module.exports = {
                                         res.json(count);
                                         return
 
-                                    case 'dia': linha.push([i + 'h', count]); break;
+                                    // case 'dia': linha.push([i + 'h', count]); break;
+                                    case 'dia': linha.push([i, count]); break;
                                     case 'semana': linha.push([(7-(i/24))+(7*j) + 'd', count]); break;
                                         
                                     default:break;
@@ -266,9 +267,9 @@ module.exports = {
                     return [item[0], ...contagem.map(linha => {return linha[index][1]})]
                 })
 
-                console.log('contagemChart', contagemChart)
+                // console.log('contagemChart', contagemChart)
 
-                res.json({ contagem: contagem })
+                res.json({ contagem: contagemChart })
             })
     },
 }

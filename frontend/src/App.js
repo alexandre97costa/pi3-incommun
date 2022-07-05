@@ -19,10 +19,10 @@ import BoFormularios from './view/backoffice/Formulario/formularios'
 import BoClientes from './view/backoffice/clientes'
 import BoPiechart from './view/backoffice/piechart'
 import BoPedidosCliente from './view/backoffice/pedidos_cliente'
-import UsersModalComponent from './view/backoffice/users_modal';
-import CriarUserModalComponent from './view/backoffice/criar_user_modal';
-import EliminarUserModalComponent from './view/backoffice/eliminar_user_modal';
-
+import UsersModalComponent from './view/backoffice/users_modal'
+import CriarUserModalComponent from './view/backoffice/criar_user_modal'
+import EliminarUserModalComponent from './view/backoffice/eliminar_user_modal'
+import BoVisitas from './view/backoffice/Testes/visitas'
 
 
 export default function App() {
@@ -56,7 +56,7 @@ export default function App() {
 							<NavDeCima auth={login} />
 							<Footer />
 						</>
-					}/>
+					} />
 
 					<Route path='/servicos-personalizados/:nome' element={
 						<>
@@ -147,6 +147,20 @@ export default function App() {
 								<div className='row vh-100'>
 									<NavDeLado setLogin={setLogin} />
 									<BoPiechart />
+									<UsersModalComponent />
+									<CriarUserModalComponent />
+									<EliminarUserModalComponent />
+								</div>
+							</div>
+						</PrivateRoute>
+					} />
+
+					<Route path='/back-office/visitas' element={
+						<PrivateRoute auth={login}>
+							<div className='container-fluid'>
+								<div className='row vh-100'>
+									<NavDeLado setLogin={setLogin} />
+									<BoVisitas />
 									<UsersModalComponent />
 									<CriarUserModalComponent />
 									<EliminarUserModalComponent />
