@@ -217,13 +217,9 @@ const Cliente = sequelize.define('cliente',
                 }
             }
         },
-        empresa: {
-            type: DataTypes.STRING
-        },
-        tlm: {
-            type: DataTypes.INTEGER
-        },
-
+        empresa: { type: DataTypes.STRING },
+        tlm: { type: DataTypes.INTEGER },
+        distrito: { type: DataTypes.STRING }
     },
     {
         freezeTableName: true,
@@ -424,6 +420,37 @@ UserIncommun.belongsTo(UserIncommunRole, {
     }
 })
 
+// a visita só precisa do id do form associado e da data de criação
+const Visita = sequelize.define('visita', {}, {
+    freezeTableName: true,
+    timestamps: true,
+    createdAt: 'created_at',
+    updatedAt: 'updated_at'
+})
+Formulario.hasMany(Visita, {
+    foreignKey: {
+        name: 'form_id',
+        allowNull: false
+    }
+})
+Visita.belongsTo(Formulario, {
+    foreignKey: {
+        name: 'form_id',
+        allowNull: false
+    }
+})
+
 module.exports = {
-    Formulario, Grupo, Pergunta, TipoPergunta, Resposta, Pedido, EstadoPedido, MotivoRecusa, Cliente, UserIncommun, UserIncommunRole
+    Formulario,
+    Grupo,
+    Pergunta,
+    TipoPergunta,
+    Resposta,
+    Pedido,
+    EstadoPedido,
+    MotivoRecusa,
+    Cliente,
+    UserIncommun,
+    UserIncommunRole,
+    Visita
 }

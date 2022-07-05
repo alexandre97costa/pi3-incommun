@@ -1,6 +1,6 @@
+var { Formulario, Grupo, Pergunta, TipoPergunta, Resposta, Pedido, EstadoPedido, MotivoRecusa, Cliente, UserIncommun, UserIncommunRole, Visita } = require('../model/tabelas')
 const nodemailer = require('nodemailer')
 require('dotenv').config()
-var { Formulario, GrupoPerguntas, Pergunta, Resposta, Pedido, EstadoPedido, MotivoRecusa, Cliente } = require('../model/tabelas')
 var sequelize = require('../model/db')
 const { Op } = require("sequelize");
 

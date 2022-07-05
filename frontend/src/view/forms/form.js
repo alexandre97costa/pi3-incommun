@@ -27,7 +27,7 @@ export default function FormComponent(props) {
         console.log('o form deu reset')
         axios
             .get(ip + '/forms/one?id=' + formId)
-            .then(res => { setForm(res.data); console.log('setForm()') })
+            .then(res => setForm(res.data))
             .catch(error => console.log(error))
     }, [])
 
