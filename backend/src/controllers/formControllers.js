@@ -251,7 +251,7 @@ module.exports = {
                                         return
 
                                     // case 'dia': linha.push([i + 'h', count]); break;
-                                    case 'dia': linha.push([i+'h', count]); break;
+                                    case 'dia': linha.push([i+'', count]); break;
                                     case 'semana': linha.push([(7 - (i / 24)) + (7 * j) + 'd', count]); break;
 
                                     default: break;

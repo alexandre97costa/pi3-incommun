@@ -12,7 +12,7 @@ export default function VisitasComponent(props) {
 
     useEffect(() => {
         const formulario_id = 0
-        const stack = 1
+        const stack = 2
         const offset_dias = -1
         const offset_semanas = 0
         axios.get(
@@ -28,8 +28,12 @@ export default function VisitasComponent(props) {
     const options = {
         hAxis: {
             title: 'Horas',
+            type: 'number'
         },
-        series: [{ color: 'red', lineWidth: 4 }, { lineWidth: 0.5, color: 'black' }],
+        vAxis: {
+            type: 'integer'
+        },
+        series: [{ color: 'red', lineWidth: 3 }, { lineWidth: 0.5, color: 'red' }],
         curveType: 'function',
         chartArea: {'width': '90%', 'height': '70%'},
         legend: { position: 'bottom' },

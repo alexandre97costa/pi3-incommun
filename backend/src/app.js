@@ -9,6 +9,7 @@ app.set('port', process.env.PORT || 4011)
 const formsRoutes = require('./routes/formsRoutes.js')
 const pedidosRoutes = require('./routes/pedidosRoutes.js')
 const clientesRoutes = require('./routes/clientesRoutes.js')
+const graphRoutes = require('./routes/graphRoutes.js')
 
 // user incommun, não confundir com clientes
 const userRoutes = require('./routes/userRoutes.js')
@@ -29,7 +30,7 @@ app.use('/forms', formsRoutes)
 app.use('/pedidos', pedidosRoutes)
 app.use('/clientes', jwt_middleware.checkToken, clientesRoutes)
 app.use('/user', userRoutes)
-// app.use('/user', jwt_middleware.checkToken, userRoutes)
+app.use('/graph', jwt_middleware.checkToken, graphRoutes)
 
 // rota de introdução, apresenta um html bonitinho só
 app.use('/', (req, res) => {

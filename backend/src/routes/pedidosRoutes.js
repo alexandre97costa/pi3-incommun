@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const jwt_middleware = require('../jwt_middleware')
-const pedidosController = require('../controllers/pedidosController')
+const pedidosController = require('../controllers/pedidosControllers')
 
 
 router.get('/', (req, res) => {
