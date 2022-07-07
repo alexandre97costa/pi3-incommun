@@ -10,16 +10,17 @@ module.exports = {
         // count conta por estado_id
         // Para contar todos os pedidos, nao passes estado na query
         const estadoId = req.query.estado_id ?? 0
+        const cliente = req.query.cliente_id ?? 0
         // filtra por dias de idade (conta pedidos com até 30 dias de idade por exemplo)
         const dias = req.query.dias ?? 30
-
+        const oquecontar = req.query.oquecontar ?? ""
         //motivo recusa bd
         const motivoId = req.query.motivo_id ?? 0
 
         let response = {}
 
         await sequelize.sync()
-            .then(async () => {
+            /*.then(async () => {
                 if (estadoId > 0) {
                     await EstadoPedido
                         .findOne({
@@ -46,7 +47,7 @@ module.exports = {
                             }
                         }
                     }).then(count => {
-                        
+
                         response = {
                             count: count,
                             estado: {
@@ -57,32 +58,80 @@ module.exports = {
                         }
                     })
                 }
-            })
-
-            .then(async () => {
-                if (motivoId > 0) {
-                    await Pedido.count({
-                            where: {
-                                motivo_id: motivoId
-                            }
-                        })
-                        .then(count => { response = { ...response, count: count } })
-                }
-            })
-
+            })*/
             .then(async () => {
                 if (estadoId > 0) {
-                    await Pedido.count({
-                            where: {
-                                estado_id: estadoId
-                            }
+                    await EstadoPedido
+                        .findOne({
+                            where: { id: estadoId,
+                                
+                             }
                         })
-                        .then(count => { response = { ...response, count: count } })
+                        .then(res => { response.estado = res })
                 }
             })
-            
+          
+            .then(async () => {
+                switch (oquecontar) {
+                    case "cliente":
+                        if (estadoId > 0) {
+                            await Pedido
+                                .count({
+                                    where: {
+                                        estado_id: estadoId,
+                                        cliente_id:cliente
+                                    }
+                                })
+                                .then(count => { response = { ...response, count: count } })
+                        }
+                        break;
+                    case "todos":
+                        if (estadoId > 0) {
+                            await Pedido
+                                .count({
+                                    where: {
+                                        estado_id: estadoId
+                                    }
+                                })
+                                .then(count => { response = { ...response, count: count } })
+                        }
+                        if (estadoId === '0') {
+                            await Pedido.count({
+                                where: {
+                                    created_at: {
+                                        [Op.gte]: sequelize.literal('NOW() - INTERVAL \'' + dias + 'd\'')
+                                    }
+                                }
+                            }).then(count => {
+        
+                                response = {
+                                    count: count,
+                                    estado: {
+                                        icon: 'bi-ui-radios',
+                                        cor: 'primary',
+                                        descricao: 'Todo'
+                                    }
+                                }
+                            })
+                        }
+                        break;
+                        case "motivo":
+                            if (motivoId > 0) {
+                                await Pedido.count({
+                                    where: {
+                                        motivo_id: motivoId
+                                    }
+                                })
+                                    .then(count => { response = { ...response, count: count } })
+                            }
+                        break;
+                        
+                }
+                
+            })  
         res.json(response)
     },
+
 
     all: async (req, res) => {
         // para filtrar por estado

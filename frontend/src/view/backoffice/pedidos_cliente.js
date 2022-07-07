@@ -109,10 +109,10 @@ export default function Pedidos_clienteComponent() {
                         </div>
                     </div>
                     <div className='mb-4 g-3 row row-cols-1 row-cols-md-2 row-cols-lg-4 row-cols-xl-4'>
-                <Count estadoId={1} cliente={Cliente}/>
-                <Count estadoId={2} cliente={Cliente}/>
-                <Count estadoId={3} cliente={Cliente}/>
-                <Count estadoId={4} cliente={Cliente}/>
+                <Count estadoId={1} cliente={Cliente} oquecontar={"cliente"}/>
+                <Count estadoId={2} cliente={Cliente} oquecontar={"cliente"}/>
+                <Count estadoId={3} cliente={Cliente} oquecontar={"cliente"}/>
+                <Count estadoId={4} cliente={Cliente} oquecontar={"cliente"}/>
 
             </div>
                     

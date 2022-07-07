@@ -63,39 +63,7 @@ module.exports = {
 
         res.status(200).send('Email enviado!')
     },
-    count: async (req, res) => {
-        // count conta por estado_id
-        // Para contar todos os pedidos, nao passes estado na query
-        const estadoId = req.query.estado_id ?? 0
-        const cliente = req.query.cliente_id ?? 0
-        // filtra por dias de idade (conta pedidos com até 30 dias de idade por exemplo)
-        let response = {}
-        await sequelize.sync()
-            .then(async () => {
-                if (estadoId > 0) {
-                    await EstadoPedido
-                        .findOne({
-                            where: { id: estadoId,
-                                
-                             }
-                        })
-                        .then(res => { response.estado = res })
-                }
-            })
-            .then(async () => {
-                if (estadoId > 0) {
-                    await Pedido
-                        .count({
-                            where: {
-                                estado_id: estadoId,
-                                cliente_id:cliente
-                            }
-                        })
-                        .then(count => { response = { ...response, count: count } })
-                }
-            })  
-        res.json(response)
-    },
+    
     // devolve todos os clientes
     list: async (req, res) => {
         // para filtrar por estado

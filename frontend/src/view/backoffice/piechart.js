@@ -30,12 +30,12 @@ export default function InicioComponent() {
         // Get total de pedidos
         // por defeito, sem mandar nenhuma query (nem estado nem dias),
         // conta todos os pedidos dos ultimos 30 dias
-        axios.get(ip + '/pedidos/count?estado_id=0', authHeader())
+        axios.get(ip + '/pedidos/count?estado_id=0&oquecontar=todos', authHeader())
             .then(res => {
                 setTotalPedidos(res.data.count)
         })
 
-        axios.get(ip + '/pedidos/count?estado_id=0', authHeader())
+        axios.get(ip + '/pedidos/count?estado_id=0&oquecontar=todos', authHeader())
             .then(res => {
                 setTotalPedidos(res.data.count)
             })
@@ -47,48 +47,48 @@ export default function InicioComponent() {
                 setDicaDoDia(res.data.content)
             })
 
-        axios.get(ip + '/pedidos/count?estado_id=4', authHeader())
+        axios.get(ip + '/pedidos/count?estado_id=4&oquecontar=todos', authHeader())
             .then(res => {
                 setTotalPedidosRecusados(res.data.count)
             })
 
-        axios.get(ip + '/pedidos/count?motivo_id=1', authHeader())
+        axios.get(ip + '/pedidos/count?motivo_id=1&oquecontar=motivo', authHeader())
             .then(res => {
                 setMotivoPreco(res.data.count)
             })
 
-        axios.get(ip + '/pedidos/count?motivo_id=2', authHeader())
+        axios.get(ip + '/pedidos/count?motivo_id=2&oquecontar=motivo', authHeader())
             .then(res => {
                 setMotivoConcorrencia(res.data.count)
             })
 
-        axios.get(ip + '/pedidos/count?motivo_id=3', authHeader())
+        axios.get(ip + '/pedidos/count?motivo_id=3&oquecontar=motivo', authHeader())
             .then(res => {
                 setMotivoNaoEstavaEspera(res.data.count)
             })
 
-        axios.get(ip + '/pedidos/count?motivo_id=4', authHeader())
+        axios.get(ip + '/pedidos/count?motivo_id=4&oquecontar=motivo', authHeader())
             .then(res => {
                 setMotivoOutro(res.data.count)
             })
 
         //get estado pedido
-        axios.get(ip + '/pedidos/count?estado_id=1', authHeader())
+        axios.get(ip + '/pedidos/count?estado_id=1&oquecontar=todos', authHeader())
             .then(res => {
                 setEstadoPendente(res.data.count)
             })
 
-        axios.get(ip + '/pedidos/count?estado_id=2', authHeader())
+        axios.get(ip + '/pedidos/count?estado_id=2&oquecontar=todos', authHeader())
             .then(res => {
                 setEstadoEnviado(res.data.count)
             })
 
-        axios.get(ip + '/pedidos/count?estado_id=3', authHeader())
+        axios.get(ip + '/pedidos/count?estado_id=3&oquecontar=todos', authHeader())
             .then(res => {
                 setEstadoAceite(res.data.count)
             })
 
-        axios.get(ip + '/pedidos/count?estado_id=4', authHeader())
+        axios.get(ip + '/pedidos/count?estado_id=4&oquecontar=todos', authHeader())
             .then(res => {
                 setEstadoRecusado(res.data.count)
             })
@@ -137,9 +137,9 @@ export default function InicioComponent() {
             </div>
 
             <div className='mb-4 g-3 row row-cols-1 row-cols-md-2 row-cols-lg-4 row-cols-xl-4'>
-                <Count estadoId={0} />
-                <Count estadoId={3} />
-                <Count estadoId={4} />
+                <Count estadoId={0} oquecontar={"todos"}/>
+                <Count estadoId={3} oquecontar={"todos"}/>
+                <Count estadoId={4} oquecontar={"todos"}/>
             </div>
 
             <br></br>

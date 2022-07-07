@@ -12,20 +12,21 @@ export default function CountComponent(props) {
     const [estado2, setEstado2] = useState('')
 
     useEffect(() => {
-        if(props.cliente==undefined){
+       /* if(props.cliente==undefined){
             axios.get(ip + '/pedidos/count?estado_id=' + props.estadoId, authHeader())
             .then(res => {
                 setCount(res.data.count)
                 setEstado(res.data.estado)
             })
-        }
-        else if(props.cliente!=undefined){
-            axios.get(ip + '/clientes/count?estado_id=' + props.estadoId + '&cliente_id=' + props.cliente, authHeader())
+        }*/
+
+            axios.get(ip + '/pedidos/count?estado_id=' + props.estadoId + '&cliente_id=' + props.cliente + '&oquecontar=' + props.oquecontar, authHeader())
             .then(res => {
                 setCount(res.data.count)
                 setEstado(res.data.estado)
+                
             })
-        }
+        
         
     }, [])
     
