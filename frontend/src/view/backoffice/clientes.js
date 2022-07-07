@@ -1,9 +1,11 @@
 import axios from 'axios';
 // import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 import React, { useEffect, useState } from 'react';
-import NavDeLado from './navdelado'
+import NavDeLado from './navdelado';
 import ip from '../../ip'
-import { Link } from "react-router-dom";
+import authHeader from '../auth-header';
+import { Link } from "react-router-dom"
+
 
 export default function ClientesComponent() {
     const [clientes, setClientes] = useState([])
@@ -16,7 +18,7 @@ export default function ClientesComponent() {
     const [Corpo, setCorpo] = useState("")
     useEffect(() => {
 
-        axios.get(ip + '/clientes/list?ordem=' + ordemCliente + '&filtro=' + filtroCliente)
+        axios.get(ip + '/clientes/list?ordem=' + ordemCliente + '&filtro=' + filtroCliente, authHeader())
             .then(res => {
                 if (res.data.success) {
                     const data = res.data.data;
@@ -33,7 +35,7 @@ export default function ClientesComponent() {
 
     useEffect(() => {
 
-        axios.get(ip + '/clientes/total')
+        axios.get(ip + '/clientes/total', authHeader())
             .then(res => {
                 setTotalClientes(res.data.data)
             });
