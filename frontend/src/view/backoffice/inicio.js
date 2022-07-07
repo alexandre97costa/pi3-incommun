@@ -53,7 +53,7 @@ export default function InicioComponent() {
         // Get total de pedidos
         // por defeito, sem mandar nenhuma query (nem estado nem dias),
         // conta todos os pedidos dos ultimos 30 dias
-        axios.get(ip + '/pedidos/count?estado_id=0', authHeader())
+        axios.get(ip + '/pedidos/count?estado_id=0&oquecontar=todos', authHeader())
             .then(res => {
                 setTotalPedidos(res.data.count)
             })
@@ -217,10 +217,10 @@ export default function InicioComponent() {
                 </div>
             </div>
             <div className='mb-4 g-3 row row-cols-1 row-cols-md-2 row-cols-lg-4 row-cols-xl-4'>
-                <Count estadoId={0} />
-                <Count estadoId={2} />
-                <Count estadoId={3} />
-                <Count estadoId={4} />
+                <Count estadoId={0} oquecontar={"todos"}/>
+                <Count estadoId={2} oquecontar={"todos"}/>
+                <Count estadoId={3} oquecontar={"todos"}/>
+                <Count estadoId={4} oquecontar={"todos"}/>
 
             </div>
 
