@@ -51,13 +51,13 @@ module.exports = {
 
                     let inicio = new Date()
                     inicio.setHours(1 + i, timezone_shift, 0, 0)
-                    inicio.setDate(inicio.getDate() - offset_dias - offset_semanas)
+                    inicio.setDate(inicio.getDate() - s - offset_dias - offset_semanas)
 
                     let fim = new Date()
                     fim.setHours(1 + i, 59 + timezone_shift, 59, 999)
-                    fim.setDate(fim.getDate() - offset_dias - offset_semanas)
+                    fim.setDate(fim.getDate() - s - offset_dias - offset_semanas)
 
-                    // console.log(inicio.toISOString() + ' ' + fim.toISOString())
+                    // console.log(inicio.toISOString(), fim.toISOString())
 
                     return await Visita
                         .count({
@@ -96,11 +96,11 @@ module.exports = {
 
                     let inicio = new Date()
                     inicio.setHours(1, timezone_shift, 0, 0)
-                    inicio.setDate(inicio.getDate() - 6 + i - offset_dias - offset_semanas)
+                    inicio.setDate(inicio.getDate() - 6 + i - (s * 7) - offset_dias - offset_semanas)
 
                     let fim = new Date()
                     fim.setHours(24, 59 + timezone_shift, 59, 999)
-                    fim.setDate(fim.getDate() - 6 + i - offset_dias - offset_semanas)
+                    fim.setDate(fim.getDate() - 6 + i - (s * 7) - offset_dias - offset_semanas)
 
                     // console.log(inicio.toISOString() + ' ' + fim.toISOString())
 
@@ -141,11 +141,11 @@ module.exports = {
 
                     let inicio = new Date()
                     inicio.setHours(1 + i, timezone_shift, 0, 0)
-                    inicio.setDate(inicio.getDate() - offset_dias - offset_semanas)
+                    inicio.setDate(inicio.getDate() - s - offset_dias - offset_semanas)
 
                     let fim = new Date()
                     fim.setHours(1 + i, 59 + timezone_shift, 59, 999)
-                    fim.setDate(fim.getDate() - offset_dias - offset_semanas)
+                    fim.setDate(fim.getDate() - s - offset_dias - offset_semanas)
 
                     // console.log(inicio.toISOString() + ' ' + fim.toISOString())
 
