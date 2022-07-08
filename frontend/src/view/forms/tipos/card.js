@@ -5,17 +5,15 @@ import placeholder from '../../../assets/imgs/placeholder600x400.png'
 export default function CardComponent(props) {
 
     const id = parseInt(props.pergunta.id)
-    const [isChecked, setChecked] = useState(props.selectedCard === props.pergunta.id)
+    const [isChecked, setChecked] = useState(!!props.perguntasObject[id]?.inteiro ?? false)
 
     useEffect(() => {
         if (props.perguntasObject.hasOwnProperty(id)
-            && props.perguntasObject[id] !== undefined
-            && props.perguntasObject[id]) {
-            setChecked(props.perguntasObject[id])
+            && !!(props.perguntasObject[id]?.inteiro ?? 0)) {
             props.setResposta(props.pergunta.titulo)
         }
     }, [props.perguntaObject])
-    
+
     return (
         <label>
             <input
@@ -41,7 +39,7 @@ export default function CardComponent(props) {
                     </div>
                     <div className={(isChecked ? 'bg-warning' : '') + ' col-md-7 col-lg-8 col-xl-9'}>
                         <div className='w-100 ms-3 mt-1'>
-                            <div className={(isChecked ? 'text-dark':'') + ' h2 card-title'}>
+                            <div className={(isChecked ? 'text-dark' : '') + ' h2 card-title'}>
                                 {props.pergunta.titulo ?? 'a carregar...'}
                                 {isChecked && <i className='bi bi-check-lg text-dark ms-2'></i>}
                             </div>

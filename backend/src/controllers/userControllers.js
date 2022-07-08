@@ -34,7 +34,9 @@ module.exports = {
             const passwordMatch = bcrypt.compareSync(password, user.password);
             if (passwordMatch) {
 
-                let token = jwt.sign({ email: email }, config.JWT_SECRET, {});
+                let token = jwt.sign({ email: email }, config.JWT_SECRET, 
+                    // { expiresIn: '24h' }
+                    );
 
                 res.status(200).json({
                     success: true,

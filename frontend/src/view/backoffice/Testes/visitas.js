@@ -49,8 +49,8 @@ export default function VisitasComponent(props) {
                 // header[i + stack] = 'Pedidos de ' + localeDate
             }
             if (vista === 'semana') {
-                header[i] = 'Visitas ' + i
-                header[i + stack] = 'Pedidos ' + i
+                header[i] = 'Visitas'
+                header[i + stack] = 'Pedidos'
             }
         }
 

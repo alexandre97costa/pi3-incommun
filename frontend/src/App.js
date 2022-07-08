@@ -102,7 +102,7 @@ export default function App() {
 					<BackOffice pagina={<BoPedidosCliente />} />
 				} />
 
-				{/* se o link nao existir (404), aparece a pagina inicial */}
+				{/* se o link nao existir, volta à pagina inicial */}
 				<Route path='*' element={<Navigate to='/' replace={true} />} />
 
 			</Routes>

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 
 // Tipos de Pergunta
-import TipoCard from './tipos/card'
 import TipoArray from './tipos/array'
+import TipoCard from './tipos/card'
 import TipoCheckbox from './tipos/checkbox'
 import TipoRedeSocial from './tipos/rede_social'
+import TipoText from './tipos/text'
 
 export default function GrupoComponent(props) {
 
@@ -27,10 +28,10 @@ export default function GrupoComponent(props) {
 
         const resetCardsObj = {}
         arrayDeIdsDosCards.forEach(card => {
-            resetCardsObj[card] = false
+            resetCardsObj[card] = { texto: 'card', inteiro: 0 }
         })
 
-        resetCardsObj[id] = true
+        resetCardsObj[id] = { texto: 'card', inteiro: 1 }
 
         const newObj = {
             ...props.perguntasObject,
@@ -92,6 +93,18 @@ export default function GrupoComponent(props) {
                     <div className='row'>
                         {props.grupo.pergunta.map((pergunta, indexPergunta) => {
                             switch (pergunta.tipo_pergunta.titulo) {
+                                case 'array':
+                                    return (
+                                        <TipoArray
+                                            key={pergunta.id}
+                                            pergunta={pergunta}
+
+                                            perguntasObject={props.perguntasObject}
+                                            setPerguntasObject={props.setPerguntasObject}
+
+                                            setResposta={setResposta}
+                                        />
+                                    )
                                 case 'card':
                                     arrayDeIdsDosCards.push(pergunta.id)
                                     return (
@@ -108,19 +121,6 @@ export default function GrupoComponent(props) {
                                             setResposta={setResposta}
                                         />
                                     )
-                                case 'array':
-                                    return (
-                                        <TipoArray
-                                            key={pergunta.id}
-                                            pergunta={pergunta}
-
-                                            perguntasObject={props.perguntasObject}
-                                            setPerguntasObject={props.setPerguntasObject}
-
-                                            setResposta={setResposta}
-                                        />
-                                    )
-
                                 case 'checkbox':
                                     return (
                                         <TipoCheckbox
@@ -140,6 +140,19 @@ export default function GrupoComponent(props) {
                                 case 'r-social-posts-stories-reels':
                                     return (
                                         <TipoRedeSocial
+                                            key={pergunta.id}
+                                            pergunta={pergunta}
+
+                                            perguntasObject={props.perguntasObject}
+                                            setPerguntasObject={props.setPerguntasObject}
+
+                                            setResposta={setResposta}
+                                        />
+                                    )
+
+                                case 'text':
+                                    return (
+                                        <TipoText
                                             key={pergunta.id}
                                             pergunta={pergunta}
 

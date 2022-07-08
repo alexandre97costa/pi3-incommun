@@ -12,98 +12,64 @@ export default function ArrayComponent(props) {
     )
 
     useEffect(() => {
-        console.log('arrayItems', arrayItems)
-        if (Array.isArray(arrayItems) && !!arrayItems.length) {
-
-            const updateObj = {}
-            updateObj[id] = {
-                texto: arrayItems,
-                inteiro: 1
-            }
-            console.log(updateObj)
-
-            if (JSON.stringify(arrayItems) !== JSON.stringify(props.perguntasObject[id]?.texto)) {
-                props.setPerguntasObject({
-                    ...props.perguntasObject,
-                    ...updateObj
-                })
-            }
+        const newObj = {}
+        newObj[id] = arrayItems
+        if (arrayItems.inteiro === 1) {
+            props.setPerguntasObject({ ...props.perguntasObject, ...newObj })
         }
+        document.getElementById('p-' + props.pergunta.id).focus()
+
     }, [arrayItems])
 
     useEffect(() => {
-
-        if (props.perguntasObject.hasOwnProperty(id)
-            && !!props.perguntasObject[id]?.texto
-            && !!props.perguntasObject[id]?.inteiro) {
-
-            console.log(props.perguntasObject[id].texto)
+        if (Array.isArray(props.perguntasObject[id]?.texto)) {
             props.setResposta(props.perguntasObject[id].texto.join(', '))
         }
-    }, [props.perguntaObject])
+    }, [props.perguntasObject])
 
-
-
-    useEffect(() => {
-        document
-            .querySelector('#p-' + props.pergunta.id)
-            .addEventListener('keypress', e => {
-                if (e.key === 'Enter') {
-                    e.preventDefault()
-                    document
-                        .querySelector('#btn-' + props.pergunta.id)
-                        .click()
-                }
-            })
-    }, [])
 
 
     return (
-        <div className='container-fluid'>
-            <div className='row'>
-                <div className='col-6'>
-
-                    <div className='input-group mb-3 shadow rounded-3'>
-                        <input
-                            type="text"
-                            className="form-control form-control-lg focus-warning bg-white border-warning"
-                            id={'p-' + props.pergunta.id} placeholder={props.pergunta.titulo}
-                            value={text}
-                            onChange={e => { setText(e.target.value) }}
-
-                        />
-                        <button
-                            type='button' id={'btn-' + props.pergunta.id}
-                            className='btn btn-warning focus-warning fw-semibold'
-                            onClick={e => {
+        <>
+            <div className='col-12'>
+                <div className='form-floating border border-1 shadow rounded-3'>
+                    <input
+                        type="text"
+                        className="form-control form-control-lg focus-warning bg-white border-warning"
+                        id={'p-' + props.pergunta.id}
+                        placeholder={props.pergunta.titulo}
+                        value={text}
+                        onChange={e => { setText(e.target.value) }}
+                        onKeyDown={e => {
+                            if (e.key === 'Enter') {
                                 if (text !== '') {
-                                    setArrayItems({ ...arrayItems, ...{ texto: [...arrayItems.texto, text], inteiro: 1 } })
+                                    setArrayItems({ texto: [...arrayItems.texto, text], inteiro: 1 })
                                     setText('')
                                 }
-                            }}
-                        >
-                            Adicionar
-                        </button>
-                    </div>
-
-                    <ul className='list-group mb-3 shadow'>
-                        {/* <li className='list-group-item text-muted small py-2'>{text === '' ? props.pergunta.titulo : text}</li> */}
-                        {
-                            arrayItems.texto.map((item, index) => {
-                                return (<li className='list-group-item fw-semibold' key={index}><i className='bi bi-arrow-right-short me-2'></i>{item}</li>)
-                            })
-                        }
-                    </ul>
-                </div>
-                <div className='col-6'>
-                    <label htmlFor={props.pergunta.id} className="form-label w-100">
-                        {props.pergunta.descricao}
+                            }
+                        }}
+                    />
+                    <label htmlFor={'p-' + props.pergunta.id}>
+                        {props.pergunta.titulo + ' (Prima Enter para adicionar vários)'}
                     </label>
                 </div>
 
-
+                <ul className='list-group my-3 shadow'>
+                    {
+                        arrayItems.texto.map((item, index) => {
+                            return (<li className='list-group-item fw-semibold' key={index}><i className='bi bi-arrow-right-short me-2'></i>{item}</li>)
+                        })
+                    }
+                </ul>
             </div>
-        </div>
+            <div className='col-12'>
+                <label htmlFor={props.pergunta.id} className="form-label w-100 text-secondary border border-1 shadow rounded-3 p-3">
+                    {props.pergunta.descricao}
+                </label>
+            </div>
+
+
+        </>
     )
 
 }
