@@ -31,7 +31,7 @@ export default function EditableRow_v2({ handleCancelClick, id }) {
         e.preventDefault()
         let idpergunta = id
 
-        axios.put(ip + '/forms/edit', authHeader(),
+        axios.put(ip + '/forms/edit',
             {
                 id: idpergunta,
                 titulo: edittitulopergunta,
@@ -39,7 +39,7 @@ export default function EditableRow_v2({ handleCancelClick, id }) {
                 tipo_pergunta: parseInt(edittipopergunta),
                 valor_unitario: parseFloat(editvalorpergunta),
 
-            })
+            }, authHeader())
 
             .then(function (data) {
                 window.location.reload()
