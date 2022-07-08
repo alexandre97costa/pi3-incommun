@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import axios from 'axios';
 import ip from '../../../ip';
+import authHeader from '../../auth-header'
 
-export default function EditableRow_v2({ handleCancelClick, handleEditClick, id, pergunta, LoadForms }) {
+export default function EditableRow_v2({ handleCancelClick, id }) {
 
     const [edittitulopergunta, seteditTituloPergunta] = useState("")
     const [editdescricaopergunta, seteditdescricaopergunta] = useState("")
@@ -30,7 +31,7 @@ export default function EditableRow_v2({ handleCancelClick, handleEditClick, id,
         e.preventDefault()
         let idpergunta = id
 
-        axios.put(ip + '/forms/edit',
+        axios.put(ip + '/forms/edit', authHeader(),
             {
                 id: idpergunta,
                 titulo: edittitulopergunta,

@@ -35,32 +35,6 @@ export default function FormulariosComponente() {
 			})
 	}, []);
 
-	// useEffect(() => {
-	// 	// Get os pedidos todos (por vezes filtrados e ordenados)
-	// 	axios.get(ip + '/forms/all_tipos_pergunta', authHeader())
-	// 		.then(res => {
-	// 			console.log(res.data)
-	// 			setTiposPergunta(res.data.data)
-	// 		})
-	// }, [filtroTiposPergunta])
-
-
-
-	// const handleEditForm = (e => {
-	// 	e.preventDefault();
-
-	// 	const fieldName = e.target.getAttribute("name");
-	// 	const fieldValue = e.target.value;
-
-	// 	const newForm = { ...editForm };
-	// 	newForm[fieldName] = fieldValue;
-
-	// 	setEditForm(newForm)
-
-	// });
-
-
-
 	const handleEditClick = (e, pergunta) => {
 		e.preventDefault();
 		setEditPerguntaId(pergunta.id);
@@ -79,28 +53,6 @@ export default function FormulariosComponente() {
 	const handleCancelClick = () => {
 		setEditPerguntaId(null);
 	};
-
-
-	function UpdatePergunta(e) {
-		e.preventDefault()
-		let idpergunta = e.target.getAttribute('data-id')
-
-		axios.post(ip + '/forms/edit?id=' + idpergunta,
-			{
-				titulo: edittitulopergunta,
-				descricao: editdescricaopergunta,
-				tipo_pergunta: parseInt(edittipopergunta),
-				valor_unitario: parseFloat(editvalorpergunta),
-
-			})
-
-			.then(function (data) {
-				window.location.reload()
-			})
-			.catch(error => {
-				return error;
-			})
-	}
 
 	function LoadForms() {
 		return forms.map(form => {

@@ -1,4 +1,5 @@
 import React from 'react'
+import authHeader from '../../auth-header'
 
 const ReadOnlyRow = ({ pergunta, handleEditClick }) => {
     return (
