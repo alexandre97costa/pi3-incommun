@@ -209,12 +209,12 @@ module.exports = {
             // calcular preços 🥵
             .then(() => {
 
-                bodyRespostas.forEach(async (resposta, index, array) => {
+                bodyRespostas.forEach(async resposta => {
                     await Pergunta
                         .findOne({ where: { id: resposta.pergunta_id } })
                         .then(pergunta => {
                             resposta.valor_unitario = pergunta.valor_unitario
-                            bodyPedido.valor_total += resposta.valor_unitario * resposta.inteiro
+                            bodyPedido.valor_total += (resposta.valor_unitario * resposta.inteiro).toFixed(2)
                         })
                 })
             })

@@ -83,17 +83,15 @@ export default function FormComponent(props) {
         const cliente = clienteObj
         const respostas = Object.keys(props.perguntasObject).map((key) => {
             let resposta = props.perguntasObject[key]
-            let texto = Array.isArray(resposta) ? resposta.join(', ') : ''
-            let inteiro = 0
-            if (resposta && !Array.isArray(resposta)) { inteiro = 1 } // Se a resposta for true => inteiro = 1
 
             return {
                 pergunta_id: parseInt(key),
+                texto: Array.isArray(resposta.texto) ? resposta.texto.join(', ') : resposta.texto,
+                inteiro: resposta.inteiro,
                 valor_unitario: 0,
-                inteiro: inteiro,
-                texto: texto,
             }
         })
+        console.log(respostas)
         const pedido = {
             valor_total: 0,
             respostas: respostas
