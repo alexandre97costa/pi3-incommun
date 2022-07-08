@@ -36,148 +36,76 @@ export default function App() {
 		console.log('login', login)
 	}, [login])
 
+	function BackOffice(props) {
+		return (
+			<PrivateRoute auth={login}>
+				<div className='container-fluid'>
+					<div className='row vh-100'>
+						<NavDeLado setLogin={setLogin} />
+						{props.pagina}
+						<UsersModalComponent />
+						<CriarUserModalComponent />
+						<EliminarUserModalComponent />
+					</div>
+				</div>
+			</PrivateRoute>
+		)
+	}
+
 
 	return (
 		<Router>
-			<div className='App'>
+			<Routes>
+				<Route exact path='/' element={
+					<>
+						<NavDeCima auth={login} />
+						<JumboTron />
+						<Main />
+						<Footer />
+					</>
+				} />
 
-				<Routes>
-					<Route exact path='/' element={
-						<>
-							<NavDeCima auth={login} />
-							<JumboTron />
-							<Main />
-							<Footer />
-						</>
-					} />
+				<Route path='/servicos-personalizados/:nome' element={
+					<>
+						<NavDeCima auth={login} />
+						<Form
+							perguntasObject={perguntasObject}
+							setPerguntasObj={setPerguntasObj}
+						/>
+						<Footer />
+					</>
+				} />
 
-					<Route path='' element={
-						<>
-							<NavDeCima auth={login} />
-							<Footer />
-						</>
-					} />
+				<Route path='/back-office/login' element={
+					<BoLogin setLogin={setLogin} />
+				} />
 
-					<Route path='/servicos-personalizados/:nome' element={
-						<>
-							<NavDeCima auth={login} />
-							<Form
-								perguntasObject={perguntasObject}
-								setPerguntasObj={setPerguntasObj}
-							/>
-						</>
-					} />
+				<Route path='/back-office/' element={
+					<BackOffice pagina={<BoInicio />} />
+				} />
+				<Route path='/back-office/pedidos' element={
+					<BackOffice pagina={<BoPedidos />} />
+				} />
+				<Route path='/back-office/clientes' element={
+					<BackOffice pagina={<BoClientes />} />
+				} />
+				<Route path='/back-office/formularios' element={
+					<BackOffice pagina={<BoFormularios />} />
+				} />
+				<Route path='/back-office/piechart' element={
+					<BackOffice pagina={<BoPiechart />} />
+				} />
+				<Route path='/back-office/visitas' element={
+					<BackOffice pagina={<BoVisitas />} />
+				} />
+				<Route path='/back-office/pedidos_cliente/:Cliente' element={
+					<BackOffice pagina={<BoPedidosCliente />} />
+				} />
 
-					<Route
-						path='/back-office/login'
-						element={<BoLogin setLogin={setLogin} />}
+				{/* se o link nao existir (404), aparece a pagina inicial */}
+				<Route path='*' element={<Navigate to='/' replace={true} />} />
 
-					/>
-
-
-
-
-
-					<Route path='/back-office/' element={
-						<PrivateRoute auth={login}>
-							<div className='container-fluid'>
-								<div className='row vh-100'>
-									<NavDeLado setLogin={setLogin} />
-									<BoInicio />
-									<UsersModalComponent />
-									<CriarUserModalComponent />
-									<EliminarUserModalComponent />
-								</div>
-							</div>
-						</PrivateRoute>
-					} />
-
-					<Route path='/back-office/clientes' element={
-						<PrivateRoute auth={login}>
-							<div className='container-fluid'>
-								<div className='row vh-100'>
-
-									<BoClientes />
-								</div>
-							</div>
-						</PrivateRoute>
-					} />
-					<Route path='/back-office/pedidos_cliente/:Cliente' element={
-						<PrivateRoute auth={login}>
-							<div className='container-fluid'>
-								<div className='row vh-100'>
-
-									<BoPedidosCliente />
-								</div>
-							</div>
-						</PrivateRoute>
-					} />
-
-					<Route path='/back-office/formularios' element={
-						<PrivateRoute auth={login}>
-							<div className='container-fluid'>
-								<div className='row vh-100'>
-									<NavDeLado setLogin={setLogin} />
-									<BoFormularios />
-									<UsersModalComponent />
-									<CriarUserModalComponent />
-									<EliminarUserModalComponent />
-								</div>
-							</div>
-						</PrivateRoute>
-					} />
-
-					<Route path='/back-office/pedidos' element={
-						<PrivateRoute auth={login}>
-							<div className='container-fluid'>
-								<div className='row vh-100'>
-									<NavDeLado setLogin={setLogin} />
-									<BoPedidos />
-									<UsersModalComponent />
-									<CriarUserModalComponent />
-									<EliminarUserModalComponent />
-								</div>
-							</div>
-						</PrivateRoute>
-					} />
-
-					<Route path='/back-office/piechart' element={
-						<PrivateRoute auth={login}>
-							<div className='container-fluid'>
-								<div className='row vh-100'>
-									<NavDeLado setLogin={setLogin} />
-									<BoPiechart />
-									<UsersModalComponent />
-									<CriarUserModalComponent />
-									<EliminarUserModalComponent />
-								</div>
-							</div>
-						</PrivateRoute>
-					} />
-
-					<Route path='/back-office/visitas' element={
-						<PrivateRoute auth={login}>
-							<div className='container-fluid'>
-								<div className='row vh-100'>
-									<NavDeLado setLogin={setLogin} />
-									<BoVisitas />
-									<UsersModalComponent />
-									<CriarUserModalComponent />
-									<EliminarUserModalComponent />
-								</div>
-							</div>
-						</PrivateRoute>
-					} />
-
-
-
-					{/* se o link nao existir (404), aparece a pagina inicial */}
-					<Route path='*' element={
-						<Navigate to='/' replace={true} />
-					} />
-				</Routes>
-
-			</div>
+			</Routes>
 		</Router>
 	);
 }

@@ -12,20 +12,20 @@ export default function Pedidos_clienteComponent() {
     const [filtroPedido, setFiltroPedido] = useState('id')
     const [ordemPedido, setOrdemPedido] = useState('ASC')
     const { Cliente } = useParams();
-    
+
     useEffect(() => {
         axios.get(ip + '/clientes/list_pedidos/?cliente=' + Cliente + '&filtro=' + filtroPedido + '&ordem=' + ordemPedido)
-        .then(res => {
-            if (res.data.success) {
-                setPedidos(res.data.data);
-            }
-        })
-        .catch(error => { throw new Error(error) });
+            .then(res => {
+                if (res.data.success) {
+                    setPedidos(res.data.data);
+                }
+            })
+            .catch(error => { throw new Error(error) });
     }, [Cliente, filtroPedido, ordemPedido])
 
 
     function handleFiltro(filtro, ordem, texto) {
-        setFiltroPedido(filtro) 
+        setFiltroPedido(filtro)
         setOrdemPedido(ordem)
         document.getElementById('dropdown-filtro').textContent = texto
     }
@@ -86,58 +86,54 @@ export default function Pedidos_clienteComponent() {
                             }
                         </td>
 
-                        
+
                     </tr>
                 )
             })
         )
     }
     return (
-        <div className="container-fluid">
-            <div className="row vh-100">
-                {/* <NavDeLado /> */}
-                <NavDeLado />
-                <div className="col overflow-auto h-sm-100 px-5 pt-4">
-                    {/* Titulo */}
-                    <div className="mb-3 row">
-                        <div className='col-6'>
-                            <span className='h2 text-dark fw-bold'>
-                                Pedidos do Cliente
-                            </span>
-                            <br />
-                            <br />
-                        </div>
-                    </div>
-                    <div className='mb-4 g-3 row row-cols-1 row-cols-md-2 row-cols-lg-4 row-cols-xl-4'>
-                <Count estadoId={1} cliente={Cliente} oquecontar={"cliente"}/>
-                <Count estadoId={2} cliente={Cliente} oquecontar={"cliente"}/>
-                <Count estadoId={3} cliente={Cliente} oquecontar={"cliente"}/>
-                <Count estadoId={4} cliente={Cliente} oquecontar={"cliente"}/>
+        <div className="col overflow-auto h-sm-100 px-5 pt-4">
+            {/* Titulo */}
+            <div className="mb-3 row">
+                <div className='col-6'>
+                    <span className='h2 text-dark fw-bold'>
+                        Pedidos do Cliente
+                    </span>
+                    <br />
+                    <br />
+                </div>
+            </div>
+            <div className='mb-4 g-3 row row-cols-1 row-cols-md-2 row-cols-lg-4 row-cols-xl-4'>
+                <Count estadoId={1} cliente={Cliente} oquecontar={"cliente"} />
+                <Count estadoId={2} cliente={Cliente} oquecontar={"cliente"} />
+                <Count estadoId={3} cliente={Cliente} oquecontar={"cliente"} />
+                <Count estadoId={4} cliente={Cliente} oquecontar={"cliente"} />
 
             </div>
-                    
 
-                    <div className="mb-3 row">
-                        <div className='col d-flex justify-content-start align-items-center fs-6 fw-normal text-muted'>
-                            <span className='me-2'>
-                                Ver na ordem de
-                            </span>
 
-                            <div className="dropdown bg-white me-2">
-                                <button className=" btn btn-sm btn-outline-dark dropdown-toggle" type="button" id="dropdown-filtro" data-bs-toggle="dropdown" aria-expanded="false">
-                                Data de criação (mais antigo - mais recente)
-                                </button>
-                                <ul className="dropdown-menu" aria-labelledby="dropdown-filtro">
-                                    <li><button className="dropdown-item" onClick={e => { handleFiltro('valor_total',   'DESC', e.target.textContent) }} type='button'>Valor mais elevado primeiro</button></li>
-                                    <li><button className="dropdown-item" onClick={e => { handleFiltro('valor_total',   'ASC',  e.target.textContent) }} type='button'>Valor mais baixo primeiro</button></li>
-                                    <li><button className="dropdown-item" onClick={e => { handleFiltro('created_at',    'ASC',  e.target.textContent) }} type='button'>Data de criação (mais antigo - mais recente)</button></li>
-                                    <li><button className="dropdown-item" onClick={e => { handleFiltro('created_at',    'DESC', e.target.textContent) }} type='button'>Data de criação(mais recente - mais antigo)</button></li>
-                                </ul>
-                            </div>
+            <div className="mb-3 row">
+                <div className='col d-flex justify-content-start align-items-center fs-6 fw-normal text-muted'>
+                    <span className='me-2'>
+                        Ver na ordem de
+                    </span>
 
-                        </div>
+                    <div className="dropdown bg-white me-2">
+                        <button className=" btn btn-sm btn-outline-dark dropdown-toggle" type="button" id="dropdown-filtro" data-bs-toggle="dropdown" aria-expanded="false">
+                            Data de criação (mais antigo - mais recente)
+                        </button>
+                        <ul className="dropdown-menu" aria-labelledby="dropdown-filtro">
+                            <li><button className="dropdown-item" onClick={e => { handleFiltro('valor_total', 'DESC', e.target.textContent) }} type='button'>Valor mais elevado primeiro</button></li>
+                            <li><button className="dropdown-item" onClick={e => { handleFiltro('valor_total', 'ASC', e.target.textContent) }} type='button'>Valor mais baixo primeiro</button></li>
+                            <li><button className="dropdown-item" onClick={e => { handleFiltro('created_at', 'ASC', e.target.textContent) }} type='button'>Data de criação (mais antigo - mais recente)</button></li>
+                            <li><button className="dropdown-item" onClick={e => { handleFiltro('created_at', 'DESC', e.target.textContent) }} type='button'>Data de criação(mais recente - mais antigo)</button></li>
+                        </ul>
                     </div>
-                    <div className="mb-3 row px-2">
+
+                </div>
+            </div>
+            <div className="mb-3 row px-2">
                 <div className='col p-3 bg-white rounded-4 border shadow'>
                     <table className='table'>
                         <thead>
@@ -155,11 +151,8 @@ export default function Pedidos_clienteComponent() {
                     </table>
                 </div>
             </div>
-                    
-                  
-                </div>
 
-            </div>
+
             <div className="modal fade" id="modal-contactar" tabIndex="-1" aria-labelledby="modal-contactar-label" aria-hidden="true">
                 <div className="modal-dialog modal-dialog-centered modal-lg ">
                     {/* Versão 1 */}
@@ -193,8 +186,8 @@ export default function Pedidos_clienteComponent() {
                         <div className="modal-body">
 
                             <div className="form-floating mb-3">
-                                <input type="email" className="form-control" id="floatingInput" placeholder="name@example.com"/>
-                                    <label htmlFor="floatingInput">Email address</label>
+                                <input type="email" className="form-control" id="floatingInput" placeholder="name@example.com" />
+                                <label htmlFor="floatingInput">Email address</label>
                             </div>
                             <div className="form-floating">
                                 <textarea className="form-control" rows={4} placeholder="Leave a comment here" id="floatingTextarea"></textarea>

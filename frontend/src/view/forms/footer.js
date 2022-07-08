@@ -1,33 +1,24 @@
 import { Link } from 'react-router-dom'
+import LogoIncommun from '../../assets/imgs/logotipoincommun.png'
 
 export default function FooterComponent() {
     return (
-        <footer className="bg-dark text-center text-lg-start">
-            <div className="container p-4">
-                <div className="row">
-                    <div className="col-lg-6 col-md-12 mb-4 mb-md-0">
-                        <h3 className="text-uppercase text-white">Estamos nas Redes!</h3>
-                        <h6 className='text-white'>Visita-nos!</h6>
+        <div className='container-fluid bg-dark text-secondary'>
+            <footer className=' d-flex flex-wrap justify-content-between align-items-center py-5'>
+                <p className='col-md-3 mb-0 justify-content-center'>© 2022 incommun creative lab</p>
 
-                        <div className='text-purple margin-bottom-10 text-white'>
-                            <i className="bi bi-twitter margin-10 text-white"/>
-                            <i className="bi bi-instagram margin-10 text-white" />
-                            <i className="bi bi-facebook margin-10 text-white" />
-                            <i className="bi bi-linkedin margin-10 text-white" />
-                            <i className="bi bi-youtube margin-10 text-white" />
-                            <i className="bi bi-tiktok margin-10 text-white" />
-                        </div>
-                    </div>
-                    <div className="col-lg-6 col-md-12 mb-4 mb-md-0 text-a-right">
-                        <h6 className='text-white'>+351 936565854</h6>
-                        <h6 className='text-white'>geral@incommun.pt</h6>
-                    </div>
-                </div>
-            </div>
-            <div className="text-center p-3">
-                © 2020 Copyright:
-                <a className="text-dark" href="https://mdbootstrap.com/">MDBootstrap.com</a>
-            </div>
-        </footer>
+                <Link to='/' className='col-md-6 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none'>
+                    <img className='w-25' src={LogoIncommun} alt='' />
+                </Link>
+
+                <ul className='nav col-md-3 justify-content-around'>
+                    <li className='nav-item'>Portfolio</li>
+                    <li className='nav-item'>Serviços</li>
+                    <li className='nav-item'>Packs</li>
+                    <li className='nav-item'>Facebook</li>
+                    <li className='nav-item'>Instagram</li>
+                </ul>
+            </footer>
+        </div>
     )
 }
