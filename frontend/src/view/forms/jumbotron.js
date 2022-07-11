@@ -6,16 +6,16 @@ export default function JumboTronComponent() {
         <div className="jumbotron text-white jumbotron-image" style={{ height: '900px' }}>
             <div className="d-flex justify-content-center align-items-center h-100">
                 <div className="text-white">
-                    <h1 className="mb-3" style={{padding: '5%'}}><b>INCOMMUN, a tornar o commun no fantastico!</b></h1>
+                    <div className="mb-3 fs-1" style={{padding: '5%'}}><b>INCOMMUN, a tornar o commun no fantastico!</b></div>
                    
                     <button 
-                    className='rounded-pill bg-purple text-white border-purple'
+                    className='btn btn-warning fs-4 fw-normal rounded-0 py-3'
                     style={{width: '200px'}}
                     >
-                        <h3>Atreve-te ;)</h3>
+                        <div className='fs-3'>Atreve-te ;)</div>
                     </button>
                     
-                    <h4 className="mb-3" style={{margin: '5%'}}>Somos uma empresa no limear da enovação que nunca vai deixar de surprender  quem confia em nós. <br></br> Somos o provedor de serviço mais confiável de Portugal. </h4>
+                    <div className="mb-3 fs-4" style={{margin: '5%'}}>Aqui na incommun as suas ideias são a nossa prioridade.<br></br>Diga-nos as suas ideias e nos as tornaremos realidade</div>
                 </div>
             </div>
         </div>

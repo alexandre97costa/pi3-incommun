@@ -31,16 +31,32 @@ export default function MainComponent() {
     function LoadLinks() {
         return forms.map((form, index) => {
             return (
-                <div key={form.id} className={((index % 2 === 0) ? 'text-end' : 'text-start') + ' mb-3'}>
+                /*<div key={form.id} className={((index % 2 === 0) ? 'text-end' : 'text-start') + ' my-5'}>
 
-                    <div className='fs-1 text-indigo lh-1'>
+                    <div className='fs-1 text-indigo lh-1 py-3'>
                         {form.titulo}
                     </div>
 
-                    <div className='fs-5 my-3'>{form.descricao}</div>
+                    <div className='fs-5 py-3'>{form.descricao}</div>
 
                     <Link
-                        className='btn btn-warning fs-4 fw-normal rounded-0 p-3'
+                        className='btn btn-warning fs-4 fw-normal rounded-0 py-3'
+                        to={'/servicos-personalizados/' + nomeTransform(form.titulo)}
+                        state={{ id: form.id }}
+                    >
+                        Preencher formulário
+                    </Link>
+                </div>*/
+
+                <div key={form.id} className={((form.id === 1 || form.id === 2 || form.id === 3) ? 'collapse multi-collapse' : 'text-end') + ' my-5'} id={form.id}>
+                    <div className='fs-1 text-indigo lh-1 py-3'>
+                        {form.titulo}
+                    </div>
+
+                    <div className='fs-5 py-3'>{form.descricao}</div>
+
+                    <Link
+                        className='btn btn-warning fs-4 fw-normal rounded-0 py-3'
                         to={'/servicos-personalizados/' + nomeTransform(form.titulo)}
                         state={{ id: form.id }}
                     >
@@ -51,13 +67,32 @@ export default function MainComponent() {
         })
     }
 
+    function ButtonsLink() {
+        return forms.map((form, index) => {
+            return (
+                <div key={form.id}>
+                    <button
+                        className='btn btn-warning fs-4 fw-normal rounded-0 py-3'
+                        type="button"
+                        data-bs-toggle="collapse" 
+                        data-bs-target={'#' + (form.id)} 
+                        aria-expanded="false" 
+                        aria-controls="collapseExample"
+                    >
+                        {form.titulo}
+                    </button>
+                </div>
+            )
+        })
+    }
+
     return (
-        <div className='container py-5 '>
-            <div className='row flex-column flex-md-row justify-content-center mb-5 text-center'>
+        <div className='container'>
+            <div className='row flex-column flex-md-row justify-content-center text-center' style={{ marginTop: '10rem', marginBottom: '10rem' }}>
 
                 <div className='col-3 border border-warning border-3 rounded-4 py-2'>
                     <i className="bi bi-journal-text text-warning fs-1"></i>
-                    <div className='h3'>Complete um formulário</div>
+                    <div className='fs-3'>Complete um formulário</div>
                 </div>
 
                 <div className='col-1 d-flex justify-content-center align-items-center'>
@@ -66,7 +101,7 @@ export default function MainComponent() {
 
                 <div className='col-3 border border-warning border-3 rounded-4 py-2'>
                     <i className="bi bi-wallet2 text-warning fs-1"></i>
-                    <div className='h3'>Receba o orçamento</div>
+                    <div className='fs-3'>Receba o orçamento</div>
                 </div>
 
                 <div className='col-1 d-flex justify-content-center align-items-center'>
@@ -75,13 +110,14 @@ export default function MainComponent() {
 
                 <div className='col-3 border border-warning border-3 rounded-4 py-2'>
                     <i className="bi bi-geo-alt-fill text-warning fs-1"></i>
-                    <div className='h3'>Pedido entregue!</div>
+                    <div className='fs-3'>Pedido entregue!</div>
                 </div>
             </div>
 
+            <ButtonsLink />
 
             {forms.length === 0 &&
-                <div className='row justify-content-center mt-5 mb-3'>
+                <div className='row justify-content-center my-5'>
                     <div className="spinner-grow text-secondary" role="status">
                         <span className="visually-hidden">Loading...</span>
                     </div>
@@ -89,19 +125,20 @@ export default function MainComponent() {
             }
             <LoadLinks />
 
-            
-            <div>
-                <h1 className='text-center my-4'>Acompanhe o nosso trabalho:</h1>
+
+            <div style={{ marginTop: '10rem', marginBottom: '10rem' }}>
+                <h1 className='text-center my-4 align-middle'>Acompanhe o nosso trabalho:</h1>
+                <div className='text-indigo row row-cols-8 text-center justify-content-center align-middle'>
+                    <i className="col-1 fs-2 bi bi-twitter" />
+                    <i className="col-1 fs-2 bi bi-instagram" />
+                    <i className="col-1 fs-2 bi bi-facebook" />
+                    <i className="col-1 fs-2 bi bi-linkedin" />
+                    <i className="col-1 fs-2 bi bi-youtube" />
+                    <i className="col-1 fs-2 bi bi-tiktok" />
+                </div>
             </div>
 
-            <div className='text-indigo row row-cols-8 text-center justify-content-center'>
-                <i className="col-1 fs-2 bi bi-twitter" />
-                <i className="col-1 fs-2 bi bi-instagram" />
-                <i className="col-1 fs-2 bi bi-facebook" />
-                <i className="col-1 fs-2 bi bi-linkedin" />
-                <i className="col-1 fs-2 bi bi-youtube" />
-                <i className="col-1 fs-2 bi bi-tiktok" />
-            </div>
+
 
         </div>
     )
