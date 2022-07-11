@@ -3,7 +3,7 @@ import axios from 'axios';
 import ip from '../../../ip';
 import authHeader from '../../auth-header'
 
-export default function EditableRow_v2({ handleCancelClick, id }) {
+export default function EditableRow({ handleCancelClick, id }) {
 
     const [edittitulopergunta, seteditTituloPergunta] = useState("")
     const [editdescricaopergunta, seteditdescricaopergunta] = useState("")

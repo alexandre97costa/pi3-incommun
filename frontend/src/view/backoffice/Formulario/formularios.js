@@ -11,13 +11,17 @@ export default function FormulariosComponente() {
 	//  const [tiposPergunta, setTiposPergunta] = useState([])
 	//  const [filtroTiposPergunta, setFiltroTiposPergunta] = useState(0)
 	//  const [filtroTiposPerguntaDesc, setFiltroTiposPerguntaDesc] = useState('Tipos de Pergunta')
-	const [edittitulopergunta, seteditTituloPergunta] = useState("")
-	const [editdescricaopergunta, seteditdescricaopergunta] = useState("")
-	const [edittipopergunta, setedittipopergunta] = useState("")
-	const [editvalorpergunta, seteditvalorpergunta] = useState("")
 
 	const [forms, setForms] = useState([])
+	const [newPerguntaId, setNewPerguntaId] = useState()
 	const [editPerguntaId, setEditPerguntaId] = useState(null)
+
+	const [addForm, setAddForm] = useState({
+		titulo: "",
+		descricao: "",
+		tipo_pergunta: "",
+		valor_unitario: "",
+	});
 
 	const [editForm, setEditForm] = useState({
 		titulo: "",
@@ -34,6 +38,19 @@ export default function FormulariosComponente() {
 				setForms(res.data.formularios)
 			})
 	}, []);
+
+	const handleAddFormChange = (e) => {
+		e.preventDefault();
+
+		const fieldTitulo = e.target.getAttribute('name');
+		const fieldValue = e.target.value;
+
+		const newForm = { ...addForm };
+		newForm[fieldTitulo] = fieldValue;
+
+		setAddForm(newForm);
+
+	};
 
 	const handleEditClick = (e, pergunta) => {
 		e.preventDefault();
@@ -53,6 +70,10 @@ export default function FormulariosComponente() {
 	const handleCancelClick = () => {
 		setEditPerguntaId(null);
 	};
+
+
+
+
 
 	function LoadForms() {
 		return forms.map(form => {
@@ -114,33 +135,25 @@ export default function FormulariosComponente() {
 																<td style={{ width: "10%" }}>Ações</td>
 															</tr>
 														</thead>
-																</table>
-
-														{grupo.pergunta.map(pergunta => {
-															return (
-
-																
-
-																	(editPerguntaId === pergunta.id) ?
-		
-																			<EditableRow key={pergunta.id} id={pergunta.id} editForm={editForm}
-
-																		handleCancelClick={handleCancelClick}
-																	/>
-																	:
-																	<ReadOnlyRow key={pergunta.id} pergunta={pergunta}
-																		handleEditClick={handleEditClick}
-
-																	/>
 
 
+													</table>
+
+													{grupo.pergunta.map(pergunta => {
+														return (
+															(editPerguntaId === pergunta.id) ?
+																<EditableRow key={pergunta.id} id={pergunta.id} editForm={editForm}
+																	handleCancelClick={handleCancelClick}
+																/>
+																:
+																<ReadOnlyRow key={pergunta.id} pergunta={pergunta}
+																	handleEditClick={handleEditClick}
+																/>
+														)
+													})}
 
 
-																	)
-																})}
-															
-
-												
+													<AddPergunta />
 
 
 
@@ -164,6 +177,9 @@ export default function FormulariosComponente() {
 		})
 	}
 
+
+
+
 	return (
 
 		<div className="col overflow-auto h-sm-100 px-5 pt-4">
@@ -180,6 +196,7 @@ export default function FormulariosComponente() {
 			<div className='row'>
 				<div className="accordion accordion-flush" id="form-accordion">
 					<LoadForms />
+
 
 				</div>
 			</div>
