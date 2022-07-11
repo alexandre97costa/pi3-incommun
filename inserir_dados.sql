@@ -100,17 +100,17 @@ INSERT INTO pergunta (id, grupo_id, valor_unitario, tipo_id, created_at, updated
 /*Extras*/
 (1, 1,   12.3, 1,   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Incluir domínio',         'O domínio é a url do seu site. (www.oseusite.pt)'),
 (2, 1,   12.3, 1,   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Obter hospedagem',        'A hospedagem é o local onde o seu site é guardado'),
-(3, 1,   12.3, 1,   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Criação de um portfolio', 'Caso tenha trabalhos anteriores que queira mostrar um portfolio é a melhor opção para tal'),
-(4, 1,   12.3, 1,   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Conteudos textuais',      'Os textos que iram estar presentes no site para apresentar o seu negócio'),
+(3, 1,   12.3, 1,   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Criação de um portfólio', 'Caso tenha trabalhos anteriores que queira mostrar um portfólio é a melhor opção para tal'),
+(4, 1,   12.3, 1,   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Conteúdos textuais',      'Os textos que iram estar presentes no site para apresentar o seu negócio'),
 
 /****************************************** Perguntas Site Institucional ******************************************/
 /*Quantas Paginas pretende*/
-(5, 2,   12.3, 4,   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Quantas categorias pretende?',               'Por exemplo se tiver uma intituição, pode ter diversas categorias, para informação, contactos, etc.'),
+(5, 2,   12.3, 4,   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Quantas categorias pretende?',               'Por exemplo se tiver uma instituição, pode ter diversas categorias, para informação, contactos, etc.'),
 /*Extras*/
 (6, 3,   12.3, 1,    CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Incluir domínio',          'O domínio é a url do seu site. (www.oseusite.pt)'),
 (7, 3,   12.3, 1,    CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Obter hospedagem',         'A hospedagem é o local onde o seu site é guardado'),
-(8, 3,   12.3, 1,    CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Criação de um portfolio',  'Caso tenha trabalhos anterioes que queira mostrar, um portfolio é a melhor opção para tal'),
-(9, 3,   12.3, 1,    CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Conteudos textuais',       'Os textos que iram estar presentes no site para apresentar a sua instituição'),
+(8, 3,   12.3, 1,    CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Criação de um portfólio',  'Caso tenha trabalhos anterioes que queira mostrar, um portfólio é a melhor opção para tal'),
+(9, 3,   12.3, 1,    CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Conteúdos textuais',       'Os textos que iram estar presentes no site para apresentar a sua instituição'),
 
 /****************************************** Loja Online ******************************************/
 /*Quantas Paginas pretende*/
@@ -118,8 +118,8 @@ INSERT INTO pergunta (id, grupo_id, valor_unitario, tipo_id, created_at, updated
 /*Extras*/
 (14, 6,  12.3, 1,   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Incluir domínio',          'O domínio é a url do seu site. (www.oseusite.pt)'),
 (15, 6,  12.3, 1,   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Obter hospedagem',         'A hospedagem é o local onde o seu site é guardado'),
-(16, 6,  12.3, 1,   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Criação de um portfolio',  'Caso tenha trabalhos anterioes que queira mostrar, um portfolio é a melhor opção para tal'),
-(17, 6,  12.3, 1,   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Conteudos textuais',       'Os textos que iram estar presentes no site para apresentar o seu negócio'),
+(16, 6,  12.3, 1,   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Criação de um portfólio',  'Caso tenha trabalhos anterioes que queira mostrar, um portfólio é a melhor opção para tal'),
+(17, 6,  12.3, 1,   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Conteúdos textuais',       'Os textos que iram estar presentes no site para apresentar o seu negócio'),
 
 /****************************************** Hibrido ******************************************/
 /*Quantas Paginas pretende*/
@@ -127,8 +127,8 @@ INSERT INTO pergunta (id, grupo_id, valor_unitario, tipo_id, created_at, updated
 /*Extras*/
 (19, 9,  12.3, 1,   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Incluir domínio',         'O domínio é a url do seu site. (www.oseusite.pt)'),
 (20, 9,  12.3, 1,   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Obter hospedagem',        'A hospedagem é o local onde o seu site é guardado'),
-(21, 9,  12.3, 1,   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Criação de um portfolio', 'Caso tenha trabalhos anterioes que queira mostrar, um portfolio é a melhor opção para tal'),
-(22, 9,  12.3, 1,   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Conteudos textuais',      'Os textos que iram estar presentes no site para apresentar o seu negócio'),
+(21, 9,  12.3, 1,   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Criação de um portfólio', 'Caso tenha trabalhos anterioes que queira mostrar, um portfólio é a melhor opção para tal'),
+(22, 9,  12.3, 1,   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Conteúdos textuais',      'Os textos que iram estar presentes no site para apresentar o seu negócio'),
 
 /*************************************** Criação Identidade Visual **********************************/
 /*Que tipo de logo prefere*/
