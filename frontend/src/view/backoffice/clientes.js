@@ -16,6 +16,26 @@ export default function ClientesComponent() {
     const [Assunto, setAssunto] = useState("")
     const [Titulo, setTitulo] = useState("")
     const [Corpo, setCorpo] = useState("")
+
+    const [dicaDoDia, setDicaDoDia] = useState('')
+    const [autorDica, setAutorDica] = useState('')
+
+    useEffect(() => {
+        // Get total de clientes
+        // por defeito, sem mandar nenhuma query (nem estado nem dias),
+        // conta todos os clientes dos ultimos 30 dias
+        axios.get(ip + '/clientes/count?id=0&oquecontar=todos', authHeader())
+            .then(res => {
+                setTotalClientes(res.data.count)
+            })
+        // Get dica do dia
+        axios.get('https://api.quotable.io/random?tags=success|inspirational|happiness')
+            .then(res => {
+                setAutorDica(res.data.author)
+                setDicaDoDia(res.data.content)
+            })
+    }, [])
+
     useEffect(() => {
 
         axios.get(ip + '/clientes/list?ordem=' + ordemCliente + '&filtro=' + filtroCliente, authHeader())
@@ -92,31 +112,34 @@ export default function ClientesComponent() {
                             <span className='fs-5 fw-semibold position-relative'>
                                 {cliente.nome}
                             </span>
+                            <br></br>
+                            <span className='badge p-0 fw-semibold text-light-dark lh-sm'>
+                                {cliente.empresa}
+                            </span>
                         </td>
                         <td className='text-start text-dark lh-sm'>
-                            <span className='fs-6 fw-semibold position-relative'>
+                            <span className='fs-6  position-relative'>
                                 {cliente.email}
 
                             </span>
                         </td>
                         <td className='text-start text-dark lh-sm'>
-                            <span className='fs-6 fw-semibold position-relative'>
+                            <span className='fs-6 position-relative'>
                                 {cliente.tlm}
                             </span>
                         </td>
                         <td className='text-start text-dark lh-sm'>
-                            <span className='fs-5 fw-semibold position-relative'>
+                            <span className='fs-5 position-relative'>
                                 {cliente.distrito}
                             </span>
                         </td>
                         <td >
-                            <Link to={"/back-office/pedidos_cliente/" + cliente.id} className="btn btn-warning fs-6 bi-cash-stack me-2">&nbsp;Pedidos Cliente</Link>
+
+                            <button type="button" data-bs-toggle="modal" data-bs-target="#modal-contactar" onClick={() => mudarEmail(cliente.id)} className="btn btn-warning fw-semibold me-2 fs-6 bi-send ">&nbsp;Contactar Cliente</button>
                         </td>
                         <td >
-
-                            <button type="button" data-bs-toggle="modal" data-bs-target="#modal-contactar" onClick={() => mudarEmail(cliente.id)} className="btn btn-secondary me-2 fs-6 bi-send ">&nbsp;Contactar Cliente</button>
+                            <Link to={"/back-office/pedidos_cliente/" + cliente.id} className="btn btn-secondary  fs-6 bi-cash-stack me-2">&nbsp;Pedidos Cliente</Link>
                         </td>
-
                     </tr>
                 )
             })
@@ -131,13 +154,24 @@ export default function ClientesComponent() {
                         Clientes
                     </span>
                     <br />
-                    <br />
-
+                    <span className='fs-6 fw-normal text-muted'>
+                        {'Foram criados ' + totalClientes + ' clientes nos últimos 30 dias.'}
+                    </span>
                 </div>
+
+                {/*dica do dia*/}
+                <div className='col-6 text-end'>
+                    <span className='fs-5 lh-sm text-indigo fw-bold ' title={dicaDoDia + ' - ' + autorDica}>
+                        Dica do dia :)
+                    </span><br />
+                    <span className=' p-2 badge fw-normal bg-light lh-sm text-secondary text-end text-wrap w-75'>
+                        {dicaDoDia + ' ~' + autorDica}
+                    </span>
+                </div>
+
                 <div className="row">
                     <div className="px-xxl-4 px-xl-3 px-sm-2 px-xs-1 col-12 col-sm-6 col-lg-3 align-self-center">
-                        <div
-                            className="py-2 border rounded-4 bg-light d-flex w-100 flex-row justify-content-between align-items-center shadow p-3 bg-body rounded">
+                        <div className="py-2 border rounded-4 bg-light d-flex w-100 flex-row justify-content-between align-items-center shadow p-3 bg-body rounded ">
                             <span className='me-1'>
                                 <i className="m-0 fs-2  text-primary bi bi-people"></i>
                             </span>
@@ -152,6 +186,8 @@ export default function ClientesComponent() {
                     </div>
                 </div>
             </div>
+
+
 
             <br />
             <div className="mb-3 row">
