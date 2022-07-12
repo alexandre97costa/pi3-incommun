@@ -24,37 +24,26 @@ export default function PedidosComponent() {
     const [dicaDoDia, setDicaDoDia] = useState('')
     const [autorDica, setAutorDica] = useState('')
 
-    useEffect(() => {
-
-        axios.get(ip + '/pedidos/all?ordem=' + ordemPedido + '&filtro=' + filtroPedido, authHeader())
-            .then(res => {
-                if (res.data.success) {
-                    const data = res.data.data;
-                    setPedidos(data);
-
-                } else {
-                    alert("Error Web Service!");
-                }
-            })
-            .catch(error => {
-                alert(error)
-            });
-    }, [filtroPedido, ordemPedido])
-
-
-    useEffect(() => {
-        // Get os pedidos todos (por vezes filtrados e ordenados)
+    function getPedidos() {
         axios
-            .get(ip + '/pedidos/all?estado_id=' + filtroEstadoPedido, authHeader())
-            .then(res => {
-                // console.log(res.data)
-                setPedidos(res.data.data)
-            })
-    }, [filtroEstadoPedido])
+            .get(
+                ip + '/pedidos/all' +
+                '?ordem=' + ordemPedido +
+                '&filtro=' + filtroPedido +
+                '&estado_id=' + filtroEstadoPedido,
+                authHeader()
+            )
+            .then(res => { setPedidos(res.data.data) })
+            .catch(console.log)
+    }
+
+    useEffect(() => {
+        getPedidos()
+    }, [filtroPedido, ordemPedido, filtroEstadoPedido])
+
 
 
     useEffect(() => {
-
         // Get total de pedidos
         // por defeito, sem mandar nenhuma query (nem estado nem dias),
         // conta todos os pedidos dos ultimos 30 dias
@@ -75,8 +64,6 @@ export default function PedidosComponent() {
                 setAutorDica(res.data.author)
                 setDicaDoDia(res.data.content)
             })
-
-
     }, [])
 
     function handleFiltro(filtro, ordem, texto) {
@@ -86,13 +73,54 @@ export default function PedidosComponent() {
     }
 
     function LoadPedidos() {
+
+        function UpdateEstado(props) {
+
+            function SetEstadoPedido(idEstado) {
+                // TODO acabar o update de estado
+                axios
+                    .put(
+                        ip + '/pedidos/update_estado',
+                        {
+                            pedido_id: props.id,
+                            estado_id: idEstado
+                        },
+                        authHeader()
+                    )
+                    .then(res => res.data?.success ? getPedidos() : alert('Erro no update'))
+                    .catch(console.log)
+
+            }
+
+            return (
+                <ul className='dropdown-menu shadow'>
+                    <li className='ps-3 text-secondary'>Definir como:</li>
+                    <li><hr className="dropdown-divider" /></li>
+                    {estados.map(estado => {
+                        return (
+                            <li key={estado.id} >
+                                <button
+                                    className={'dropdown-item fw-semibold'}
+                                    type='button'
+                                    onClick={e => { SetEstadoPedido(estado.id) }}
+                                >
+                                    <i className={'me-2 bi ' + estado.icon + ' text-' + estado.cor}></i>
+                                    {estado.descricao}
+                                </button>
+                            </li>
+                        )
+                    })}
+                </ul>
+            )
+        }
+
         return (
             pedidos.map(pedido => {
                 return (
                     <tr className='align-middle' key={pedido.id}>
                         {/* Data */}
-                        <td className='text-center '>
-                            <span className='text-muted badge fw-normal align-middle'>
+                        <td className='text-start '>
+                            <span className='text-muted badge p-0 fw-normal align-middle'>
                                 {new Date(pedido.created_at).toISOString().split('T')[0]}
                             </span>
                         </td>
@@ -101,23 +129,32 @@ export default function PedidosComponent() {
                             <span className='fs-5 fw-semibold position-relative'>
                                 {pedido.cliente.nome}
                             </span>
-                            <span className='d-none fs-5 fw-semibold text-warning ms-2 '>
-                                {'#' + pedido.cliente_id}
-                            </span>
                             <br />
                             <span className='badge p-0 fw-semibold text-light-dark lh-sm'>
-                                {pedido.cliente.empresa}
+                                {pedido.cliente.email}
                             </span>
                         </td>
                         {/* Estado */}
                         <td className='text-start'>
-                            <span
-                                className={'badge text-start w-100 fw-semibold bg-' + pedido.estado_pedido.cor + '-semi text-' + pedido.estado_pedido.cor + ' fs-6'}
-                                title={pedido.estado_pedido.obs}
-                            >
-                                <i className={'me-2 bi ' + pedido.estado_pedido.icon}></i>
-                                {pedido.estado_pedido.descricao}
-                            </span>
+                            <div className='dropdown'>
+                                <button
+                                    className={
+                                        'btn btn-sm btn-light border-0 w-100 text-start' +
+                                        ' d-flex justify-content-between align-items-center  dropdown-toggle ' +
+                                        ' bg-' + pedido.estado_pedido.cor +
+                                        '-semi text-' + pedido.estado_pedido.cor +
+                                        ' focus-' + pedido.estado_pedido.cor + ' fs-6'
+                                    }
+                                    type='button'
+                                    data-bs-toggle='dropdown'
+                                >
+                                    <span>
+                                        <i className={'ms-1 me-2 bi ' + pedido.estado_pedido.icon}></i>
+                                        {pedido.estado_pedido.descricao}
+                                    </span>
+                                </button>
+                                <UpdateEstado id={pedido.id} />
+                            </div>
                         </td>
                         {/* Valor */}
                         <td className='text-end text-success fs-4 pe-3'>
@@ -130,7 +167,7 @@ export default function PedidosComponent() {
                                 <ContactarCliente destinatario={pedido.cliente.email} />
                             }
                             {(pedido.estado_id === 3 || pedido.estado_id === 4) &&
-                                <button className='btn btn-warning w-100' disabled>
+                                <button className='btn btn-warning w-100' title='Não podes contactar o cliente acerca deste pedido.' disabled>
                                     <i className='me-2 bi bi-send-slash-fill'></i>
                                     Contactar cliente
                                 </button>
@@ -138,18 +175,12 @@ export default function PedidosComponent() {
                         </td>
 
                         <td className=''>
-                            <button className='btn btn-secondary w-100'>
-                                <i className='me-2 bi bi-card-checklist'></i>
-                                Ver pedido
+                            <button className='btn btn-outline-dark w-100'>
+                                <i className='me-2 bi bi-file-earmark-check-fill'></i>
+                                Alterar pedido
                             </button>
                         </td>
 
-                        <td className=''>
-                            <button className='btn btn-outline-secondary w-100'>
-
-                                <i className='bi bi-gear-fill'></i>
-                            </button>
-                        </td>
                     </tr>
                 )
             })
@@ -177,7 +208,7 @@ export default function PedidosComponent() {
         )
     }
 
-    
+
 
     return (
 
@@ -272,11 +303,11 @@ export default function PedidosComponent() {
                     <table className='table'>
                         <thead>
                             <tr className=''>
-                                <th className='text-center' style={{ width: '10%' }}>Data</th>
-                                <th className='text-start' style={{ width: '25%' }}>Cliente</th>
+                                <th className='text-start' style={{ width: '8%' }}>Data</th>
+                                <th className='text-start' style={{ width: '27%' }}>Cliente</th>
                                 <th className='text-start' style={{ width: '15%' }}>Estado</th>
-                                <th className='text-end position-relative' style={{ width: '12%' }}>Valor Total €</th>
-                                <th className='text-center' style={{ width: '40%' }} colSpan={3}></th>
+                                <th className='text-end position-relative' style={{ width: '15%' }}>Valor Total €</th>
+                                <th className='text-center' style={{ width: '35%' }} colSpan={2}></th>
                             </tr>
                         </thead>
                         <tbody>

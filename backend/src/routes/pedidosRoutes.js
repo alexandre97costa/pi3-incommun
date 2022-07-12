@@ -9,9 +9,10 @@ router.get('/', (req, res) => {
 })
 
 
+router.get('/count', jwt_middleware.checkToken, pedidosController.count)
 router.get('/all', jwt_middleware.checkToken, pedidosController.all)
 router.get('/all_estados', jwt_middleware.checkToken, pedidosController.all_estados)
-router.get('/count', jwt_middleware.checkToken, pedidosController.count)
+router.put('/update_estado', jwt_middleware.checkToken, pedidosController.update_estado)
 
 router.post('/new', pedidosController.new)
 

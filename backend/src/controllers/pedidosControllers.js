@@ -63,14 +63,15 @@ module.exports = {
                 if (estadoId > 0) {
                     await EstadoPedido
                         .findOne({
-                            where: { id: estadoId,
-                                
-                             }
+                            where: {
+                                id: estadoId,
+
+                            }
                         })
                         .then(res => { response.estado = res })
                 }
             })
-          
+
             .then(async () => {
                 switch (oquecontar) {
                     case "cliente":
@@ -79,7 +80,7 @@ module.exports = {
                                 .count({
                                     where: {
                                         estado_id: estadoId,
-                                        cliente_id:cliente
+                                        cliente_id: cliente
                                     }
                                 })
                                 .then(count => { response = { ...response, count: count } })
@@ -103,7 +104,7 @@ module.exports = {
                                     }
                                 }
                             }).then(count => {
-        
+
                                 response = {
                                     count: count,
                                     estado: {
@@ -115,20 +116,20 @@ module.exports = {
                             })
                         }
                         break;
-                        case "motivo":
-                            if (motivoId > 0) {
-                                await Pedido.count({
-                                    where: {
-                                        motivo_id: motivoId
-                                    }
-                                })
-                                    .then(count => { response = { ...response, count: count } })
-                            }
+                    case "motivo":
+                        if (motivoId > 0) {
+                            await Pedido.count({
+                                where: {
+                                    motivo_id: motivoId
+                                }
+                            })
+                                .then(count => { response = { ...response, count: count } })
+                        }
                         break;
-                        
+
                 }
-                
-            })  
+
+            })
         res.json(response)
     },
 
@@ -137,7 +138,7 @@ module.exports = {
         // para filtrar por estado
         const estadoId = req.query.estado_id ?? 0
         const filtro = req.query.filtro ?? 'id'
-        const ordem = req.query.ordem ??  'ASC'
+        const ordem = req.query.ordem ?? 'ASC'
         let orderArray = (filtro === 'nome') ? [Cliente, filtro, ordem] : [filtro, ordem];
         await sequelize.sync()
             .then(async () => {
@@ -152,7 +153,7 @@ module.exports = {
                         ],
                         order: [orderArray]
                     })
-                        .then(response => res.json({success: true, data: response}))
+                        .then(response => res.json({ success: true, data: response }))
                 }
                 // com filtro por estado_id
                 if (estadoId > 0) {
@@ -169,7 +170,7 @@ module.exports = {
                             ],
                             order: [orderArray]
                         })
-                        .then(response => res.json({success: true, data: response}))
+                        .then(response => res.json({ success: true, data: response }))
                 }
             })
     },
@@ -287,4 +288,24 @@ module.exports = {
                     })
             })
     },
+
+    update_estado: async (req, res) => {
+        // res.json({body: req.body})
+        if (!req.body.pedido_id || !req.body.estado_id) { res.status(400); return }
+
+        const pedidoId = req.body.pedido_id
+        const estadoId = req.body.estado_id
+
+        await sequelize.sync()
+            .then(async () => {
+                await Pedido
+                    .update(
+                        { estado_id: estadoId },
+                        { where: { id: pedidoId } }
+                    )
+                    .then(result => { res.status(200).json({ success: true, result }) })
+                    .catch(console.log)
+
+            })
+    }
 }
