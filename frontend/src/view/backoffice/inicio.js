@@ -1,5 +1,6 @@
 // import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 import React, { useEffect, useState } from 'react';
+import { Chart } from "react-google-charts";
 import axios from 'axios';
 import authService from '../auth.service';
 import authHeader from '../auth-header'
@@ -10,11 +11,36 @@ export default function InicioComponent() {
 
     const [pedidos, setPedidos] = useState([])
     const [totalPedidos, setTotalPedidos] = useState(0)
+    const [totalPedidosRecusados, setTotalPedidosRecusados] = useState(0)
     const [estados, setEstados] = useState([])
     const [filtroPedido, setFiltroPedido] = useState('id')
     const [ordemPedido, setOrdemPedido] = useState('ASC')
     const [filtroEstadoPedido, setFiltroEstadoPedido] = useState(1)
     const [filtroEstadoPedidoDesc, setFiltroEstadoPedidoDesc] = useState('Todos os pedidos')
+    
+
+    const [contMotivoPreco, setMotivoPreco] = useState(0)
+    const [contMotivoConcorrencia, setMotivoConcorrencia] = useState(0)
+    const [contMotivoNaoEstavaEspera, setMotivoNaoEstavaEspera] = useState(0)
+    const [contMotivoOutro, setMotivoOutro] = useState(0)
+
+    const [contEstadoPendente, setEstadoPendente] = useState(0)
+    const [contEstadoEnviado, setEstadoEnviado] = useState(0)
+    const [contEstadoAceite, setEstadoAceite] = useState(0)
+    const [contEstadoRecusado, setEstadoRecusado] = useState(0)
+
+    const [vista, setVista] = useState('semana') // dia|semana
+    const [unidade, setUnidade] = useState('Horas') // Horas/Dias
+
+    const [formId, setFormId] = useState(0)
+    const [stack, setStack] = useState(1)
+    const [offsetDias, setOffsetDias] = useState(0)
+    const [offsetSemanas, setOffsetSemanas] = useState(0)
+
+    const [visitas, setVisitas] = useState([[]])
+    const [graph, setGraph] = useState([])
+
+    const [isShown, setIsShown] = useState(true);
 
     const [username, setUsername] = useState('')
     const [dicaDoDia, setDicaDoDia] = useState('')
@@ -32,9 +58,75 @@ export default function InicioComponent() {
             )
             .then(res => res.data.success ? setPedidos(res.data.data) : console.log(res) )
             .catch(console.log);
-
     }, [filtroPedido, ordemPedido, filtroEstadoPedido])
 
+    useEffect(() => {
+        // Get total de pedidos
+        // por defeito, sem mandar nenhuma query (nem estado nem dias),
+        // conta todos os pedidos dos ultimos 30 dias
+        axios.get(ip + '/pedidos/count?estado_id=0&oquecontar=todos', authHeader())
+            .then(res => {
+                setTotalPedidos(res.data.count)
+        })
+
+        axios.get(ip + '/pedidos/count?estado_id=0&oquecontar=todos', authHeader())
+            .then(res => {
+                setTotalPedidos(res.data.count)
+            })
+
+        // Get dica do dia
+        axios.get('https://api.quotable.io/random?tags=success|inspirational|happiness')
+            .then(res => {
+                setAutorDica(res.data.author)
+                setDicaDoDia(res.data.content)
+            })
+
+        axios.get(ip + '/pedidos/count?estado_id=4&oquecontar=todos', authHeader())
+            .then(res => {
+                setTotalPedidosRecusados(res.data.count)
+            })
+
+        axios.get(ip + '/pedidos/count?motivo_id=1&oquecontar=motivo', authHeader())
+            .then(res => {
+                setMotivoPreco(res.data.count)
+            })
+
+        axios.get(ip + '/pedidos/count?motivo_id=2&oquecontar=motivo', authHeader())
+            .then(res => {
+                setMotivoConcorrencia(res.data.count)
+            })
+
+        axios.get(ip + '/pedidos/count?motivo_id=3&oquecontar=motivo', authHeader())
+            .then(res => {
+                setMotivoNaoEstavaEspera(res.data.count)
+            })
+
+        axios.get(ip + '/pedidos/count?motivo_id=4&oquecontar=motivo', authHeader())
+            .then(res => {
+                setMotivoOutro(res.data.count)
+            })
+
+        //get estado pedido
+        axios.get(ip + '/pedidos/count?estado_id=1&oquecontar=todos', authHeader())
+            .then(res => {
+                setEstadoPendente(res.data.count)
+            })
+
+        axios.get(ip + '/pedidos/count?estado_id=2&oquecontar=todos', authHeader())
+            .then(res => {
+                setEstadoEnviado(res.data.count)
+            })
+
+        axios.get(ip + '/pedidos/count?estado_id=3&oquecontar=todos', authHeader())
+            .then(res => {
+                setEstadoAceite(res.data.count)
+            })
+
+        axios.get(ip + '/pedidos/count?estado_id=4&oquecontar=todos', authHeader())
+            .then(res => {
+                setEstadoRecusado(res.data.count)
+            })
+    }, [])
 
     useEffect(() => {
 
@@ -61,6 +153,22 @@ export default function InicioComponent() {
 
         setUsername(authService.getCurrentUser()?.username ?? '')
     }, [])
+
+    const data1 = [
+        ["Estado", "Quantidade"],
+        ["Pendente", contEstadoPendente],
+        ["Recusado", contEstadoRecusado],
+        ["Enviado", contEstadoEnviado],
+        ["Aceite", contEstadoAceite],
+    ];
+
+    const data = [
+        ["Motivo", "Quantidade"],
+        ["Preço Elevado", contMotivoPreco],
+        ["Preferiu a concorrência", contMotivoConcorrencia],
+        ["Não era o que estava à espera", contMotivoNaoEstavaEspera],
+        ["Outro", contMotivoOutro],
+    ];
 
     function handleFiltro(filtro, ordem, texto) {
         setFiltroPedido(filtro);
@@ -167,6 +275,7 @@ export default function InicioComponent() {
             })
         )
     }
+    
 
     return (
 
@@ -203,7 +312,55 @@ export default function InicioComponent() {
 
             </div>
 
+              <div className='mb-3 w row'>
 
+                <div className="dropdown bg-white me-2">
+                        <button className=" btn btn-sm btn-outline-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span className='me-2'>{isShown ? 'Resumo Pedidos Recusados' : 'Resumo Estado de Pedidos'}</span>
+                        </button>
+                        <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li> 
+                                <button
+                                    className="dropdown-item"
+                                    type='button'
+                                    onClick={e => {
+                                        setIsShown(true)
+                                    }}>
+                                    Resumo Pedidos Recusados
+                                </button>
+                                <button
+                                    className="dropdown-item"
+                                    type='button'
+                                    onClick={e => {
+                                        setIsShown(false)
+                                    }}>
+                                    Resumo Estado de Pedidos
+                                </button>
+                            </li>
+
+                        </ul>
+                </div>
+
+                <div className="mb-5 w">
+                    {isShown && <div className="mb-3 w">
+                        <Chart
+                            chartType="PieChart"
+                            data={data}
+                            width={"100%"}
+                            height={"400px"}
+                        />
+                    </div>}
+
+                    { !isShown && <div className="mb-3 w">
+                        <Chart
+                            chartType="PieChart"
+                            data={data1}
+                            width={"100%"}
+                            height={"400px"}
+                        />
+                    </div>}
+                </div>
+            </div>
 
             <div className="mb-4 row">
                 <div className='col d-flex justify-content-start align-items-center fs-6 fw-normal text-muted'>
@@ -254,7 +411,6 @@ export default function InicioComponent() {
 
                 </div>
             </div>
-
 
 
             {/* <!-- INICIO ORÇAMENTOS PENDENTES --> */}
