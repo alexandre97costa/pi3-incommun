@@ -6,6 +6,7 @@ import Count from './count'
 import ip from '../../ip'
 import mailImg from '../../assets/imgs/mail2.png'
 import { useParams } from "react-router-dom";
+import authHeader from '../auth-header';
 
 export default function Pedidos_clienteComponent() {
     const [pedidos, setPedidos] = useState([])
@@ -14,7 +15,13 @@ export default function Pedidos_clienteComponent() {
     const { Cliente } = useParams();
 
     useEffect(() => {
-        axios.get(ip + '/clientes/list_pedidos/?cliente=' + Cliente + '&filtro=' + filtroPedido + '&ordem=' + ordemPedido)
+        axios.get(
+            ip + '/clientes/list_pedidos/' +
+            '?cliente=' + Cliente + 
+            '&filtro=' + filtroPedido + 
+            '&ordem=' + ordemPedido,
+            authHeader()
+        )
             .then(res => {
                 if (res.data.success) {
                     setPedidos(res.data.data);

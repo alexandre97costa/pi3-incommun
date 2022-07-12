@@ -146,7 +146,7 @@ export default function FormComponent(props) {
 
             {/* Table para debug */}
             <div className='position-fixed small text-center bottom-0 end-0' style={{ zIndex: 9999 }}>
-                <div className='collapse show' id='table-perguntasObject'>
+                <div className='collapse' id='table-perguntasObject'>
                     <table className='table table-dark m-0'>
                         <tbody>
                             {
@@ -179,7 +179,7 @@ export default function FormComponent(props) {
                     className='btn btn-dark rounded-0 px-4'
                     onFocus={e => e.target.blur()}
                 >
-                    🔑📜
+                    🔑📜💯
                 </button>
             </div>
 

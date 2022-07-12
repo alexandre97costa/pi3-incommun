@@ -4,11 +4,7 @@ const { Sequelize } = require('sequelize');
 const sequelize = new Sequelize(
     'pi3-sequelize',
     'postgres',
-<<<<<<< Updated upstream
-    'gatinhos',
-=======
     'postgres',
->>>>>>> Stashed changes
     {
         host: 'localhost',
         port: '5432',

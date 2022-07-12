@@ -183,7 +183,7 @@ export default function ContactoComponent(props) {
 
                         />
                         <label className="form-check-label text-dark-secondary ms-2" htmlFor="flexSwitchCheckChecked">
-                            Enviar a minha localização (apenas o distrito), para efeitos estatísticos.
+                            {'Enviar a minha localização (apenas "' + clienteDistrito + '"), para efeitos estatísticos.'}
                         </label>
                     </div>
 
@@ -202,7 +202,6 @@ export default function ContactoComponent(props) {
                     </div>
                 </form>
             </div>
-
         </div>
     )
 

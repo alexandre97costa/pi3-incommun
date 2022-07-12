@@ -234,7 +234,7 @@ module.exports = {
                             await Pedido
                                 .create({
                                     valor_total: bodyPedido.valor_total,
-                                    estado_id: 1,
+                                    estado_id: 1, // pendente
                                     cliente_id: cliente.id,
                                     resposta: bodyRespostas
                                 }, {

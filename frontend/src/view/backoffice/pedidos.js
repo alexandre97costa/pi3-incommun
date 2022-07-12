@@ -4,7 +4,10 @@ import React, { useEffect, useState } from 'react';
 import Count from './count'
 import ip from '../../ip'
 import authHeader from '../auth-header'
+import authService from '../auth.service';
 import mailImg from '../../assets/imgs/mail2.png'
+
+import ContactarCliente from './contactar_cliente';
 
 
 
@@ -20,22 +23,23 @@ export default function PedidosComponent() {
 
     const [dicaDoDia, setDicaDoDia] = useState('')
     const [autorDica, setAutorDica] = useState('')
+
     useEffect(() => {
 
-        axios.get(ip + '/pedidos/all?ordem=' + ordemPedido + '&filtro=' + filtroPedido, authHeader() )
-        .then(res => {
-            if (res.data.success) {
-                const data = res.data.data;
-                setPedidos(data);
-               
-            } else {
-                alert("Error Web Service!");
-            }
-        })
-        .catch(error => {
-            alert(error)
-        });
-    }, [filtroPedido,ordemPedido])
+        axios.get(ip + '/pedidos/all?ordem=' + ordemPedido + '&filtro=' + filtroPedido, authHeader())
+            .then(res => {
+                if (res.data.success) {
+                    const data = res.data.data;
+                    setPedidos(data);
+
+                } else {
+                    alert("Error Web Service!");
+                }
+            })
+            .catch(error => {
+                alert(error)
+            });
+    }, [filtroPedido, ordemPedido])
 
 
     useEffect(() => {
@@ -75,6 +79,11 @@ export default function PedidosComponent() {
 
     }, [])
 
+    function handleFiltro(filtro, ordem, texto) {
+        setFiltroPedido(filtro);
+        setOrdemPedido(ordem);
+        document.getElementById('filtro_pedido').textContent = texto
+    }
 
     function LoadPedidos() {
         return (
@@ -118,10 +127,7 @@ export default function PedidosComponent() {
                         {/* Opções */}
                         <td className=''>
                             {(pedido.estado_id === 1 || pedido.estado_id === 2) &&
-                                <button className='btn btn-warning w-100 fw-semibold' >
-                                    <i className='me-2 bi bi-send-fill'></i>
-                                    Contactar cliente
-                                </button>
+                                <ContactarCliente destinatario={pedido.cliente.email} />
                             }
                             {(pedido.estado_id === 3 || pedido.estado_id === 4) &&
                                 <button className='btn btn-warning w-100' disabled>
@@ -149,11 +155,6 @@ export default function PedidosComponent() {
             })
         )
     }
-    function handleFiltro(filtro, ordem, texto) {
-        setFiltroPedido(filtro);
-        setOrdemPedido(ordem);
-        document.getElementById('filtro_pedido').textContent = texto
-    }
 
     function LoadEstados() {
         return (
@@ -175,6 +176,8 @@ export default function PedidosComponent() {
             })
         )
     }
+
+    
 
     return (
 
@@ -204,10 +207,10 @@ export default function PedidosComponent() {
 
             {/* Contadores */}
             <div className='mb-4 g-3 row row-cols-1 row-cols-md-2 row-cols-lg-4 row-cols-xl-4'>
-                <Count estadoId={1} oquecontar={"todos"}/>
-                <Count estadoId={2} oquecontar={"todos"}/>
-                <Count estadoId={3} oquecontar={"todos"}/>
-                <Count estadoId={4} oquecontar={"todos"}/>
+                <Count estadoId={1} oquecontar={"todos"} />
+                <Count estadoId={2} oquecontar={"todos"} />
+                <Count estadoId={3} oquecontar={"todos"} />
+                <Count estadoId={4} oquecontar={"todos"} />
 
             </div>
 
@@ -248,28 +251,19 @@ export default function PedidosComponent() {
                             <span className='me-2'>Pendentes mais antigos primeiro</span>
                         </button>
                         <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            <li><button className="dropdown-item" onClick={e => {handleFiltro('created_at','ASC',  e.target.textContent) }} type='button'>Mais antigos primeiro</button></li>
-                            <li><button className="dropdown-item" onClick={e => {handleFiltro('created_at','DESC',  e.target.textContent) }} type='button'>Mais recentes primeiro</button></li>
+                            <li><button className="dropdown-item" onClick={e => { handleFiltro('created_at', 'ASC', e.target.textContent) }} type='button'>Mais antigos primeiro</button></li>
+                            <li><button className="dropdown-item" onClick={e => { handleFiltro('created_at', 'DESC', e.target.textContent) }} type='button'>Mais recentes primeiro</button></li>
                             <li><hr className="dropdown-divider" /></li>
-                            <li><button className="dropdown-item" onClick={e => {handleFiltro('nome',            'ASC',  e.target.textContent) }} type='button'>Nome de cliente (A-Z)</button></li>
-                            <li><button className="dropdown-item" onClick={e => {handleFiltro('nome',            'DESC',  e.target.textContent) }} type='button'>Nome de cliente (Z-A)</button></li>
+                            <li><button className="dropdown-item" onClick={e => { handleFiltro('nome', 'ASC', e.target.textContent) }} type='button'>Nome de cliente (A-Z)</button></li>
+                            <li><button className="dropdown-item" onClick={e => { handleFiltro('nome', 'DESC', e.target.textContent) }} type='button'>Nome de cliente (Z-A)</button></li>
                             <li><hr className="dropdown-divider" /></li>
-                            <li><button className="dropdown-item" onClick={e => {handleFiltro('valor_total',            'DESC',  e.target.textContent) }} type='button'>Valor mais elevado primeiro</button></li>
-                            <li><button className="dropdown-item" onClick={e => {handleFiltro('valor_total',            'ASC',  e.target.textContent) }} type='button'>Valor mais baixo primeiro</button></li>
+                            <li><button className="dropdown-item" onClick={e => { handleFiltro('valor_total', 'DESC', e.target.textContent) }} type='button'>Valor mais elevado primeiro</button></li>
+                            <li><button className="dropdown-item" onClick={e => { handleFiltro('valor_total', 'ASC', e.target.textContent) }} type='button'>Valor mais baixo primeiro</button></li>
                         </ul>
                     </div>
 
                 </div>
 
-                <div className='col'>
-                    <button
-                        type='button'
-                        className='btn btn-primary'
-                        data-bs-toggle="modal" data-bs-target="#modal-contactar"
-                    >
-                        Teste
-                    </button>
-                </div>
             </div>
 
             {/* Tabela */}
@@ -292,56 +286,6 @@ export default function PedidosComponent() {
                 </div>
             </div>
 
-            {/* Modal Contactar cliente */}
-            <div className="modal fade" id="modal-contactar" tabIndex="-1" aria-labelledby="modal-contactar-label" aria-hidden="true">
-                <div className="modal-dialog modal-dialog-centered modal-lg ">
-                    {/* Versão 1 */}
-                    <div className="d-none modal-content border-0 rounded-0">
-                        <div className='container-fluid'>
-                            <div className='row'>
-                                <div className='col-4 bg-dark text-light p-3 pb-0 d-flex flex-column justify-content-between'>
-                                    <div className="modal-header border-0">
-                                        <div className="fs-1 fw-light text-warning modal-title" id="modal-contactar-label">Contactar cliente</div>
-                                    </div>
-                                    <img className='img-fluid' style={{}} src={mailImg} alt="" />
-                                </div>
-
-                                <div className='col-8 bg-light p-3  '>
-                                    <div className="modal-body">
-                                        ...
-                                    </div>
-                                    <div className="modal-footer">
-                                        <button type="button" className="btn btn-outline-secondary rounded-0" data-bs-dismiss="modal">Cancelar</button>
-                                        <button type="button" className="btn btn-warning rounded-0 fw-semibold">Enviar email</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {/* Versão 2 */}
-                    <div className="modal-content border-0">
-                        <div className="modal-header rounded-4 border-0">
-                            <div className="modal-title fs-4 fw-light" id="exampleModalLabel">Contactar cliente</div>
-                        </div>
-                        <div className="modal-body">
-
-                            <div className="form-floating mb-3">
-                                <input type="email" className="form-control" id="floatingInput" placeholder="name@example.com" />
-                                <label htmlFor="floatingInput">Email address</label>
-                            </div>
-                            <div className="form-floating">
-                                <textarea className="form-control" rows={4} placeholder="Leave a comment here" id="floatingTextarea"></textarea>
-                                <label htmlFor="floatingTextarea">Comments</label>
-                            </div>
-
-                        </div>
-                        <div className="modal-footer border-0">
-                            <button type="button" className="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
-                            <button type="button" className="btn btn-warning fw-semibold">Enviar email</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
         </div>
 
