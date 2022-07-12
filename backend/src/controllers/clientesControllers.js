@@ -12,14 +12,16 @@ module.exports = {
         console.log(req.body)
         if (
             !req.body.hasOwnProperty('email_cliente') ||
+            !req.body.hasOwnProperty('email_admin') ||
             !req.body.hasOwnProperty('assunto') ||
             !req.body.hasOwnProperty('titulo') ||
             !req.body.hasOwnProperty('corpo')
         ) {
-            res.status(400).send('É necessário: "email_cliente", "assunto", "titulo" e "corpo".')
+            res.status(400).send('É necessário: "email_cliente", "email_admin", "assunto", "titulo" e "corpo".')
             return
         }
         const email_cliente = req.body.email_cliente
+        const email_admin = req.body.email_admin
         const assunto = req.body.assunto
         const titulo = req.body.titulo
         const corpo = req.body.corpo
@@ -36,7 +38,7 @@ module.exports = {
 
         await transport
             .sendMail({
-                from: process.env.MAIL_FROM,
+                from: email_admin,
                 to: email_cliente,
                 cc: process.env.MAIL_CC,
                 subject: assunto,
@@ -61,7 +63,7 @@ module.exports = {
             })
             .catch(error => { res.status(417).send('Erro a enviar email. Verificar consola.'); throw new Error(error) })
 
-        res.status(200).send('Email enviado!')
+        res.status(200).json({success: true, message: 'Email enviado!'})
     },
     
     // devolve todos os clientes

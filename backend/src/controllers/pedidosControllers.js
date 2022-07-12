@@ -161,7 +161,9 @@ module.exports = {
                             { model: Cliente },
                             { model: EstadoPedido },
                             { model: MotivoRecusa },
-                            { model: Resposta }
+                            { model: Resposta, 
+                                include: { model: Pergunta }
+                            }
                         ],
                         order: [orderArray],
                         limit: limite
@@ -230,7 +232,7 @@ module.exports = {
                             // Se o cliente já existe
                             await Pedido
                                 .create({
-                                    valor_total: bodyPedido.valor_total,
+                                    valor_total: bodyPedido.valor_total.toFixed(2),
                                     estado_id: 1, // pendente
                                     cliente_id: cliente.id,
                                     resposta: bodyRespostas
