@@ -8,6 +8,7 @@ import authService from '../auth.service';
 import mailImg from '../../assets/imgs/mail2.png'
 
 import ContactarCliente from './contactar_cliente';
+import UpdateEstado from './update_estado';
 
 
 
@@ -54,9 +55,7 @@ export default function PedidosComponent() {
 
         // Get os estados todos que houver na bd (para o filtro/dropdown)
         axios.get(ip + '/pedidos/all_estados', authHeader())
-            .then(res => {
-                setEstados(res.data)
-            })
+            .then(res => { setEstados(res.data) })
 
         // Get dica do dia
         axios.get('https://api.quotable.io/random?tags=success|inspirational|happiness')
@@ -73,45 +72,6 @@ export default function PedidosComponent() {
     }
 
     function LoadPedidos() {
-
-        function UpdateEstado(props) {
-
-            function SetEstadoPedido(idEstado) {
-                axios
-                    .put(
-                        ip + '/pedidos/update_estado',
-                        {
-                            pedido_id: props.id,
-                            estado_id: idEstado
-                        },
-                        authHeader()
-                    )
-                    .then(res => res.data?.success ? getPedidos() : alert('Erro no update'))
-                    .catch(console.log)
-
-            }
-
-            return (
-                <ul className='dropdown-menu shadow'>
-                    <li className='ps-3 text-secondary'>Definir como:</li>
-                    <li><hr className="dropdown-divider" /></li>
-                    {estados.map(estado => {
-                        return (
-                            <li key={estado.id} >
-                                <button
-                                    className={'dropdown-item fw-semibold'}
-                                    type='button'
-                                    onClick={e => { SetEstadoPedido(estado.id) }}
-                                >
-                                    <i className={'me-2 bi ' + estado.icon + ' text-' + estado.cor}></i>
-                                    {estado.descricao}
-                                </button>
-                            </li>
-                        )
-                    })}
-                </ul>
-            )
-        }
 
         return (
             pedidos.map(pedido => {
@@ -153,7 +113,7 @@ export default function PedidosComponent() {
                                         {pedido.estado_pedido.descricao}
                                     </span>
                                 </button>
-                                <UpdateEstado id={pedido.id} />
+                                <UpdateEstado id={pedido.id} getPedidos={getPedidos} estados={estados}/>
                             </div>
                         </td>
                         {/* Valor */}
