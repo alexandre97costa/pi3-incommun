@@ -1,22 +1,64 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios'
+import ip from '../../ip';
 import authService from '../auth.service';
+import authHeader from '../auth-header';
 
 export default function ContactarCliente(props) {
 
-    const [titulo, setTitulo] = useState('Incommun - Orçamento para Serviço Personalizado')
-    const [corpo, setCorpo] = useState('')
+    const [assunto, setAssunto] = useState('Temos o seu orçamento pronto!')
+    const [titulo, setTitulo] = useState('Incommun - Serviços personalizados à sua medida!')
+    const [corpo, setCorpo] = useState('Escreve alguma coisa...')
+
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
 
     }, [])
 
     function handleContactar(e) {
+        e.preventDefault();
 
+        const btn = document.getElementById('contactar-cliente-btn')
+        const btnText = document.getElementById('btn-criar-user-text')
+        btnText.textContent = 'A enviar...'
+        setLoading(true)
+
+
+
+        axios
+            .post(
+                ip + '/clientes/enviar_email',
+                {
+                    email_cliente: props.destinatario,
+                    email_admin: authService.getCurrentUser()?.email,
+                    assunto: assunto,
+                    titulo: titulo,
+                    corpo: corpo
+                },
+                authHeader()
+            )
+            .then(res => {
+                if (res.data.success) {
+                    btnText.textContent = res.data.message
+                    setLoading(false)
+
+                    setTimeout(() => {
+                        btn.click()
+                        btnText.textContent = 'Enviar'
+                        setAssunto('Temos o seu orçamento pronto!')
+                        setTitulo('Incommun - Serviços personalizados à sua medida!')
+                        setCorpo('Escreve alguma coisa...')
+                    }, 1000);
+
+                }
+            })
     }
 
     return (
         <>
             <button
+                id='contactar-cliente-btn'
                 className='btn btn-warning w-100 fw-semibold'
                 data-bs-toggle='modal'
                 data-bs-target="#contactar-cliente-modal"
@@ -56,7 +98,33 @@ export default function ContactarCliente(props) {
                                         // id='user-username-input'
                                         className='form-control focus-warning text-dark rounded-3'
                                         type='text'
-                                        maxLength={20}
+                                        placeholder='titulo'
+                                        autoComplete='none'
+                                        autoCapitalize='words'
+                                        required
+                                        value={assunto}
+                                        onChange={e => { setAssunto(e.target.value) }}
+                                        onInput={e => {
+                                            if (!e.target.validity.valid) {
+                                                e.target.classList.add('focus-danger')
+
+                                                if (e.target.validity.valueMissing) {
+                                                    e.target.setCustomValidity('O assunto é de preenchimento obrigatório.')
+                                                    e.target.reportValidity()
+                                                } else {
+                                                    e.target.setCustomValidity('')
+                                                    e.target.classList.remove('focus-danger')
+                                                }
+                                            }
+                                        }}
+                                    />
+                                    <label className='text-dark' htmlFor="user-username-input">Assunto</label>
+                                </div>
+                                <div className="form-floating mb-3">
+                                    <input
+                                        // id='user-username-input'
+                                        className='form-control focus-warning text-dark rounded-3'
+                                        type='text'
                                         placeholder='titulo'
                                         autoComplete='none'
                                         autoCapitalize='words'
@@ -68,7 +136,7 @@ export default function ContactarCliente(props) {
                                                 e.target.classList.add('focus-danger')
 
                                                 if (e.target.validity.valueMissing) {
-                                                    e.target.setCustomValidity('O corpo é de preenchimento obrigatório.')
+                                                    e.target.setCustomValidity('O titulo é de preenchimento obrigatório.')
                                                     e.target.reportValidity()
                                                 } else {
                                                     e.target.setCustomValidity('')
@@ -109,7 +177,7 @@ export default function ContactarCliente(props) {
 
                                 <div className='w-100 d-flex justify-content-end'>
                                     <button id='btn-criar-user' type="submit" className="btn btn-warning rounded-3 ">
-                                        {false &&
+                                        {loading &&
                                             <div className="spinner-border spinner-border-sm fs-6 text-dark me-2" role="status">
                                                 <span className="visually-hidden">Loading...</span>
                                             </div>

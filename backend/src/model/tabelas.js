@@ -70,6 +70,10 @@ const Pergunta = sequelize.define('pergunta',
         createdAt: 'created_at',
         updatedAt: 'updated_at',
         deletedAt: 'deleted_at',
+        name: {
+            singular: 'pergunta',
+            plural: 'perguntas'
+        },
     }
 )
 
@@ -116,6 +120,10 @@ const Resposta = sequelize.define('resposta',
     {
         freezeTableName: true,
         timestamps: false,
+        name: {
+            singular: 'resposta',
+            plural: 'respostas'
+        },
         validate: {
             EitherTextoInteiro() {
                 if ((this.texto === null) && (this.inteiro === null)) {
