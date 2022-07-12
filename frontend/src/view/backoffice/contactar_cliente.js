@@ -41,7 +41,7 @@ export default function ContactarCliente(props) {
                                         Compor email
                                     </span>
                                     <span className='small fw-normal text-secondary'>
-                                        {authService.getCurrentUser().email}
+                                        {authService.getCurrentUser()?.email ?? 'your@email.com'}
                                         <i className='bi bi-arrow-right mx-2'></i>
                                         {props.destinatario}
                                     </span>

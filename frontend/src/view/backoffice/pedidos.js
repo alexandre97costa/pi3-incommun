@@ -77,7 +77,6 @@ export default function PedidosComponent() {
         function UpdateEstado(props) {
 
             function SetEstadoPedido(idEstado) {
-                // TODO acabar o update de estado
                 axios
                     .put(
                         ip + '/pedidos/update_estado',
@@ -130,7 +129,7 @@ export default function PedidosComponent() {
                                 {pedido.cliente.nome}
                             </span>
                             <br />
-                            <span className='badge p-0 fw-semibold text-light-dark lh-sm'>
+                            <span className='fs-6 fw-semibold text-light-dark lh-sm'>
                                 {pedido.cliente.email}
                             </span>
                         </td>
@@ -147,9 +146,10 @@ export default function PedidosComponent() {
                                     }
                                     type='button'
                                     data-bs-toggle='dropdown'
+                                    title={pedido.estado_pedido.obs}
                                 >
                                     <span>
-                                        <i className={'ms-1 me-2 bi ' + pedido.estado_pedido.icon}></i>
+                                        {/* <i className={'ms-1 me-2 bi ' + pedido.estado_pedido.icon}></i> */}
                                         {pedido.estado_pedido.descricao}
                                     </span>
                                 </button>
@@ -163,23 +163,25 @@ export default function PedidosComponent() {
 
                         {/* Opções */}
                         <td className=''>
-                            {(pedido.estado_id === 1 || pedido.estado_id === 2) &&
-                                <ContactarCliente destinatario={pedido.cliente.email} />
-                            }
-                            {(pedido.estado_id === 3 || pedido.estado_id === 4) &&
-                                <button className='btn btn-warning w-100' title='Não podes contactar o cliente acerca deste pedido.' disabled>
-                                    <i className='me-2 bi bi-send-slash-fill'></i>
-                                    Contactar cliente
-                                </button>
-                            }
-                        </td>
-
-                        <td className=''>
                             <button className='btn btn-outline-dark w-100'>
                                 <i className='me-2 bi bi-file-earmark-check-fill'></i>
                                 Alterar pedido
                             </button>
                         </td>
+                        <td className=''>
+                            {(pedido.estado_id === 1 || pedido.estado_id === 2 || pedido.estado_id === 3) &&
+                                <ContactarCliente destinatario={pedido.cliente.email} />
+                            }
+                            {(pedido.estado_id === 4) &&
+                            <div title='Não podes contactar o cliente acerca deste pedido.'>
+                                <button className='btn btn-warning w-100' disabled>
+                                    <i className='me-2 bi bi-slash-circle-fill text-danger'></i>
+                                    Contactar cliente
+                                </button>
+                            </div>
+                            }
+                        </td>
+
 
                     </tr>
                 )
