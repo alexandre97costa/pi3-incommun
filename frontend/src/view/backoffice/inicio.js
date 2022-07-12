@@ -13,7 +13,7 @@ export default function InicioComponent() {
     const [estados, setEstados] = useState([])
     const [filtroPedido, setFiltroPedido] = useState('id')
     const [ordemPedido, setOrdemPedido] = useState('ASC')
-    const [filtroEstadoPedido, setFiltroEstadoPedido] = useState(0)
+    const [filtroEstadoPedido, setFiltroEstadoPedido] = useState(1)
     const [filtroEstadoPedidoDesc, setFiltroEstadoPedidoDesc] = useState('Todos os pedidos')
 
     const [username, setUsername] = useState('')
@@ -21,31 +21,19 @@ export default function InicioComponent() {
     const [autorDica, setAutorDica] = useState('')
 
     useEffect(() => {
+        axios
+            .get(
+                ip + '/pedidos/all' +
+                '?ordem=' + ordemPedido +
+                '&filtro=' + filtroPedido +
+                '&estado_id=' + filtroEstadoPedido + 
+                '&limite=4',
+                authHeader()
+            )
+            .then(res => res.data.success ? setPedidos(res.data.data) : console.log(res) )
+            .catch(console.log);
 
-        axios.get(ip + '/pedidos/all?ordem=' + ordemPedido + '&filtro=' + filtroPedido, authHeader())
-        .then(res => {
-            if (res.data.success) {
-                const data = res.data.data;
-                setPedidos(data);
-               
-            } else {
-                alert("Error Web Service!");
-            }
-        })
-        .catch(error => {
-            alert(error)
-        });
-    }, [filtroPedido,ordemPedido])
-
-
-    useEffect(() => {
-        // Get os pedidos todos (por vezes filtrados e ordenados)
-        axios.get(ip + '/pedidos/all?estado_id=' + filtroEstadoPedido, authHeader())
-            .then(res => {
-                // console.log(res.data)
-                setPedidos(res.data.data)
-            })
-    }, [filtroEstadoPedido])
+    }, [filtroPedido, ordemPedido, filtroEstadoPedido])
 
 
     useEffect(() => {
@@ -105,9 +93,6 @@ export default function InicioComponent() {
                                     </span>
                                 </div>
 
-
-
-
                                 {/* Valor */}
                                 <div className='mt-2 text-center text-success fs-4'>
                                     {pedido.valor_total.toFixed(2)}
@@ -147,18 +132,10 @@ export default function InicioComponent() {
                                     }
                                 </div>
 
-
                                 <div className='mt-2'>
                                     <button className='btn btn-secondary w-100'>
                                         <i className='me-2 bi bi-card-checklist'></i>
                                         Ver pedido
-                                    </button>
-                                </div>
-
-                                <div className='my-2'>
-                                    <button className='btn btn-outline-secondary w-100'>
-
-                                        <i className='bi bi-gear-fill'></i>
                                     </button>
                                 </div>
                             </div>
@@ -200,7 +177,7 @@ export default function InicioComponent() {
             <div className="mb-3 row">
                 <div className='col-6'>
                     <span className='h2 text-dark fw-bold'>
-                        {!!username ? 'Bem-vindo(a), ' + username +'!' : 'Bem-vindo(a)!'}
+                        {!!username ? 'Bem-vindo(a), ' + username + '!' : 'Bem-vindo(a)!'}
                     </span>
                     <br />
                     <span className='fs-6 fw-normal text-muted'>
@@ -217,10 +194,10 @@ export default function InicioComponent() {
                 </div>
             </div>
             <div className='mb-4 g-3 row row-cols-1 row-cols-md-2 row-cols-lg-4 row-cols-xl-4'>
-                <Count estadoId={0} oquecontar={"todos"}/>
-                <Count estadoId={2} oquecontar={"todos"}/>
-                <Count estadoId={3} oquecontar={"todos"}/>
-                <Count estadoId={4} oquecontar={"todos"}/>
+                <Count estadoId={0} oquecontar={"todos"} />
+                <Count estadoId={2} oquecontar={"todos"} />
+                <Count estadoId={3} oquecontar={"todos"} />
+                <Count estadoId={4} oquecontar={"todos"} />
 
             </div>
 
@@ -260,14 +237,14 @@ export default function InicioComponent() {
                             <span className='me-2'>Pedidos Pendentes</span>
                         </button>
                         <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            <li><button className="dropdown-item" onClick={e => {handleFiltro('created_at','ASC',  e.target.textContent) }} type='button'>Mais antigos primeiro</button></li>
-                            <li><button className="dropdown-item" onClick={e => {handleFiltro('created_at','DESC',  e.target.textContent) }} type='button'>Mais recentes primeiro</button></li>
+                            <li><button className="dropdown-item" onClick={e => { handleFiltro('created_at', 'ASC', e.target.textContent) }} type='button'>Mais antigos primeiro</button></li>
+                            <li><button className="dropdown-item" onClick={e => { handleFiltro('created_at', 'DESC', e.target.textContent) }} type='button'>Mais recentes primeiro</button></li>
                             <li><hr className="dropdown-divider" /></li>
-                            <li><button className="dropdown-item" onClick={e => {handleFiltro('nome',            'ASC',  e.target.textContent) }} type='button'>Nome de cliente (A-Z)</button></li>
-                            <li><button className="dropdown-item" onClick={e => {handleFiltro('nome',            'DESC',  e.target.textContent) }} type='button'>Nome de cliente (Z-A)</button></li>
+                            <li><button className="dropdown-item" onClick={e => { handleFiltro('nome', 'ASC', e.target.textContent) }} type='button'>Nome de cliente (A-Z)</button></li>
+                            <li><button className="dropdown-item" onClick={e => { handleFiltro('nome', 'DESC', e.target.textContent) }} type='button'>Nome de cliente (Z-A)</button></li>
                             <li><hr className="dropdown-divider" /></li>
-                            <li><button className="dropdown-item" onClick={e => {handleFiltro('valor_total',            'DESC',  e.target.textContent) }} type='button'>Valor mais elevado primeiro</button></li>
-                            <li><button className="dropdown-item" onClick={e => {handleFiltro('valor_total',            'ASC',  e.target.textContent) }} type='button'>Valor mais baixo primeiro</button></li>
+                            <li><button className="dropdown-item" onClick={e => { handleFiltro('valor_total', 'DESC', e.target.textContent) }} type='button'>Valor mais elevado primeiro</button></li>
+                            <li><button className="dropdown-item" onClick={e => { handleFiltro('valor_total', 'ASC', e.target.textContent) }} type='button'>Valor mais baixo primeiro</button></li>
                         </ul>
                     </div>
 

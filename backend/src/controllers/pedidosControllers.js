@@ -136,42 +136,33 @@ module.exports = {
 
     all: async (req, res) => {
         // para filtrar por estado
-        const estadoId = req.query.estado_id ?? 0
+        const estadoId = parseInt(req.query.estado_id) ?? 0
         const filtro = req.query.filtro ?? 'id'
         const ordem = req.query.ordem ?? 'ASC'
+        const limite = parseInt(req.query?.limite ?? 30 )
+
         let orderArray = (filtro === 'nome') ? [Cliente, filtro, ordem] : [filtro, ordem];
         await sequelize.sync()
             .then(async () => {
-                // sem filtro por estado_id
-                if (estadoId == 0) {
-                    await Pedido.findAll({
+                await Pedido
+                    .findAll({
+                        where: {
+                            estado_id:
+                                !!estadoId ?
+                                    { [Op.eq]: estadoId } :
+                                    { [Op.ne]: estadoId },
+                        },
                         include: [
                             { model: Cliente },
                             { model: EstadoPedido },
                             { model: MotivoRecusa },
                             { model: Resposta }
                         ],
-                        order: [orderArray]
+                        order: [orderArray],
+                        limit: limite
                     })
-                        .then(response => res.json({ success: true, data: response }))
-                }
-                // com filtro por estado_id
-                if (estadoId > 0) {
-                    await Pedido
-                        .findAll({
-                            where: {
-                                estado_id: estadoId
-                            },
-                            include: [
-                                { model: Cliente },
-                                { model: EstadoPedido },
-                                { model: MotivoRecusa },
-                                { model: Resposta }
-                            ],
-                            order: [orderArray]
-                        })
-                        .then(response => res.json({ success: true, data: response }))
-                }
+                    .then(response => res.status(200).json({ success: true, data: response }))
+                    .catch(console.log)
             })
     },
 
