@@ -174,7 +174,7 @@ export default function InicioComponent() {
         <div className="col overflow-auto h-sm-100 px-5 pt-4">
 
             {/* Titulo */}
-            <div className="mb-3 row">
+            <div className="mb-4 row">
                 <div className='col-6'>
                     <span className='h2 text-dark fw-bold'>
                         {!!username ? 'Bem-vindo(a), ' + username + '!' : 'Bem-vindo(a)!'}
@@ -193,7 +193,9 @@ export default function InicioComponent() {
                     </span>
                 </div>
             </div>
-            <div className='mb-4 g-3 row row-cols-1 row-cols-md-2 row-cols-lg-4 row-cols-xl-4'>
+
+
+            <div className='mb-5 g-3 row row-cols-1 row-cols-md-2 row-cols-lg-4 row-cols-xl-4'>
                 <Count estadoId={0} oquecontar={"todos"} />
                 <Count estadoId={2} oquecontar={"todos"} />
                 <Count estadoId={3} oquecontar={"todos"} />
@@ -201,7 +203,9 @@ export default function InicioComponent() {
 
             </div>
 
-            <div className="mb-3 row">
+
+
+            <div className="mb-4 row">
                 <div className='col d-flex justify-content-start align-items-center fs-6 fw-normal text-muted'>
                     <span className='me-2'>
                         Ver
@@ -252,9 +256,8 @@ export default function InicioComponent() {
             </div>
 
 
-            {/* <!-- INICIO ORÇAMENTOS PENDENTES --> */}
 
-            <p className="fs-normal d-flex"> Orçamentos Pendentes</p>
+            {/* <!-- INICIO ORÇAMENTOS PENDENTES --> */}
 
 
             <div className='mb-4 g-3 row row-cols-1 row-cols-md-2 row-cols-lg-4 row-cols-xl-4'>

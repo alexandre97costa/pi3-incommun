@@ -1,5 +1,5 @@
 import axios from 'axios';
-// import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
+import { Link } from "react-router-dom";
 import React, { useEffect, useState } from 'react';
 import Count from './count'
 import ip from '../../ip'
@@ -121,10 +121,13 @@ export default function PedidosComponent() {
 
                         {/* Opções */}
                         <td className=''>
-                            <button className='btn btn-outline-dark w-100'>
+                            <Link 
+                            to={'/back-office/pedidos/' + pedido.id}
+                            className='btn btn-outline-dark w-100'
+                            >
                                 <i className='me-2 bi bi-file-earmark-check-fill'></i>
                                 Alterar pedido
-                            </button>
+                            </Link>
                         </td>
                         <td className=''>
                             {(pedido.estado_id === 1 || pedido.estado_id === 2 || pedido.estado_id === 3) &&
@@ -168,11 +171,7 @@ export default function PedidosComponent() {
         )
     }
 
-
-
     return (
-
-
         <div className="col overflow-auto h-sm-100 px-5 pt-4">
 
             {/* Titulo */}

@@ -135,11 +135,12 @@ module.exports = {
 
 
     all: async (req, res) => {
-        // para filtrar por estado
-        const estadoId = parseInt(req.query.estado_id) ?? 0
-        const filtro = req.query.filtro ?? 'id'
-        const ordem = req.query.ordem ?? 'ASC'
-        const limite = parseInt(req.query?.limite ?? 30 )
+
+        const pedidoId = parseInt(req.query?.pedido_id ?? 0)
+        const estadoId = parseInt(req.query?.estado_id ?? 0)
+        const filtro = req.query?.filtro ?? 'id'
+        const ordem = req.query?.ordem ?? 'ASC'
+        const limite = parseInt(req.query?.limite ?? 30)
 
         let orderArray = (filtro === 'nome') ? [Cliente, filtro, ordem] : [filtro, ordem];
         await sequelize.sync()
@@ -147,6 +148,10 @@ module.exports = {
                 await Pedido
                     .findAll({
                         where: {
+                            id:
+                                !!pedidoId ?
+                                    { [Op.eq]: pedidoId } :
+                                    { [Op.ne]: pedidoId },
                             estado_id:
                                 !!estadoId ?
                                     { [Op.eq]: estadoId } :
