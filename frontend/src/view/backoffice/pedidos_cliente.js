@@ -12,12 +12,12 @@ export default function Pedidos_clienteComponent() {
     const [pedidos, setPedidos] = useState([])
     const [filtroPedido, setFiltroPedido] = useState('id')
     const [ordemPedido, setOrdemPedido] = useState('ASC')
-    const { Cliente } = useParams();
+    const { idCliente } = useParams();
 
     useEffect(() => {
         axios.get(
             ip + '/clientes/list_pedidos/' +
-            '?cliente=' + Cliente + 
+            '?cliente=' + idCliente + 
             '&filtro=' + filtroPedido + 
             '&ordem=' + ordemPedido,
             authHeader()
@@ -28,7 +28,7 @@ export default function Pedidos_clienteComponent() {
                 }
             })
             .catch(error => { throw new Error(error) });
-    }, [Cliente, filtroPedido, ordemPedido])
+    }, [idCliente, filtroPedido, ordemPedido])
 
 
     function handleFiltro(filtro, ordem, texto) {
@@ -55,7 +55,7 @@ export default function Pedidos_clienteComponent() {
                                 {pedido.cliente.nome}
                             </span>
                             <span className='d-none fs-5 fw-semibold text-warning ms-2 '>
-                                {'#' + pedido.cliente_id}
+                                {'#' + pedido.cliente.id}
                             </span>
                             <br />
                             <span className='badge p-0 fw-semibold text-light-dark lh-sm'>
@@ -112,10 +112,10 @@ export default function Pedidos_clienteComponent() {
                 </div>
             </div>
             <div className='mb-4 g-3 row row-cols-1 row-cols-md-2 row-cols-lg-4 row-cols-xl-4'>
-                <Count estadoId={1} cliente={Cliente} oquecontar={"cliente"} />
-                <Count estadoId={2} cliente={Cliente} oquecontar={"cliente"} />
-                <Count estadoId={3} cliente={Cliente} oquecontar={"cliente"} />
-                <Count estadoId={4} cliente={Cliente} oquecontar={"cliente"} />
+                <Count estadoId={1} cliente={idCliente} oquecontar={"cliente"} />
+                <Count estadoId={2} cliente={idCliente} oquecontar={"cliente"} />
+                <Count estadoId={3} cliente={idCliente} oquecontar={"cliente"} />
+                <Count estadoId={4} cliente={idCliente} oquecontar={"cliente"} />
 
             </div>
 

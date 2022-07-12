@@ -10,8 +10,8 @@ import Main from './view/main'
 import Form from './view/forms/form'
 import JumboTron from './view/forms/jumbotron'
 import Footer from './view/forms/footer'
-
 import BoLogin from './view/backoffice/login'
+
 import PrivateRoute from './view/backoffice/private_route'
 import BoInicio from './view/backoffice/inicio'
 import BoPedidos from './view/backoffice/pedidos'
@@ -19,10 +19,12 @@ import BoFormularios from './view/backoffice/Formulario/formularios'
 import BoClientes from './view/backoffice/clientes'
 import BoPiechart from './view/backoffice/piechart'
 import BoPedidosCliente from './view/backoffice/pedidos_cliente'
+import BoVisitas from './view/backoffice/Testes/visitas'
+import BoAlterarPedido from './view/backoffice/alterar_pedido';
+
 import UsersModalComponent from './view/backoffice/users_modal'
 import CriarUserModalComponent from './view/backoffice/criar_user_modal'
 import EliminarUserModalComponent from './view/backoffice/eliminar_user_modal'
-import BoVisitas from './view/backoffice/Testes/visitas'
 
 
 export default function App() {
@@ -83,14 +85,14 @@ export default function App() {
 				<Route path='/back-office/' element={
 					<BackOffice pagina={<BoInicio />} />
 				} />
-				<Route path='/back-office/pedidos' element={
+				<Route exact path='/back-office/pedidos' element={
 					<BackOffice pagina={<BoPedidos />} />
-				} />
-				<Route path='/back-office/clientes' element={
-					<BackOffice pagina={<BoClientes />} />
 				} />
 				<Route path='/back-office/formularios' element={
 					<BackOffice pagina={<BoFormularios />} />
+				} />
+				<Route exact path='/back-office/clientes' element={
+					<BackOffice pagina={<BoClientes />} />
 				} />
 				<Route path='/back-office/piechart' element={
 					<BackOffice pagina={<BoPiechart />} />
@@ -98,9 +100,15 @@ export default function App() {
 				<Route path='/back-office/visitas' element={
 					<BackOffice pagina={<BoVisitas />} />
 				} />
-				<Route path='/back-office/pedidos_cliente/:Cliente' element={
+
+				{/* Rotas secundárias */}
+				<Route path='/back-office/pedidos/:idPedido' element={
+					<BackOffice pagina={<BoAlterarPedido />} />
+				} />
+				<Route path='/back-office/clientes/:idCliente' element={
 					<BackOffice pagina={<BoPedidosCliente />} />
 				} />
+
 
 				{/* se o link nao existir, volta à pagina inicial */}
 				<Route path='*' element={<Navigate to='/' replace={true} />} />

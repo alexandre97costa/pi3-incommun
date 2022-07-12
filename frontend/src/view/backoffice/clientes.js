@@ -138,7 +138,7 @@ export default function ClientesComponent() {
                             <button type="button" data-bs-toggle="modal" data-bs-target="#modal-contactar" onClick={() => mudarEmail(cliente.id)} className="btn btn-warning fw-semibold me-2 fs-6 bi-send ">&nbsp;Contactar Cliente</button>
                         </td>
                         <td >
-                            <Link to={"/back-office/pedidos_cliente/" + cliente.id} className="btn btn-secondary  fs-6 bi-cash-stack me-2">&nbsp;Pedidos Cliente</Link>
+                            <Link to={"/back-office/clientes/" + cliente.id} className="btn btn-secondary  fs-6 bi-cash-stack me-2">&nbsp;Pedidos Cliente</Link>
                         </td>
                     </tr>
                 )

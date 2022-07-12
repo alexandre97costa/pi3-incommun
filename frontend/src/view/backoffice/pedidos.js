@@ -4,8 +4,6 @@ import React, { useEffect, useState } from 'react';
 import Count from './count'
 import ip from '../../ip'
 import authHeader from '../auth-header'
-import authService from '../auth.service';
-import mailImg from '../../assets/imgs/mail2.png'
 
 import ContactarCliente from './contactar_cliente';
 import UpdateEstado from './update_estado';
