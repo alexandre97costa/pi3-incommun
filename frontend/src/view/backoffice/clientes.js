@@ -219,8 +219,8 @@ export default function ClientesComponent() {
                                 <th className='text-start' style={{ width: '16%' }}>Email</th>
                                 <th className='text-start' style={{ width: '11%' }}>Telemóvel</th>
                                 <th className='text-start' style={{ width: '5%' }}>Distrito</th>
-                                <th className='text-center' style={{ width: '18%' }} colSpan={1}></th>
                                 <th className='text-center' style={{ width: '17%' }} colSpan={1}></th>
+                                <th className='text-center' style={{ width: '18%' }} colSpan={1}></th>
                             </tr>
                         </thead>
                         <tbody>
