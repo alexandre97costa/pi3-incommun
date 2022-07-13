@@ -4,6 +4,7 @@ import ip from '../../../ip'
 import authHeader from '../../auth-header'
 import ReadOnlyRow from './ReadOnlyRow';
 import EditableRow from './EditableRow';
+import AddPergunta from './AddPergunta';
 
 export default function FormulariosComponente() {
 
@@ -145,8 +146,26 @@ export default function FormulariosComponente() {
 														)
 													})}
 
+													<table>
+														<tbody>
+															<tr>
+																<td>
+																	<button type="button"
+																		className="btn btn-outline-success mx-2 fs-5">
+																		 {/* onClick= */}
+																		Adicionar Nova Pergunta
+																		<i className="m-2 bi bi-plus-circle"></i></button>
+																</td>
+															</tr>
+														</tbody>
+													</table>
 
-													{/* <AddPergunta /> */}
+
+
+
+													{/* <AddPergunta
+													handleAddClick = {handleAddClick} */}
+
 
 
 

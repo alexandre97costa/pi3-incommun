@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from "react";
 import axios from 'axios';
 import ip from '../../../ip';
 import authHeader from '../../auth-header'
@@ -16,26 +16,6 @@ const [listaTiposPergunta, setListaTiposPergunta] = useState([])
 
 
 
-function SendCreate() {
-    e.preventDefault()
-
-    const url = baseUrl + "/filmes/create/"
-        const datapost = {
-            titulo: newTitulo,
-            descricao: newDescricao,
-            tipo_pergunta: newTipoPergunta,
-            valor_unitario: newValorUnitario,
-        }
-    
-    axios.post (ip + '')
-}
-
-
-
-
-
-
-
   return (
     			<table className="table table-hover">
 				<tbody>
@@ -47,8 +27,9 @@ function SendCreate() {
 								name="titulo"
 								required="required"
 								placeholder="Introduz o titulo"
-								onChange={handleAddFormChange}
-							/></td>
+								// onChange=
+							/>
+							</td>
 
 
 
@@ -59,7 +40,7 @@ function SendCreate() {
 								name="descricao"
 								required="required"
 								placeholder="Introduz a descrição"
-								onChange={handleAddFormChange}
+								// onChange=
 							/>
 						</td>
 
@@ -72,7 +53,7 @@ function SendCreate() {
 								name="tipo_pergunta"
 								required="required"
 								placeholder="Introduz o tipo de pergunta"
-								onChange={handleAddFormChange}
+								// onChange=
 							/>
 							{/* 
                             <div class="dropdown">
@@ -104,7 +85,7 @@ function SendCreate() {
 								name="valor_unitario"
 								required="required"
 								placeholder="Introduz o valor da pergunta"
-								onChange={handleAddFormChange}
+								// onChange=
 							/>
 						</td>
 
@@ -118,8 +99,8 @@ function SendCreate() {
 
 							<button type="button"
 								className="btn btn-outline-danger"
-								onClick={handleCancelClick}>
-								<i className="bi bi-x-circle"></i>
+								//  onChange
+								><i className="bi bi-x-circle"></i>
 							</button>
 						</td>
 
