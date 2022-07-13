@@ -7,18 +7,24 @@ import ip from '../../ip'
 import mailImg from '../../assets/imgs/mail2.png'
 import { useParams } from "react-router-dom";
 import authHeader from '../auth-header';
+import UpdateEstado from './update_estado';
 
 export default function Pedidos_clienteComponent() {
     const [pedidos, setPedidos] = useState([])
     const [filtroPedido, setFiltroPedido] = useState('id')
     const [ordemPedido, setOrdemPedido] = useState('ASC')
+    const [estados, setEstados] = useState([])
+    const [estado1, setestado1] = useState(1)
+    const [estado2, setestado2] = useState(2)
+    const [estado3, setestado3] = useState(3)
+    const [estado4, setestado4] = useState(4)
     const { idCliente } = useParams();
 
     useEffect(() => {
         axios.get(
             ip + '/clientes/list_pedidos/' +
-            '?cliente=' + idCliente + 
-            '&filtro=' + filtroPedido + 
+            '?cliente=' + idCliente +
+            '&filtro=' + filtroPedido +
             '&ordem=' + ordemPedido,
             authHeader()
         )
@@ -28,6 +34,8 @@ export default function Pedidos_clienteComponent() {
                 }
             })
             .catch(error => { throw new Error(error) });
+        axios.get(ip + '/pedidos/all_estados', authHeader())
+            .then(res => { setEstados(res.data) })
     }, [idCliente, filtroPedido, ordemPedido])
 
 
@@ -36,7 +44,6 @@ export default function Pedidos_clienteComponent() {
         setOrdemPedido(ordem)
         document.getElementById('dropdown-filtro').textContent = texto
     }
-
 
     function LoadPedidos() {
         return (
@@ -64,13 +71,28 @@ export default function Pedidos_clienteComponent() {
                         </td>
                         {/* Estado */}
                         <td className='text-start'>
-                            <span
-                                className={'badge text-start w-100 fw-semibold bg-' + pedido.estado_pedido.cor + '-semi text-' + pedido.estado_pedido.cor + ' fs-6'}
-                                title={pedido.estado_pedido.obs}
-                            >
-                                <i className={'me-2 bi ' + pedido.estado_pedido.icon}></i>
-                                {pedido.estado_pedido.descricao}
-                            </span>
+                            <div className='dropdown'>
+                                <button
+                                    className={
+                                        'btn btn-sm btn-light border-0 w-100 text-start' +
+                                        ' d-flex justify-content-between align-items-center  dropdown-toggle ' +
+                                        ' bg-' + pedido.estado_pedido.cor +
+                                        '-semi text-' + pedido.estado_pedido.cor +
+                                        ' focus-' + pedido.estado_pedido.cor + ' fs-6'
+                                    }
+                                    type='button'
+                                    data-bs-toggle='dropdown'
+                                    title={pedido.estado_pedido.obs} 
+                                   >
+                                    <span >
+                                        {/* <i className={'ms-1 me-2 bi ' + pedido.estado_pedido.icon}></i> */}
+                                        {pedido.estado_pedido.descricao}
+                                    </span>
+                                    
+                                </button>
+                                
+                                <UpdateEstado id={pedido.id}  estados={estados}/>
+                            </div>
                         </td>
                         {/* Valor */}
                         <td className='text-end text-success fs-4 pe-3'>
@@ -112,10 +134,10 @@ export default function Pedidos_clienteComponent() {
                 </div>
             </div>
             <div className='mb-4 g-3 row row-cols-1 row-cols-md-2 row-cols-lg-4 row-cols-xl-4'>
-                <Count estadoId={1} cliente={idCliente} oquecontar={"cliente"} />
-                <Count estadoId={2} cliente={idCliente} oquecontar={"cliente"} />
-                <Count estadoId={3} cliente={idCliente} oquecontar={"cliente"} />
-                <Count estadoId={4} cliente={idCliente} oquecontar={"cliente"} />
+                <Count estadoId={estado1} cliente={idCliente} oquecontar={"cliente"} />
+                <Count estadoId={estado2} cliente={idCliente} oquecontar={"cliente"} />
+                <Count estadoId={estado3} cliente={idCliente} oquecontar={"cliente"} />
+                <Count estadoId={estado4} cliente={idCliente} oquecontar={"cliente"} />
 
             </div>
 

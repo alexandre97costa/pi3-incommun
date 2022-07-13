@@ -18,7 +18,8 @@ export default function UpdateEstado(props) {
                     pedido_id: props.id,
                     estado_id: idEstado
                 },
-                authHeader()
+                authHeader(),
+                alert(props.id + "" + idEstado)
             )
             .then(res => res.data?.success ? props.getPedidos() : alert('Erro no update'))
             .catch(console.log)
