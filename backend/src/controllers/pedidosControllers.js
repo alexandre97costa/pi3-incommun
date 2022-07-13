@@ -166,7 +166,7 @@ module.exports = {
                                 include: { model: Pergunta }
                             }
                         ],
-                        order: [orderArray],
+                        order: [orderArray, [Resposta, 'id', 'ASC']],
                         limit: limite
                     })
                     .then(response => res.status(200).json({ success: true, data: response }))
