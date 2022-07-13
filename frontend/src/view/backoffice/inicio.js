@@ -17,7 +17,7 @@ export default function InicioComponent() {
     const [ordemPedido, setOrdemPedido] = useState('ASC')
     const [filtroEstadoPedido, setFiltroEstadoPedido] = useState(1)
     const [filtroEstadoPedidoDesc, setFiltroEstadoPedidoDesc] = useState('Todos os pedidos')
-    
+
 
     const [contMotivoPreco, setMotivoPreco] = useState(0)
     const [contMotivoConcorrencia, setMotivoConcorrencia] = useState(0)
@@ -52,11 +52,11 @@ export default function InicioComponent() {
                 ip + '/pedidos/all' +
                 '?ordem=' + ordemPedido +
                 '&filtro=' + filtroPedido +
-                '&estado_id=' + filtroEstadoPedido + 
+                '&estado_id=' + filtroEstadoPedido +
                 '&limite=4',
                 authHeader()
             )
-            .then(res => res.data.success ? setPedidos(res.data.data) : console.log(res) )
+            .then(res => res.data.success ? setPedidos(res.data.data) : console.log(res))
             .catch(console.log);
     }, [filtroPedido, ordemPedido, filtroEstadoPedido])
 
@@ -67,7 +67,7 @@ export default function InicioComponent() {
         axios.get(ip + '/pedidos/count?estado_id=0&oquecontar=todos', authHeader())
             .then(res => {
                 setTotalPedidos(res.data.count)
-        })
+            })
 
         axios.get(ip + '/pedidos/count?estado_id=0&oquecontar=todos', authHeader())
             .then(res => {
@@ -275,7 +275,7 @@ export default function InicioComponent() {
             })
         )
     }
-    
+
 
     return (
 
@@ -312,55 +312,7 @@ export default function InicioComponent() {
 
             </div>
 
-              <div className='mb-3 w row'>
 
-                <div className="dropdown bg-white me-2">
-                        <button className=" btn btn-sm btn-outline-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                            <span className='me-2'>{isShown ? 'Resumo Pedidos Recusados' : 'Resumo Estado de Pedidos'}</span>
-                        </button>
-                        <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            <li> 
-                                <button
-                                    className="dropdown-item"
-                                    type='button'
-                                    onClick={e => {
-                                        setIsShown(true)
-                                    }}>
-                                    Resumo Pedidos Recusados
-                                </button>
-                                <button
-                                    className="dropdown-item"
-                                    type='button'
-                                    onClick={e => {
-                                        setIsShown(false)
-                                    }}>
-                                    Resumo Estado de Pedidos
-                                </button>
-                            </li>
-
-                        </ul>
-                </div>
-
-                <div className="mb-5 w">
-                    {isShown && <div className="mb-3 w">
-                        <Chart
-                            chartType="PieChart"
-                            data={data}
-                            width={"100%"}
-                            height={"400px"}
-                        />
-                    </div>}
-
-                    { !isShown && <div className="mb-3 w">
-                        <Chart
-                            chartType="PieChart"
-                            data={data1}
-                            width={"100%"}
-                            height={"400px"}
-                        />
-                    </div>}
-                </div>
-            </div>
 
             <div className="mb-4 row">
                 <div className='col d-flex justify-content-start align-items-center fs-6 fw-normal text-muted'>
@@ -411,15 +363,67 @@ export default function InicioComponent() {
 
                 </div>
             </div>
-
-
             {/* <!-- INICIO ORÇAMENTOS PENDENTES --> */}
 
-
             <div className='mb-4 g-3 row row-cols-1 row-cols-md-2 row-cols-lg-4 row-cols-xl-4'>
-
-
                 <LoadInfoPedidosCliente />
+            </div>
+
+            <div className='row ms-1 col-12'>
+                <div className='mb-4 container-fluid rounded-4 border bg-white shadow col-6'>
+                        <br></br>
+                        <span className='h3 text-dark'>Resumo Pedidos Recusados</span>
+                        <br></br>
+                    <div className="mb-5">
+                        {isShown && <div className="mb-3">
+                            <Chart
+                                chartType="PieChart"
+                                data={data}
+                                width={"100%"}
+                                height={"400px"}
+                            />
+                        </div>}
+                    </div>
+                </div>
+                <div className='mb-4 container-fluid rounded-4 border bg-white shadow col-6'>
+                        <br></br>
+                        <span className='h3 text-dark'>Resumo Estado de Pedidos</span>
+                        <br></br>
+                    {isShown && <div className="mb-3">
+                        <Chart
+                            chartType="PieChart"
+                            data={data1}
+                            width={"100%"}
+                            height={"400px"}
+                        />
+                    </div>}
+                </div>
+            </div>
+            
+            <div className='row ms-1'>
+                <div className='mb-3 w container-fluid rounded-4 border ps-4 bg-white shadow col-12'>
+
+                    {/* Titulo */}
+                    <div className='mb-3 row'>
+                        <div className='col-6'>
+                        <br></br>
+                            <span className='h2 text-dark fw-bold'>
+                                Visitas
+                            </span>
+                            <br></br>
+                        </div>
+                    </div>
+                    <div className='row mb-3'>
+                        <Chart
+                            // chartType='LineChart'
+                            chartType='AreaChart'
+                            width='100%'
+                            height='500px'
+                            data={graph}
+                            //options={options}
+                        />
+                    </div>
+                </div>
             </div>
 
         </div>
