@@ -6,13 +6,6 @@ import ip from '../ip'
 export default function MainComponent() {
 
     const [forms, setForms] = useState([])
-    const [showFirstElement, setShowFirstElement] = useState(false);
-    /*const [showSecondElement, setShowSecondElement] = useState(false);
-    const [showThirdElement, setShowThirdElement] = useState(false);*/
-
-    const toggleFirstElement = () => setShowFirstElement(!showFirstElement);
-    /*const toggleSecondElement = () => setShowSecondElement(!2);
-    const toggleThirdElement = () => setShowThirdElement(!3);*/
 
     useEffect(() => {
         document.title = 'Incommun'
@@ -55,7 +48,7 @@ export default function MainComponent() {
                     </Link>
                 </div>*/
 
-                <div key={form.id} className={((form.id === 1 || form.id === 2 || form.id === 3) ? (form.id === 2)?'collapse  text-end' : 'collapse' : (form.id === 4) ? 'text-end' : 'text-start') + ' my-5'} id={"formulario-" + form.id}>
+                <div key={form.id} className={((form.id === 1 || form.id === 2 || form.id === 3) ? 'collapse multi-collapse' : 'text-end') + ' my-5'} id={form.id}>
                     <div className='fs-1 text-indigo lh-1 py-3'>
                         {form.titulo}
                     </div>
@@ -76,20 +69,20 @@ export default function MainComponent() {
 
     function ButtonsLink() {
         return forms.map((form, index) => {
-            return ((form.id === 1 || form.id === 2 || form.id === 3) &&
-                < div key={form.id} className='col-4 text-center'>
+            return (
+                <div key={form.id}>
                     <button
                         className='btn btn-warning fs-4 fw-normal rounded-0 py-3'
                         type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target={"#formulario-" + form.id}
-                        style={{ width: '300px' }}
+                        data-bs-toggle="collapse" 
+                        data-bs-target={'#' + (form.id)} 
+                        aria-expanded="false" 
+                        aria-controls="collapseExample"
                     >
                         {form.titulo}
                     </button>
-                </div >
+                </div>
             )
-
         })
     }
 
@@ -121,14 +114,7 @@ export default function MainComponent() {
                 </div>
             </div>
 
-            <div className='fs-1 text-indigo lh-1 py-3'>Website</div>
-
-            <div className='row flex-column flex-md-row py-3'>
-                <ButtonsLink />
-            </div>
-
-
-
+            <ButtonsLink />
 
             {forms.length === 0 &&
                 <div className='row justify-content-center my-5'>
