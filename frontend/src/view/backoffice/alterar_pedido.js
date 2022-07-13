@@ -12,6 +12,9 @@ export default function AlterarPedido() {
     const { idPedido } = useParams()
     const [pedido, setPedido] = useState({})
     const [estados, setEstados] = useState([])
+    const [motivos, setMotivos] = useState([])
+
+    const [reverter, setReverter] = useState(false)
 
     // Datas
     const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' }
@@ -23,6 +26,8 @@ export default function AlterarPedido() {
 
         axios.get(ip + '/pedidos/all_estados', authHeader())
             .then(res => { setEstados(res.data) })
+        axios.get(ip + '/pedidos/all_motivos', authHeader())
+            .then(res => { setMotivos(res.data) })
 
     }, [])
 
@@ -40,14 +45,58 @@ export default function AlterarPedido() {
         if (!pedido.respostas) { return }
         return (
             pedido.respostas.map(resposta => {
-                return (
-                    <tr key={resposta.id}>
-                        <td>{resposta.pergunta.titulo}</td>
-                        <td>{resposta.id}</td>
-                        <td>{resposta.valor_unitario}</td>
-                        <td>{resposta.inteiro}</td>
-                    </tr>
-                )
+                switch (resposta.pergunta.tipo_id) {
+                    // checkbox
+                    case 1:
+                        return (
+                            <tr key={resposta.id}>
+                                <td></td>
+                                <td>{resposta.pergunta.titulo}</td>
+                                <td>
+                                    {!!resposta.inteiro ?
+
+                                        <i className='fs-5 bi bi-check-lg text-success'></i>
+                                        :
+                                        <i className='fs-5 bi bi-x-lg text-danger'></i>
+                                    }
+                                </td>
+                                <td>{resposta.valor_unitario}</td>
+                                <td></td>
+                            </tr>
+                        )
+
+                        // r-social-posts
+                        case 7:
+                            return (
+                                <tr key={resposta.id}>
+                                    <td></td>
+                                    <td>{resposta.pergunta.titulo}</td>
+                                    <td>
+                                        {!!resposta.inteiro ?
+    
+                                            <span>{resposta.texto}</span>
+                                            :
+                                            <i className='fs-5 bi bi-x-lg text-danger'></i>
+                                        }
+                                    </td>
+                                    <td>{resposta.valor_unitario}</td>
+                                    <td></td>
+                                </tr>
+                            )
+
+                    default:
+                        return (
+                            <tr key={resposta.id} className='table-danger'>
+                                <td>{resposta.pergunta.tipo_id}</td>
+                                <td>{resposta.pergunta.titulo}</td>
+                                <td>{resposta.id}</td>
+                                <td>{resposta.valor_unitario}</td>
+                                <td>{resposta.inteiro}</td>
+                            </tr>
+                        )
+                        break;
+                }
+
             })
 
         )
@@ -72,10 +121,11 @@ export default function AlterarPedido() {
                                 }
                                 type='button'
                                 data-bs-toggle='dropdown'
+                                data-bs-auto-close='outside'
                             >
                                 {pedido.estado_pedido?.descricao ?? ''}
                             </button>
-                            <UpdateEstado id={pedido.id} getPedidos={getPedido} estados={estados} />
+                            <UpdateEstado id={pedido.id} getPedidos={getPedido} estados={estados} motivos={motivos} />
                         </div>
                     </span>
                     <span className='fs-6 fw-normal text-muted'>
@@ -112,10 +162,11 @@ export default function AlterarPedido() {
                         <table className='table'>
                             <thead>
                                 <tr className=''>
+                                    <th className='text-start' style={{ width: '' }}>tipo</th>
                                     <th className='text-start' style={{ width: '' }}>Pergunta</th>
                                     <th className='text-start' style={{ width: '' }}>Resposta</th>
                                     <th className='text-start' style={{ width: '' }}>Valor Unitário</th>
-                                    <th className='text-start' style={{ width: '' }}>Quantidade</th>
+                                    <th className='text-start' style={{ width: '' }}>quant</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -134,11 +185,32 @@ export default function AlterarPedido() {
             {!!(pedido.respostas?.length ?? 0) &&
                 <div className='row mb-5'>
                     <div className='col-12 d-flex justify-content-end'>
-                        <button
-                            className='btn btn-outline-dark rounded-3 me-3'
-                        >
-                            Reverter alterações
-                        </button>
+
+                        {!reverter ?
+
+                            <button
+                                className='btn btn-outline-dark rounded-3 me-3'
+                                onClick={e => { setReverter(true) }}
+                            >
+                                Reverter alterações
+                            </button>
+                            :
+                            <div className=''>
+                                <span className='me-3'>Tem a certeza?</span>
+                                <button
+                                    className='btn btn-danger rounded-3 me-3'
+                                    onClick={e => { getPedido(); setReverter(false) }}
+                                >
+                                    Reverter alterações
+                                </button>
+                                <button
+                                    className='btn btn-outline-dark rounded-3 me-3 px-5'
+                                    onClick={e => { setReverter(false) }}
+                                >
+                                    Cancelar
+                                </button>
+                            </div>
+                        }
                         <button
                             className='btn btn-warning rounded-3'
                         >

@@ -15,6 +15,8 @@ export default function PedidosComponent() {
     const [pedidos, setPedidos] = useState([])
     const [totalPedidos, setTotalPedidos] = useState(0)
     const [estados, setEstados] = useState([])
+    const [motivos, setMotivos] = useState([])
+
     const [filtroPedido, setFiltroPedido] = useState('id')
     const [ordemPedido, setOrdemPedido] = useState('ASC')
     const [filtroEstadoPedido, setFiltroEstadoPedido] = useState(0)
@@ -51,9 +53,11 @@ export default function PedidosComponent() {
                 setTotalPedidos(res.data.count)
             })
 
-        // Get os estados todos que houver na bd (para o filtro/dropdown)
         axios.get(ip + '/pedidos/all_estados', authHeader())
             .then(res => { setEstados(res.data) })
+
+        axios.get(ip + '/pedidos/all_motivos', authHeader())
+            .then(res => { setMotivos(res.data) })
 
         // Get dica do dia
         axios.get('https://api.quotable.io/random?tags=success|inspirational|happiness')
@@ -104,6 +108,7 @@ export default function PedidosComponent() {
                                     }
                                     type='button'
                                     data-bs-toggle='dropdown'
+                                    data-bs-auto-close='outside'
                                     title={pedido.estado_pedido.obs}
                                 >
                                     <span>
@@ -111,7 +116,7 @@ export default function PedidosComponent() {
                                         {pedido.estado_pedido.descricao}
                                     </span>
                                 </button>
-                                <UpdateEstado id={pedido.id} getPedidos={getPedidos} estados={estados}/>
+                                <UpdateEstado id={pedido.id} getPedidos={getPedidos} estados={estados} motivos={motivos}/>
                             </div>
                         </td>
                         {/* Valor */}

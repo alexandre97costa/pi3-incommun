@@ -161,11 +161,12 @@ module.exports = {
                             { model: Cliente },
                             { model: EstadoPedido },
                             { model: MotivoRecusa },
-                            { model: Resposta, 
+                            {
+                                model: Resposta,
                                 include: { model: Pergunta }
                             }
                         ],
-                        order: [orderArray],
+                        order: [orderArray, [Resposta, 'id', 'ASC']],
                         limit: limite
                     })
                     .then(response => res.status(200).json({ success: true, data: response }))
@@ -176,7 +177,16 @@ module.exports = {
     all_estados: async (req, res) => {
         await sequelize.sync()
             .then(async () => {
-                await EstadoPedido.findAll().then(response => {
+                await EstadoPedido.findAll({ order: [['id', 'ASC']] }).then(response => {
+                    res.send(response)
+                })
+            })
+    },
+
+    all_motivos: async (req, res) => {
+        await sequelize.sync()
+            .then(async () => {
+                await MotivoRecusa.findAll({ order: [['id', 'ASC']] }).then(response => {
                     res.send(response)
                 })
             })
@@ -288,17 +298,23 @@ module.exports = {
     },
 
     update_estado: async (req, res) => {
-        // res.json({body: req.body})
-        if (!req.body.pedido_id || !req.body.estado_id) { res.status(400); return }
+        if (
+            !req.body.pedido_id ||
+            !req.body.estado_id
+        ) { res.status(400); return }
 
-        const pedidoId = req.body.pedido_id
-        const estadoId = req.body.estado_id
+        const pedidoId = parseInt(req.body.pedido_id)
+        const estadoId = parseInt(req.body.estado_id)
+        const motivoId = !!parseInt(req.body.motivo_id) ? parseInt(req.body.motivo_id) : null
 
         await sequelize.sync()
             .then(async () => {
                 await Pedido
                     .update(
-                        { estado_id: estadoId },
+                        {
+                            estado_id: estadoId,
+                            motivo_id: !!motivoId ? motivoId : null,
+                        },
                         { where: { id: pedidoId } }
                     )
                     .then(result => { res.status(200).json({ success: true, result }) })
