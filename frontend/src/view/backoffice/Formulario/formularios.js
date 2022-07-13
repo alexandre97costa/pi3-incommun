@@ -120,11 +120,6 @@ export default function FormulariosComponente() {
 											>
 												<div className='accordion-body'>
 
-
-
-
-
-
 													<table className="table table-hover">
 														<thead className='fw-semibold'>
 															<tr>
@@ -135,11 +130,9 @@ export default function FormulariosComponente() {
 																<td style={{ width: "10%" }}>Ações</td>
 															</tr>
 														</thead>
-
-
 													</table>
 
-													{grupo.pergunta.map(pergunta => {
+													{grupo.perguntas.map(pergunta => {
 														return (
 															(editPerguntaId === pergunta.id) ?
 																<EditableRow key={pergunta.id} id={pergunta.id} editForm={editForm}
