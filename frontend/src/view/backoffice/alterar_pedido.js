@@ -45,14 +45,58 @@ export default function AlterarPedido() {
         if (!pedido.respostas) { return }
         return (
             pedido.respostas.map(resposta => {
-                return (
-                    <tr key={resposta.id}>
-                        <td>{resposta.pergunta.titulo}</td>
-                        <td>{resposta.id}</td>
-                        <td>{resposta.valor_unitario}</td>
-                        <td>{resposta.inteiro}</td>
-                    </tr>
-                )
+                switch (resposta.pergunta.tipo_id) {
+                    // checkbox
+                    case 1:
+                        return (
+                            <tr key={resposta.id}>
+                                <td></td>
+                                <td>{resposta.pergunta.titulo}</td>
+                                <td>
+                                    {!!resposta.inteiro ?
+
+                                        <i className='fs-5 bi bi-check-lg text-success'></i>
+                                        :
+                                        <i className='fs-5 bi bi-x-lg text-danger'></i>
+                                    }
+                                </td>
+                                <td>{resposta.valor_unitario}</td>
+                                <td></td>
+                            </tr>
+                        )
+
+                        // r-social-posts
+                        case 7:
+                            return (
+                                <tr key={resposta.id}>
+                                    <td></td>
+                                    <td>{resposta.pergunta.titulo}</td>
+                                    <td>
+                                        {!!resposta.inteiro ?
+    
+                                            <span>{resposta.texto}</span>
+                                            :
+                                            <i className='fs-5 bi bi-x-lg text-danger'></i>
+                                        }
+                                    </td>
+                                    <td>{resposta.valor_unitario}</td>
+                                    <td></td>
+                                </tr>
+                            )
+
+                    default:
+                        return (
+                            <tr key={resposta.id} className='table-danger'>
+                                <td>{resposta.pergunta.tipo_id}</td>
+                                <td>{resposta.pergunta.titulo}</td>
+                                <td>{resposta.id}</td>
+                                <td>{resposta.valor_unitario}</td>
+                                <td>{resposta.inteiro}</td>
+                            </tr>
+                        )
+                        break;
+                }
+
             })
 
         )
@@ -118,10 +162,11 @@ export default function AlterarPedido() {
                         <table className='table'>
                             <thead>
                                 <tr className=''>
+                                    <th className='text-start' style={{ width: '' }}>tipo</th>
                                     <th className='text-start' style={{ width: '' }}>Pergunta</th>
                                     <th className='text-start' style={{ width: '' }}>Resposta</th>
                                     <th className='text-start' style={{ width: '' }}>Valor Unitário</th>
-                                    <th className='text-start' style={{ width: '' }}>Quantidade</th>
+                                    <th className='text-start' style={{ width: '' }}>quant</th>
                                 </tr>
                             </thead>
                             <tbody>
