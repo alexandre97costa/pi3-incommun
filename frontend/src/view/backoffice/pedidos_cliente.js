@@ -13,14 +13,11 @@ export default function Pedidos_clienteComponent() {
     const [pedidos, setPedidos] = useState([])
     const [filtroPedido, setFiltroPedido] = useState('id')
     const [ordemPedido, setOrdemPedido] = useState('ASC')
+    const [motivos, setMotivos] = useState([])
     const [estados, setEstados] = useState([])
-    const [estado1, setestado1] = useState(1)
-    const [estado2, setestado2] = useState(2)
-    const [estado3, setestado3] = useState(3)
-    const [estado4, setestado4] = useState(4)
     const { idCliente } = useParams();
-
-    useEffect(() => {
+    function getPedidos() {
+    
         axios.get(
             ip + '/clientes/list_pedidos/' +
             '?cliente=' + idCliente +
@@ -36,9 +33,13 @@ export default function Pedidos_clienteComponent() {
             .catch(error => { throw new Error(error) });
         axios.get(ip + '/pedidos/all_estados', authHeader())
             .then(res => { setEstados(res.data) })
+            axios.get(ip + '/pedidos/all_motivos', authHeader())
+            .then(res => { setMotivos(res.data) })
+    }
+   
+    useEffect(() => {
+        getPedidos()
     }, [idCliente, filtroPedido, ordemPedido])
-
-
     function handleFiltro(filtro, ordem, texto) {
         setFiltroPedido(filtro)
         setOrdemPedido(ordem)
@@ -82,16 +83,15 @@ export default function Pedidos_clienteComponent() {
                                     }
                                     type='button'
                                     data-bs-toggle='dropdown'
-                                    title={pedido.estado_pedido.obs} 
-                                   >
-                                    <span >
+                                    data-bs-auto-close='outside'
+                                    title={pedido.estado_pedido.obs}
+                                >
+                                    <span>
                                         {/* <i className={'ms-1 me-2 bi ' + pedido.estado_pedido.icon}></i> */}
                                         {pedido.estado_pedido.descricao}
                                     </span>
-                                    
                                 </button>
-                                
-                                <UpdateEstado id={pedido.id}  estados={estados}/>
+                                <UpdateEstado id={pedido.id} getPedidos={getPedidos} estados={estados} motivos={motivos}/>
                             </div>
                         </td>
                         {/* Valor */}
@@ -134,10 +134,10 @@ export default function Pedidos_clienteComponent() {
                 </div>
             </div>
             <div className='mb-4 g-3 row row-cols-1 row-cols-md-2 row-cols-lg-4 row-cols-xl-4'>
-                <Count estadoId={estado1} cliente={idCliente} oquecontar={"cliente"} />
-                <Count estadoId={estado2} cliente={idCliente} oquecontar={"cliente"} />
-                <Count estadoId={estado3} cliente={idCliente} oquecontar={"cliente"} />
-                <Count estadoId={estado4} cliente={idCliente} oquecontar={"cliente"} />
+                <Count estadoId={1} cliente={idCliente} oquecontar={"cliente"} />
+                <Count estadoId={2} cliente={idCliente} oquecontar={"cliente"} />
+                <Count estadoId={3} cliente={idCliente} oquecontar={"cliente"} />
+                <Count estadoId={4} cliente={idCliente} oquecontar={"cliente"} />
 
             </div>
 
