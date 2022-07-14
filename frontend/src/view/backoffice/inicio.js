@@ -15,7 +15,7 @@ export default function InicioComponent() {
     const [estados, setEstados] = useState([])
     const [filtroPedido, setFiltroPedido] = useState('id')
     const [ordemPedido, setOrdemPedido] = useState('ASC')
-    const [filtroEstadoPedido, setFiltroEstadoPedido] = useState(1)
+    const [filtroEstadoPedido, setFiltroEstadoPedido] = useState(0)
     const [filtroEstadoPedidoDesc, setFiltroEstadoPedidoDesc] = useState('Todos os pedidos')
 
 
@@ -45,6 +45,7 @@ export default function InicioComponent() {
     //visitas
     const [visitas, setVisitas] = useState([[]])
     const [graph, setGraph] = useState([])
+    const [pedidosGraph, setPedidosGraph] = useState([])
 
     useEffect(() => {
         axios
@@ -59,6 +60,10 @@ export default function InicioComponent() {
             .then(res => res.data.success ? setPedidos(res.data.data) : console.log(res))
             .catch(console.log);
     }, [filtroPedido, ordemPedido, filtroEstadoPedido])
+
+    useEffect(() => {
+        console.log('pedidos:', pedidos)
+    }, [pedidos])
 
     useEffect(() => {
         //get total de pedidos
@@ -171,7 +176,7 @@ export default function InicioComponent() {
 
 
     function LoadInfoPedidosCliente() {
-        if (!pedidos.length) { return; }
+        if (!pedidos.length) { return }
         return (
             pedidos.map(pedido => {
                 return (
@@ -296,7 +301,7 @@ export default function InicioComponent() {
     //GRÁFICO DE VISITAS
     useEffect(() => {
         getVisitas()
-        getPedidos()
+        getPedidosGraph()
     }, [])
 
     //GRÁFICO DE VISITAS
@@ -332,7 +337,7 @@ export default function InicioComponent() {
         }
 
         let plot = Array.from(visitas[0], (item, i) => {
-            return [i, ...visitas.map(v => v[i]), ...pedidos.map(p => p[i])]
+            return [i, ...visitas.map(v => v[i]), ...pedidosGraph.map(p => p[i])]
         })
 
 
@@ -355,7 +360,7 @@ export default function InicioComponent() {
     }
 
     //function get pedidos para gráfico de visitas
-    function getPedidos() {
+    function getPedidosGraph() {
         axios.get(
             ip + '/graph/pedidos/' + vista +
             '?form_id=' + formId +
@@ -363,7 +368,7 @@ export default function InicioComponent() {
             '&offset_dias=' + offsetDias +
             '&offset_semanas=' + offsetSemanas
             , authHeader())
-            .then(res => setPedidos(res.data.matrix))
+            .then(res => setPedidosGraph(res.data.matrix))
             .catch(console.error)
     }
 
