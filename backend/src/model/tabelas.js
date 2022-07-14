@@ -263,8 +263,18 @@ Grupo.belongsTo(Formulario, {
 // ? as perguntas não precisam de necessariamente ter um grupo
 // * Não há nenhum caso disto, mas não é impossível,
 // * daí a foreignKey poder ser null
-Grupo.hasMany(Pergunta, { foreignKey: 'grupo_id' });
-Pergunta.belongsTo(Grupo, { foreignKey: 'grupo_id' });
+Grupo.hasMany(Pergunta, { 
+    foreignKey: {
+        name: 'grupo_id',
+        allowNull: false
+    }
+});
+Pergunta.belongsTo(Grupo, { 
+    foreignKey: {
+        name: 'grupo_id',
+        allowNull: false
+    }
+});
 
 // ######################################################
 

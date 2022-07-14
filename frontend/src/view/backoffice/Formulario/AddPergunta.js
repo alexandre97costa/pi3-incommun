@@ -3,111 +3,95 @@ import axios from 'axios';
 import ip from '../../../ip';
 import authHeader from '../../auth-header'
 
-const AddRow = ({handleCancelClick,id}) => {
+export default function AddPergunta({ handleCancelClick }) {
 
 
-const [dataPergunta, setDataPergunta]= useState("");
-const [newTitulo, setNewTitulo] = useState("");
-const [newDescricao, setNewDescricao] = useState("");
-const [newTipoPergunta, setNewTipoPergunta] = useState("");
-const [newValorUnitario, setNewValorUnitario] = useState("");
-
-const [listaTiposPergunta, setListaTiposPergunta] = useState([])
+	const [newTituloPergunta, setNewTituloPergunta] = useState('')
+	const [newDescricaoPergunta, setNewDescricaoPergunta] = useState('')
+	const [newTipoPergunta, setNewTipoPergunta] = useState('')
+	const [newValorPergunta, setNewValorPergunta] = useState('')
 
 
-
-  return (
-    			<table className="table table-hover">
-				<tbody>
-					<tr>
-						<td style={{ width: "30%" }}>
-							<input
-								className="form-control focus-warning"
-								type="text"
-								name="titulo"
-								required="required"
-								placeholder="Introduz o titulo"
-								// onChange=
-							/>
-							</td>
+	function handleNovaPergunta(e) {
+		e.preventDefault()
 
 
+		axios.post(ip + '/forms/add',
+			{
 
-						<td style={{ width: "40%" }}>
-							<input
-								className="form-control focus-warning"
-								type="text"
-								name="descricao"
-								required="required"
-								placeholder="Introduz a descrição"
-								// onChange=
-							/>
-						</td>
+				titulo: newTituloPergunta,
+				descricao: newDescricaoPergunta,
+				tipo_pergunta: parseInt(newTipoPergunta),
+				valor_unitario: parseFloat(newValorPergunta),
 
 
+			}, authHeader())
 
-						<td style={{ width: "10%" }}>
-							<input
-								className="form-control focus-warning"
-								type="text"
-								name="tipo_pergunta"
-								required="required"
-								placeholder="Introduz o tipo de pergunta"
-								// onChange=
-							/>
-							{/* 
-                            <div class="dropdown">
-                                <button class="form-control focus-warning dropdown-toggle"
-                                    type="button"
-                                    id="dropdownMenu2"
-                                    data-bs-toggle="dropdown"
-                                    aria-expanded="false">
+			.then(function (data) {
+				window.location.reload()
+			})
+			.catch(error => {
+				return error;
+			})
 
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                                    <li>
-                                        <button class="dropdown-item"
-                                            type="button">
-                                            {LoadTiposPergunta}
-                                        </button>
-                                    </li>
-                                </ul>
-                            </div> 
-
- */}
-						</td>
+	}
 
 
-						<td style={{ width: "10%" }}>
-							<input
-								className="form-control focus-warning"
-								type="number"
-								name="valor_unitario"
-								required="required"
-								placeholder="Introduz o valor da pergunta"
-								// onChange=
-							/>
-						</td>
+	return (
+		<form onSubmit={handleNovaPergunta}>
 
 
+			<input
+				className="form-control focus-warning"
+				type="text"
+				name="titulo"
+				required="required"
+				placeholder="Introduz o titulo"
+				onChange={e => setNewTituloPergunta(e.target.value)}
+			/>
 
-						<td style={{ width: "10%" }}>
-							<button type="submit"
-								className="btn btn-outline-info mx-2">
-								<i className="bi bi-box-arrow-down"></i>
-							</button>
+			<input
+				className="form-control focus-warning"
+				type="text"
+				name="descricao"
+				required="required"
+				placeholder="Introduz o titulo"
+				onChange={e => setNewDescricaoPergunta(e.target.value)}
+			/>
 
-							<button type="button"
-								className="btn btn-outline-danger"
-								//  onChange
-								><i className="bi bi-x-circle"></i>
-							</button>
-						</td>
+			<input
+				className="form-control focus-warning"
+				type="text"
+				name="tipo_pergunta"
+				required="required"
+				placeholder="Introduz o titulo"
+				onChange={e => setNewTipoPergunta(e.target.value)}
+			/>
 
-					</tr>
-				</tbody>
-			</table>
-  )
-}
+			<input
+				className="form-control focus-warning"
+				type="number"
+				name="valor_unitario"
+				required="required"
+				placeholder="Introduz o titulo"
+				onChange={e => setNewValorPergunta(e.target.value)}
+			/>
 
-export default AddRow
+
+			<button type="submit">Add</button>
+
+			<button type="submit"
+				className="btn btn-outline-success mx-2">
+				<i className="bi bi-plus-circle"></i>
+			</button>
+
+			<button type="button"
+				className="btn btn-outline-danger"
+				onClick={handleCancelClick}>
+				<i className="bi bi-x-circle"></i>
+			</button>
+
+		</form>
+	)
+
+};

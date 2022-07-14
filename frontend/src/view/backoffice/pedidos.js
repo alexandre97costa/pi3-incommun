@@ -177,7 +177,7 @@ export default function PedidosComponent() {
     }
 
     return (
-        <div className="col overflow-auto h-sm-100 px-5 pt-4">
+        <div className="col overflow-auto h-sm-100 px-5 pt-4 bg-light">
 
             {/* Titulo */}
             <div className="mb-3 row">

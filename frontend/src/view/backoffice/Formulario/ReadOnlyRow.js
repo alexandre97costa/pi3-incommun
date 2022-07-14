@@ -39,9 +39,10 @@ const ReadOnlyRow = ({ pergunta, handleEditClick }) => {
                             className="btn btn-outline-warning mx-2"
                             onClick={(e) => handleEditClick(e, pergunta)}
                         ><i className="bi bi-pencil-square"></i></button>
-
                     </td>
+                    
                 </tr>
+               
             </tbody>
         </table>
 
