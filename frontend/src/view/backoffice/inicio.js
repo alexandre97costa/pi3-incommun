@@ -29,22 +29,22 @@ export default function InicioComponent() {
     const [contEstadoAceite, setEstadoAceite] = useState(0)
     const [contEstadoRecusado, setEstadoRecusado] = useState(0)
 
+    const [isShown, setIsShown] = useState(true);
+    const [username, setUsername] = useState('')
+    const [dicaDoDia, setDicaDoDia] = useState('')
+    const [autorDica, setAutorDica] = useState('')
+
+    //visitas
     const [vista, setVista] = useState('semana') // dia|semana
     const [unidade, setUnidade] = useState('Horas') // Horas/Dias
-
+    //visitas
     const [formId, setFormId] = useState(0)
     const [stack, setStack] = useState(1)
     const [offsetDias, setOffsetDias] = useState(0)
     const [offsetSemanas, setOffsetSemanas] = useState(0)
-
+    //visitas
     const [visitas, setVisitas] = useState([[]])
     const [graph, setGraph] = useState([])
-
-    const [isShown, setIsShown] = useState(true);
-
-    const [username, setUsername] = useState('')
-    const [dicaDoDia, setDicaDoDia] = useState('')
-    const [autorDica, setAutorDica] = useState('')
 
     useEffect(() => {
         axios
@@ -61,46 +61,37 @@ export default function InicioComponent() {
     }, [filtroPedido, ordemPedido, filtroEstadoPedido])
 
     useEffect(() => {
-        // Get total de pedidos
-        // por defeito, sem mandar nenhuma query (nem estado nem dias),
-        // conta todos os pedidos dos ultimos 30 dias
+        //get total de pedidos
         axios.get(ip + '/pedidos/count?estado_id=0&oquecontar=todos', authHeader())
             .then(res => {
                 setTotalPedidos(res.data.count)
             })
 
-        axios.get(ip + '/pedidos/count?estado_id=0&oquecontar=todos', authHeader())
-            .then(res => {
-                setTotalPedidos(res.data.count)
-            })
-
-        // Get dica do dia
-        axios.get('https://api.quotable.io/random?tags=success|inspirational|happiness')
-            .then(res => {
-                setAutorDica(res.data.author)
-                setDicaDoDia(res.data.content)
-            })
-
+        //get total de pedidos recusados
         axios.get(ip + '/pedidos/count?estado_id=4&oquecontar=todos', authHeader())
             .then(res => {
                 setTotalPedidosRecusados(res.data.count)
             })
-
+        
+        //get pedidos recusados por preço
         axios.get(ip + '/pedidos/count?motivo_id=1&oquecontar=motivo', authHeader())
             .then(res => {
                 setMotivoPreco(res.data.count)
             })
 
+        //get pedidos recusados por concorrencia
         axios.get(ip + '/pedidos/count?motivo_id=2&oquecontar=motivo', authHeader())
             .then(res => {
                 setMotivoConcorrencia(res.data.count)
             })
 
+        //get pedidos recusados nao estava espera
         axios.get(ip + '/pedidos/count?motivo_id=3&oquecontar=motivo', authHeader())
             .then(res => {
                 setMotivoNaoEstavaEspera(res.data.count)
             })
 
+        //get pedido recusado outro
         axios.get(ip + '/pedidos/count?motivo_id=4&oquecontar=motivo', authHeader())
             .then(res => {
                 setMotivoOutro(res.data.count)
@@ -112,16 +103,19 @@ export default function InicioComponent() {
                 setEstadoPendente(res.data.count)
             })
 
+        //get pedidos enviados
         axios.get(ip + '/pedidos/count?estado_id=2&oquecontar=todos', authHeader())
             .then(res => {
                 setEstadoEnviado(res.data.count)
             })
 
+        //get pedidos aceites
         axios.get(ip + '/pedidos/count?estado_id=3&oquecontar=todos', authHeader())
             .then(res => {
                 setEstadoAceite(res.data.count)
             })
-
+        
+        //get pedidos recusados
         axios.get(ip + '/pedidos/count?estado_id=4&oquecontar=todos', authHeader())
             .then(res => {
                 setEstadoRecusado(res.data.count)
@@ -129,7 +123,6 @@ export default function InicioComponent() {
     }, [])
 
     useEffect(() => {
-
         // Get total de pedidos
         // por defeito, sem mandar nenhuma query (nem estado nem dias),
         // conta todos os pedidos dos ultimos 30 dias
@@ -178,10 +171,10 @@ export default function InicioComponent() {
 
 
     function LoadInfoPedidosCliente() {
+        if (!pedidos.length) { return; }
         return (
             pedidos.map(pedido => {
                 return (
-
                     <div className='col d-flex flex-column' key={pedido.id}>
 
                         <div className='container-fluid rounded-4 border ps-4 bg-white shadow'>
@@ -190,37 +183,37 @@ export default function InicioComponent() {
                                 {/* Cliente */}
                                 <div className='mt-2 text-center text-dark lh-sm'>
                                     <span className='fs-5 fw-semibold position-relative'>
-                                        {pedido.cliente.nome}
+                                        {pedido.cliente?.nome}
                                     </span>
                                     <span className='d-none fs-5 fw-semibold text-warning ms-2 '>
                                         {'#' + pedido.cliente_id}
                                     </span>
                                     <br />
                                     <span className='badge p-0 fw-semibold text-light-dark lh-sm'>
-                                        {pedido.cliente.empresa}
+                                        {pedido.cliente?.empresa}
                                     </span>
                                 </div>
 
                                 {/* Valor */}
                                 <div className='mt-2 text-center text-success fs-4'>
-                                    {pedido.valor_total.toFixed(2)}
+                                    {pedido.valor_total?.toFixed(2)}
                                 </div>
 
                                 {/* Data */}
                                 <div className='mt-2 text-center '>
                                     <span className='text-muted badge fw-normal align-middle'>
-                                        {new Date(pedido.created_at).toISOString().split('T')[0]}
+                                        {new Date(pedido.created_at ?? null)?.toISOString().split('T')[0]}
                                     </span>
                                 </div>
 
                                 {/* Estado */}
                                 <div className='mt-2'>
                                     <span
-                                        className={'badge w-100 fw-semibold bg-' + pedido.estado_pedido.cor + '-semi text-' + pedido.estado_pedido.cor + ' fs-6'}
-                                        title={pedido.estado_pedido.obs}
+                                        className={'badge w-100 fw-semibold bg-' + pedido.estado_pedido?.cor + '-semi text-' + pedido.estado_pedido?.cor + ' fs-6'}
+                                        title={pedido.estado_pedido?.obs}
                                     >
-                                        <i className={'me-2 bi ' + pedido.estado_pedido.icon}></i>
-                                        {pedido.estado_pedido.descricao}
+                                        <i className={'me-2 bi ' + pedido.estado_pedido?.icon}></i>
+                                        {pedido.estado_pedido?.descricao}
                                     </span>
                                 </div>
 
@@ -276,12 +269,107 @@ export default function InicioComponent() {
         )
     }
 
+    // OPTIONS do gráfico de visitas
+    const options = {
+        hAxis: {
+            title: unidade,
+            type: 'number',
+            format:'0',
+            viewWindowMode: 'explicit',
+            viewWindow: {
+                max: unidade==='Horas' ? 23 : 6,
+                min: 0,
+                interval: 1,
+            },
+        },
+        vAxis: {
+            type: 'number',
+            format:'0'
+        },
+        // series: [{ color: 'red', lineWidth: 3 }, { lineWidth: 0.5, color: 'red' }],
+        series: [{color: 'skyblue'}, {color: 'teal'}],
+        curveType: 'function',
+        chartArea: { 'width': '90%', 'height': '70%' },
+        legend: { position: 'top' },
+    }
+
+    //GRÁFICO DE VISITAS
+    useEffect(() => {
+        getVisitas()
+        getPedidos()
+    }, [])
+
+    //GRÁFICO DE VISITAS
+    useEffect(() => {
+        if (vista === 'dia') { setUnidade('Horas') }
+        if (vista === 'semana') { setUnidade('Dias') }
+    }, [vista])
+
+    //GRÁFICO DE VISITAS
+    useEffect(() => {
+        // 1 - Usar o stack para saber quantas linhas há
+        // 2 - O primeiro item tem que ser a unidade de medida
+
+        let header = Array(1 + (stack * 2))
+        header[0] = unidade
+
+        for (let i = 1; i <= stack; i++) {
+            if (vista === 'dia') {
+                const date = new Date();
+                const options = { weekday: 'short', day: 'numeric', month: 'long' };
+                date.setDate(date.getDate() - i + 1)
+                const localeDate = date.toLocaleDateString('pt-PT', options)
+
+                header[i] = 'Visitas'
+                header[i + stack] = 'Pedidos'
+                // header[i] = 'Visitas de ' + localeDate
+                // header[i + stack] = 'Pedidos de ' + localeDate
+            }
+            if (vista === 'semana') {
+                header[i] = 'Visitas'
+                header[i + stack] = 'Pedidos'
+            }
+        }
+
+        let plot = Array.from(visitas[0], (item, i) => {
+            return [i, ...visitas.map(v => v[i]), ...pedidos.map(p => p[i])]
+        })
+
+
+        console.log([header, ...plot])
+        setGraph([header, ...plot])
+
+    }, [visitas, pedidos])
+
+    //function get visitas para gráfico de visitas
+    function getVisitas() {
+        axios.get(
+            ip + '/graph/visitas/' + vista +
+            '?form_id=' + formId +
+            '&stack=' + stack +
+            '&offset_dias=' + offsetDias +
+            '&offset_semanas=' + offsetSemanas
+            , authHeader())
+            .then(res => setVisitas(res.data.matrix))
+            .catch(console.error)
+    }
+
+    //function get pedidos para gráfico de visitas
+    function getPedidos() {
+        axios.get(
+            ip + '/graph/pedidos/' + vista +
+            '?form_id=' + formId +
+            '&stack=' + stack +
+            '&offset_dias=' + offsetDias +
+            '&offset_semanas=' + offsetSemanas
+            , authHeader())
+            .then(res => setPedidos(res.data.matrix))
+            .catch(console.error)
+    }
+
 
     return (
-
-
-        <div className="col overflow-auto h-sm-100 px-5 pt-4">
-
+        <div className="col overflow-auto h-sm-100 px-5 pt-4 bg-light">
             {/* Titulo */}
             <div className="mb-4 row">
                 <div className='col-6'>
@@ -303,13 +391,11 @@ export default function InicioComponent() {
                 </div>
             </div>
 
-
             <div className='mb-5 g-3 row row-cols-1 row-cols-md-2 row-cols-lg-4 row-cols-xl-4'>
                 <Count estadoId={0} oquecontar={"todos"} />
                 <Count estadoId={2} oquecontar={"todos"} />
                 <Count estadoId={3} oquecontar={"todos"} />
                 <Count estadoId={4} oquecontar={"todos"} />
-
             </div>
 
 
@@ -369,6 +455,41 @@ export default function InicioComponent() {
                 <LoadInfoPedidosCliente />
             </div>
 
+
+            {/**********************Inicio Gráfico de Visitas**********************/}
+
+            <div className='row mb-4 g-4'>
+                <div className='col-12'>
+                    <div className=' rounded-4 border ps-4 bg-white shadow '>
+
+
+                        {/* Titulo */}
+                        <div className='row'>
+                            <div className='col-6'>
+                                <br></br>
+                                <span className='h2 text-dark fw-bold'>
+                                    Visitas
+                                </span>
+                                <br></br>
+                            </div>
+                        </div>
+                        <div className='row'>
+                            <Chart
+                                // chartType='LineChart'
+                                chartType='AreaChart'
+                                width='100%'
+                                height='500px'
+                                data={graph}
+                                options={options}
+                            />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            {/**********************Inicio Pie Charts**********************/}
+
             <div className='row mb-4 g-4 '>
                 <div className='col-6'>
                     <div className='rounded-4 border bg-white shadow p-4'>
@@ -401,38 +522,9 @@ export default function InicioComponent() {
                     </div>
                 </div>
             </div>
-
-            <div className='row mb-4 g-4'>
-                <div className='col-12'>
-                    <div className=' rounded-4 border ps-4 bg-white shadow '>
-
-
-                        {/* Titulo */}
-                        <div className='row'>
-                            <div className='col-6'>
-                                <br></br>
-                                <span className='h2 text-dark fw-bold'>
-                                    Visitas
-                                </span>
-                                <br></br>
-                            </div>
-                        </div>
-                        <div className='row'>
-                            <Chart
-                                // chartType='LineChart'
-                                chartType='AreaChart'
-                                width='100%'
-                                height='500px'
-                                data={graph}
-                            //options={options}
-                            />
-                        </div>
-                    </div>
-                </div>
-            </div>
-
         </div>
 
+    
 
 
     )
