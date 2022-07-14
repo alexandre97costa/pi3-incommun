@@ -49,9 +49,15 @@ export default function AlterarPedido() {
                     // checkbox
                     case 1:
                         return (
-                            <tr key={resposta.id}>
+                            <tr key={resposta.id} className={'fw-normal text-secondary'}>
                                 <td></td>
-                                <td>{resposta.pergunta.titulo}</td>
+                                <td className={
+                                    !!resposta.inteiro ?
+                                        'fw-bold text-dark' :
+                                        'fw-normal text-secondary'
+                                }>
+                                    {resposta.pergunta.titulo}
+                                </td>
                                 <td>
                                     {!!resposta.inteiro ?
 
@@ -65,28 +71,114 @@ export default function AlterarPedido() {
                             </tr>
                         )
 
-                        // r-social-posts
-                        case 7:
-                            return (
-                                <tr key={resposta.id}>
-                                    <td></td>
-                                    <td>{resposta.pergunta.titulo}</td>
-                                    <td>
-                                        {!!resposta.inteiro ?
-    
-                                            <span>{resposta.texto}</span>
-                                            :
-                                            <i className='fs-5 bi bi-x-lg text-danger'></i>
-                                        }
-                                    </td>
-                                    <td>{resposta.valor_unitario}</td>
-                                    <td></td>
-                                </tr>
-                            )
+                    // r-social-posts
+                    case 7:
+                        const posts7 = resposta.texto.split(', ')[0]
+                        return (
+                            <tr key={resposta.id}>
+                                <td></td>
+                                <td className={
+                                    !!resposta.inteiro ?
+                                        'fw-bold text-dark' :
+                                        'fw-normal text-secondary'
+                                }>
+                                    {resposta.pergunta.titulo}
+                                </td>
+                                <td>
+                                    {!!resposta.inteiro ?
+
+                                        <span>{posts7 + ' posts'}</span>
+                                        :
+                                        <i className='fs-5 bi bi-x-lg text-danger'></i>
+                                    }
+                                </td>
+                                <td>{resposta.valor_unitario}</td>
+                                <td></td>
+                            </tr>
+                        )
+                    // r-social-posts-stories
+                    case 8:
+                        const posts8 = resposta.texto.split(', ')[0]
+                        const stories8 = resposta.texto.split(', ')[1]
+                        return (
+                            <tr key={resposta.id}>
+                                <td></td>
+                                <td className={
+                                    !!resposta.inteiro ?
+                                        'fw-bold text-dark' :
+                                        'fw-normal text-secondary'
+                                }>
+                                    {resposta.pergunta.titulo}
+                                </td>
+                                <td>
+                                    {!!resposta.inteiro ?
+
+                                        <span>{posts8 + ' posts, ' + stories8 + ' stories'}</span>
+                                        :
+                                        <i className='fs-5 bi bi-x-lg text-danger'></i>
+                                    }
+                                </td>
+                                <td>{resposta.valor_unitario}</td>
+                                <td></td>
+                            </tr>
+                        )
+                    // r-social-posts-reels
+                    case 9:
+                        const posts9 = resposta.texto.split(', ')[0]
+                        const reels9 = resposta.texto.split(', ')[2]
+                        return (
+                            <tr key={resposta.id}>
+                                <td></td>
+                                <td className={
+                                    !!resposta.inteiro ?
+                                        'fw-bold text-dark' :
+                                        'fw-normal text-secondary'
+                                }>
+                                    {resposta.pergunta.titulo}
+                                </td>
+                                <td>
+                                    {!!resposta.inteiro ?
+
+                                        <span>{posts9 + ' posts, ' + reels9 + ' reels'}</span>
+                                        :
+                                        <i className='fs-5 bi bi-x-lg text-danger'></i>
+                                    }
+                                </td>
+                                <td>{resposta.valor_unitario}</td>
+                                <td></td>
+                            </tr>
+                        )
+                    // r-social-posts-stories-reels
+                    case 10:
+                        const posts10 = resposta.texto.split(', ')[0]
+                        const stories10 = resposta.texto.split(', ')[1]
+                        const reels10 = resposta.texto.split(', ')[2]
+                        return (
+                            <tr key={resposta.id}>
+                                <td></td>
+                                <td className={
+                                    !!resposta.inteiro ?
+                                        'fw-bold text-dark' :
+                                        'fw-normal text-secondary'
+                                }>
+                                    {resposta.pergunta.titulo}
+                                </td>
+                                <td>
+                                    {!!resposta.inteiro ?
+
+                                        <span>{posts10 + ' posts, ' + stories10 + ' stories, ' + reels10 + ' reels'}</span>
+                                        :
+                                        <i className='fs-5 bi bi-x-lg text-danger'></i>
+                                    }
+                                </td>
+                                <td>{resposta.valor_unitario}</td>
+                                <td></td>
+                            </tr>
+                        )
 
                     default:
                         return (
-                            <tr key={resposta.id} className='table-danger'>
+                            <tr key={resposta.id} className={'fw-normal text-secondary table-danger'}>
                                 <td>{resposta.pergunta.tipo_id}</td>
                                 <td>{resposta.pergunta.titulo}</td>
                                 <td>{resposta.id}</td>
