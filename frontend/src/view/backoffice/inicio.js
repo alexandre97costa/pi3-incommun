@@ -18,34 +18,38 @@ export default function InicioComponent() {
     const [filtroEstadoPedido, setFiltroEstadoPedido] = useState(0)
     const [filtroEstadoPedidoDesc, setFiltroEstadoPedidoDesc] = useState('Todos os pedidos')
 
-
-    const [contMotivoPreco, setMotivoPreco] = useState(0)
-    const [contMotivoConcorrencia, setMotivoConcorrencia] = useState(0)
-    const [contMotivoNaoEstavaEspera, setMotivoNaoEstavaEspera] = useState(0)
-    const [contMotivoOutro, setMotivoOutro] = useState(0)
-
-    const [contEstadoPendente, setEstadoPendente] = useState(0)
-    const [contEstadoEnviado, setEstadoEnviado] = useState(0)
-    const [contEstadoAceite, setEstadoAceite] = useState(0)
-    const [contEstadoRecusado, setEstadoRecusado] = useState(0)
-
     const [isShown, setIsShown] = useState(true);
     const [username, setUsername] = useState('')
     const [dicaDoDia, setDicaDoDia] = useState('')
     const [autorDica, setAutorDica] = useState('')
 
-    //visitas
+    //motivo recusa pedido-----------------------------------------------------------
+    const [contMotivoPreco, setMotivoPreco] = useState(0)
+    const [contMotivoConcorrencia, setMotivoConcorrencia] = useState(0)
+    const [contMotivoNaoEstavaEspera, setMotivoNaoEstavaEspera] = useState(0)
+    const [contMotivoOutro, setMotivoOutro] = useState(0)
+    //-------------------------------------------------------------------------------
+
+    //estado pedido------------------------------------------------------------------
+    const [contEstadoPendente, setEstadoPendente] = useState(0)
+    const [contEstadoEnviado, setEstadoEnviado] = useState(0)
+    const [contEstadoAceite, setEstadoAceite] = useState(0)
+    const [contEstadoRecusado, setEstadoRecusado] = useState(0)
+    //-------------------------------------------------------------------------------
+
+    //visitas------------------------------------------------------------------------
     const [vista, setVista] = useState('semana') // dia|semana
     const [unidade, setUnidade] = useState('Horas') // Horas/Dias
-    //visitas
+
     const [formId, setFormId] = useState(0)
     const [stack, setStack] = useState(1)
     const [offsetDias, setOffsetDias] = useState(0)
     const [offsetSemanas, setOffsetSemanas] = useState(0)
-    //visitas
+
     const [visitas, setVisitas] = useState([[]])
     const [graph, setGraph] = useState([])
     const [pedidosGraph, setPedidosGraph] = useState([])
+    //-------------------------------------------------------------------------------
 
     useEffect(() => {
         axios
@@ -152,6 +156,7 @@ export default function InicioComponent() {
         setUsername(authService.getCurrentUser()?.username ?? '')
     }, [])
 
+    //Pie Chart Resumo Estado Pedidos
     const data1 = [
         ["Estado", "Quantidade"],
         ["Pendente", contEstadoPendente],
@@ -160,6 +165,7 @@ export default function InicioComponent() {
         ["Aceite", contEstadoAceite],
     ];
 
+    //Pie Chart Resumo Motivo Recusa Pedido
     const data = [
         ["Motivo", "Quantidade"],
         ["Preço Elevado", contMotivoPreco],
@@ -168,6 +174,7 @@ export default function InicioComponent() {
         ["Outro", contMotivoOutro],
     ];
 
+    //Filtro Pie Chart
     function handleFiltro(filtro, ordem, texto) {
         setFiltroPedido(filtro);
         setOrdemPedido(ordem);
@@ -248,7 +255,6 @@ export default function InicioComponent() {
                         </div>
                     </div>
                 )
-
             })
         )
     }
@@ -314,7 +320,6 @@ export default function InicioComponent() {
     useEffect(() => {
         // 1 - Usar o stack para saber quantas linhas há
         // 2 - O primeiro item tem que ser a unidade de medida
-
         let header = Array(1 + (stack * 2))
         header[0] = unidade
 
@@ -339,7 +344,6 @@ export default function InicioComponent() {
         let plot = Array.from(visitas[0], (item, i) => {
             return [i, ...visitas.map(v => v[i]), ...pedidosGraph.map(p => p[i])]
         })
-
 
         console.log([header, ...plot])
         setGraph([header, ...plot])
@@ -372,7 +376,6 @@ export default function InicioComponent() {
             .catch(console.error)
     }
 
-
     return (
         <div className="col overflow-auto h-sm-100 px-5 pt-4 bg-light">
             {/* Titulo */}
@@ -403,13 +406,10 @@ export default function InicioComponent() {
                 <Count estadoId={4} oquecontar={"todos"} />
             </div>
 
-
-
             <div className="mb-4 row">
                 <div className='col d-flex justify-content-start align-items-center fs-6 fw-normal text-muted'>
-                    <span className='me-2'>
-                        Ver
-                    </span>
+
+                    <span className='me-2'>Ver</span>
 
                     <div className="dropdown bg-white me-2">
                         <button className=" btn btn-sm btn-outline-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -432,9 +432,7 @@ export default function InicioComponent() {
                         </ul>
                     </div>
 
-                    <span className='me-2'>
-                        na ordem de
-                    </span>
+                    <span className='me-2'>na ordem de</span>
 
                     <div className="dropdown bg-white me-2">
                         <button className=" btn btn-sm btn-outline-dark dropdown-toggle" type="button" id="filtro_pedido" data-bs-toggle="dropdown" aria-expanded="false">
@@ -451,18 +449,15 @@ export default function InicioComponent() {
                             <li><button className="dropdown-item" onClick={e => { handleFiltro('valor_total', 'ASC', e.target.textContent) }} type='button'>Valor mais baixo primeiro</button></li>
                         </ul>
                     </div>
-
                 </div>
             </div>
-            {/* <!-- INICIO ORÇAMENTOS PENDENTES --> */}
 
+            {/* <!-- INICIO ORÇAMENTOS PENDENTES --> */}
             <div className='mb-4 g-3 row row-cols-1 row-cols-md-2 row-cols-lg-4 row-cols-xl-4'>
                 <LoadInfoPedidosCliente />
             </div>
 
-
             {/**********************Inicio Gráfico de Visitas**********************/}
-
             <div className='row mb-4 g-4'>
                 <div className='col-12'>
                     <div className=' rounded-4 border ps-4 bg-white shadow '>
@@ -492,13 +487,10 @@ export default function InicioComponent() {
                 </div>
             </div>
 
-
             {/**********************Inicio Pie Charts**********************/}
-
             <div className='row mb-4 g-4 '>
                 <div className='col-6'>
                     <div className='rounded-4 border bg-white shadow p-4'>
-
                         <span className='h3 text-dark'>Resumo Pedidos Recusados</span>
                         <div className="mb-3">
                             {isShown && <div className="mb-3">
@@ -528,9 +520,5 @@ export default function InicioComponent() {
                 </div>
             </div>
         </div>
-
-    
-
-
     )
 }
