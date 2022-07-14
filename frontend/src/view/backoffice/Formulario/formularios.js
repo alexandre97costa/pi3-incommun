@@ -12,6 +12,11 @@ export default function FormulariosComponente() {
 	const [forms, setForms] = useState([])
 	const [editPerguntaId, setEditPerguntaId] = useState(null)
 
+	const [newTituloPergunta, setNewTituloPergunta] = useState('')
+	const [newDescricaoPergunta, setNewDescricaoPergunta] = useState('')
+	const [newTipoPergunta, setNewTipoPergunta] = useState('')
+	const [newValorPergunta, setNewValorPergunta] = useState('')
+
 
 	const [editForm, setEditForm] = useState({
 		titulo: "",
@@ -46,15 +51,17 @@ export default function FormulariosComponente() {
 
 	const handleAddClick = (e, pergunta) => {
 		e.preventDefault();
-		
+
 
 		const formValues = {
 			titulo: pergunta.titulo,
 			descricao: pergunta.descricao,
 			tipo_pergunta: pergunta.tipo_pergunta,
-			valor_unitario: pergunta.valor_unitario
+			valor_unitario: pergunta.valor_unitario,
 		}
 	};
+
+
 
 
 	const handleCancelClick = () => {
@@ -139,12 +146,14 @@ export default function FormulariosComponente() {
 
 													<div>
 
-														<button type="button"
+														{/* <button type="button"
 															className="btn btn-outline-success mx-2 fs-5"
-															onClick={(e) => handleAddClick(e)}>	
+															onClick={(e) => handleAddClick(e)}>
 															Adicionar Nova Pergunta
-															
-															<i className="m-2 bi bi-plus-circle"></i></button>
+
+															<i className="m-2 bi bi-plus-circle"></i></button> */}
+															<AddPergunta key={grupo.id} grupo_id={grupo.id}
+															/>
 
 													</div>
 
@@ -188,8 +197,9 @@ export default function FormulariosComponente() {
 
 			<div className='row'>
 				<div className="accordion accordion-flush" id="form-accordion">
-					<LoadForms />
 
+					<LoadForms />
+					
 
 
 				</div>
