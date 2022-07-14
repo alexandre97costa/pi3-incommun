@@ -1,28 +1,17 @@
 import axios from 'axios';
 import React, { useEffect, useState, Fragment } from "react";
 import ip from '../../../ip'
+import { nanoid } from 'nanoid'
 import authHeader from '../../auth-header'
-import ReadOnlyRow from './ReadOnlyRow';
-import EditableRow from './EditableRow';
-import AddPergunta from './AddPergunta';
+import ReadOnlyRow from './ReadOnlyRow'
+import EditableRow from './EditableRow'
+import AddPergunta from './AddPergunta'
 
 export default function FormulariosComponente() {
 
-
-	//  const [tiposPergunta, setTiposPergunta] = useState([])
-	//  const [filtroTiposPergunta, setFiltroTiposPergunta] = useState(0)
-	//  const [filtroTiposPerguntaDesc, setFiltroTiposPerguntaDesc] = useState('Tipos de Pergunta')
-
 	const [forms, setForms] = useState([])
-	const [newPerguntaId, setNewPerguntaId] = useState()
 	const [editPerguntaId, setEditPerguntaId] = useState(null)
 
-	const [addForm, setAddForm] = useState({
-		titulo: "",
-		descricao: "",
-		tipo_pergunta: "",
-		valor_unitario: "",
-	});
 
 	const [editForm, setEditForm] = useState({
 		titulo: "",
@@ -40,18 +29,6 @@ export default function FormulariosComponente() {
 			})
 	}, []);
 
-	const handleAddFormChange = (e) => {
-		e.preventDefault();
-
-		const fieldTitulo = e.target.getAttribute('name');
-		const fieldValue = e.target.value;
-
-		const newForm = { ...addForm };
-		newForm[fieldTitulo] = fieldValue;
-
-		setAddForm(newForm);
-
-	};
 
 	const handleEditClick = (e, pergunta) => {
 		e.preventDefault();
@@ -65,6 +42,18 @@ export default function FormulariosComponente() {
 		}
 
 		setEditForm(formValues);
+	};
+
+	const handleAddClick = (e, pergunta) => {
+		e.preventDefault();
+		
+
+		const formValues = {
+			titulo: pergunta.titulo,
+			descricao: pergunta.descricao,
+			tipo_pergunta: pergunta.tipo_pergunta,
+			valor_unitario: pergunta.valor_unitario
+		}
 	};
 
 
@@ -135,6 +124,7 @@ export default function FormulariosComponente() {
 
 													{grupo.perguntas.map(pergunta => {
 														return (
+
 															(editPerguntaId === pergunta.id) ?
 																<EditableRow key={pergunta.id} id={pergunta.id} editForm={editForm}
 																	handleCancelClick={handleCancelClick}
@@ -143,31 +133,20 @@ export default function FormulariosComponente() {
 																<ReadOnlyRow key={pergunta.id} pergunta={pergunta}
 																	handleEditClick={handleEditClick}
 																/>
+
 														)
 													})}
 
-													<table>
-														<tbody>
-															<tr>
-																<td>
-																	<button type="button"
-																		className="btn btn-outline-success mx-2 fs-5">
-																		 {/* onClick= */}
-																		Adicionar Nova Pergunta
-																		<i className="m-2 bi bi-plus-circle"></i></button>
-																</td>
-															</tr>
-														</tbody>
-													</table>
+													<div>
 
+														<button type="button"
+															className="btn btn-outline-success mx-2 fs-5"
+															onClick={(e) => handleAddClick(e)}>	
+															Adicionar Nova Pergunta
+															
+															<i className="m-2 bi bi-plus-circle"></i></button>
 
-
-
-													{/* <AddPergunta
-													handleAddClick = {handleAddClick} */}
-
-
-
+													</div>
 
 												</div>
 
@@ -192,6 +171,8 @@ export default function FormulariosComponente() {
 
 
 
+
+
 	return (
 
 		<div className="col overflow-auto h-sm-100 px-5 pt-4">
@@ -208,6 +189,7 @@ export default function FormulariosComponente() {
 			<div className='row'>
 				<div className="accordion accordion-flush" id="form-accordion">
 					<LoadForms />
+
 
 
 				</div>

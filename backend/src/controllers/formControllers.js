@@ -119,6 +119,37 @@ module.exports = {
         });
     },
 
+    // ADICIONAR
+    add: async (req, res) => {
+        const {titulo, descricao, tipo_pergunta, valor_unitario, grupo_id } = req.body;
+
+        console.log(req.body)
+        const data = await Pergunta.create(
+
+            {
+                titulo: titulo,
+                descricao: descricao,
+                tipo_id: tipo_pergunta,
+                valor_unitario: valor_unitario,
+                grupo_id: grupo_id,
+
+
+            },
+        )
+            .then(function (data) {
+                return data;
+            })
+            .catch(error => {
+                return error;
+            })
+
+        res.json({
+            success: true,
+            data: data,
+            message: "Nova Pergunta adicionada com sucesso"
+        });
+    },
+
 
     one: async (req, res) => {
 
