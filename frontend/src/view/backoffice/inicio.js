@@ -402,28 +402,31 @@ export default function InicioComponent() {
                 </div>
             </div>
 
-            <div className='row ms-1'>
-                <div className='mb-3 w container-fluid rounded-4 border ps-4 bg-white shadow col-12'>
+            <div className='row mb-4 g-4'>
+                <div className='col-12'>
+                    <div className=' rounded-4 border ps-4 bg-white shadow '>
 
-                    {/* Titulo */}
-                    <div className='mb-3 row'>
-                        <div className='col-6'>
-                            <br></br>
-                            <span className='h2 text-dark fw-bold'>
-                                Visitas
-                            </span>
-                            <br></br>
+
+                        {/* Titulo */}
+                        <div className='row'>
+                            <div className='col-6'>
+                                <br></br>
+                                <span className='h2 text-dark fw-bold'>
+                                    Visitas
+                                </span>
+                                <br></br>
+                            </div>
                         </div>
-                    </div>
-                    <div className='row mb-3'>
-                        <Chart
-                            // chartType='LineChart'
-                            chartType='AreaChart'
-                            width='100%'
-                            height='500px'
-                            data={graph}
-                        //options={options}
-                        />
+                        <div className='row'>
+                            <Chart
+                                // chartType='LineChart'
+                                chartType='AreaChart'
+                                width='100%'
+                                height='500px'
+                                data={graph}
+                            //options={options}
+                            />
+                        </div>
                     </div>
                 </div>
             </div>
