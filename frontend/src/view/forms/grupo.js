@@ -52,7 +52,7 @@ export default function GrupoComponent(props) {
             })
             .filter(cb => cb !== null)
 
-        const grupoIsCheckbox = (props.grupo.pergunta[0].tipo_pergunta.titulo === 'checkbox')
+        const grupoIsCheckbox = (props.grupo.perguntas[0].tipo_pergunta.titulo === 'checkbox')
         if (grupoIsCheckbox) {
             setResposta(checkboxesChecked.join(', '))
         }
@@ -91,7 +91,7 @@ export default function GrupoComponent(props) {
             >
                 <div className='accordion-body bg-light rounded-0 pt-4'>
                     <div className='row'>
-                        {props.grupo.pergunta.map((pergunta, indexPergunta) => {
+                        {props.grupo.perguntas.map((pergunta, indexPergunta) => {
                             switch (pergunta.tipo_pergunta.titulo) {
                                 case 'array':
                                     return (

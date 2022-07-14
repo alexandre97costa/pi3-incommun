@@ -54,7 +54,7 @@ export default function FormComponent(props) {
                     form.grupos
                         .map((grupo) => {
                             // ...e as respetivas perguntas...
-                            return grupo.pergunta.map((pergunta) => {
+                            return grupo.perguntas.map((pergunta) => {
                                 // ...e devolver uma array para cada id.
                                 // * Esta array equivale a um par key/value no objecto final
 
