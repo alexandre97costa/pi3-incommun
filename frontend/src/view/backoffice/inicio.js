@@ -369,44 +369,46 @@ export default function InicioComponent() {
                 <LoadInfoPedidosCliente />
             </div>
 
-            <div className='row ms-1 col-12'>
-                <div className='mb-4 container-fluid rounded-4 border bg-white shadow col-6'>
-                        <br></br>
+            <div className='row mb-4 g-4 '>
+                <div className='col-6'>
+                    <div className='rounded-4 border bg-white shadow p-4'>
+
                         <span className='h3 text-dark'>Resumo Pedidos Recusados</span>
-                        <br></br>
-                    <div className="mb-5">
+                        <div className="mb-3">
+                            {isShown && <div className="mb-3">
+                                <Chart
+                                    chartType="PieChart"
+                                    data={data}
+                                    width={"100%"}
+                                    height={"400px"}
+                                />
+                            </div>}
+                        </div>
+                    </div>
+                </div>
+                <div className='col-6'>
+                    <div className='rounded-4 border bg-white shadow p-4'>
+
+                        <span className='h3 text-dark'>Resumo Estado de Pedidos</span>
                         {isShown && <div className="mb-3">
                             <Chart
                                 chartType="PieChart"
-                                data={data}
+                                data={data1}
                                 width={"100%"}
                                 height={"400px"}
                             />
                         </div>}
                     </div>
                 </div>
-                <div className='mb-4 container-fluid rounded-4 border bg-white shadow col-6'>
-                        <br></br>
-                        <span className='h3 text-dark'>Resumo Estado de Pedidos</span>
-                        <br></br>
-                    {isShown && <div className="mb-3">
-                        <Chart
-                            chartType="PieChart"
-                            data={data1}
-                            width={"100%"}
-                            height={"400px"}
-                        />
-                    </div>}
-                </div>
             </div>
-            
+
             <div className='row ms-1'>
                 <div className='mb-3 w container-fluid rounded-4 border ps-4 bg-white shadow col-12'>
 
                     {/* Titulo */}
                     <div className='mb-3 row'>
                         <div className='col-6'>
-                        <br></br>
+                            <br></br>
                             <span className='h2 text-dark fw-bold'>
                                 Visitas
                             </span>
@@ -420,7 +422,7 @@ export default function InicioComponent() {
                             width='100%'
                             height='500px'
                             data={graph}
-                            //options={options}
+                        //options={options}
                         />
                     </div>
                 </div>
