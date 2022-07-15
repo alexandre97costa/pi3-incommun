@@ -26,7 +26,7 @@ module.exports = {
             .findOne({ where: { email: email } })
             .then(data => { return data })
             .catch(error => { console.log(error) })
-        
+
         console.log(user)
 
 
@@ -34,9 +34,9 @@ module.exports = {
             const passwordMatch = bcrypt.compareSync(password, user.password);
             if (passwordMatch) {
 
-                let token = jwt.sign({ email: email }, config.JWT_SECRET, 
+                let token = jwt.sign({ email: email }, config.JWT_SECRET,
                     // { expiresIn: '24h' }
-                    );
+                );
 
                 res.status(200).json({
                     success: true,
@@ -150,13 +150,17 @@ module.exports = {
                         if (!!found) {
                             await UserIncommun
                                 .destroy({ where: { email: email } })
+
+
                                 .then(destroyed => {
                                     res.json({
                                         success: true,
                                         message: 'Utilizador eliminado.'
                                     })
                                 })
-                        } else {
+                        }
+
+                        else {
                             res.json({
                                 success: false,
                                 message: 'Utilizador não encontrado.'

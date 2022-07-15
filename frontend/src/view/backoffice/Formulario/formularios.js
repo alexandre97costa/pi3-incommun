@@ -22,12 +22,16 @@ export default function FormulariosComponente() {
 	});
 
 	useEffect(() => {
-		axios.get(ip + '/forms/all_backoffice', authHeader())
-			.then(res => {
-				console.table(res.data.formularios, ['id', 'nome'])
-				setForms(res.data.formularios)
-			})
+		getForms()
 	}, []);
+
+	function getForms(){
+		axios.get(ip + '/forms/all_backoffice', authHeader())
+		.then(res => {
+			console.table(res.data.formularios, ['id', 'nome'])
+			setForms(res.data.formularios)
+		})
+	};
 
 
 	const handleEditClick = (e, pergunta) => {
@@ -64,17 +68,17 @@ export default function FormulariosComponente() {
 
 
 
-	// const handleDeleteClick = (pergunta) => {
-		
-	// 	const newPergunta = [... pergunta];
+	 const handleDeleteClick = (pergunta) => {
+		setEditPerguntaId(pergunta.id);
 
-	// 	const index = pergunta.findINdex((pergunta) => pergunta.id === pergunta)
+	 	const newPergunta = [... pergunta];
+	 	const index = pergunta.findINdex((pergunta) => pergunta.id === pergunta)
 
-	// 	newPergunta.splice(index, 1)
+		newPergunta.splice(index, 1)
 
-	// 	setForms(newPergunta)
+	setForms(newPergunta)
 
-	// };
+	 };
 
 
 
@@ -145,16 +149,17 @@ export default function FormulariosComponente() {
 																	handleCancelClick={handleCancelClick}
 																/>
 																:
-																<ReadOnlyRow key={pergunta.id} pergunta={pergunta}
+																<ReadOnlyRow key={pergunta.id} pergunta={pergunta} getForms={getForms}
 																	handleEditClick={handleEditClick}
-																	// handleDeleteClick={handleDeleteClick}
+																   handleDeleteClick={handleDeleteClick}
 																/>
 
 														)
 													})}
 
-
-
+													<AddPergunta key={grupo.id} grupo_id={grupo.id}
+														handleAddClick={handleEditClick} />
+														:
 													<button type="button"
 														className="btn btn-outline-success mx-2 fs-5"
 														onClick={(e) => handleAddClick(e)}>
@@ -162,9 +167,10 @@ export default function FormulariosComponente() {
 														<i className="m-2 bi bi-plus-circle"></i>
 													</button>
 
+													
 
-													<AddPergunta key={grupo.id} grupo_id={grupo.id}
-													handleAddClick={handleEditClick}/>
+
+
 
 
 
