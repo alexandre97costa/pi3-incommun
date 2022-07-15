@@ -1,10 +1,39 @@
+import axios from 'axios'
 import React from 'react'
 import authHeader from '../../auth-header'
+import ip from '../../../ip';
 
-const ReadOnlyRow = ({ pergunta, handleEditClick, handleDeleteClick }) => {
+
+export default function ReadOnlyRow({pergunta, handleEditClick, getForms }) {
+
+
+   
+    function handleDeletePergunta(perguntaid) {
+
+
+		axios.delete(ip + '/forms/delete', {data: 
+			{
+				id:perguntaid,
+
+			}, ...authHeader()
+        })
+
+			.then(function (data) {
+				getForms()
+			})
+			.catch(error => {
+				return error;
+			})
+
+	}
+
+
+
+
+
     return (
 
-        
+
 
 
         <table className="table table-hover">
@@ -43,22 +72,23 @@ const ReadOnlyRow = ({ pergunta, handleEditClick, handleDeleteClick }) => {
                         ><i className="bi bi-pencil-square"></i>
                         </button>
 
+                        
+
                         <button type="button"
                             className="btn btn-outline-danger mx-2"
-                            // onClick={() => handleDeleteClick(pergunta.id)}
+                            onClick={() => handleDeletePergunta(pergunta.id)}
                         ><i className="bi bi-file-earmark-x"></i>
                         </button>
                     </td>
-                    
+
                 </tr>
-               
+
             </tbody>
         </table>
 
-        
+
 
 
     )
-}
+};
 
-export default ReadOnlyRow
