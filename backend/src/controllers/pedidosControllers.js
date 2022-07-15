@@ -223,7 +223,7 @@ module.exports = {
                         .findOne({ where: { id: resposta.pergunta_id } })
                         .then(pergunta => {
                             resposta.valor_unitario = pergunta.valor_unitario
-                            bodyPedido.valor_total += (resposta.valor_unitario * resposta.inteiro).toFixed(2)
+                            bodyPedido.valor_total += (resposta.valor_unitario * resposta.inteiro)
                         })
                 })
             })
@@ -245,7 +245,7 @@ module.exports = {
                                     valor_total: bodyPedido.valor_total.toFixed(2),
                                     estado_id: 1, // pendente
                                     cliente_id: cliente.id,
-                                    resposta: bodyRespostas
+                                    respostas: bodyRespostas
                                 }, {
                                     include: [Resposta]
                                 })
@@ -268,7 +268,7 @@ module.exports = {
                                 .create({
                                     valor_total: bodyPedido.valor_total,
                                     estado_id: 1,
-                                    resposta: bodyRespostas,
+                                    respostas: bodyRespostas,
                                     cliente: {
                                         nome: bodyCliente.nome,
                                         email: bodyCliente.email,

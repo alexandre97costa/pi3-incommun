@@ -4,7 +4,7 @@ const { Sequelize } = require('sequelize');
 const sequelize = new Sequelize(
     'pi3-sequelize',
     'postgres',
-    '12345',
+    'postgres',
     {
         host: 'localhost',
         port: '5432',
@@ -25,7 +25,7 @@ const sequelize = new Sequelize(
                 afterUpdate: model => {
                     console.log('\x1b[37m\x1b[43m ' + model.constructor.name + '(#' + model.id + ') atualizado \x1b[0m ')
                 },
-                afterDestroy: model => {
+                beforeDestroy: model => {
                     console.log('\x1b[37m\x1b[41m ' + model.constructor.name + '(#' + model.id + ') eliminado ⚠ \x1b[0m ')
                 }
             }
