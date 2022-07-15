@@ -121,7 +121,7 @@ module.exports = {
 
     // ADICIONAR
     add: async (req, res) => {
-        const {titulo, descricao, tipo_pergunta, valor_unitario, grupo_id } = req.body;
+        const { titulo, descricao, tipo_pergunta, valor_unitario, grupo_id } = req.body;
 
         console.log(req.body)
         const data = await Pergunta.create(
@@ -149,6 +149,41 @@ module.exports = {
             message: "Nova Pergunta adicionada com sucesso"
         });
     },
+
+    // delete: async (req, res) => {
+    //     const {titulo, descricao, tipo_pergunta, valor_unitario} = req.body
+    //     console.log(req.body.pergunta)
+
+    //     const data = await Pergunta.delete(
+
+    //         {
+    //             titulo: titulo,
+    //             descricao: descricao,
+    //             tipo_id: tipo_pergunta,
+    //             valor_unitario: valor_unitario,
+
+    //         },
+
+    //     )
+
+    //     then(function (data) {
+    //         return data;
+    //     })
+    //     .catch(error => {
+    //         return error;
+    //     })
+
+    // res.json({
+    //     success: true,
+    //     data: data,
+    //     message: "Removido com sucesso"
+    // });
+
+
+
+    // },
+
+
 
 
     one: async (req, res) => {
@@ -282,7 +317,7 @@ module.exports = {
                                         return
 
                                     // case 'dia': linha.push([i + 'h', count]); break;
-                                    case 'dia': linha.push([i+'', count]); break;
+                                    case 'dia': linha.push([i + '', count]); break;
                                     case 'semana': linha.push([(7 - (i / 24)) + (7 * j) + 'd', count]); break;
 
                                     default: break;

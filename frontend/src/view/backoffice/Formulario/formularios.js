@@ -12,11 +12,6 @@ export default function FormulariosComponente() {
 	const [forms, setForms] = useState([])
 	const [editPerguntaId, setEditPerguntaId] = useState(null)
 
-	const [newTituloPergunta, setNewTituloPergunta] = useState('')
-	const [newDescricaoPergunta, setNewDescricaoPergunta] = useState('')
-	const [newTipoPergunta, setNewTipoPergunta] = useState('')
-	const [newValorPergunta, setNewValorPergunta] = useState('')
-
 
 	const [editForm, setEditForm] = useState({
 		titulo: "",
@@ -49,6 +44,7 @@ export default function FormulariosComponente() {
 		setEditForm(formValues);
 	};
 
+
 	const handleAddClick = (e, pergunta) => {
 		e.preventDefault();
 
@@ -62,12 +58,23 @@ export default function FormulariosComponente() {
 	};
 
 
-
-
 	const handleCancelClick = () => {
 		setEditPerguntaId(null);
 	};
 
+
+
+	// const handleDeleteClick = (pergunta) => {
+		
+	// 	const newPergunta = [... pergunta];
+
+	// 	const index = pergunta.findINdex((pergunta) => pergunta.id === pergunta)
+
+	// 	newPergunta.splice(index, 1)
+
+	// 	setForms(newPergunta)
+
+	// };
 
 
 
@@ -132,6 +139,7 @@ export default function FormulariosComponente() {
 													{grupo.perguntas.map(pergunta => {
 														return (
 
+
 															(editPerguntaId === pergunta.id) ?
 																<EditableRow key={pergunta.id} id={pergunta.id} editForm={editForm}
 																	handleCancelClick={handleCancelClick}
@@ -139,23 +147,31 @@ export default function FormulariosComponente() {
 																:
 																<ReadOnlyRow key={pergunta.id} pergunta={pergunta}
 																	handleEditClick={handleEditClick}
+																	// handleDeleteClick={handleDeleteClick}
 																/>
 
 														)
 													})}
 
-													<div>
 
-														{/* <button type="button"
-															className="btn btn-outline-success mx-2 fs-5"
-															onClick={(e) => handleAddClick(e)}>
-															Adicionar Nova Pergunta
 
-															<i className="m-2 bi bi-plus-circle"></i></button> */}
-															<AddPergunta key={grupo.id} grupo_id={grupo.id}
-															/>
+													<button type="button"
+														className="btn btn-outline-success mx-2 fs-5"
+														onClick={(e) => handleAddClick(e)}>
+														Adicionar Nova Pergunta
+														<i className="m-2 bi bi-plus-circle"></i>
+													</button>
 
-													</div>
+
+													<AddPergunta key={grupo.id} grupo_id={grupo.id}
+													handleAddClick={handleEditClick}/>
+
+
+
+
+
+
+
 
 												</div>
 
@@ -199,7 +215,7 @@ export default function FormulariosComponente() {
 				<div className="accordion accordion-flush" id="form-accordion">
 
 					<LoadForms />
-					
+
 
 
 				</div>
