@@ -10,7 +10,10 @@ export default function UpdateEstado(props) {
     // - id: o id do pedido a editar
     // - estados: o hook que tem uma lista de todos os estados
     // - motivos: o hook que tem uma lista de todos os motivos
-
+    function refreshPage() {
+        window.location.reload(false)
+        
+      }
     function SetEstadoPedido(idEstado, idMotivo = 0) {
 
         const body = {
@@ -27,7 +30,7 @@ export default function UpdateEstado(props) {
                 body,
                 authHeader()
             )
-            .then(res => res.data?.success ? props.getPedidos() : alert('Erro no update'))
+            .then(res => res.data?.success ? props.getPedidos(): alert('Erro no update'))
             .catch(console.log)
     }
 
@@ -39,7 +42,7 @@ export default function UpdateEstado(props) {
                         <button
                             type='button'
                             className='dropdown-item fw-semibold'
-                            onClick={e => { SetEstadoPedido(propss.estadoId, motivo.id) }}
+                            onClick={e => { SetEstadoPedido(propss.estadoId, motivo.id); refreshPage()}}  
                         >
                             {motivo.descricao}
                         </button>
@@ -61,7 +64,7 @@ export default function UpdateEstado(props) {
                             <button
                                 type='button'
                                 className={'dropdown-item fw-semibold'}
-                                onClick={e => { SetEstadoPedido(estado.id) }}
+                                onClick={e => { SetEstadoPedido(estado.id); refreshPage() }}
                             >
                                 <i className={'me-2 bi ' + estado.icon + ' text-' + estado.cor}></i>
                                 {estado.descricao}
