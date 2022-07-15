@@ -1,6 +1,7 @@
 // import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 import React, { useEffect, useState } from 'react';
 import { Chart } from "react-google-charts";
+import { Link } from "react-router-dom";
 import axios from 'axios';
 import authService from '../../auth.service';
 import authHeader from '../../auth-header'
@@ -10,6 +11,7 @@ import PieChartComponent1 from './piechart1';
 import PieChartComponent2 from './piechart2';
 import VisitasComponent from './visitas';
 
+import ContactarCliente from '../contactar_cliente';
 
 export default function InicioComponent() {
 
@@ -126,10 +128,8 @@ export default function InicioComponent() {
                                 {/* Opções */}
                                 <div className='mt-2'>
                                     {(pedido.estado_id === 1 || pedido.estado_id === 2) &&
-                                        <button className='btn btn-warning w-100 fw-semibold' >
-                                            <i className='me-2 bi bi-send-fill'></i>
-                                            Contactar cliente
-                                        </button>
+
+                                        <ContactarCliente destinatario={pedido.cliente.email} />
                                     }
                                     {(pedido.estado_id === 3 || pedido.estado_id === 4) &&
                                         <button className='btn btn-warning w-100' disabled>
@@ -140,10 +140,13 @@ export default function InicioComponent() {
                                 </div>
 
                                 <div className='mt-2'>
-                                    <button className='btn btn-secondary w-100'>
-                                        <i className='me-2 bi bi-card-checklist'></i>
-                                        Ver pedido
-                                    </button>
+                                    <Link
+                                        to={'/back-office/pedidos/' + pedido.id}
+                                        className='btn btn-outline-dark w-100'
+                                    >
+                                        <i className='me-2 bi bi-file-earmark-check-fill'></i>
+                                        Alterar pedido
+                                    </Link>
                                 </div>
                             </div>
                         </div>
