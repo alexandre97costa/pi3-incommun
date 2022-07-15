@@ -2,13 +2,13 @@
 import React, { useEffect, useState } from 'react';
 import { Chart } from "react-google-charts";
 import axios from 'axios';
-import authService from '../auth.service';
-import authHeader from '../auth-header'
-import Count from './count'
-import ip from '../../ip'
-import PieChartComponent1 from './Inicio/piechart1';
-import PieChartComponent2 from './Inicio/piechart2';
-import VisitasComponent from './Inicio/visitas';
+import authService from '../../auth.service';
+import authHeader from '../../auth-header'
+import Count from '../count'
+import ip from '../../../ip'
+import PieChartComponent1 from './piechart1';
+import PieChartComponent2 from './piechart2';
+import VisitasComponent from './visitas';
 
 
 export default function InicioComponent() {

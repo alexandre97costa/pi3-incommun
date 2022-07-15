@@ -13,7 +13,7 @@ import Footer from './view/forms/footer'
 import BoLogin from './view/backoffice/login'
 
 import PrivateRoute from './view/backoffice/private_route'
-import BoInicio from './view/backoffice/inicio'
+import BoInicio from './view/backoffice/Inicio/inicio'
 import BoPedidos from './view/backoffice/pedidos'
 import BoFormularios from './view/backoffice/Formulario/formularios'
 import BoClientes from './view/backoffice/clientes'
