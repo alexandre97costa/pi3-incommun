@@ -55,7 +55,6 @@ export default function EditableRow({ handleCancelClick, id }) {
             <table className="table table-hover">
                 <tbody>
 
-
                     <tr>
                         <td style={{ width: "30%" }}>
                             <input
@@ -66,11 +65,10 @@ export default function EditableRow({ handleCancelClick, id }) {
                                 placeholder="Introduz o titulo"
                                 value={edittitulopergunta}
                                 onChange={e => seteditTituloPergunta(e.target.value)}
+                            />
+                        </td>
 
-                            /></td>
                         <td style={{ width: "40%" }}>
-
-
                             <input
                                 className="form-control focus-warning"
                                 type="text"
@@ -83,9 +81,7 @@ export default function EditableRow({ handleCancelClick, id }) {
                         </td>
 
                         <td style={{ width: "10%" }}>
-
-
-                              <input
+                            <input
                                 className="form-control focus-warning"
                                 type="text"
                                 name="tipo_pergunta"
@@ -93,8 +89,10 @@ export default function EditableRow({ handleCancelClick, id }) {
                                 placeholder="Introduz o tipo de pergunta"
                                 value={edittipopergunta}
                                 onChange={e => setedittipopergunta(e.target.value)}
-                            />  
-{/* 
+                            />
+                        </td>
+
+                        {/* 
                             <div class="dropdown">
                                 <button class="form-control focus-warning dropdown-toggle"
                                     type="button"
@@ -117,7 +115,7 @@ export default function EditableRow({ handleCancelClick, id }) {
 
 
 
-                        </td>
+
                         <td style={{ width: "10%" }}>
                             <input
                                 className="form-control focus-warning"
@@ -127,22 +125,26 @@ export default function EditableRow({ handleCancelClick, id }) {
                                 placeholder="Introduz o valor da pergunta"
                                 value={editvalorpergunta}
                                 onChange={e => seteditvalorpergunta(e.target.value)}
-                            /></td>
+                            />
+                            </td>
+
+
                         <td style={{ width: "10%" }}>
+
                             <button type="submit"
-                                className="btn btn-outline-info mx-2">
-                                <i className="bi bi-box-arrow-down"></i>
+                                className="btn btn-success mx-2">
+                                <i className="bi bi-check-lg"></i>
                             </button>
 
                             <button type="button"
-                                className="btn btn-outline-danger"
+                                className="btn btn-danger mx-2"
                                 onClick={handleCancelClick}>
-                                <i className="bi bi-x-circle"></i>
+                                <i className="bi bi-x-lg"></i>
                             </button>
+
                         </td>
                     </tr>
-
-
+                    
                 </tbody>
             </table>
 

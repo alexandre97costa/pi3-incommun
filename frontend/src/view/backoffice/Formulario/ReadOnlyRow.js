@@ -69,7 +69,7 @@ export default function ReadOnlyRow({pergunta, handleEditClick, getForms }) {
                         <button type="button"
                             className="btn btn-outline-warning mx-2"
                             onClick={(e) => handleEditClick(e, pergunta)}
-                        ><i className="bi bi-pencil-square"></i>
+                        ><i className="bi bi-pencil-fill"></i>
                         </button>
 
                         
@@ -77,7 +77,7 @@ export default function ReadOnlyRow({pergunta, handleEditClick, getForms }) {
                         <button type="button"
                             className="btn btn-outline-danger mx-2"
                             onClick={() => handleDeletePergunta(pergunta.id)}
-                        ><i className="bi bi-file-earmark-x"></i>
+                        ><i className="bi bi-trash-fill"></i>
                         </button>
                     </td>
 

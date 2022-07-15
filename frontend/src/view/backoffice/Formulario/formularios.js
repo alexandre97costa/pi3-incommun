@@ -1,7 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState, Fragment } from "react";
 import ip from '../../../ip'
-import { nanoid } from 'nanoid'
 import authHeader from '../../auth-header'
 import ReadOnlyRow from './ReadOnlyRow'
 import EditableRow from './EditableRow'
@@ -12,6 +11,10 @@ export default function FormulariosComponente() {
 	const [forms, setForms] = useState([])
 	const [editPerguntaId, setEditPerguntaId] = useState(null)
 
+	const [newPergunta, setNewPergunta] = useState()
+
+	const [grupoSelecionado, setGrupoSelectionado] = useState(-1)
+
 
 	const [editForm, setEditForm] = useState({
 		titulo: "",
@@ -21,17 +24,20 @@ export default function FormulariosComponente() {
 
 	});
 
+
 	useEffect(() => {
 		getForms()
 	}, []);
 
-	function getForms(){
+	function getForms() {
 		axios.get(ip + '/forms/all_backoffice', authHeader())
-		.then(res => {
-			console.table(res.data.formularios, ['id', 'nome'])
-			setForms(res.data.formularios)
-		})
+			.then(res => {
+				console.table(res.data.formularios, ['id', 'nome'])
+				setForms(res.data.formularios)
+			})
 	};
+
+
 
 
 	const handleEditClick = (e, pergunta) => {
@@ -68,17 +74,17 @@ export default function FormulariosComponente() {
 
 
 
-	 const handleDeleteClick = (pergunta) => {
+	const handleDeleteClick = (pergunta) => {
 		setEditPerguntaId(pergunta.id);
 
-	 	const newPergunta = [... pergunta];
-	 	const index = pergunta.findINdex((pergunta) => pergunta.id === pergunta)
+		const newPergunta = [...pergunta];
+		const index = pergunta.findINdex((pergunta) => pergunta.id === pergunta)
 
 		newPergunta.splice(index, 1)
 
-	setForms(newPergunta)
+		setForms(newPergunta)
 
-	 };
+	};
 
 
 
@@ -87,113 +93,96 @@ export default function FormulariosComponente() {
 		return forms.map(form => {
 			return (
 
-				<div className="accordion-item border-0" key={form.id}>
-					<div className="accordion-header" id={'form-' + form.id}>
-						<button
-							type="button"
-							className="accordion-button collapsed.show fs-3"
-							data-bs-toggle="collapse" data-bs-target={'#form-collapse-' + form.id}
-							aria-expanded="false" aria-controls={'form-collapse-' + form.id}
-						>
-							{form.titulo}
-						</button>
+				<div key={form.id}>
+					<div className="fs-3 text-success my-2" id={'form-' + form.id}>
+						{form.titulo}
 					</div>
-					<div
-						id={'form-collapse-' + form.id}
-						className="accordion-collapse collapse.show"
-						data-bs-parent="#form-accordion"
-						aria-labelledby={'#form-' + form.id}
-					>
-						<div className="accordion-body p-0 border">
 
-							<div className="accordion accordion-flush" id={"form-grupo-accordion-" + form.id}>
-								{form.grupos.map(grupo => {
-									return (
-										<div className='accordion-item ' key={grupo.id}>
-											<div className='accordion-header' id={'grupo-' + grupo.id}>
-												<button
-													type='button'
-													className='accordion-button collapsed.show fs-4 bg-light'
-													data-bs-toggle="collapse" data-bs-target={'#grupo-collapse-' + grupo.id}
-													aria-expanded="false" aria-controls={'grupo-collapse-' + grupo.id}
-												>
-													{grupo.titulo}
-												</button>
-											</div>
-											<div
-												id={'grupo-collapse-' + grupo.id}
-												className="accordion-collapse collapse.show"
-												data-bs-parent={"#form-grupo-accordion-" + form.id}
-												aria-labelledby={'#grupo-' + grupo.id}
+					<div className="accordion-body mb-5 p-0 border">
+
+						<div className="accordion accordion-flush" id={"form-grupo-accordion" + form.id}>
+							{form.grupos.map(grupo => {
+								return (
+									<div className='accordion-item' key={grupo.id}>
+										<div className='accordion-header' id={'grupo-' + grupo.id}>
+											<button
+												type='button'
+												className='accordion-button collapsed fs-4 bg-light'
+												data-bs-toggle="collapse" data-bs-target={'#grupo-collapse' + grupo.id}
+												aria-expanded="false" aria-controls={'grupo-collapse-' + grupo.id}
 											>
-												<div className='accordion-body'>
+												{grupo.titulo}
+											</button>
+										</div>
+										<div
+											id={'grupo-collapse' + grupo.id}
+											className="accordion-collapse collapse"
+											data-bs-parent={"#form-grupo-accordion" + form.id}
+											aria-labelledby={'#grupo-' + grupo.id}>
+											<div className='accordion-body'>
 
-													<table className="table table-hover">
-														<thead className='fw-semibold'>
-															<tr>
-																<td style={{ width: "30%" }}>Titulo</td>
-																<td style={{ width: "40%" }}>Descrição</td>
-																<td style={{ width: "10%" }}>Tipo</td>
-																<td style={{ width: "10%" }}>Valor</td>
-																<td style={{ width: "10%" }}>Ações</td>
-															</tr>
-														</thead>
-													</table>
+												<table className="table table-hover">
+													<thead className='fw-semibold'>
+														<tr>
+															<td style={{ width: "30%" }}>Titulo</td>
+															<td style={{ width: "40%" }}>Descrição</td>
+															<td style={{ width: "10%" }}>Tipo</td>
+															<td style={{ width: "10%" }}>Valor</td>
+															<td style={{ width: "10%" }}>Ações</td>
+														</tr>
+													</thead>
+												</table>
 
-													{grupo.perguntas.map(pergunta => {
-														return (
+												{grupo.perguntas.map(pergunta => {
+													return (
 
 
-															(editPerguntaId === pergunta.id) ?
-																<EditableRow key={pergunta.id} id={pergunta.id} editForm={editForm}
-																	handleCancelClick={handleCancelClick}
-																/>
-																:
-																<ReadOnlyRow key={pergunta.id} pergunta={pergunta} getForms={getForms}
-																	handleEditClick={handleEditClick}
-																   handleDeleteClick={handleDeleteClick}
-																/>
+														(editPerguntaId === pergunta.id) ?
+															<EditableRow key={pergunta.id} id={pergunta.id} editForm={editForm}
+																handleCancelClick={handleCancelClick}
+															/>
+															:
+															<ReadOnlyRow key={pergunta.id} pergunta={pergunta} getForms={getForms}
+																handleEditClick={handleEditClick}
+																handleDeleteClick={handleDeleteClick}
+															/>
 
-														)
-													})}
 
-													<AddPergunta key={grupo.id} grupo_id={grupo.id}
-														handleAddClick={handleEditClick} />
-														:
+													)
+												})}
+
+
+												{newPergunta === grupo.id}
+
+												<AddPergunta key={grupo.id} grupo_id={grupo.id}
+													handleAddClick={handleEditClick} />
+												{/* : 
+
+												<div className='w-100 d-flex justify-content-end'>
 													<button type="button"
-														className="btn btn-outline-success mx-2 fs-5"
+														className="btn btn-success mx-2 fs-6"
 														onClick={(e) => handleAddClick(e)}>
-														Adicionar Nova Pergunta
-														<i className="m-2 bi bi-plus-circle"></i>
+														Nova Pergunta
+														<i className="ms-2 bi bi-plus-lg"></i>
 													</button>
+												</div> */}
 
-													
-
-
-
-
-
-
-
-
-
-
-
-												</div>
 
 											</div>
+
 										</div>
-									)
-								})}
+									</div>
+								)
+							})}
 
 
-							</div>
-
-						</div >
+						</div>
 
 					</div >
 
 				</div >
+
+
 
 			)
 		})
