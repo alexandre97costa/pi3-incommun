@@ -6,7 +6,7 @@ import Count from './count'
 import ip from '../../ip'
 import authHeader from '../auth-header'
 
-export default function InicioComponent() {
+export default function TesteComponent() {
 
     const [dicaDoDia, setDicaDoDia] = useState('')
     const [autorDica, setAutorDica] = useState('')
