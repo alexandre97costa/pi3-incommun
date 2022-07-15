@@ -82,10 +82,18 @@ export default function ContactarCliente(props) {
                                     <span>
                                         Compor email
                                     </span>
+                                    <span className='small fw-normal text-secondary d-none'>
+                                        <span>De: </span>
+                                        <span className='text-secondary'>
+                                            {authService.getCurrentUser()?.email ?? 'your@email.com'}
+                                        </span>
+                                    </span>
                                     <span className='small fw-normal text-secondary'>
-                                        {authService.getCurrentUser()?.email ?? 'your@email.com'}
-                                        <i className='bi bi-arrow-right mx-2'></i>
-                                        {props.destinatario}
+                                        <i className='bi bi-arrow-right mx-2 d-none text-warning'></i>
+                                        <span>Para: </span>
+                                        <span className='text-secondary'>
+                                            {props.destinatario}
+                                        </span>
                                     </span>
                                 </div>
                             </h5>

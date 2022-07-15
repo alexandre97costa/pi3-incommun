@@ -208,12 +208,6 @@ module.exports = {
             throw new Error('\x1b[31m\nAlgum dado não foi inserido. \nO body deve ser constituido por 2 objectos: pedido e cliente.\nO pedido deve ter uma array "respostas" com mais de um item.\x1b[0m')
         }
 
-        // TODO
-        // * Antes de inserir o que quer que seja, é preciso:
-        // 1. ir buscar o preço das perguntas associadas
-        // 2. inserir esse preço nas respostas
-        // 3. calcular o valor total do pedido
-
         await sequelize.sync()
             // calcular preços 🥵
             .then(() => {
@@ -295,6 +289,19 @@ module.exports = {
                         }
                     })
             })
+    },
+
+    update: async (req, res) => {
+        console.log(req.body)
+        console.log(req.body.pedido.respostas)
+        if (
+            !req.body.pedido_id ||
+            !req.body.valor_total ||
+            !req.body.respostas
+        ) { res.status(400); return }
+
+        
+
     },
 
     update_estado: async (req, res) => {

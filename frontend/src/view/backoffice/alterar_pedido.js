@@ -13,182 +13,231 @@ export default function AlterarPedido() {
     const [pedido, setPedido] = useState({})
     const [estados, setEstados] = useState([])
     const [motivos, setMotivos] = useState([])
+    const [valorTotal, setValorTotal] = useState(0.00)
 
-    const [reverter, setReverter] = useState(false)
+    // Editar resposta
+    const [editRespostaId, setEditRespostaId] = useState(0)
+    const [editRespostaValor, setEditRespostaValor] = useState(0)
 
-    // Datas
+    // Dates
     const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' }
     const created = new Date(pedido?.created_at).toLocaleDateString('pt-PT', dateOptions)
     const updated = new Date(pedido?.updated_at).toLocaleDateString('pt-PT', dateOptions)
 
+
+    const [fallbackText, setFallbackText] = useState('A carregar...')
+    const [verPerguntasZero, setVerPerguntasZero] = useState(false)
+    const [reverter, setReverter] = useState(false)
+
     useEffect(() => {
         getPedido()
 
-        axios.get(ip + '/pedidos/all_estados', authHeader())
-            .then(res => { setEstados(res.data) })
-        axios.get(ip + '/pedidos/all_motivos', authHeader())
-            .then(res => { setMotivos(res.data) })
+        axios.get(ip + '/pedidos/all_estados', authHeader()).then(res => { setEstados(res.data) })
+        axios.get(ip + '/pedidos/all_motivos', authHeader()).then(res => { setMotivos(res.data) })
 
     }, [])
 
     useEffect(() => {
-        // console.log(pedido)
+        console.log(pedido)
+        calcularValorTotal()
     }, [pedido])
+
+
+    useEffect(() => {
+        let input = document.getElementById('edit-valor-' + editRespostaId)
+        if (typeof (input) != 'undefined' && input != null) { input.focus() }
+    }, [editRespostaId, editRespostaValor])
 
     function getPedido() {
         axios
             .get(ip + '/pedidos/all?pedido_id=' + idPedido, authHeader())
-            .then(res => setPedido(res.data.data[0]))
+            .then(res => {
+                setPedido(res.data.data[0])
+                setFallbackText('Este pedido não tem respostas.')
+            })
+    }
+
+    function calcularValorTotal() {
+        if (!pedido.respostas) { return }
+
+        let valores_calculados = Array.from(pedido.respostas, resposta => {
+            return resposta.inteiro * resposta.valor_unitario
+        })
+        let valor_total = valores_calculados.reduce((a, b) => a + b)
+
+        setValorTotal(valor_total.toFixed(2))
+    }
+
+    function handleEditValor(id) {
+        pedido.respostas.forEach(resposta => {
+            if (resposta.id === id) {
+                resposta.valor_unitario = editRespostaValor
+                setEditRespostaId(0)
+                calcularValorTotal()
+            }
+        })
+    }
+
+    function updatePedido() {
+        pedido.valor_total = valorTotal
+        const body = {
+            pedido: pedido
+        }
+        axios.put(ip + '/pedidos/update', body, authHeader())
     }
 
     function LoadRespostas() {
         if (!pedido.respostas) { return }
+
+
+
         return (
             pedido.respostas.map(resposta => {
-                switch (resposta.pergunta.tipo_id) {
-                    // checkbox
-                    case 1:
-                        return (
-                            <tr key={resposta.id} className={'fw-normal text-secondary'}>
-                                <td></td>
-                                <td className={
-                                    !!resposta.inteiro ?
-                                        'fw-bold text-dark' :
-                                        'fw-normal text-secondary'
-                                }>
-                                    {resposta.pergunta.titulo}
-                                </td>
-                                <td>
-                                    {!!resposta.inteiro ?
 
-                                        <i className='fs-5 bi bi-check-lg text-success'></i>
-                                        :
-                                        <i className='fs-5 bi bi-x-lg text-danger'></i>
-                                    }
-                                </td>
-                                <td>{resposta.valor_unitario}</td>
-                                <td></td>
-                            </tr>
-                        )
+                // Para mudar a coluna de resposta consoante o tipo de pergunta (checkbox, slider, etc)
+                function Resposta() {
+                    const posts = resposta.texto.split(', ')[0]
+                    const stories = resposta.texto.split(', ')[1]
+                    const reels = resposta.texto.split(', ')[2]
 
-                    // r-social-posts
-                    case 7:
-                        const posts7 = resposta.texto.split(', ')[0]
-                        return (
-                            <tr key={resposta.id}>
-                                <td></td>
-                                <td className={
-                                    !!resposta.inteiro ?
-                                        'fw-bold text-dark' :
-                                        'fw-normal text-secondary'
-                                }>
-                                    {resposta.pergunta.titulo}
-                                </td>
-                                <td>
-                                    {!!resposta.inteiro ?
+                    switch (resposta.pergunta.tipo_id) {
+                        // Checkbox
+                        case 1:
+                            return (
+                                <td> {!!resposta.inteiro ?
+                                    <i className='fs-5 bi bi-check-lg text-success'></i> :
+                                    <i className='fs-5 bi bi-x-lg text-danger'></i>
+                                } </td>
+                            )
 
-                                        <span>{posts7 + ' posts'}</span>
-                                        :
-                                        <i className='fs-5 bi bi-x-lg text-danger'></i>
-                                    }
-                                </td>
-                                <td>{resposta.valor_unitario}</td>
-                                <td></td>
-                            </tr>
-                        )
-                    // r-social-posts-stories
-                    case 8:
-                        const posts8 = resposta.texto.split(', ')[0]
-                        const stories8 = resposta.texto.split(', ')[1]
-                        return (
-                            <tr key={resposta.id}>
-                                <td></td>
-                                <td className={
-                                    !!resposta.inteiro ?
-                                        'fw-bold text-dark' :
-                                        'fw-normal text-secondary'
-                                }>
-                                    {resposta.pergunta.titulo}
-                                </td>
-                                <td>
-                                    {!!resposta.inteiro ?
-
-                                        <span>{posts8 + ' posts, ' + stories8 + ' stories'}</span>
-                                        :
-                                        <i className='fs-5 bi bi-x-lg text-danger'></i>
-                                    }
-                                </td>
-                                <td>{resposta.valor_unitario}</td>
-                                <td></td>
-                            </tr>
-                        )
-                    // r-social-posts-reels
-                    case 9:
-                        const posts9 = resposta.texto.split(', ')[0]
-                        const reels9 = resposta.texto.split(', ')[2]
-                        return (
-                            <tr key={resposta.id}>
-                                <td></td>
-                                <td className={
-                                    !!resposta.inteiro ?
-                                        'fw-bold text-dark' :
-                                        'fw-normal text-secondary'
-                                }>
-                                    {resposta.pergunta.titulo}
-                                </td>
-                                <td>
-                                    {!!resposta.inteiro ?
-
-                                        <span>{posts9 + ' posts, ' + reels9 + ' reels'}</span>
-                                        :
-                                        <i className='fs-5 bi bi-x-lg text-danger'></i>
-                                    }
-                                </td>
-                                <td>{resposta.valor_unitario}</td>
-                                <td></td>
-                            </tr>
-                        )
-                    // r-social-posts-stories-reels
-                    case 10:
-                        const posts10 = resposta.texto.split(', ')[0]
-                        const stories10 = resposta.texto.split(', ')[1]
-                        const reels10 = resposta.texto.split(', ')[2]
-                        return (
-                            <tr key={resposta.id}>
-                                <td></td>
-                                <td className={
-                                    !!resposta.inteiro ?
-                                        'fw-bold text-dark' :
-                                        'fw-normal text-secondary'
-                                }>
-                                    {resposta.pergunta.titulo}
-                                </td>
-                                <td>
-                                    {!!resposta.inteiro ?
-
-                                        <span>{posts10 + ' posts, ' + stories10 + ' stories, ' + reels10 + ' reels'}</span>
-                                        :
-                                        <i className='fs-5 bi bi-x-lg text-danger'></i>
-                                    }
-                                </td>
-                                <td>{resposta.valor_unitario}</td>
-                                <td></td>
-                            </tr>
-                        )
-
-                    default:
-                        return (
-                            <tr key={resposta.id} className={'fw-normal text-secondary table-danger'}>
-                                <td>{resposta.pergunta.tipo_id}</td>
-                                <td>{resposta.pergunta.titulo}</td>
-                                <td>{resposta.id}</td>
-                                <td>{resposta.valor_unitario}</td>
-                                <td>{resposta.inteiro}</td>
-                            </tr>
-                        )
-                        break;
+                        // Redes Sociais (7-10)
+                        case 7:
+                            return (
+                                <td> {!!resposta.inteiro ?
+                                    <span>{posts + ' posts'}</span> :
+                                    <i className='fs-5 bi bi-x-lg text-danger'></i>
+                                } </td>
+                            )
+                        case 8:
+                            return (
+                                <td> {!!resposta.inteiro ?
+                                    <span>{posts + ' posts, ' + stories + ' stories'}</span> :
+                                    <i className='fs-5 bi bi-x-lg text-danger'></i>
+                                } </td>
+                            )
+                        case 9:
+                            return (
+                                <td> {!!resposta.inteiro ?
+                                    <span>{posts + ' posts, ' + reels + ' reels'}</span> :
+                                    <i className='fs-5 bi bi-x-lg text-danger'></i>
+                                } </td>
+                            )
+                        case 10:
+                            return (
+                                <td> {!!resposta.inteiro ?
+                                    <span>{posts + ' posts, ' + stories + ' stories, ' + reels + ' reels'}</span> :
+                                    <i className='fs-5 bi bi-x-lg text-danger'></i>
+                                } </td>
+                            )
+                        default:
+                            break;
+                    }
                 }
 
+                function ValorUnitario() {
+                    return (
+                        (editRespostaId === resposta.id) ?
+                            <td>
+                                <input
+                                    id={'edit-valor-' + resposta.id}
+                                    className='form-control focus-warning'
+                                    type='number'
+                                    step='0.1'
+                                    min='0.1'
+                                    value={editRespostaValor}
+                                    onChange={e => setEditRespostaValor(e.target.value)}
+                                />
+                            </td>
+                            :
+                            <td className={!resposta.inteiro && 'text-decoration-line-through'}>
+                                {resposta.inteiro > 1 ?
+                                    <div>
+                                        <span className='text-dark fs-5'>
+                                            {resposta.valor_unitario}
+                                        </span>
+                                        {' (x ' + resposta.inteiro + ')'}
+                                    </div>
+                                    :
+                                    <span className='text-dark fs-5'>
+                                        {resposta.valor_unitario}
+                                    </span>
+                                    
+                                }
+                            </td>
+
+                    )
+                }
+
+                function Botoes() {
+                    return (
+                        (editRespostaId === resposta.id) ?
+                            <td>
+                                <div className='d-flex justify-content-end'>
+                                    <button
+                                        type='button'
+                                        className='btn btn-success me-2'
+                                        onClick={e => handleEditValor(resposta.id)}
+                                    >
+                                        <i className='bi bi-check-lg'></i>
+                                    </button>
+                                    <button
+                                        type='button'
+                                        className='btn btn-danger'
+                                        onClick={e => setEditRespostaId(0)}
+                                    >
+                                        <i className='bi bi-x-lg'></i>
+                                    </button>
+                                </div>
+                            </td>
+                            :
+                            <td className=''>
+                                {!!resposta.inteiro &&
+                                    <div className='d-flex justify-content-end '>
+                                        <button
+                                            type='button'
+                                            className='btn btn-outline-warning'
+                                            onClick={e => {
+                                                setEditRespostaId(resposta.id)
+                                                setEditRespostaValor(resposta.valor_unitario)
+                                            }}
+                                        >
+                                            <i className='bi bi-pencil-fill'></i>
+                                        </button>
+                                    </div>
+                                }
+                            </td>
+                    )
+                }
+
+                return (
+                    <tr key={resposta.id} className={
+                        (!(!verPerguntasZero && !resposta.inteiro) ? ' ' : 'd-none ') +
+                        (!resposta.inteiro && 'bg-secondary bg-opacity-10 ') +
+                        'fw-normal text-secondary'
+                    }>
+                        {/* Pergunta */}
+                        <td className={!!resposta.inteiro ? 'text-dark' : 'text-secondary'} >
+                            {resposta.pergunta.titulo}
+                        </td>
+
+                        <Resposta />
+
+                        <ValorUnitario />
+
+                        <Botoes />
+
+                    </tr>
+                )
             })
 
         )
@@ -238,10 +287,12 @@ export default function AlterarPedido() {
                 </div>
 
                 <div className='col-4 '>
-                    <div className=' pt-4 text-end d-flex flex-column'>
+                    <div className='text-end d-flex flex-column'>
 
-                        <span className='h5 text-dark text-end fw-semibold'>{'Valor Total em €'}</span>
-                        <span className='h1 text-success text-end fw-light border border-1 p-2 rounded-4 bg-white shadow'>{(pedido.valor_total?.toFixed(2) ?? 0.00)}</span>
+                        <span className='d-flex flex-column h1 text-success text-end fw-light border border-1 p-3 rounded-4 bg-white shadow'>
+                            <span className='h5 text-dark text-end fw-semibold'>{'Valor Total em €'}</span>
+                            {valorTotal}
+                        </span>
 
                     </div>
                 </div>
@@ -250,15 +301,28 @@ export default function AlterarPedido() {
             {/* Tabela */}
             {!!(pedido.respostas?.length ?? 0) ?
                 <div className="mb-4 row px-2">
-                    <div className='col p-3 bg-white rounded-4 border shadow'>
-                        <table className='table'>
+                    <div className='col p-3 pb-1 bg-white rounded-4 border shadow'>
+                        <div className="form-check form-switch w-100 mb-3 mt-2">
+                            <input
+                                className="form-check-input"
+                                type="checkbox"
+                                role="switch"
+                                id="verPerguntasZero"
+                                style={{ width: '2.5rem', margin: 0 }}
+                                checked={verPerguntasZero}
+                                onChange={e => setVerPerguntasZero(!verPerguntasZero)}
+                            />
+                            <label className="form-check-label text-secondary ms-2" htmlFor="verPerguntasZero">
+                                Ver perguntas sem resposta
+                            </label>
+                        </div>
+                        <table className='table align-middle'>
                             <thead>
                                 <tr className=''>
-                                    <th className='text-start' style={{ width: '' }}>tipo</th>
-                                    <th className='text-start' style={{ width: '' }}>Pergunta</th>
-                                    <th className='text-start' style={{ width: '' }}>Resposta</th>
-                                    <th className='text-start' style={{ width: '' }}>Valor Unitário</th>
-                                    <th className='text-start' style={{ width: '' }}>quant</th>
+                                    <th className='text-start' style={{ width: '20%' }}>Pergunta</th>
+                                    <th className='text-start' style={{ width: '50%' }}>Resposta</th>
+                                    <th className='text-start' style={{ width: '20%' }}>Valor Unitário €</th>
+                                    <th className='text-start' style={{ width: '10%' }}>&nbsp;</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -269,7 +333,7 @@ export default function AlterarPedido() {
                 </div>
                 :
                 <div className='mb-4 row text-center px-2'>
-                    <span className='fs-3 text-secondary'>Este pedido não tem respostas.</span>
+                    <span id="text-sem-respostas" className='fs-3 text-secondary'>{fallbackText}</span>
                 </div>
             }
 
@@ -304,7 +368,8 @@ export default function AlterarPedido() {
                             </div>
                         }
                         <button
-                            className='btn btn-warning rounded-3'
+                            className='btn btn-success rounded-3'
+                            onClick={e => updatePedido()}
                         >
                             Guardar alterações
                         </button>
