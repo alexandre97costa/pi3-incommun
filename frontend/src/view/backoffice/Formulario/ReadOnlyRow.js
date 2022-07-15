@@ -1,8 +1,10 @@
 import React from 'react'
 import authHeader from '../../auth-header'
 
-const ReadOnlyRow = ({ pergunta, handleEditClick }) => {
+const ReadOnlyRow = ({ pergunta, handleEditClick, handleDeleteClick }) => {
     return (
+
+        
 
 
         <table className="table table-hover">
@@ -38,13 +40,22 @@ const ReadOnlyRow = ({ pergunta, handleEditClick }) => {
                         <button type="button"
                             className="btn btn-outline-warning mx-2"
                             onClick={(e) => handleEditClick(e, pergunta)}
-                        ><i className="bi bi-pencil-square"></i></button>
+                        ><i className="bi bi-pencil-square"></i>
+                        </button>
+
+                        <button type="button"
+                            className="btn btn-outline-danger mx-2"
+                            // onClick={() => handleDeleteClick(pergunta.id)}
+                        ><i className="bi bi-file-earmark-x"></i>
+                        </button>
                     </td>
                     
                 </tr>
                
             </tbody>
         </table>
+
+        
 
 
     )
