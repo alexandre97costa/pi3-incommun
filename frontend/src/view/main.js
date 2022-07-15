@@ -77,7 +77,7 @@ export default function MainComponent() {
     function ButtonsLink() {
         return forms.map((form, index) => {
             return ((form.id === 1 || form.id === 2 || form.id === 3) &&
-                < div key={form.id} className='col-4 text-center'>
+                < div key={form.id} className='col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-4 text-center py-3'>
                     <button
                         className='btn btn-warning fs-4 fw-normal rounded-0 py-3'
                         type="button"
@@ -97,27 +97,27 @@ export default function MainComponent() {
         <div className='container'>
             <div className='row flex-column flex-md-row justify-content-center text-center' style={{ marginTop: '10rem', marginBottom: '10rem' }}>
 
-                <div className='col-3 border border-warning border-3 rounded-4 py-2'>
+                <div className='col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 col-xxl-3 border border-warning border-3 rounded-4 py-5'>
                     <i className="bi bi-journal-text text-warning fs-1"></i>
-                    <div className='fs-3'>Complete um formulário</div>
+                    <div className='fs-3 text-wrap'>Complete um formulário</div>
                 </div>
 
-                <div className='col-1 d-flex justify-content-center align-items-center'>
+                <div className='col-xs-12 col-sm-12 col-md-12 col-lg-1 col-xl-1 col-xxl-1 d-flex justify-content-center align-items-center'>
                     <i className="bi bi-chevron-right text-warning fs-1"></i>
                 </div>
 
-                <div className='col-3 border border-warning border-3 rounded-4 py-2'>
+                <div className='col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 col-xxl-3 border border-warning border-3 rounded-4 py-5'>
                     <i className="bi bi-wallet2 text-warning fs-1"></i>
-                    <div className='fs-3'>Receba o orçamento</div>
+                    <div className='fs-3 text-wrap'>Receba o orçamento</div>
                 </div>
 
-                <div className='col-1 d-flex justify-content-center align-items-center'>
+                <div className='col-xs-12 col-sm-12 col-md-12 col-lg-1 col-xl-1 col-xxl-1 d-flex justify-content-center align-items-center'>
                     <i className="bi bi-chevron-right text-warning fs-1"></i>
                 </div>
 
-                <div className='col-3 border border-warning border-3 rounded-4 py-2'>
+                <div className='col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 col-xxl-3 border border-warning border-3 rounded-4 py-5'>
                     <i className="bi bi-geo-alt-fill text-warning fs-1"></i>
-                    <div className='fs-3'>Pedido entregue!</div>
+                    <div className='fs-3 text-wrap'>Pedido entregue!</div>
                 </div>
             </div>
 
