@@ -55,7 +55,7 @@ export default function MainComponent() {
                     </Link>
                 </div>*/
 
-                <div key={form.id} className={((form.id === 1 || form.id === 2 || form.id === 3) ? (form.id === 2)?'collapse  text-end' : 'collapse' : (form.id === 4) ? 'text-end' : 'text-start') + ' my-5'} id={"formulario-" + form.id}>
+                <div key={form.id} className={((form.id === 1 || form.id === 2 || form.id === 3) ? (form.id === 2) ? 'collapse  text-end' : 'collapse' : (form.id === 4) ? 'text-end' : 'text-start') + ' my-5'} id={"formulario-" + form.id}>
                     <div className='fs-1 text-indigo lh-1 py-3'>
                         {form.titulo}
                     </div>
@@ -99,7 +99,8 @@ export default function MainComponent() {
 
                 <div className='col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 col-xxl-3 border border-warning border-3 rounded-4 py-5'>
                     <i className="bi bi-journal-text text-warning fs-1"></i>
-                    <div className='fs-3 text-wrap'>Complete um formulário</div>
+                    <div className='fs-4'>Complete um formulário</div>
+                    <div className='fs-5 py-4'>Poderá escolher desde a construção de website, de identidade visual e de gestão de redes sociais.</div>
                 </div>
 
                 <div className='col-xs-12 col-sm-12 col-md-12 col-lg-1 col-xl-1 col-xxl-1 d-flex justify-content-center align-items-center'>
@@ -108,7 +109,8 @@ export default function MainComponent() {
 
                 <div className='col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 col-xxl-3 border border-warning border-3 rounded-4 py-5'>
                     <i className="bi bi-wallet2 text-warning fs-1"></i>
-                    <div className='fs-3 text-wrap'>Receba o orçamento</div>
+                    <div className='fs-4'>Receba o orçamento</div>
+                    <div className='fs-5 py-4'>Ao fim do formulário preenchido ira receber um orçamento consoante as coisas que escolheu.</div>
                 </div>
 
                 <div className='col-xs-12 col-sm-12 col-md-12 col-lg-1 col-xl-1 col-xxl-1 d-flex justify-content-center align-items-center'>
@@ -117,7 +119,8 @@ export default function MainComponent() {
 
                 <div className='col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 col-xxl-3 border border-warning border-3 rounded-4 py-5'>
                     <i className="bi bi-geo-alt-fill text-warning fs-1"></i>
-                    <div className='fs-3 text-wrap'>Pedido entregue!</div>
+                    <div className='fs-4'>Pedido entregue!</div>
+                    <div className='fs-5 py-4'>Após o pagamento ser concluido e da equipa ter acabado o seu trabalho o resultado final será entregue ao cliente.</div>
                 </div>
             </div>
 

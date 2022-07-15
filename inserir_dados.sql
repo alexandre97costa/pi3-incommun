@@ -54,7 +54,7 @@ INSERT INTO formulario (id, titulo, created_at, updated_at, descricao)  VALUES
 (1, 'Website Institucional', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Estimulamos ações através da comunicação diferenciada.'  ),
 (2, 'Loja Online',           CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'O bom conteúdo é a melhor ferramenta de vendas do mundo.'  ),
 (3, 'Website Hibrido',       CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Publicamos conteúdos que mostra aos seus clientes que entende o problema e que os pode resolver. É o necessário para geral credibilidade.'  ),
-(4, 'Identidade Visual',     CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Damos personalidade á sua  Marca para um mercado competitivo.'  ),
+(4, 'Identidade Visual',     CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Damos personalidade á sua marca para um mercado competitivo.'  ),
 (5, 'Redes Sociais',         CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Quanto mais estradas existirem, mais fácil será chegar até si.'  );
 
 /**************************************** fim formulario *****************************************************/
