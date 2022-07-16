@@ -98,7 +98,7 @@ export default function InicioComponent() {
                                     </span>
                                     <br />
                                     <span className='badge p-0 fw-semibold text-light-dark lh-sm'>
-                                        {pedido.cliente?.empresa}
+                                        {pedido.cliente?.email}
                                     </span>
                                 </div>
 

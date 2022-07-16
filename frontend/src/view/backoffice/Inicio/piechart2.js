@@ -7,64 +7,14 @@ import authHeader from '../../auth-header'
 
 export default function PieChartComponent2() {
 
-    const [dicaDoDia, setDicaDoDia] = useState('')
-    const [autorDica, setAutorDica] = useState('')
-    const [totalPedidosRecusados, setTotalPedidosRecusados] = useState(0)
-
-    const [contMotivoPreco, setMotivoPreco] = useState(0)
-    const [contMotivoConcorrencia, setMotivoConcorrencia] = useState(0)
-    const [contMotivoNaoEstavaEspera, setMotivoNaoEstavaEspera] = useState(0)
-    const [contMotivoOutro, setMotivoOutro] = useState(0)
-
     const [contEstadoPendente, setEstadoPendente] = useState(0)
     const [contEstadoEnviado, setEstadoEnviado] = useState(0)
     const [contEstadoAceite, setEstadoAceite] = useState(0)
     const [contEstadoRecusado, setEstadoRecusado] = useState(0)
 
-    const [totalPedidos, setTotalPedidos] = useState(0)
-
     const [isShown, setIsShown] = useState(true);
 
     useEffect(() => {
-        // Get total de pedidos
-        // por defeito, sem mandar nenhuma query (nem estado nem dias),
-        // conta todos os pedidos dos ultimos 30 dias
-        axios.get(ip + '/pedidos/count?estado_id=0&oquecontar=todos', authHeader())
-            .then(res => {
-                setTotalPedidos(res.data.count)
-            })
-
-        axios.get(ip + '/pedidos/count?estado_id=0&oquecontar=todos', authHeader())
-            .then(res => {
-                setTotalPedidos(res.data.count)
-            })
-
-        axios.get(ip + '/pedidos/count?estado_id=4&oquecontar=todos', authHeader())
-            .then(res => {
-                setTotalPedidosRecusados(res.data.count)
-            })
-
-        axios.get(ip + '/pedidos/count?motivo_id=1&oquecontar=motivo', authHeader())
-            .then(res => {
-                setMotivoPreco(res.data.count)
-            })
-
-        axios.get(ip + '/pedidos/count?motivo_id=2&oquecontar=motivo', authHeader())
-            .then(res => {
-                setMotivoConcorrencia(res.data.count)
-            })
-
-        axios.get(ip + '/pedidos/count?motivo_id=3&oquecontar=motivo', authHeader())
-            .then(res => {
-                setMotivoNaoEstavaEspera(res.data.count)
-            })
-
-        axios.get(ip + '/pedidos/count?motivo_id=4&oquecontar=motivo', authHeader())
-            .then(res => {
-                setMotivoOutro(res.data.count)
-            })
-
-        //get estado pedido
         axios.get(ip + '/pedidos/count?estado_id=1&oquecontar=todos', authHeader())
             .then(res => {
                 setEstadoPendente(res.data.count)
@@ -88,9 +38,9 @@ export default function PieChartComponent2() {
 
     const data1 = [
         ["Estado", "Quantidade"],
-        ["Pendente", contEstadoPendente],
-        ["Recusado", contEstadoRecusado],
         ["Enviado", contEstadoEnviado],
+        ["Recusado", contEstadoRecusado],
+        ["Pendente", contEstadoPendente],
         ["Aceite", contEstadoAceite],
     ];
 
