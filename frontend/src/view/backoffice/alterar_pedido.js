@@ -25,6 +25,7 @@ export default function AlterarPedido() {
     const updated = new Date(pedido?.updated_at).toLocaleDateString('pt-PT', dateOptions)
 
 
+    const [guardarText, setGuardarText] = useState('Guardar alterações')
     const [fallbackText, setFallbackText] = useState('A carregar...')
     const [verPerguntasZero, setVerPerguntasZero] = useState(false)
     const [reverter, setReverter] = useState(false)
@@ -38,7 +39,7 @@ export default function AlterarPedido() {
     }, [])
 
     useEffect(() => {
-        console.log(pedido)
+        // console.log(pedido)
         calcularValorTotal()
     }, [pedido])
 
@@ -79,11 +80,16 @@ export default function AlterarPedido() {
     }
 
     function updatePedido() {
+        setGuardarText('A guardar...')
         pedido.valor_total = valorTotal
-        const body = {
-            pedido: pedido
-        }
-        axios.put(ip + '/pedidos/update', body, authHeader())
+
+        axios
+            .put(ip + '/pedidos/update', { pedido: pedido }, authHeader())
+            .then(res => {
+                setGuardarText(res.data.message)
+                setTimeout(() => { setGuardarText('Guardar alterações') }, 1000);
+            })
+            .catch(console.log)
     }
 
     function LoadRespostas() {
@@ -159,7 +165,7 @@ export default function AlterarPedido() {
                                 />
                             </td>
                             :
-                            <td className={!resposta.inteiro && 'text-decoration-line-through'}>
+                            <td className={!resposta.inteiro ? 'text-decoration-line-through' : ''}>
                                 {resposta.inteiro > 1 ?
                                     <div>
                                         <span className='text-dark fs-5'>
@@ -171,7 +177,7 @@ export default function AlterarPedido() {
                                     <span className='text-dark fs-5'>
                                         {resposta.valor_unitario}
                                     </span>
-                                    
+
                                 }
                             </td>
 
@@ -371,7 +377,7 @@ export default function AlterarPedido() {
                             className='btn btn-success rounded-3'
                             onClick={e => updatePedido()}
                         >
-                            Guardar alterações
+                            {guardarText}
                         </button>
                     </div>
                 </div>

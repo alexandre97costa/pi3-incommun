@@ -292,15 +292,49 @@ module.exports = {
     },
 
     update: async (req, res) => {
-        console.log(req.body)
-        console.log(req.body.pedido.respostas)
+        // console.log(req.body)
+        // console.log(req.body.pedido.respostas)
         if (
-            !req.body.pedido_id ||
-            !req.body.valor_total ||
-            !req.body.respostas
+            !req.body.pedido ||
+            !req.body.pedido.valor_total ||
+            !req.body.pedido.respostas
         ) { res.status(400); return }
 
-        
+        // 1 - atualizar o valor total do pedido (já vem calculado do frontend)
+        // 2 - atualizar cada valor_unitario das respostas (forEach)
+
+        const pedido = req.body.pedido
+        const respostas = req.body.pedido.respostas
+        let message = ''
+        let countRespostas = 0
+
+        await sequelize.sync()
+            .then(async () => {
+                await Pedido
+                    .update({
+                        valor_total: pedido.valor_total
+                    }, {
+                        where: { id: pedido.id }
+                    })
+                    .then(count => {
+                        message = !!count ? 'Pedido atualizado! ' : 'Erro a atualizar pedido. '
+
+                        respostas.forEach(async resposta => {
+                            await Resposta
+                                .update({
+                                    valor_unitario: resposta.valor_unitario
+                                }, {
+                                    where: {
+                                        id: resposta.id,
+                                        pedido_id: resposta.pedido_id
+                                    }
+                                })
+                                .then(count => countRespostas += count)
+                        })
+                    })
+            })
+            .then(() => res.status(200).json({ success: true, message: message }))
+            .catch(console.log)
 
     },
 
