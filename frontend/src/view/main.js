@@ -55,7 +55,7 @@ export default function MainComponent() {
                     </Link>
                 </div>*/
 
-                <div key={form.id} className={((form.id === 1 || form.id === 2 || form.id === 3) ? (form.id === 2) ? 'collapse  text-end' : 'collapse' : (form.id === 4) ? 'text-end' : 'text-start') + ' my-5'} id={"formulario-" + form.id}>
+                <div key={form.id} className={((form.id === 1 || form.id === 2 || form.id === 3) ? 'collapse' : (form.id === 4) ? 'text-end' : 'text-start') + ' my-5'} id={"formulario-" + form.id} data-bs-parent="#collapse-group">
                     <div className='fs-1 text-indigo lh-1 py-3'>
                         {form.titulo}
                     </div>
@@ -83,6 +83,7 @@ export default function MainComponent() {
                         type="button"
                         data-bs-toggle="collapse"
                         data-bs-target={"#formulario-" + form.id}
+                        data-bs-parent="#collapse-group"
                         style={{ width: '300px' }}
                     >
                         {form.titulo}
@@ -124,15 +125,6 @@ export default function MainComponent() {
                 </div>
             </div>
 
-            <div className='fs-1 text-indigo lh-1 py-3'>Website</div>
-
-            <div className='row flex-column flex-md-row py-3'>
-                <ButtonsLink />
-            </div>
-
-
-
-
             {forms.length === 0 &&
                 <div className='row justify-content-center my-5'>
                     <div className="spinner-grow text-secondary" role="status">
@@ -140,7 +132,19 @@ export default function MainComponent() {
                     </div>
                 </div>
             }
-            <LoadLinks />
+
+            <div id='collapse-group'>
+                <div className='fs-1 text-indigo lh-1 py-3'>Website</div>
+
+                <div className='row flex-column flex-md-row py-3'>
+                    <ButtonsLink />
+                </div>
+
+                <div className='accordion-group'>
+                    <LoadLinks />
+                </div>
+            </div>
+
 
 
             <div style={{ marginTop: '10rem', marginBottom: '10rem' }}>
