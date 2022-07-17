@@ -98,7 +98,7 @@ export default function NavDeLadoComponent(props) {
                     </li>
 
                     {/* PieChart */}
-                    <li className='mb-2'>
+                    <li className='mb-2 d-none'>
                         <Link to='/back-office/piechart'
                             className='btn btn-outline-secondary border-0 rounded-0 px-2 px-sm-0 d-flex align-items-center'
                             onFocus={e => setTimeout(() => { e.target.blur() }, 200)}
@@ -109,7 +109,7 @@ export default function NavDeLadoComponent(props) {
                     </li>
 
                     {/* Visitas */}
-                    <li className='mb-2'>
+                    <li className='mb-2 d-none'>
                         <Link to='/back-office/visitas'
                             className='btn btn-outline-secondary border-0 rounded-0 px-2 px-sm-0 d-flex align-items-center'
                             onFocus={e => setTimeout(() => { e.target.blur() }, 200)}

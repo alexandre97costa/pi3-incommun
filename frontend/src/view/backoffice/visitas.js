@@ -1,8 +1,8 @@
 import { Chart } from 'react-google-charts';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import ip from '../../../ip'
-import authHeader from '../../auth-header'
+import ip from '../../ip'
+import authHeader from '../auth-header'
 
 export default function VisitasComponent(props) {
 

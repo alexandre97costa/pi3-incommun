@@ -7,6 +7,7 @@ import './styles/index.css'
 import NavDeCima from './view/forms/navdecima'
 import NavDeLado from './view/backoffice/navdelado'
 import Main from './view/main'
+import FrontPage from './view/frontpage'
 import Form from './view/forms/form'
 import JumboTron from './view/forms/jumbotron'
 import Footer from './view/forms/footer'
@@ -19,7 +20,7 @@ import BoFormularios from './view/backoffice/Formulario/formularios'
 import BoClientes from './view/backoffice/clientes'
 import BoPiechart from './view/backoffice/piechart'
 import BoPedidosCliente from './view/backoffice/pedidos_cliente'
-import BoVisitas from './view/backoffice/Testes/visitas'
+import BoVisitas from './view/backoffice/visitas'
 import BoAlterarPedido from './view/backoffice/alterar_pedido';
 
 import UsersModalComponent from './view/backoffice/users_modal'
@@ -61,8 +62,9 @@ export default function App() {
 				<Route exact path='/' element={
 					<>
 						<NavDeCima auth={login} />
-						<JumboTron />
-						<Main />
+						{/* <JumboTron /> */}
+						<FrontPage />
+						{/* <Main /> */}
 						<Footer />
 					</>
 				} />
