@@ -89,7 +89,7 @@ export default function FrontPage() {
                 </div>
             </div>
 
-            <div className='row  bg-dark py-5 text-light' style={{ minHeigh: '80vh' }}>
+            <div className='row  bg-dark py-5 text-light'>
                 <div className='col-12 text-center mb-5'>
                     <div className='display-3 fw-bold' >
                         Serviços personalizados&nbsp;
@@ -159,7 +159,7 @@ export default function FrontPage() {
                 </div>
             </div>
 
-            <div className='row justify-content-center bg-warning bg-opacity-10 py-5' style={{ minHeigh: '80vh' }}>
+            <div className='row justify-content-center bg-warning bg-opacity-10 py-5'>
             <div className='col-12 text-center mb-5 mt-4'>
                     <div className='display-3 fw-bold' >
                         Vamos a isto?
@@ -172,10 +172,10 @@ export default function FrontPage() {
                     <div className='container'>
                         <div className='row row-cols-3 gx-4'>
                             <div className='col'>
-                                <div className='bg-warning border border-warning border-3  p-4 pb-2 rounded-5'>
+                                <div className='bg-transparent border border-warning border-3 p-4 pb-2 rounded-4'>
 
                                     {/* Titulo */}
-                                    <div className='fs-2 fw-bold mb-3 text-dark'>
+                                    <div className='fs-2 fw-bold mb-3'>
                                         Criação de Website
                                     </div>
                                     {/* Texto */}
@@ -184,15 +184,15 @@ export default function FrontPage() {
 
                                     </div>
                                     <div className='d-flex flex-column'>
-                                        <button type='button' className='btn btn-light rounded-3 mb-3'>Form 1</button>
-                                        <button type='button' className='btn btn-light rounded-3 mb-3'>Form 2</button>
-                                        <button type='button' className='btn btn-light rounded-3 mb-3'>Form 3</button>
+                                        <button type='button' className='btn btn-warning rounded-3 mb-3'>Form 1</button>
+                                        <button type='button' className='btn btn-warning rounded-3 mb-3'>Form 2</button>
+                                        <button type='button' className='btn btn-warning rounded-3 mb-3'>Form 3</button>
                                     </div>
 
                                 </div>
                             </div>
                             <div className='col '>
-                                <div className='bg-white border border-warning border-3 p-4 pb-2 rounded-5'>
+                                <div className='bg-white border border-warning border-3 p-4 pb-2 rounded-4'>
 
                                     {/* Titulo */}
                                     <div className='fs-2 fw-bold mb-3'>
@@ -208,14 +208,14 @@ export default function FrontPage() {
                                 </div>
                             </div>
                             <div className='col h-100'>
-                                <div className='bg-dark p-4 pb-2 rounded-5'>
+                                <div className='bg-transparent border border-warning border-3 p-4 pb-2 rounded-4'>
 
                                     {/* Titulo */}
                                     <div className='fs-2 fw-bold mb-3 text-warning'>
                                         Gestão de Redes Sociais
                                     </div>
                                     {/* Texto */}
-                                    <div className='fs-5 fw-normal text-white lh-sm mb-4'>
+                                    <div className='fs-5 fw-normal text-dark lh-sm mb-4'>
                                         Outro texto, outro botão, outra voltinha.
                                     </div>
 

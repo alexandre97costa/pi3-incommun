@@ -63,8 +63,8 @@ export default function App() {
 					<>
 						<NavDeCima auth={login} />
 						{/* <JumboTron /> */}
-						<FrontPage />
 						{/* <Main /> */}
+						<FrontPage />
 						<Footer />
 					</>
 				} />
