@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, Fragment } from "react";
 import axios from 'axios';
 import ip from '../../../ip';
 import authHeader from '../../auth-header'
@@ -10,20 +10,7 @@ export default function EditableRow({ handleCancelClick, id }) {
     const [edittipopergunta, setedittipopergunta] = useState("")
     const [editvalorpergunta, seteditvalorpergunta] = useState("")
 
-    const [listaTiposPergunta, setListaTiposPergunta] = useState([])
-
-
-    function LoadTiposPergunta() {
-        return listaTiposPergunta.map(form => {
-            return (
-
-
-                <option>
-                    <li> OLE</li>
-                </option>
-            )
-        })
-    }
+    const [listaTiposPergunta, setlistaTiposPergunta] = useState([])
 
 
 
@@ -47,7 +34,21 @@ export default function EditableRow({ handleCancelClick, id }) {
             .catch(error => {
                 return error;
             })
-    }
+    };
+
+    useEffect(() => {
+		getTiposPergunta()
+	}, []);
+
+
+	function getTiposPergunta() {
+		axios.get(ip + '/forms/all_tipos_pergunta', authHeader())
+			.then(res => {
+				console.table(res.data.TipoPergunta, ['id', 'nome'])
+				setlistaTiposPergunta(res.data.TipoPergunta)
+			})
+	};
+
 
 
     return (
@@ -80,7 +81,7 @@ export default function EditableRow({ handleCancelClick, id }) {
                             />
                         </td>
 
-                        <td style={{ width: "10%" }}>
+                        {/* <td style={{ width: "10%" }}>
                             <input
                                 className="form-control focus-warning"
                                 type="text"
@@ -90,28 +91,30 @@ export default function EditableRow({ handleCancelClick, id }) {
                                 value={edittipopergunta}
                                 onChange={e => setedittipopergunta(e.target.value)}
                             />
-                        </td>
+                        </td> */}
 
-                        {/* 
-                            <div class="dropdown">
-                                <button class="form-control focus-warning dropdown-toggle"
+                        <td style={{ width: "10%" }}>
+
+                            <div className="dropdown">
+                                <button className="form-control focus-warning dropdown-toggle"
                                     type="button"
                                     id="dropdownMenu2"
                                     data-bs-toggle="dropdown"
                                     aria-expanded="false">
-
                                 </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+
+                                <ul className="dropdown-menu" aria-labelledby="dropdownMenu2">
                                     <li>
-                                        <button class="dropdown-item"
+                                        <button className="dropdown-item"
                                             type="button">
-                                            {LoadTiposPergunta}
+                                        
                                         </button>
                                     </li>
                                 </ul>
-                            </div> 
+                            </div>
 
- */}
+                        </td>
+
 
 
 
@@ -126,7 +129,7 @@ export default function EditableRow({ handleCancelClick, id }) {
                                 value={editvalorpergunta}
                                 onChange={e => seteditvalorpergunta(e.target.value)}
                             />
-                            </td>
+                        </td>
 
 
                         <td style={{ width: "10%" }}>
@@ -144,7 +147,7 @@ export default function EditableRow({ handleCancelClick, id }) {
 
                         </td>
                     </tr>
-                    
+
                 </tbody>
             </table>
 
@@ -152,4 +155,5 @@ export default function EditableRow({ handleCancelClick, id }) {
     )
 
 };
+
 
