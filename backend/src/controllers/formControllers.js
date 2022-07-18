@@ -107,8 +107,9 @@ module.exports = {
             {
                 titulo: titulo,
                 descricao: descricao,
-                tipo_id: tipo_pergunta,
-                valor_unitario: valor_unitario
+                tipo_pergunta: tipo_pergunta,
+                valor_unitario: valor_unitario,
+                
 
 
             },

@@ -1,4 +1,5 @@
-import React, { useEffect, useState, Fragment } from "react";
+import React, { useEffect, useState } from "react";
+import Dropdown from 'react-bootstrap/Dropdown';
 import axios from 'axios';
 import ip from '../../../ip';
 import authHeader from '../../auth-header'
@@ -23,7 +24,7 @@ export default function EditableRow({ handleCancelClick, id, pergunta, getForms 
                 id: idpergunta,
                 titulo: edittitulopergunta,
                 descricao: editdescricaopergunta,
-                tipo_pergunta: parseInt(edittipopergunta),
+                tipo_pergunta: edittipopergunta,
                 valor_unitario: parseFloat(editvalorpergunta),
 
             }, authHeader())
@@ -49,6 +50,10 @@ export default function EditableRow({ handleCancelClick, id, pergunta, getForms 
             })
     };
 
+    function refreshPage() {
+        window.location.reload(false)
+
+    };
 
 
     return (
@@ -89,69 +94,31 @@ export default function EditableRow({ handleCancelClick, id, pergunta, getForms 
 
                         <td style={{ width: "10%" }}>
 
+                            <form >
+                                <select name="Teste21" className="form-control focus-warning dropdown-toggle" type="button" >
+                                    <option>
+                                        {pergunta.tipo_pergunta.titulo}
+                                    </option>
 
-
-
-
-
-                            <div className="dropdown">
-                                <button className="form-control focus-warning dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                    {pergunta.tipo_pergunta.titulo}
-                                </button>
-
-                                <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                     {listaTiposPergunta.map(TipoPergunta => {
 
                                         return (
+                                            <option
+                                                className="form-control focus-warning"
+                                                type="text"
+                                                name="tipo_pergunta"
+                                                required="required"
+                                                value={edittipopergunta}
+                                                onChange={e => setedittipopergunta(e.target.value)}>
+                                                {TipoPergunta.titulo}
+                                            </option>
 
-                                            <li>
-                                                <a className="dropdown-item">
-                                                    {TipoPergunta.titulo}
-
-                                                </a>
-                                            </li>
                                         )
                                     })}
-
-                                </ul>
-                            </div>
-
-
+                                </select>
+                            </form>
 
                         </td>
-
-
-
-                        {/* <div className="dropdown">
-                                            <input                                           
-                                            className="form-control focus-warning dropdown-toggle"                                         
-                                                type="button"
-                                                id="dropdownMenu2"
-                                                data-bs-toggle="dropdown"
-                                                aria-expanded="false"
-                                                required="required"
-                                                placeholder={pergunta.tipo_pergunta.titulo}
-                                                value= {edittipopergunta}
-                                                onChange={e => seteditvalorpergunta(e.target.value)}
-                                                >   
-                                               //////////    AQUI FICA "PRE DEFINIDO O TIPO DE PERGUNTA MAS NAO ATUALIZA A PERRGUNTA"   /////
-                                                {pergunta.tipo_pergunta.titulo}                                   
-                                                   
-                                            </input>
-
-                                            
-                                            <ul className="dropdown-menu" aria-labelledby="dropdownMenu2">
-                                                <li>
-                                                    <button className="dropdown-item"
-                                                        type="button">
-                                                        ///// aqui clrho///////
-                                                    </button>
-
-                                                </li>
-                                            </ul>
-                                        </div> */}
-
-
 
 
                         <td style={{ width: "10%" }}>
@@ -184,7 +151,7 @@ export default function EditableRow({ handleCancelClick, id, pergunta, getForms 
                     </tr>
 
                 </tbody>
-            </table>
+            </table >
 
         </form >
     )
