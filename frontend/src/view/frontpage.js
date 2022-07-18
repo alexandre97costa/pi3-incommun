@@ -199,7 +199,7 @@ export default function FrontPage() {
                                     </div>
 
                                     <div>
-                                        
+                                        <LoadLinks />
                                     </div>
 
                                 </div>

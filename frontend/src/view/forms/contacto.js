@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import modalSuccess from './modal_sucesso'
+
 
 export default function ContactoComponent(props) {
 
@@ -17,10 +17,11 @@ export default function ContactoComponent(props) {
             .then(res => setClienteDistrito(res.data.regionName))
             .catch(error => console.log(error))
     }, [])
-
+    
+    
     function handleSubmitPedido(e) {
         e.preventDefault()
-
+        console.log("SUBMETEU!")
         const cliente = {
             nome: clienteNome,
             email: clienteEmail,
@@ -31,9 +32,12 @@ export default function ContactoComponent(props) {
 
         console.log(cliente)
         props.postPedido(cliente)
+        
+        
     }
-
+        
     return (
+
         <div className='row mb-5'>
             <div className='col-12 my-5 '>
                 <div className='display-5'>
@@ -172,6 +176,25 @@ export default function ContactoComponent(props) {
                         <label htmlFor="input-tlm">Número de telemóvel</label>
                     </div>
 
+
+
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Menssagem da Incommun!</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Parabéns! Concluio o seu pedido! 
+                                    Por favor, clique no "Avançar" para guardar o seu pedido, ou clique no "X" se ainda quiser mudar algo! c:
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Avançar!</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div className="mb-3 form-check form-switch">
                         <input
                             className="form-check-input"
@@ -195,14 +218,11 @@ export default function ContactoComponent(props) {
 
                     <div className='d-grid'>
                         <button
-                            type='submit'
-                            className='btn btn-warning focus-warning py-2 rounded-0 fs-4 fw-semibold '
-                            onClick={<modalSuccess />}
-                        >
-                            Finalizar
-                            
-                        </button>
-                        
+                            type='button'
+                            className='btn btn-warning focus-warning py-2 rounded-0 fs-4 fw-semibold'
+                            data-bs-toggle="modal" data-bs-target="#exampleModal">
+
+                        FINALIZAR </button>
                     </div>
                 </form>
             </div>
