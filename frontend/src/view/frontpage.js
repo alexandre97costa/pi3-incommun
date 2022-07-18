@@ -33,18 +33,12 @@ export default function FrontPage() {
         return forms.map((form, index) => {
             return (
                 <div key={form.id} className={((form.id === 1 || form.id === 2 || form.id === 3) ? 'collapse' : (form.id === 4) ? 'text-end' : 'text-start') + ' my-5'} id={"formulario-" + form.id} data-bs-parent="#collapse-group">
-                    <div className='fs-1 text-indigo lh-1 py-3'>
-                        {form.titulo}
-                    </div>
-
-                    <div className='fs-5 py-3'>{form.descricao}</div>
-
                     <Link
                         className='btn btn-warning fs-4 fw-normal rounded-0 py-3'
                         to={'/servicos-personalizados/' + nomeTransform(form.titulo)}
                         state={{ id: form.id }}
                     >
-                        Preencher formulário
+                        Vamos preencher!
                     </Link>
                 </div>
             )
@@ -178,17 +172,18 @@ export default function FrontPage() {
                                     <div className='fs-2 fw-bold mb-3'>
                                         Criação de Website
                                     </div>
-                                    {/* Texto */}
                                     <div className='fs-5 fw-normal text-dark lh-sm mb-4'>
                                         Um texto fofinho e 3 botões. 3 BOTÕES.
 
                                     </div>
-                                    <div className='d-flex flex-column'>
-                                        <button type='button' className='btn btn-warning rounded-3 mb-3'>Form 1</button>
-                                        <button type='button' className='btn btn-warning rounded-3 mb-3'>Form 2</button>
-                                        <button type='button' className='btn btn-warning rounded-3 mb-3'>Form 3</button>
+                                    <div className='d-flex flex-column'>  
+                                        <button type='button' className='btn btn-warning rounded-3 mb-3 w-100'>Form 5</button>
+                                        <button type='button' className='btn btn-warning rounded-3 mb-3 w-100'>Form 5</button>
+                                        <button type='button' className='btn btn-warning rounded-3 mb-3 w-100'>Form 5</button>
                                     </div>
-
+                                    <div className='accordion-group'>
+                                        
+                                    </div>
                                 </div>
                             </div>
                             <div className='col '>
@@ -203,7 +198,9 @@ export default function FrontPage() {
                                         Mais um texto fofinho, só um botão.
                                     </div>
 
-                                    <button type='button' className='btn btn-warning rounded-3 mb-3 w-100'>Form 4</button>
+                                    <div>
+                                        
+                                    </div>
 
                                 </div>
                             </div>

@@ -56,18 +56,12 @@ export default function MainComponent() {
                 </div>*/
 
                 <div key={form.id} className={((form.id === 1 || form.id === 2 || form.id === 3) ? 'collapse' : (form.id === 4) ? 'text-end' : 'text-start') + ' my-5'} id={"formulario-" + form.id} data-bs-parent="#collapse-group">
-                    <div className='fs-1 text-indigo lh-1 py-3'>
-                        {form.titulo}
-                    </div>
-
-                    <div className='fs-5 py-3'>{form.descricao}</div>
-
                     <Link
                         className='btn btn-warning fs-4 fw-normal rounded-0 py-3'
                         to={'/servicos-personalizados/' + nomeTransform(form.titulo)}
                         state={{ id: form.id }}
                     >
-                        Preencher formulário
+                        
                     </Link>
                 </div>
             )

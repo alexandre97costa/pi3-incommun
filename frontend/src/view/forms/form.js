@@ -4,6 +4,7 @@ import axios from 'axios'
 import Grupo from './grupo'
 import Contacto from './contacto'
 import ip from '../../ip'
+import modalSuccess from './modal_sucesso'
 
 export default function FormComponent(props) {
     const navigate = useNavigate()
@@ -178,6 +179,7 @@ export default function FormComponent(props) {
                     type='button' data-bs-toggle='collapse' data-bs-target='#table-perguntasObject'
                     className='btn btn-dark rounded-0 px-4'
                     onFocus={e => e.target.blur()}
+                    //<modalSuccess/>
                 >
                     🔑📜💯
                 </button>

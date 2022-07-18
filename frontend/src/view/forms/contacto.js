@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import modalSuccess from './modal_sucesso'
 
 export default function ContactoComponent(props) {
 
@@ -196,9 +197,12 @@ export default function ContactoComponent(props) {
                         <button
                             type='submit'
                             className='btn btn-warning focus-warning py-2 rounded-0 fs-4 fw-semibold '
+                            onClick={<modalSuccess />}
                         >
                             Finalizar
+                            
                         </button>
+                        
                     </div>
                 </form>
             </div>
