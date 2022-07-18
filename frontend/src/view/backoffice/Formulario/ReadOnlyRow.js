@@ -80,9 +80,9 @@ export default function ReadOnlyRow({pergunta, handleEditClick, getForms }) {
                         ><i className="bi bi-trash-fill"></i>
                         </button>
                     </td>
-
+                   
                 </tr>
-
+               
             </tbody>
         </table>
 

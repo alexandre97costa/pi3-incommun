@@ -113,29 +113,28 @@ export default function ClientesComponent() {
                                 {cliente.nome}
                             </span>
                             <br></br>
-                            <span className='badge p-0 fw-semibold text-light-dark lh-sm'>
+                            <span className='badge p-0 fs-6 fw-semibold text-muted lh-sm'>
                                 {cliente.empresa}
                             </span>
                         </td>
                         <td className='text-start text-dark lh-sm'>
-                            <span className='fs-6  position-relative'>
+                            <span className='fs-5 fw-semibold  position-relative'>
                                 {cliente.email}
-
                             </span>
-                        </td>
-                        <td className='text-start text-dark lh-sm'>
-                            <span className='fs-6 position-relative'>
+                            <br></br>
+                            <span className='badge p-0 fs-6 fw-semibold text-muted lh-sm'>
                                 {cliente.tlm}
                             </span>
                         </td>
+                        
                         <td className='text-start text-dark lh-sm'>
-                            <span className='fs-5 position-relative'>
+                            <span className='fs-4 fw-semibold position-relative'>
                                 {cliente.distrito}
                             </span>
                         </td>
                         <td >
 
-                            <button type="button" data-bs-toggle="modal" data-bs-target="#modal-contactar" onClick={() => mudarEmail(cliente.id)} className="btn btn-warning fw-semibold me-2 fs-6 bi-send ">&nbsp;Contactar Cliente</button>
+                            <button type="button" data-bs-toggle="modal" data-bs-target="#modal-contactar" onClick={() => mudarEmail(cliente.id)} className="me-2 bi bi-send-fill btn btn-warning w-100">&nbsp;Contactar Cliente</button>
                         </td>
                         <td >
                             <Link to={"/back-office/clientes/" + cliente.id} className="btn btn-secondary  fs-6 bi-cash-stack me-2">&nbsp;Pedidos Cliente</Link>
@@ -146,7 +145,8 @@ export default function ClientesComponent() {
         )
     }
     return (
-        <div className="col overflow-auto h-sm-100 px-5 pt-4">
+        
+        <div className="col overflow-auto h-sm-100 px-5 pt-4 bg-light">
             {/* Titulo */}
             <div className="mb-3 row">
                 <div className='col-6'>
@@ -168,7 +168,9 @@ export default function ClientesComponent() {
                         {dicaDoDia + ' ~' + autorDica}
                     </span>
                 </div>
-
+            </div>  
+            <br />
+            <div className="mb-3 row"> 
                 <div className="row">
                     <div className="px-xxl-4 px-xl-3 px-sm-2 px-xs-1 col-12 col-sm-6 col-lg-3 align-self-center">
                         <div className="py-2 border rounded-4 bg-light d-flex w-100 flex-row justify-content-between align-items-center shadow p-3 bg-body rounded ">
@@ -186,9 +188,6 @@ export default function ClientesComponent() {
                     </div>
                 </div>
             </div>
-
-
-
             <br />
             <div className="mb-3 row">
                 <div className='col d-flex justify-content-start align-items-center fs-6 fw-normal text-muted'>
@@ -204,6 +203,8 @@ export default function ClientesComponent() {
                         <ul className="dropdown-menu" aria-labelledby="dropdown-filtro">
                             <li><button className="dropdown-item" onClick={e => { handleFiltro('nome', 'ASC', e.target.textContent) }} type='button'>Nome de cliente (A-Z)</button></li>
                             <li><button className="dropdown-item" onClick={e => { handleFiltro('nome', 'DESC', e.target.textContent) }} type='button'>Nome de cliente (Z-A)</button></li>
+                            <li><button className="dropdown-item" onClick={e => { handleFiltro('distrito', 'ASC', e.target.textContent) }} type='button'>Distrito (A-Z)</button></li>
+                            <li><button className="dropdown-item" onClick={e => { handleFiltro('distrito', 'DESC', e.target.textContent) }} type='button'>Distrito (Z-A)</button></li>
                             <li><button className="dropdown-item" onClick={e => { handleFiltro('created_at', 'ASC', e.target.textContent) }} type='button'>Data de criação</button></li>
                         </ul>
                     </div>
@@ -215,12 +216,11 @@ export default function ClientesComponent() {
                     <table className='table'>
                         <thead>
                             <tr className=''>
-                                <th className='text-start' style={{ width: '18%' }}>Nome</th>
-                                <th className='text-start' style={{ width: '16%' }}>Email</th>
-                                <th className='text-start' style={{ width: '11%' }}>Telemóvel</th>
-                                <th className='text-start' style={{ width: '5%' }}>Distrito</th>
-                                <th className='text-center' style={{ width: '18%' }} colSpan={1}></th>
-                                <th className='text-center' style={{ width: '17%' }} colSpan={1}></th>
+                                <th className='text-start' style={{ width: '20%' }}>Nome</th>
+                                <th className='text-start' style={{ width: '25%' }}>Contactos</th>
+                                <th className='text-start' style={{ width: '15%' }}>Distrito</th>
+                                <th className='text-center' style={{ width: '20%' }} colSpan={1}></th>
+                                <th className='text-center' style={{ width: '20%' }} colSpan={1}></th>
                             </tr>
                         </thead>
                         <tbody>

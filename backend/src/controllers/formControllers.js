@@ -1,6 +1,7 @@
 var { Formulario, Grupo, Pergunta, TipoPergunta, Resposta, Pedido, EstadoPedido, MotivoRecusa, Cliente, UserIncommun, UserIncommunRole, Visita } = require('../model/tabelas')
 var sequelize = require('../model/db')
 const { Op } = require("sequelize");
+const { response } = require('express');
 
 module.exports = {
 
@@ -81,10 +82,18 @@ module.exports = {
     // DEVOLVER VALORES PARA DROPDOWN DO TIPO DE PERGUNTAS EM FORMULÁRIO
 
     all_tipos_pergunta: async (req, res) => {
-        const data = await TipoPergunta.findAll({
+        const response = {}
+
+        await sequelize.sync()
+        .then(async() => {
+        response.TipoPergunta = await TipoPergunta
+        .findAll({
+          
             order: [['id', 'ASC']]
-        });
-        res.json({ success: true, data: data })
+        })
+
+    })
+        .then(() => { res.send(response) })
     },
 
 
@@ -98,8 +107,9 @@ module.exports = {
             {
                 titulo: titulo,
                 descricao: descricao,
-                tipo_id: tipo_pergunta,
-                valor_unitario: valor_unitario
+                tipo_pergunta: tipo_pergunta,
+                valor_unitario: valor_unitario,
+                
 
 
             },

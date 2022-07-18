@@ -15,16 +15,12 @@ export default function Pedidos_clienteComponent() {
     const [ordemPedido, setOrdemPedido] = useState('ASC')
     const [motivos, setMotivos] = useState([])
     const [estados, setEstados] = useState([])
-    const [estado1, setEstado1] = useState(1)
-    const [estado2, setEstado2] = useState(2)
-    const [estado3, setEstado3] = useState(3)
-    const [estado4, setEstado4] = useState(4)
+
+    const [dicaDoDia, setDicaDoDia] = useState('')
+    const [autorDica, setAutorDica] = useState('')
     const { idCliente } = useParams();
     function getPedidos() {
-        setEstado1(1)
-        setEstado2(2)
-        setEstado3(3)
-        setEstado4(4)
+
         axios.get(
             ip + '/clientes/list_pedidos/' +
             '?cliente=' + idCliente +
@@ -35,25 +31,20 @@ export default function Pedidos_clienteComponent() {
             .then(res => {
                 if (res.data.success) {
                     setPedidos(res.data.data);
-                    
+
                 }
             })
             .catch(error => { throw new Error(error) });
         axios.get(ip + '/pedidos/all_estados', authHeader())
             .then(res => { setEstados(res.data) })
-            axios.get(ip + '/pedidos/all_motivos', authHeader())
+        axios.get(ip + '/pedidos/all_motivos', authHeader())
             .then(res => { setMotivos(res.data) })
+        axios.get('https://api.quotable.io/random?tags=success|inspirational|happiness')
+            .then(res => {
+                setAutorDica(res.data.author)
+                setDicaDoDia(res.data.content)
+            })
     }
-    
-   function EstadosCount()
-   {
-    setEstado1(1)
-    setEstado2(2)
-    setEstado3(3)
-    setEstado4(4)
-    alert("1111")
-   }
-   
     useEffect(() => {
         getPedidos()
     }, [idCliente, filtroPedido, ordemPedido])
@@ -108,8 +99,8 @@ export default function Pedidos_clienteComponent() {
                                         {pedido.estado_pedido.descricao}
                                     </span>
                                 </button>
-                                <UpdateEstado id={pedido.id} getPedidos={getPedidos}  estados={estados} motivos={motivos}/>
-                                
+                                <UpdateEstado id={pedido.id} getPedidos={getPedidos} estados={estados} motivos={motivos} />
+
                             </div>
                         </td>
                         {/* Valor */}
@@ -140,7 +131,7 @@ export default function Pedidos_clienteComponent() {
         )
     }
     return (
-        <div className="col overflow-auto h-sm-100 px-5 pt-4">
+        <div className="col overflow-auto h-sm-100 px-5 pt-4  bg-light">
             {/* Titulo */}
             <div className="mb-3 row">
                 <div className='col-6'>
@@ -150,12 +141,21 @@ export default function Pedidos_clienteComponent() {
                     <br />
                     <br />
                 </div>
+                <div className='col-6 text-end'>
+                    <span className='fs-5 lh-sm text-indigo fw-bold ' title={dicaDoDia + ' - ' + autorDica}>
+                        Dica do dia :)
+                    </span><br />
+                    <span className=' p-2 badge fw-normal bg-light lh-sm text-secondary text-end text-wrap w-75'>
+                        {dicaDoDia + ' ~' + autorDica}
+                    </span>
+                </div>
             </div>
+
             <div className='mb-4 g-3 row row-cols-1 row-cols-md-2 row-cols-lg-4 row-cols-xl-4'>
-                <Count estadoId={estado1} cliente={idCliente} oquecontar={"cliente"} />
-                <Count estadoId={estado2} cliente={idCliente} oquecontar={"cliente"} />
-                <Count estadoId={estado3} cliente={idCliente} oquecontar={"cliente"} />
-                <Count estadoId={estado4} cliente={idCliente} oquecontar={"cliente"} />
+                <Count estadoId={1} cliente={idCliente} oquecontar={"cliente"} />
+                <Count estadoId={2} cliente={idCliente} oquecontar={"cliente"} />
+                <Count estadoId={3} cliente={idCliente} oquecontar={"cliente"} />
+                <Count estadoId={4} cliente={idCliente} oquecontar={"cliente"} />
 
             </div>
 

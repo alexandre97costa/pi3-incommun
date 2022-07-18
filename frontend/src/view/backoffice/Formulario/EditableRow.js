@@ -1,29 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from 'axios';
 import ip from '../../../ip';
 import authHeader from '../../auth-header'
 
-export default function EditableRow({ handleCancelClick, id }) {
+export default function EditableRow({ handleCancelClick, id, pergunta, getForms }) {
 
     const [edittitulopergunta, seteditTituloPergunta] = useState("")
     const [editdescricaopergunta, seteditdescricaopergunta] = useState("")
     const [edittipopergunta, setedittipopergunta] = useState("")
     const [editvalorpergunta, seteditvalorpergunta] = useState("")
 
-    const [listaTiposPergunta, setListaTiposPergunta] = useState([])
-
-
-    function LoadTiposPergunta() {
-        return listaTiposPergunta.map(form => {
-            return (
-
-
-                <option>
-                    <li> OLE</li>
-                </option>
-            )
-        })
-    }
+    const [listaTiposPergunta, setlistaTiposPergunta] = useState([])
 
 
 
@@ -36,7 +23,7 @@ export default function EditableRow({ handleCancelClick, id }) {
                 id: idpergunta,
                 titulo: edittitulopergunta,
                 descricao: editdescricaopergunta,
-                tipo_pergunta: parseInt(edittipopergunta),
+                tipo_pergunta: edittipopergunta,
                 valor_unitario: parseFloat(editvalorpergunta),
 
             }, authHeader())
@@ -47,22 +34,44 @@ export default function EditableRow({ handleCancelClick, id }) {
             .catch(error => {
                 return error;
             })
-    }
+    };
+
+    useEffect(() => {
+        GetTiposPergunta()
+    }, []);
+
+
+    function GetTiposPergunta() {
+        axios.get(ip + '/forms/all_tipos_pergunta', authHeader())
+            .then(res => {
+                console.table(res.data.TipoPergunta, ['id', 'nome'])
+                setlistaTiposPergunta(res.data.TipoPergunta)
+            })
+    };
+
+    function refreshPage() {
+        window.location.reload(false)
+
+    };
 
 
     return (
         <form onSubmit={e => UpdatePergunta(e)}>
             <table className="table table-hover">
+
+
                 <tbody>
 
+
                     <tr>
+
                         <td style={{ width: "30%" }}>
                             <input
                                 className="form-control focus-warning"
                                 type="text"
                                 name="titulo"
                                 required="required"
-                                placeholder="Introduz o titulo"
+                                placeholder={pergunta.titulo}
                                 value={edittitulopergunta}
                                 onChange={e => seteditTituloPergunta(e.target.value)}
                             />
@@ -74,46 +83,41 @@ export default function EditableRow({ handleCancelClick, id }) {
                                 type="text"
                                 name="descricao"
                                 required="required"
-                                placeholder="Introduz a descrição"
+                                placeholder={pergunta.descricao}
                                 value={editdescricaopergunta}
                                 onChange={e => seteditdescricaopergunta(e.target.value)}
                             />
                         </td>
 
+
+
                         <td style={{ width: "10%" }}>
-                            <input
-                                className="form-control focus-warning"
-                                type="text"
-                                name="tipo_pergunta"
-                                required="required"
-                                placeholder="Introduz o tipo de pergunta"
-                                value={edittipopergunta}
-                                onChange={e => setedittipopergunta(e.target.value)}
-                            />
+
+                            <form >
+                                <select name="Teste21" className="form-control focus-warning dropdown-toggle" type="button" >
+                                    <option>
+                                        {pergunta.tipo_pergunta.titulo}
+                                    </option>
+
+                                    {listaTiposPergunta.map(TipoPergunta => {
+
+                                        return (
+                                            <option
+                                                className="form-control focus-warning"
+                                                type="text"
+                                                name="tipo_pergunta"
+                                                required="required"
+                                                value={edittipopergunta}
+                                                onChange={e => setedittipopergunta(e.target.value)}>
+                                                {TipoPergunta.titulo}
+                                            </option>
+
+                                        )
+                                    })}
+                                </select>
+                            </form>
+
                         </td>
-
-                        {/* 
-                            <div class="dropdown">
-                                <button class="form-control focus-warning dropdown-toggle"
-                                    type="button"
-                                    id="dropdownMenu2"
-                                    data-bs-toggle="dropdown"
-                                    aria-expanded="false">
-
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                                    <li>
-                                        <button class="dropdown-item"
-                                            type="button">
-                                            {LoadTiposPergunta}
-                                        </button>
-                                    </li>
-                                </ul>
-                            </div> 
-
- */}
-
-
 
 
                         <td style={{ width: "10%" }}>
@@ -122,11 +126,11 @@ export default function EditableRow({ handleCancelClick, id }) {
                                 type="number"
                                 name="valor_unitario"
                                 required="required"
-                                placeholder="Introduz o valor da pergunta"
+                                placeholder={pergunta.valor_unitario}
                                 value={editvalorpergunta}
                                 onChange={e => seteditvalorpergunta(e.target.value)}
                             />
-                            </td>
+                        </td>
 
 
                         <td style={{ width: "10%" }}>
@@ -144,12 +148,13 @@ export default function EditableRow({ handleCancelClick, id }) {
 
                         </td>
                     </tr>
-                    
+
                 </tbody>
-            </table>
+            </table >
 
         </form >
     )
 
 };
+
 

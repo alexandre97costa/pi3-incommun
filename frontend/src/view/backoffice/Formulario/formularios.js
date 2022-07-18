@@ -9,10 +9,9 @@ import AddPergunta from './AddPergunta'
 export default function FormulariosComponente() {
 
 	const [forms, setForms] = useState([])
+
 	const [editPerguntaId, setEditPerguntaId] = useState(null)
-
 	const [newPergunta, setNewPergunta] = useState()
-
 	const [grupoSelecionado, setGrupoSelectionado] = useState(-1)
 
 
@@ -29,6 +28,7 @@ export default function FormulariosComponente() {
 		getForms()
 	}, []);
 
+
 	function getForms() {
 		axios.get(ip + '/forms/all_backoffice', authHeader())
 			.then(res => {
@@ -36,9 +36,6 @@ export default function FormulariosComponente() {
 				setForms(res.data.formularios)
 			})
 	};
-
-
-
 
 	const handleEditClick = (e, pergunta) => {
 		e.preventDefault();
@@ -116,7 +113,7 @@ export default function FormulariosComponente() {
 										</div>
 										<div
 											id={'grupo-collapse' + grupo.id}
-											className="accordion-collapse collapse"
+											className="accordion-collapse collapse-show"
 											data-bs-parent={"#form-grupo-accordion" + form.id}
 											aria-labelledby={'#grupo-' + grupo.id}>
 											<div className='accordion-body'>
@@ -138,7 +135,7 @@ export default function FormulariosComponente() {
 
 
 														(editPerguntaId === pergunta.id) ?
-															<EditableRow key={pergunta.id} id={pergunta.id} editForm={editForm}
+															<EditableRow key={pergunta.id} id={pergunta.id} editForm={editForm} pergunta={pergunta} getForms={getForms}
 																handleCancelClick={handleCancelClick}
 															/>
 															:
@@ -150,6 +147,8 @@ export default function FormulariosComponente() {
 
 													)
 												})}
+
+												
 
 
 												{newPergunta === grupo.id}
@@ -208,6 +207,9 @@ export default function FormulariosComponente() {
 
 			<div className='row'>
 				<div className="accordion accordion-flush" id="form-accordion">
+
+
+
 
 					<LoadForms />
 

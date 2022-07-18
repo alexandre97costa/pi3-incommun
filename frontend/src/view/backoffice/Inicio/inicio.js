@@ -12,6 +12,8 @@ import PieChartComponent2 from './piechart2';
 import VisitasComponent from './visitas';
 
 import ContactarCliente from '../contactar_cliente';
+import UpdateEstado from '../update_estado';
+
 
 export default function InicioComponent() {
 
@@ -23,6 +25,7 @@ export default function InicioComponent() {
     const [ordemPedido, setOrdemPedido] = useState('ASC')
     const [filtroEstadoPedido, setFiltroEstadoPedido] = useState(0)
     const [filtroEstadoPedidoDesc, setFiltroEstadoPedidoDesc] = useState('Todos os pedidos')
+    const [motivos, setMotivos] = useState([])
 
     const [username, setUsername] = useState('')
     const [dicaDoDia, setDicaDoDia] = useState('')
@@ -43,6 +46,23 @@ export default function InicioComponent() {
             .catch(console.log);
     }, [filtroPedido, ordemPedido, filtroEstadoPedido])
 
+    function getPedidos() {
+        axios
+            .get(
+                ip + '/pedidos/all' +
+                '?ordem=' + ordemPedido +
+                '&filtro=' + filtroPedido +
+                '&estado_id=' + filtroEstadoPedido,
+                authHeader()
+            )
+            .then(res => { setPedidos(res.data.data) })
+            .catch(console.log)
+    }
+
+    useEffect(() => {
+        getPedidos()
+    }, [filtroPedido, ordemPedido, filtroEstadoPedido])
+
     useEffect(() => {
         console.log('pedidos:', pedidos)
     }, [pedidos])
@@ -61,6 +81,10 @@ export default function InicioComponent() {
             .then(res => {
                 setEstados(res.data)
             })
+
+        axios.get(ip + '/pedidos/all_motivos', authHeader())
+            .then(res => { setMotivos(res.data) })
+
 
         // Get dica do dia
         axios.get('https://api.quotable.io/random?tags=success|inspirational|happiness')
@@ -115,14 +139,28 @@ export default function InicioComponent() {
                                 </div>
 
                                 {/* Estado */}
-                                <div className='mt-2'>
-                                    <span
-                                        className={'badge w-100 fw-semibold bg-' + pedido.estado_pedido?.cor + '-semi text-' + pedido.estado_pedido?.cor + ' fs-6'}
-                                        title={pedido.estado_pedido?.obs}
-                                    >
-                                        <i className={'me-2 bi ' + pedido.estado_pedido?.icon}></i>
-                                        {pedido.estado_pedido?.descricao}
-                                    </span>
+                                <div className='mt-2 text-center'>
+                                    <div className='dropdown'>
+                                        <button
+                                            className={
+                                                'btn btn-sm btn-light border-0 w-100 ' +
+                                                ' d-flex justify-content-center align-items-center  dropdown-toggle ' +
+                                                ' bg-' + pedido.estado_pedido.cor +
+                                                '-semi text-' + pedido.estado_pedido.cor +
+                                                ' focus-' + pedido.estado_pedido.cor + ' fs-6'
+                                            }
+                                            type='button'
+                                            data-bs-toggle='dropdown'
+                                            data-bs-auto-close='outside'
+                                            title={pedido.estado_pedido.obs}
+                                        >
+                                            <span>
+                                                {/* <i className={'ms-1 me-2 bi ' + pedido.estado_pedido.icon}></i> */}
+                                                {pedido.estado_pedido.descricao}
+                                            </span>
+                                        </button>
+                                        <UpdateEstado id={pedido.id} getPedidos={getPedidos} estados={estados} motivos={motivos} />
+                                    </div>
                                 </div>
 
                                 {/* Opções */}
