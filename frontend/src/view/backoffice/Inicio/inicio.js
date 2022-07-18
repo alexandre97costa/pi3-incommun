@@ -139,12 +139,12 @@ export default function InicioComponent() {
                                 </div>
 
                                 {/* Estado */}
-                                <div className='mt-2'>
+                                <div className='mt-2 text-center'>
                                     <div className='dropdown'>
                                         <button
                                             className={
-                                                'btn btn-sm btn-light border-0 w-100 text-start' +
-                                                ' d-flex justify-content-between align-items-center  dropdown-toggle ' +
+                                                'btn btn-sm btn-light border-0 w-100 ' +
+                                                ' d-flex justify-content-center align-items-center  dropdown-toggle ' +
                                                 ' bg-' + pedido.estado_pedido.cor +
                                                 '-semi text-' + pedido.estado_pedido.cor +
                                                 ' focus-' + pedido.estado_pedido.cor + ' fs-6'
