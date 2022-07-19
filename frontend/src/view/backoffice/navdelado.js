@@ -48,7 +48,7 @@ export default function NavDeLadoComponent(props) {
                     {/* Inicio */}
                     <li className='mb-2'>
                         <Link to='/back-office/'
-                            className='btn btn-outline-secondary border-0 rounded-0 px-2 px-sm-0'
+                            className='btn btn-outline-secondary border-0 rounded-0 px-2 px-sm-0  d-flex'
                             onFocus={e => setTimeout(() => { e.target.blur() }, 200)}
                         >
                             <i className='bi bi-house fs-4 ms-sm-3 ms-md-4 me-sm-2'></i>
@@ -59,7 +59,7 @@ export default function NavDeLadoComponent(props) {
                     {/* Pedidos */}
                     <li className='mb-2'>
                         <Link to='/back-office/pedidos'
-                            className='btn btn-outline-secondary border-0 rounded-0 px-2 px-sm-0'
+                            className='btn btn-outline-secondary border-0 rounded-0 px-2 px-sm-0 d-flex'
                             onFocus={e => setTimeout(() => { e.target.blur() }, 200)}
                         >
                             <i className='bi bi-file-earmark-spreadsheet fs-4 ms-sm-3 ms-md-4 me-sm-2'></i>
@@ -75,7 +75,7 @@ export default function NavDeLadoComponent(props) {
                     {/* Formulário */}
                     <li className='mb-2'>
                         <Link to='/back-office/formularios'
-                            className='btn btn-outline-secondary border-0 rounded-0 px-2 px-sm-0 '
+                            className='btn btn-outline-secondary border-0 rounded-0 px-2 px-sm-0 d-flex '
                             onFocus={e => setTimeout(() => { e.target.blur() }, 200)}
                         >
                             <i className='bi bi-ui-checks fs-4 ms-sm-3 ms-md-4 me-sm-2'></i>
@@ -89,7 +89,7 @@ export default function NavDeLadoComponent(props) {
                     {/* Clientes */}
                     <li className='mb-2'>
                         <Link to='/back-office/clientes'
-                            className='btn btn-outline-secondary border-0 rounded-0 px-2 px-sm-0'
+                            className='btn btn-outline-secondary border-0 rounded-0 px-2 px-sm-0 d-flex '
                             onFocus={e => setTimeout(() => { e.target.blur() }, 200)}
                         >
                             <i className='bi bi-people fs-4 ms-sm-3 ms-md-4 me-sm-2'></i>
