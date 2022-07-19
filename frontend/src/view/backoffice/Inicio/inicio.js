@@ -26,7 +26,7 @@ export default function InicioComponent() {
     const [filtroEstadoPedido, setFiltroEstadoPedido] = useState(0)
     const [filtroEstadoPedidoDesc, setFiltroEstadoPedidoDesc] = useState('Todos os pedidos')
     const [motivos, setMotivos] = useState([])
-
+    const [Email, setEmail] = useState("")
     const [username, setUsername] = useState('')
     const [dicaDoDia, setDicaDoDia] = useState('')
     const [autorDica, setAutorDica] = useState('')
@@ -87,13 +87,17 @@ export default function InicioComponent() {
         setOrdemPedido(ordem);
         document.getElementById('filtro_pedido').textContent = texto
     }
-
+    function mudarEmail(id) {
+        const div1 = document.getElementById(id)
+        const exampleAttr = div1.getAttribute('data-email');
+        setEmail(exampleAttr); 
+    }
     function LoadInfoPedidosCliente() {
         if (!pedidos.length) { return }
         return (
             pedidos.map(pedido => {
                 return (
-                    <div className='col d-flex flex-column' key={pedido.id}>
+                    <div className='col d-flex flex-column' key={pedido.id} id={pedido.cliente.id} data-email={pedido.cliente.email}>
 
                         <div className='container-fluid rounded-4 border ps-4 bg-white shadow'>
                             <div className="row justify-content-center my-4 g-3">
@@ -151,11 +155,21 @@ export default function InicioComponent() {
 
                                 {/* Opções */}
                                 <div className='mt-2'>
-                                    {(pedido.estado_id === 1 || pedido.estado_id === 2) &&
+                                    {(pedido.estado_id === 1 || pedido.estado_id === 2 || pedido.estado_id === 3) &&
 
-                                        <ContactarCliente destinatario={pedido.cliente.email} />
+<button
+id='contactar-cliente-btn'
+className='btn btn-warning w-100 fw-semibold'
+data-bs-toggle='modal'
+data-bs-target="#contactar-cliente-modal"
+onClick={() => mudarEmail(pedido.cliente.id)}
+>
+<i className='me-2 bi bi-send-fill'></i>
+Contactar cliente
+
+</button>
                                     }
-                                    {(pedido.estado_id === 3 || pedido.estado_id === 4) &&
+                                    {( pedido.estado_id === 4) &&
                                         <button className='btn btn-warning w-100' disabled>
                                             <i className='me-2 bi bi-send-slash-fill'></i>
                                             Contactar cliente
@@ -304,6 +318,7 @@ export default function InicioComponent() {
                     </div>
                 </div>
             </div>
+            <ContactarCliente destinatario={Email}/>
         </div>
     )
 }
