@@ -8,21 +8,6 @@ INSERT INTO user_incommun_role (id, descricao, obs) VALUES
 
 /********************************** Fim USERS INCOMMUN *****************************************/
 
-/************************************ Cliente *******************************************/
-INSERT INTO cliente (id, nome, email, empresa, tlm, created_at, updated_at) VALUES 
-(1, 'João Almeida',     'joaoalmeida@email.pt',     'Joao Almeida Lda',     911222333, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(2, 'Manuel Jorge',     'mjorge@email.pt',          'Manuel&Jorge Lda',     933455455, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(3, 'Joana Ferreira',   'joanaferreira@email.pt',   'JF Lda',               966965967, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(4, 'Fernando Sousa',   'fsousa@email.pt',          'F Sousa Lda',          919191919, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(5, 'Maria Oliveira',   'oliveiram@email.pt',       'Maria Oliveira Lda',   933339912, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(6, 'Alberto Ramos',    'ramosalberto@email.pt',    'Ramos Lda',            922122333, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(7, 'Jorge Marques',    'mjorge@email.pt',          'JorgeM Lda',           911999000, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(8, 'Manuel Teixeira',  'teixeira@email.pt',        'ManuelTeixeira Lda',   911222333, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(9, 'José Almeida',     'joseal@email.pt',          'José Almeida Lda',     911242567, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(10,'Rita Marques',     'rita.marques@email.pt',    'Rita Marques Lda',     922333699, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
-
-/***************************************** Fim clientes *****************************************/
-
 /***************************************** Estado de Pedido + Motivo de Recusa *****************************************/
 
 INSERT INTO estado_pedido (id, descricao, icon, cor, obs) VALUES
@@ -38,16 +23,6 @@ INSERT INTO motivo_recusa_pedido (id, descricao, obs) VALUES
 (4,     'Outro',                            '');
 
 /***************************************** Fim Estado de Pedido + Motivo de Recusa *****************************************/
-
-/***************************************** Pedidos *****************************************/
-
-INSERT INTO pedido (id, cliente_id, valor_total, estado_id, motivo_id, created_at, updated_at) VALUES
-(1, 1, 234.5, 1, null,  CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(2, 2, 345.6, 2, null,  CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(3, 3, 456.7, 3, null,  CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(4, 4, 567.8, 4, 1,     CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
-
-/***************************************** Fim Pedidos *****************************************/
 
 /**************************************** formulario ********************************************************/
 INSERT INTO formulario (id, titulo, created_at, updated_at, descricao)  VALUES 
