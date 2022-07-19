@@ -2,9 +2,6 @@ import React, { useEffect, useState } from "react";
 import axios from 'axios';
 import ip from '../../../ip';
 import authHeader from '../../auth-header'
-import 'bootstrap/dist/css/bootstrap.min.css';
-import DropdownButton from 'react-bootstrap/DropdownButton';
-import Dropdown from 'react-bootstrap/Dropdown'
 
 
 export default function EditableRow({ handleCancelClick, id, pergunta, getForms }) {
@@ -101,24 +98,26 @@ export default function EditableRow({ handleCancelClick, id, pergunta, getForms 
 
                            
 
-                             <DropdownButton variant="form-control focus-warning"
+                        <td style={{ width: "10%" }}>
+                            <div className="dropdown">
+                                <button className="form-control focus-warning dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                    {pergunta.tipo_pergunta.titulo}
+                                </button>
+                                <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    {listaTiposPergunta.map(TipoPergunta => {
+                                        return (
+                                            <li>
+                                                <a className="dropdown-item">
+                                                    {TipoPergunta.titulo}
+                                                </a>
+                                            </li>
+                                        )
+                                    })}
+                                </ul>
+                            </div>
+                        </td>
 
-                                title={value}
-                             
-                                onSelect={handleSelect}
-                                onChange={e => setedittipopergunta(e.target.value)}
-                            >
-                                {listaTiposPergunta.map(TipoPergunta => {
-                                    return (
-                                        <Dropdown.Item eventKey={TipoPergunta.titulo} //VALUE
-                                         >{TipoPergunta.titulo}</Dropdown.Item>
-                                    )
-                                })}
-
-                            </DropdownButton> 
-
-                        value = 
-
+            
 
                         </td>
 
