@@ -5,7 +5,8 @@ import NavDeLado from './navdelado';
 import ip from '../../ip'
 import authHeader from '../auth-header';
 import { Link } from "react-router-dom"
-
+import ContactarCliente from './contactar_cliente';
+import authService from '../auth.service';
 
 export default function ClientesComponent() {
     const [clientes, setClientes] = useState([])
@@ -13,10 +14,10 @@ export default function ClientesComponent() {
     const [filtroCliente, setFiltroCliente] = useState('id')
     const [ordemCliente, setOrdemCliente] = useState('ASC')
     const [Email, setEmail] = useState("")
-    const [Assunto, setAssunto] = useState("")
-    const [Titulo, setTitulo] = useState("")
-    const [Corpo, setCorpo] = useState("")
-
+    const [assunto, setAssunto] = useState("Temos o seu orçamento pronto!")
+    const [titulo, setTitulo] = useState("Incommun - Serviços personalizados à sua medida!")
+    const [corpo, setCorpo] = useState("Escreve alguma coisa.")
+    const [loading, setLoading] = useState(false)
     const [dicaDoDia, setDicaDoDia] = useState('')
     const [autorDica, setAutorDica] = useState('')
 
@@ -68,38 +69,52 @@ export default function ClientesComponent() {
     function Cancelar() {
 
         setEmail("")
-        setAssunto("")
-        setTitulo("")
-        setCorpo("")
+        setAssunto("Temos o seu orçamento pronto!")
+        setTitulo("Incommun - Serviços personalizados à sua medida!")
+        setCorpo("Escreve alguma coisa.")
 
     }
     function mudarEmail(id) {
         const div1 = document.getElementById(id)
         const exampleAttr = div1.getAttribute('data-email');
-        setEmail(exampleAttr);
+        setEmail(exampleAttr); 
     }
-    function EnviarMail() {
-        // url de backend
+    function handleContactar(e) {
+        e.preventDefault();
 
-        const url = ip + '/clientes/enviar_email'
-        const datapost = {
-            email_cliente: Email,
-            assunto: Assunto,
-            titulo: Titulo,
-            corpo: Corpo
-        }
-        setAssunto("")
-        setTitulo("")
-        setCorpo("")
-        console.log(datapost);
-        axios.post(url, datapost)
-            .then(response => {
-                if (response.data.success === true) {
-                    alert(response.data.message)
+        const btn = document.getElementById('contactar-cliente-btn')
+        const btnText = document.getElementById('btn-criar-user-text')
+        btnText.textContent = 'A enviar...'
+        setLoading(true)
+
+
+
+        axios
+            .post(
+                ip + '/clientes/enviar_email',
+                {
+                    email_cliente: Email,
+                    email_admin: authService.getCurrentUser()?.email,
+                    assunto: assunto,
+                    titulo: titulo,
+                    corpo: corpo
+                },
+                authHeader()
+            )
+            .then(res => {
+                if (res.data.success) {
+                    btnText.textContent = res.data.message
+                    setLoading(false)
+
+                    setTimeout(() => {
+                        btn.click()
+                        btnText.textContent = 'Enviar'
+                        setAssunto('Temos o seu orçamento pronto!')
+                        setTitulo('Incommun - Serviços personalizados à sua medida!')
+                        setCorpo('Escreve alguma coisa...')
+                    }, 1000);
+
                 }
-
-            }).catch(error => {
-                alert("Error 34 " + error)
             })
     }
     function LoadClientes() {
@@ -132,9 +147,11 @@ export default function ClientesComponent() {
                                 {cliente.distrito}
                             </span>
                         </td>
-                        <td >
-
-                            <button type="button" data-bs-toggle="modal" data-bs-target="#modal-contactar" onClick={() => mudarEmail(cliente.id)} className="me-2 bi bi-send-fill btn btn-warning w-100">&nbsp;Contactar Cliente</button>
+                        <td  className=''>
+                        <button data-bs-toggle="modal" data-bs-target="#contactar-cliente-modal" onClick={() => mudarEmail(cliente.id)} className='btn btn-warning w-100 fw-semibold' >
+                                    <i className='me-2 bi bi-send-fill'></i>
+                                    Contactar cliente
+                                </button>
                         </td>
                         <td >
                             <Link to={"/back-office/clientes/" + cliente.id} className="btn btn-secondary  fs-6 bi-cash-stack me-2">&nbsp;Pedidos Cliente</Link>
@@ -230,39 +247,133 @@ export default function ClientesComponent() {
                 </div>
             </div>
 
-            <div className="modal fade" id="modal-contactar" tabIndex="-1" aria-labelledby="modal-contactar-label" aria-hidden="true">
-                <div className="modal-dialog modal-dialog-centered modal-lg ">
-                    <div className="modal-content border-0">
-                        <div className="modal-header rounded-4 border-0">
-                            <div className="modal-title fs-4 fw-light" id="exampleModalLabel">Contactar cliente</div>
+            <div className="modal fade" id="contactar-cliente-modal" tabIndex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="criar-user-modal-label" aria-hidden="true">
+                <div className="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+                    <div className="modal-content rounded-4 border-0 bg-dark-secondary shadow">
+                        <div className="modal-header border-0 rounded-0 bg-dark-secondary text-white">
+                            <h5 className="modal-title d-flex flex-row" id="criar-user-modal-label">
+                                <button
+                                    className='btn btn-sm btn-outline-light border-0 align-top me-2'
+                                    onClick={e => { document.querySelector('#btn-users-modal').click() }}
+                                >
+                                    <i className='bi bi-arrow-left'></i>
+                                </button>
+                                <div className='d-flex flex-column ms-2'>
+                                    <span>
+                                        Compor email
+                                    </span>
+                                    <span className='small fw-normal text-secondary d-none'>
+                                        <span>De: </span>
+                                        <span className='text-secondary'>
+                                            {authService.getCurrentUser()?.email ?? 'your@email.com'}
+                                        </span>
+                                    </span>
+                                    <span className='small fw-normal text-secondary'>
+                                        <i className='bi bi-arrow-right mx-2 d-none text-warning'></i>
+                                        <span>Para: </span>
+                                        <span className='text-secondary'>
+                                            {Email}
+                                        </span>
+                                    </span>
+                                </div>
+                            </h5>
+                            <button id='btn-close-criar-user' type="button" className="btn-close btn-close-white" data-bs-dismiss="modal" onClick={() => Cancelar()} aria-label="Close"></button>
                         </div>
-                        <div className="modal-body">
+                        <div className="modal-body rounded-4 bg-light border-0 shadow">
+                            <form onSubmit={e => handleContactar(e)}>
+                                <div className="form-floating mb-3">
+                                    <input
+                                        // id='user-username-input'
+                                        className='form-control focus-warning text-dark rounded-3'
+                                        type='text'
+                                        placeholder='titulo'
+                                        autoComplete='none'
+                                        autoCapitalize='words'
+                                        required
+                                        value={assunto}
+                                        onChange={e => { setAssunto(e.target.value) }}
+                                        onInput={e => {
+                                            if (!e.target.validity.valid) {
+                                                e.target.classList.add('focus-danger')
 
-                            <div className="form-floating mb-3">
-                                <input type="email" className="form-control" id="floatingInput" placeholder="name@example.com" value={Email} onChange={(value) =>
-                                    setEmail(value.target.value)} />
-                                <label htmlFor="floatingInput">Email</label>
-                            </div>
-                            <div className="form-floating mb-3">
-                                <textarea className="form-control" placeholder="Leave a comment here" id="floatingTextarea" value={Assunto} onChange={(value) =>
-                                    setAssunto(value.target.value)}></textarea>
-                                <label htmlFor="floatingTextarea">Assunto</label>
-                            </div>
-                            <div className="form-floating mb-3">
-                                <textarea className="form-control" placeholder="Leave a comment here" id="floatingTextarea" value={Titulo} onChange={(value) =>
-                                    setTitulo(value.target.value)}></textarea>
-                                <label htmlFor="floatingTextarea">Título</label>
-                            </div>
-                            <div className="form-floating mb-3">
-                                <textarea className="form-control" rows={4} placeholder="Leave a comment here" id="floatingTextarea" value={Corpo} onChange={(value) =>
-                                    setCorpo(value.target.value)}></textarea>
-                                <label htmlFor="floatingTextarea">Corpo</label>
-                            </div>
+                                                if (e.target.validity.valueMissing) {
+                                                    e.target.setCustomValidity('O assunto é de preenchimento obrigatório.')
+                                                    e.target.reportValidity()
+                                                } else {
+                                                    e.target.setCustomValidity('')
+                                                    e.target.classList.remove('focus-danger')
+                                                }
+                                            }
+                                        }}
+                                    />
+                                    <label className='text-dark' htmlFor="user-username-input">Assunto</label>
+                                </div>
+                                <div className="form-floating mb-3">
+                                    <input
+                                        // id='user-username-input'
+                                        className='form-control focus-warning text-dark rounded-3'
+                                        type='text'
+                                        placeholder='titulo'
+                                        autoComplete='none'
+                                        autoCapitalize='words'
+                                        required
+                                        value={titulo}
+                                        onChange={e => { setTitulo(e.target.value) }}
+                                        onInput={e => {
+                                            if (!e.target.validity.valid) {
+                                                e.target.classList.add('focus-danger')
 
-                        </div>
-                        <div className="modal-footer border-0">
-                            <button type="button" className="btn btn-outline-secondary" onClick={() => Cancelar()} data-bs-dismiss="modal">Cancelar</button>
-                            <button type="button" className="btn btn-warning fw-semibold" onClick={() => EnviarMail()}>Enviar email</button>
+                                                if (e.target.validity.valueMissing) {
+                                                    e.target.setCustomValidity('O titulo é de preenchimento obrigatório.')
+                                                    e.target.reportValidity()
+                                                } else {
+                                                    e.target.setCustomValidity('')
+                                                    e.target.classList.remove('focus-danger')
+                                                }
+                                            }
+                                        }}
+                                    />
+                                    <label className='text-dark' htmlFor="user-username-input">Título</label>
+                                </div>
+                                <div className="form-floating mb-3">
+                                    <textarea
+                                        // id='user-email-input'
+                                        className='form-control focus-warning text-dark rounded-3'
+                                        placeholder='corpo'
+                                        autoComplete='none'
+                                        autoCapitalize='none'
+                                        required
+                                        style={{ height: '10rem' }}
+                                        value={corpo}
+                                        onChange={e => { setCorpo(e.target.value) }}
+                                        onInput={e => {
+                                            if (!e.target.validity.valid) {
+                                                e.target.classList.add('focus-danger')
+
+                                                if (e.target.validity.valueMissing) {
+                                                    e.target.setCustomValidity('O corpo é de preenchimento obrigatório.')
+                                                    e.target.reportValidity()
+                                                } else {
+                                                    e.target.setCustomValidity('')
+                                                    e.target.classList.remove('focus-danger')
+                                                }
+                                            }
+                                        }}
+                                    ></textarea>
+                                    <label className='text-dark' htmlFor="user-email-input">Corpo</label>
+                                </div>
+
+                                <div className='w-100 d-flex justify-content-end'>
+                                    <button id='btn-criar-user' type="submit" className="btn btn-warning rounded-3 ">
+                                        {loading &&
+                                            <div className="spinner-border spinner-border-sm fs-6 text-dark me-2" role="status">
+                                                <span className="visually-hidden">Loading...</span>
+                                            </div>
+                                        }
+                                        <span id='btn-criar-user-text'>Enviar</span>
+                                    </button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
