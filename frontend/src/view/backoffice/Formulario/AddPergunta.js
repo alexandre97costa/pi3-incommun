@@ -8,8 +8,12 @@ export default function AddPergunta({ handleCancelClick, grupo_id }) {
 
 	const [newTituloPergunta, setNewTituloPergunta] = useState('')
 	const [newDescricaoPergunta, setNewDescricaoPergunta] = useState('')
-	const [newTipoPergunta, setNewTipoPergunta] = useState('')
+	const [newTipoPerguntaId, setnewTipoPerguntaId] = useState(0)
+	const [newTipoPerguntaText, setnewTipoPerguntaText] = useState('Tipo de pergunta')
 	const [newValorPergunta, setNewValorPergunta] = useState('')
+	const [listaTiposPergunta, setlistaTiposPergunta] = useState([])
+
+	
 
 	const [show, setShow] = useState(false)
 
@@ -24,7 +28,7 @@ export default function AddPergunta({ handleCancelClick, grupo_id }) {
 				grupo_id: grupoid,
 				titulo: newTituloPergunta,
 				descricao: newDescricaoPergunta,
-				tipo_pergunta: parseInt(newTipoPergunta),
+				tipo_pergunta: parseInt(newTipoPerguntaId),
 				valor_unitario: parseFloat(newValorPergunta),
 
 
@@ -38,6 +42,21 @@ export default function AddPergunta({ handleCancelClick, grupo_id }) {
 			})
 
 	}
+
+
+	useEffect(() => {
+        GetTiposPergunta()
+    }, []);
+
+
+    function GetTiposPergunta() {
+        axios.get(ip + '/forms/all_tipos_pergunta', authHeader())
+            .then(res => {
+                console.table(res.data.TipoPergunta, ['id', 'nome'])
+                setlistaTiposPergunta(res.data.TipoPergunta)
+
+            })
+    };
 
 
 	return (
@@ -77,15 +96,33 @@ export default function AddPergunta({ handleCancelClick, grupo_id }) {
 								/></td>
 
 
+
 							<td style={{ width: "10%" }}>
-								<input
-									className="form-control focus-warning"
-									type="text"
-									name="tipo_pergunta"
-									required="required"
-									placeholder="Tipo de pergunta"
-									onChange={e => setNewTipoPergunta(e.target.value)}
-								/></td>
+								<div className="dropdown">
+									<button 
+									 type="button"
+									className="form-control focus-warning dropdown-toggle d-flex justify-content-between align-items-center" 
+									id="dropdownMenuButton1" data-bs-toggle="dropdown"
+									 aria-expanded="false">
+										{newTipoPerguntaText}
+									</button>
+									<ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+										{listaTiposPergunta.map(TipoPergunta => {
+											return (
+												<li 
+													className="dropdown-item"
+													onClick={e => {
+														setnewTipoPerguntaId(TipoPergunta.id)
+														setnewTipoPerguntaText(TipoPergunta.titulo) 
+													}}
+												>
+													{TipoPergunta.titulo}
+												</li>
+											)
+										})}
+									</ul>
+								</div>
+							</td>
 
 							<td tyle={{ width: "10%" }}>
 								<input
@@ -95,7 +132,9 @@ export default function AddPergunta({ handleCancelClick, grupo_id }) {
 									required="required"
 									placeholder="Valor da pergunta"
 									onChange={e => setNewValorPergunta(e.target.value)}
-								/></td>
+								/>
+							</td>
+
 
 							<td style={{ width: "10%" }}>
 								<button type="submit"
