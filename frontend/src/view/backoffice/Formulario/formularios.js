@@ -157,15 +157,7 @@ export default function FormulariosComponente() {
 												/>
 												
 												
-												<div className='w-100 d-flex justify-content-end'>
-													<button type="button"
-														className="btn btn-success mx-2 fs-6"
-														onClick={(e) => handleAddClick(e)}>
-														Nova Pergunta
-														<i className="ms-2 bi bi-plus-lg"></i>
-													</button>
-												</div>
-
+												
 
 
 

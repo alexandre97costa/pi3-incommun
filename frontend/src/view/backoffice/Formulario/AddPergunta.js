@@ -11,6 +11,8 @@ export default function AddPergunta({ handleCancelClick, grupo_id }) {
 	const [newTipoPergunta, setNewTipoPergunta] = useState('')
 	const [newValorPergunta, setNewValorPergunta] = useState('')
 
+	const [show, setShow] = useState(false)
+
 
 	function handleNovaPergunta(e) {
 		e.preventDefault()
@@ -39,72 +41,81 @@ export default function AddPergunta({ handleCancelClick, grupo_id }) {
 
 
 	return (
-		<form onSubmit={handleNovaPergunta}>
-			<table className="table table-hover">
-				<tbody>
-					<tr>
-						<td style={{ width: "30%" }}>
-							<input
-								className="form-control focus-warning"
-								type="text"
-								name="titulo"
-								required="required"
-								placeholder="Introduz o titulo"
-								onChange={e => setNewTituloPergunta(e.target.value)}
-							/>
-						</td>
+		!show ?
+			<div className='w-100 d-flex justify-content-end'>
+				<button type="button"
+					className="btn btn-success mx-2 fs-6"
+					onClick={(e) => setShow(true)}>
+					Nova Pergunta
+					<i className="ms-2 bi bi-plus-lg"></i>
+				</button>
+			</div>
+			:
+			<form onSubmit={handleNovaPergunta}>
+				<table className="table table-hover">
+					<tbody>
+						<tr>
+							<td style={{ width: "30%" }}>
+								<input
+									className="form-control focus-warning"
+									type="text"
+									name="titulo"
+									required="required"
+									placeholder="Introduz o titulo"
+									onChange={e => setNewTituloPergunta(e.target.value)}
+								/>
+							</td>
 
-						<td style={{ width: "40%" }}>
-							<input
-								className="form-control focus-warning"
-								type="text"
-								name="descricao"
-								required="required"
-								placeholder="Introduz a descrição"
-								onChange={e => setNewDescricaoPergunta(e.target.value)}
-							/></td>
-
-
-						<td style={{ width: "10%" }}>
-							<input
-								className="form-control focus-warning"
-								type="text"
-								name="tipo_pergunta"
-								required="required"
-								placeholder="Tipo de pergunta"
-								onChange={e => setNewTipoPergunta(e.target.value)}
-							/></td>
-
-						<td tyle={{ width: "10%" }}>
-							<input
-								className="form-control focus-warning"
-								type="number"
-								name="valor_unitario"
-								required="required"
-								placeholder="Valor da pergunta"
-								onChange={e => setNewValorPergunta(e.target.value)}
-							/></td>
-
-						<td style={{ width: "10%" }}>
-							<button type="submit"
-								className="btn btn-outline-success mx-2">
-								<i className="bi bi-plus-circle"></i>
-							</button>
+							<td style={{ width: "40%" }}>
+								<input
+									className="form-control focus-warning"
+									type="text"
+									name="descricao"
+									required="required"
+									placeholder="Introduz a descrição"
+									onChange={e => setNewDescricaoPergunta(e.target.value)}
+								/></td>
 
 
+							<td style={{ width: "10%" }}>
+								<input
+									className="form-control focus-warning"
+									type="text"
+									name="tipo_pergunta"
+									required="required"
+									placeholder="Tipo de pergunta"
+									onChange={e => setNewTipoPergunta(e.target.value)}
+								/></td>
 
-							<button type="button"
-								className="btn btn-outline-danger mx-2"
-								onClick={handleCancelClick}>
-								<i className="bi bi-x-circle"></i>
-							</button>
+							<td tyle={{ width: "10%" }}>
+								<input
+									className="form-control focus-warning"
+									type="number"
+									name="valor_unitario"
+									required="required"
+									placeholder="Valor da pergunta"
+									onChange={e => setNewValorPergunta(e.target.value)}
+								/></td>
 
-						</td>
-					</tr>
-				</tbody>
-			</table>
+							<td style={{ width: "10%" }}>
+								<button type="submit"
+									className="btn btn-outline-success mx-2">
+									<i className="bi bi-plus-circle"></i>
+								</button>
 
-		</form>
+
+
+								<button type="button"
+									className="btn btn-outline-danger mx-2"
+									onClick={e => setShow(false)}>
+									<i className="bi bi-x-circle"></i>
+								</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+
+			</form>
 	)
 
 };
