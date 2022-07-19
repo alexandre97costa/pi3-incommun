@@ -46,13 +46,13 @@ export default function PieChartComponent2() {
 
     return (
         <div className="row">
-            <div className='col-6'>
+            <div className='col-12'>
                 <span className='h2 text-dark fw-bold'>
-                    Resumo Estado de Pedidos
+                    Estado dos Pedidos
                 </span>
             </div>
 
-            <div className='mb-5 w row'>
+            <div className='mb-5 col-12'>
                 {isShown && <div className="mb-3 w">
                     <Chart
                         chartType="PieChart"

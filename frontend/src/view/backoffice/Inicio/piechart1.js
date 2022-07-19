@@ -46,18 +46,17 @@ export default function PieChartComponent1() {
 
     return (
         <div className="row">
-            <div className='col-6'>
+            <div className='col-12'>
                 <span className='h2 text-dark fw-bold'>
-                    Resumo Pedidos Recusados
+                    Motivos de Recusa dos Pedidos
                 </span>
             </div>
 
-            <div className='mb-5 w row'>
+            <div className='mb-5 col-12'>
                 {isShown && <div className="mb-3 w">
                     <Chart
                         chartType="PieChart"
                         data={data}
-                        option={{chartArea: { 'width': '90%'},}}
                         width={"100%"}
                         height={"400px"}
                     />

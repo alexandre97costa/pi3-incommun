@@ -107,7 +107,7 @@ export default function VisitasComponent() {
         // series: [{ color: 'red', lineWidth: 3 }, { lineWidth: 0.5, color: 'red' }],
         series: [{color: 'skyblue'}, {color: 'teal'}],
         curveType: 'function',
-        chartArea: { 'width': '90%', 'height': '70%' },
+        chartArea: { 'width': '95%', 'height': '70%' },
         legend: { position: 'top' },
     }
 
@@ -118,7 +118,7 @@ export default function VisitasComponent() {
             <div className='mb-3 row'>
                 <div className='col-6'>
                     <span className='h2 text-dark fw-bold'>
-                        Visitas
+                        Visitas & Pedidos
                     </span>
                 </div>
             </div>
