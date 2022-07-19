@@ -16,7 +16,7 @@ export default function PedidosComponent() {
     const [totalPedidos, setTotalPedidos] = useState(0)
     const [estados, setEstados] = useState([])
     const [motivos, setMotivos] = useState([])
-
+    const [Email, setEmail] = useState("")
     const [filtroPedido, setFiltroPedido] = useState('id')
     const [ordemPedido, setOrdemPedido] = useState('ASC')
     const [filtroEstadoPedido, setFiltroEstadoPedido] = useState(0)
@@ -66,7 +66,11 @@ export default function PedidosComponent() {
                 setDicaDoDia(res.data.content)
             })
     }, [])
-
+    function mudarEmail(id) {
+        const div1 = document.getElementById(id)
+        const exampleAttr = div1.getAttribute('data-email');
+        setEmail(exampleAttr);
+    }
     function handleFiltro(filtro, ordem, texto) {
         setFiltroPedido(filtro);
         setOrdemPedido(ordem);
@@ -78,7 +82,7 @@ export default function PedidosComponent() {
         return (
             pedidos.map(pedido => {
                 return (
-                    <tr className='align-middle' key={pedido.id}>
+                    <tr className='align-middle' key={pedido.id} id={pedido.cliente.id} data-email={pedido.cliente.email}>
                         {/* Data */}
                         <td className='text-start '>
                             <span className='text-muted badge p-0 fw-normal align-middle'>
@@ -135,8 +139,20 @@ export default function PedidosComponent() {
                             </Link>
                         </td>
                         <td className=''>
-                            {(pedido.estado_id === 1 || pedido.estado_id === 2 || pedido.estado_id === 3) &&
-                                <ContactarCliente destinatario={pedido.cliente.email} />
+                        
+                            {(pedido.estado_id === 1 || pedido.estado_id === 2 || pedido.estado_id === 3) && 
+                                   <button
+                                   id='contactar-cliente-btn'
+                                   className='btn btn-warning w-100 fw-semibold'
+                                   data-bs-toggle='modal'
+                                   data-bs-target="#contactar-cliente-modal"
+                                   onClick={() => mudarEmail(pedido.cliente.id)}
+                               >
+                                   <i className='me-2 bi bi-send-fill'></i>
+                                   Contactar cliente
+                                   
+                               </button>
+                                
                             }
                             {(pedido.estado_id === 4) &&
                             <div title='Não podes contactar o cliente acerca deste pedido.'>
@@ -281,7 +297,7 @@ export default function PedidosComponent() {
                 </div>
             </div>
 
-
+                <ContactarCliente destinatario={Email}/>
         </div>
 
 

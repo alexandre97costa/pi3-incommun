@@ -15,7 +15,12 @@ export default function ContactarCliente(props) {
     useEffect(() => {
 
     }, [])
+    function Cancelar() {
+        setAssunto("Temos o seu orçamento pronto!")
+        setTitulo("Incommun - Serviços personalizados à sua medida!")
+        setCorpo("Escreve alguma coisa.")
 
+    }
     function handleContactar(e) {
         e.preventDefault();
 
@@ -34,8 +39,12 @@ export default function ContactarCliente(props) {
                     email_admin: authService.getCurrentUser()?.email,
                     assunto: assunto,
                     titulo: titulo,
-                    corpo: corpo
+                    corpo: corpo,
+                    
                 },
+                setAssunto(''),
+                setTitulo(''),
+                setCorpo(''),
                 authHeader()
             )
             .then(res => {
@@ -57,15 +66,7 @@ export default function ContactarCliente(props) {
 
     return (
         <>
-            <button
-                id='contactar-cliente-btn'
-                className='btn btn-warning w-100 fw-semibold'
-                data-bs-toggle='modal'
-                data-bs-target="#contactar-cliente-modal"
-            >
-                <i className='me-2 bi bi-send-fill'></i>
-                Contactar cliente
-            </button>
+           
 
             <div className="modal fade" id="contactar-cliente-modal" tabIndex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="criar-user-modal-label" aria-hidden="true">
                 <div className="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
@@ -97,7 +98,7 @@ export default function ContactarCliente(props) {
                                     </span>
                                 </div>
                             </h5>
-                            <button id='btn-close-criar-user' type="button" className="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button id='btn-close-criar-user' type="button" className="btn-close btn-close-white" data-bs-dismiss="modal" onClick={() => Cancelar()} aria-label="Close"></button>
                         </div>
                         <div className="modal-body rounded-4 bg-light border-0 shadow">
                             <form onSubmit={e => handleContactar(e)}>
