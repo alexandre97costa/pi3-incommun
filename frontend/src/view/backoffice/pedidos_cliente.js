@@ -14,7 +14,10 @@ export default function Pedidos_clienteComponent() {
     const [ordemPedido, setOrdemPedido] = useState('ASC')
     const [motivos, setMotivos] = useState([])
     const [estados, setEstados] = useState([])
-
+    const [Email, setEmail] = useState("")
+    const [Assunto, setAssunto] = useState("")
+    const [Titulo, setTitulo] = useState("")
+    const [Corpo, setCorpo] = useState("")
     const [dicaDoDia, setDicaDoDia] = useState('')
     const [autorDica, setAutorDica] = useState('')
     const { idCliente } = useParams();
@@ -52,12 +55,48 @@ export default function Pedidos_clienteComponent() {
         setOrdemPedido(ordem)
         document.getElementById('dropdown-filtro').textContent = texto
     }
+    function Cancelar() {
 
+        setEmail("")
+        setAssunto("")
+        setTitulo("")
+        setCorpo("")
+
+    }
+    function mudarEmail(id) {
+        const div1 = document.getElementById(id)
+        const exampleAttr = div1.getAttribute('data-email');
+        setEmail(exampleAttr);
+    }
+    function EnviarMail() {
+        // url de backend
+
+        const url = ip + '/clientes/enviar_email'
+        const datapost = {
+            email_cliente: Email,
+            assunto: Assunto,
+            titulo: Titulo,
+            corpo: Corpo
+        }
+        setAssunto("")
+        setTitulo("")
+        setCorpo("")
+        console.log(datapost);
+        axios.post(url, datapost)
+            .then(response => {
+                if (response.data.success === true) {
+                alert(response.data.message)
+                }
+
+            }).catch(error => {
+               // alert("Error 34 " + error)
+            })
+    }
     function LoadPedidos() {
         return (
             pedidos.map(pedido => {
                 return (
-                    <tr className='align-middle' key={pedido.id}>
+                    <tr className='align-middle' key={pedido.id} id={pedido.cliente.id} data-email={pedido.cliente.email}>
                         {/* Data */}
                         <td className='text-center '>
                             <span className='text-muted badge fw-normal align-middle'>
@@ -110,7 +149,7 @@ export default function Pedidos_clienteComponent() {
                         {/* Opções */}
                         <td className=''>
                             {(pedido.estado_id === 1 || pedido.estado_id === 2) &&
-                                <button data-bs-toggle="modal" data-bs-target="#modal-contactar" className='btn btn-warning w-100 fw-semibold' >
+                                <button data-bs-toggle="modal" data-bs-target="#modal-contactar" onClick={() => mudarEmail(pedido.cliente.id)} className='btn btn-warning w-100 fw-semibold' >
                                     <i className='me-2 bi bi-send-fill'></i>
                                     Contactar cliente
                                 </button>
@@ -201,8 +240,6 @@ export default function Pedidos_clienteComponent() {
 
             <div className="modal fade" id="modal-contactar" tabIndex="-1" aria-labelledby="modal-contactar-label" aria-hidden="true">
                 <div className="modal-dialog modal-dialog-centered modal-lg ">
-
-                    {/* Versão 2 */}
                     <div className="modal-content border-0">
                         <div className="modal-header rounded-4 border-0">
                             <div className="modal-title fs-4 fw-light" id="exampleModalLabel">Contactar cliente</div>
@@ -210,18 +247,30 @@ export default function Pedidos_clienteComponent() {
                         <div className="modal-body">
 
                             <div className="form-floating mb-3">
-                                <input type="email" className="form-control" id="floatingInput" placeholder="name@example.com" />
-                                <label htmlFor="floatingInput">Email address</label>
+                                <input type="email" className="form-control" id="floatingInput" placeholder="name@example.com" value={Email} onChange={(value) =>
+                                    setEmail(value.target.value)} />
+                                <label htmlFor="floatingInput">Email</label>
                             </div>
-                            <div className="form-floating">
-                                <textarea className="form-control" rows={4} placeholder="Leave a comment here" id="floatingTextarea"></textarea>
-                                <label htmlFor="floatingTextarea">Comments</label>
+                            <div className="form-floating mb-3">
+                                <textarea className="form-control" placeholder="Leave a comment here" id="floatingTextarea" value={Assunto} onChange={(value) =>
+                                    setAssunto(value.target.value)}></textarea>
+                                <label htmlFor="floatingTextarea">Assunto</label>
+                            </div>
+                            <div className="form-floating mb-3">
+                                <textarea className="form-control" placeholder="Leave a comment here" id="floatingTextarea" value={Titulo} onChange={(value) =>
+                                    setTitulo(value.target.value)}></textarea>
+                                <label htmlFor="floatingTextarea">Título</label>
+                            </div>
+                            <div className="form-floating mb-3">
+                                <textarea className="form-control" rows={4} placeholder="Leave a comment here" id="floatingTextarea" value={Corpo} onChange={(value) =>
+                                    setCorpo(value.target.value)}></textarea>
+                                <label htmlFor="floatingTextarea">Corpo</label>
                             </div>
 
                         </div>
                         <div className="modal-footer border-0">
-                            <button type="button" className="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
-                            <button type="button" className="btn btn-warning fw-semibold">Enviar email</button>
+                            <button type="button" className="btn btn-outline-secondary" onClick={() => Cancelar()} data-bs-dismiss="modal">Cancelar</button>
+                            <button type="button" className="btn btn-warning fw-semibold" onClick={() => EnviarMail()}>Enviar email</button>
                         </div>
                     </div>
                 </div>
