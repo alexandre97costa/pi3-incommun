@@ -57,6 +57,7 @@ export default function PieChartComponent1() {
                     <Chart
                         chartType="PieChart"
                         data={data}
+                        option={{chartArea: { 'width': '90%'},}}
                         width={"100%"}
                         height={"400px"}
                     />

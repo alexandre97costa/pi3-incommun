@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { Link } from "react-router-dom";
 import React, { useEffect, useState } from 'react';
-import ip from '../ip'
-import PuzzlePieces from '../assets/svgs/puzzle_pieces.svg'
+import ip from '../../ip'
+import PuzzlePieces from '../../assets/svgs/puzzle_pieces.svg'
 
 export default function FrontPage() {
 

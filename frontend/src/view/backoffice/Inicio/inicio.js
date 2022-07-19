@@ -31,31 +31,17 @@ export default function InicioComponent() {
     const [dicaDoDia, setDicaDoDia] = useState('')
     const [autorDica, setAutorDica] = useState('')
 
-
-    useEffect(() => {
-        axios
-            .get(
-                ip + '/pedidos/all' +
-                '?ordem=' + ordemPedido +
-                '&filtro=' + filtroPedido +
-                '&estado_id=' + filtroEstadoPedido +
-                '&limite=4',
-                authHeader()
-            )
-            .then(res => res.data.success ? setPedidos(res.data.data) : console.log(res))
-            .catch(console.log);
-    }, [filtroPedido, ordemPedido, filtroEstadoPedido])
-
     function getPedidos() {
         axios
             .get(
                 ip + '/pedidos/all' +
                 '?ordem=' + ordemPedido +
                 '&filtro=' + filtroPedido +
-                '&estado_id=' + filtroEstadoPedido,
+                '&estado_id=' + filtroEstadoPedido + 
+                '&limite=4',
                 authHeader()
             )
-            .then(res => { setPedidos(res.data.data) })
+            .then(res => res.data.success ? setPedidos(res.data.data) : console.log(res))
             .catch(console.log)
     }
 

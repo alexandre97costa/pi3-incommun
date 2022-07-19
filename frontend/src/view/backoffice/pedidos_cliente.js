@@ -4,7 +4,6 @@ import React, { useEffect, useState } from 'react';
 import NavDeLado from './navdelado'
 import Count from './count'
 import ip from '../../ip'
-import mailImg from '../../assets/imgs/mail2.png'
 import { useParams } from "react-router-dom";
 import authHeader from '../auth-header';
 import UpdateEstado from './update_estado';
@@ -202,29 +201,7 @@ export default function Pedidos_clienteComponent() {
 
             <div className="modal fade" id="modal-contactar" tabIndex="-1" aria-labelledby="modal-contactar-label" aria-hidden="true">
                 <div className="modal-dialog modal-dialog-centered modal-lg ">
-                    {/* Versão 1 */}
-                    <div className="d-none modal-content border-0 rounded-0">
-                        <div className='container-fluid'>
-                            <div className='row'>
-                                <div className='col-4 bg-dark text-light p-3 pb-0 d-flex flex-column justify-content-between'>
-                                    <div className="modal-header border-0">
-                                        <div className="fs-1 fw-light text-warning modal-title" id="modal-contactar-label">Contactar cliente</div>
-                                    </div>
-                                    <img className='img-fluid' style={{}} src={mailImg} alt="" />
-                                </div>
 
-                                <div className='col-8 bg-light p-3  '>
-                                    <div className="modal-body">
-                                        ...
-                                    </div>
-                                    <div className="modal-footer">
-                                        <button type="button" className="btn btn-outline-secondary rounded-0" data-bs-dismiss="modal">Cancelar</button>
-                                        <button type="button" className="btn btn-warning rounded-0 fw-semibold">Enviar email</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     {/* Versão 2 */}
                     <div className="modal-content border-0">
                         <div className="modal-header rounded-4 border-0">

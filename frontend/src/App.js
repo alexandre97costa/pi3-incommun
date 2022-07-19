@@ -7,10 +7,8 @@ import './styles/index.css'
 
 import NavDeCima from './view/forms/navdecima'
 import NavDeLado from './view/backoffice/navdelado'
-import Main from './view/main'
-import FrontPage from './view/frontpage'
+import FrontPage from './view/forms/frontpage'
 import Form from './view/forms/form'
-import JumboTron from './view/forms/jumbotron'
 import Footer from './view/forms/footer'
 import BoLogin from './view/backoffice/login'
 
@@ -63,8 +61,6 @@ export default function App() {
 				<Route exact path='/' element={
 					<>
 						<NavDeCima auth={login} />
-						{/* <JumboTron /> */}
-						{/* <Main /> */}
 						<FrontPage />
 						<Footer />
 					</>

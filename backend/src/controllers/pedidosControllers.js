@@ -141,6 +141,7 @@ module.exports = {
         const filtro = req.query?.filtro ?? 'id'
         const ordem = req.query?.ordem ?? 'ASC'
         const limite = parseInt(req.query?.limite ?? 30)
+        console.log('limite:', limite)
 
         let orderArray = (filtro === 'nome') ? [Cliente, filtro, ordem] : [filtro, ordem];
         await sequelize.sync()
