@@ -46,6 +46,7 @@ export default function FrontPage() {
 
                             <Link
                                 to={'/servicos-personalizados/' + nomeTransform(form.titulo)}
+                                state={{id: form.id}}
                                 className='btn btn-warning fw-semibold rounded-3 mb-3 w-100'
                             >
                                 Vamos lá!
@@ -167,9 +168,9 @@ export default function FrontPage() {
 
                                     </div>
                                     <div className='d-flex flex-column'>
-                                        <Link to={'/servicos-personalizados/' + nomeTransform(forms[0]?.titulo)} className='btn btn-warning fw-semibold rounded-3 mb-3 w-100'>{forms[0]?.titulo}</Link>
-                                        <Link to={'/servicos-personalizados/' + nomeTransform(forms[1]?.titulo)} className='btn btn-warning fw-semibold rounded-3 mb-3 w-100'>{forms[1]?.titulo}</Link>
-                                        <Link to={'/servicos-personalizados/' + nomeTransform(forms[2]?.titulo)} className='btn btn-warning fw-semibold rounded-3 mb-3 w-100'>{forms[2]?.titulo}</Link>
+                                        <Link to={'/servicos-personalizados/' + nomeTransform(forms[0]?.titulo)} state={{ id: forms[0]?.id }} className='btn btn-warning fw-semibold rounded-3 mb-3 w-100'>{forms[0]?.titulo}</Link>
+                                        <Link to={'/servicos-personalizados/' + nomeTransform(forms[1]?.titulo)} state={{ id: forms[1]?.id }} className='btn btn-warning fw-semibold rounded-3 mb-3 w-100'>{forms[1]?.titulo}</Link>
+                                        <Link to={'/servicos-personalizados/' + nomeTransform(forms[2]?.titulo)} state={{ id: forms[2]?.id }} className='btn btn-warning fw-semibold rounded-3 mb-3 w-100'>{forms[2]?.titulo}</Link>
                                     </div>
                                     <div className='accordion-group'>
 
