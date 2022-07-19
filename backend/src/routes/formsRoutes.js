@@ -12,7 +12,8 @@ router.get('/', (req, res) => {
 router.get('/all_form_names', formController.all_form_names)
 router.get('/all', formController.all) // Eu acho que esta já não é necessária
 router.get('/all_backoffice', jwt_middleware.checkToken, formController.all_backoffice)
-router.put('/edit', jwt_middleware.checkToken, formController.edit)
+router.put('/edit_pergunta', jwt_middleware.checkToken, formController.edit_pergunta)
+router.put('/edit_tipo_pergunta', jwt_middleware.checkToken, formController.edit_tipo_pergunta)
 router.post('/add', jwt_middleware.checkToken, formController.add)
 router.delete('/delete', jwt_middleware.checkToken, formController.delete);
 router.get('/all_tipos_pergunta', jwt_middleware.checkToken, formController.all_tipos_pergunta)

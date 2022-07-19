@@ -2,6 +2,10 @@ import React, { useEffect, useState } from "react";
 import axios from 'axios';
 import ip from '../../../ip';
 import authHeader from '../../auth-header'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import DropdownButton from 'react-bootstrap/DropdownButton';
+import Dropdown from 'react-bootstrap/Dropdown'
+
 
 export default function EditableRow({ handleCancelClick, id, pergunta, getForms }) {
 
@@ -12,18 +16,24 @@ export default function EditableRow({ handleCancelClick, id, pergunta, getForms 
 
     const [listaTiposPergunta, setlistaTiposPergunta] = useState([])
 
+    const [value, setValue] = useState('')
+
+    const handleSelect = (e) => {
+        console.log(e);
+        setValue(e)
+    }
 
 
     function UpdatePergunta(e) {
         e.preventDefault()
         let idpergunta = id
 
-        axios.put(ip + '/forms/edit',
+        axios.put(ip + '/forms/edit_pergunta',
             {
                 id: idpergunta,
                 titulo: edittitulopergunta,
                 descricao: editdescricaopergunta,
-                tipo_pergunta: edittipopergunta,
+                tipo_pergunta: parseInt(edittipopergunta),
                 valor_unitario: parseFloat(editvalorpergunta),
 
             }, authHeader())
@@ -49,22 +59,14 @@ export default function EditableRow({ handleCancelClick, id, pergunta, getForms 
             })
     };
 
-    function refreshPage() {
-        window.location.reload(false)
-
-    };
-
-
     return (
         <form onSubmit={e => UpdatePergunta(e)}>
             <table className="table table-hover">
 
 
                 <tbody>
-
-
                     <tr>
-
+                        {/* TITULO */}
                         <td style={{ width: "30%" }}>
                             <input
                                 className="form-control focus-warning"
@@ -77,6 +79,7 @@ export default function EditableRow({ handleCancelClick, id, pergunta, getForms 
                             />
                         </td>
 
+                        {/* DESCRIÇÃO */}
                         <td style={{ width: "40%" }}>
                             <input
                                 className="form-control focus-warning"
@@ -91,35 +94,36 @@ export default function EditableRow({ handleCancelClick, id, pergunta, getForms 
 
 
 
+
+                        {/* TIPO DE PERGUNTA */}
+
                         <td style={{ width: "10%" }}>
 
-                            <form >
-                                <select name="Teste21" className="form-control focus-warning dropdown-toggle" type="button" >
-                                    <option>
-                                        {pergunta.tipo_pergunta.titulo}
-                                    </option>
+                           
 
-                                    {listaTiposPergunta.map(TipoPergunta => {
+                             <DropdownButton variant="form-control focus-warning"
 
-                                        return (
-                                            <option
-                                                className="form-control focus-warning"
-                                                type="text"
-                                                name="tipo_pergunta"
-                                                required="required"
-                                                value={edittipopergunta}
-                                                onChange={e => setedittipopergunta(e.target.value)}>
-                                                {TipoPergunta.titulo}
-                                            </option>
+                                title={value}
+                             
+                                onSelect={handleSelect}
+                                onChange={e => setedittipopergunta(e.target.value)}
+                            >
+                                {listaTiposPergunta.map(TipoPergunta => {
+                                    return (
+                                        <Dropdown.Item eventKey={TipoPergunta.titulo} //VALUE
+                                         >{TipoPergunta.titulo}</Dropdown.Item>
+                                    )
+                                })}
 
-                                        )
-                                    })}
-                                </select>
-                            </form>
+                            </DropdownButton> 
+
+                        value = 
+
 
                         </td>
 
 
+                        {/* VALOR UNITÁRIO */}
                         <td style={{ width: "10%" }}>
                             <input
                                 className="form-control focus-warning"

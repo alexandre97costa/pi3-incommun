@@ -98,7 +98,7 @@ module.exports = {
 
 
     //EDITAR
-    edit: async (req, res) => {
+    edit_pergunta: async (req, res) => {
         const { id, titulo, descricao, tipo_pergunta, valor_unitario } = req.body;
 
         console.log(req.body)
@@ -107,14 +107,13 @@ module.exports = {
             {
                 titulo: titulo,
                 descricao: descricao,
-                tipo_pergunta: tipo_pergunta,
-                valor_unitario: valor_unitario,
+                tipo_id: tipo_pergunta,
+                valor_unitario: valor_unitario,            
                 
-
-
             },
             { where: { id: id } }
         )
+
             .then(function (data) {
                 return data;
             })
@@ -128,6 +127,40 @@ module.exports = {
             message: "Atualizado com sucesso"
         });
     },
+
+
+    //EDITAR TIPO PERGUNTA
+    edit_tipo_pergunta: async (req, res) => {
+        const { id, titulo, descricao, tipo_pergunta, valor_unitario } = req.body;
+
+        console.log(req.body)
+        const data = await Pergunta.update(
+
+            {
+                titulo: titulo,
+                descricao: descricao,
+                tipo_id: tipo_pergunta,
+                valor_unitario: valor_unitario,            
+                
+            },
+            { where: { id: id } }
+        )
+
+            .then(function (data) {
+                return data;
+            })
+            .catch(error => {
+                return error;
+            })
+
+        res.json({
+            success: true,
+            data: data,
+            message: "Atualizado com sucesso"
+        });
+    },
+
+    
 
     // ADICIONAR
     add: async (req, res) => {
