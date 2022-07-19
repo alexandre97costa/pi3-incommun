@@ -6,19 +6,14 @@ import authHeader from '../../auth-header'
 
 export default function EditableRow({ handleCancelClick, id, pergunta, getForms }) {
 
-    const [edittitulopergunta, seteditTituloPergunta] = useState("")
-    const [editdescricaopergunta, seteditdescricaopergunta] = useState("")
-    const [edittipopergunta, setedittipopergunta] = useState("")
-    const [editvalorpergunta, seteditvalorpergunta] = useState("")
+    const [editTituloPergunta, seteditTituloPergunta] = useState(pergunta.titulo)
+    const [editDescricaoPergunta, seteditDescricaoPergunta] = useState(pergunta.descricao)
+    const [editTipoPerguntaId, seteditTipoPerguntaId] = useState(0)
+    const [editTipoPerguntaText, seteditTipoPerguntaText] = useState(pergunta.tipo_pergunta.titulo)
+
+    const [editValorPergunta, seteditValorPergunta] = useState(pergunta.valor_unitario)
 
     const [listaTiposPergunta, setlistaTiposPergunta] = useState([])
-
-    const [value, setValue] = useState('')
-
-    const handleSelect = (e) => {
-        console.log(e);
-        setValue(e)
-    }
 
 
     function UpdatePergunta(e) {
@@ -28,10 +23,10 @@ export default function EditableRow({ handleCancelClick, id, pergunta, getForms 
         axios.put(ip + '/forms/edit_pergunta',
             {
                 id: idpergunta,
-                titulo: edittitulopergunta,
-                descricao: editdescricaopergunta,
-                tipo_pergunta: parseInt(edittipopergunta),
-                valor_unitario: parseFloat(editvalorpergunta),
+                titulo: editTituloPergunta,
+                descricao: editDescricaoPergunta,
+                tipo_pergunta: parseInt(editTipoPerguntaId),
+                valor_unitario: parseFloat(editValorPergunta),
 
             }, authHeader())
 
@@ -53,6 +48,7 @@ export default function EditableRow({ handleCancelClick, id, pergunta, getForms 
             .then(res => {
                 console.table(res.data.TipoPergunta, ['id', 'nome'])
                 setlistaTiposPergunta(res.data.TipoPergunta)
+
             })
     };
 
@@ -71,7 +67,7 @@ export default function EditableRow({ handleCancelClick, id, pergunta, getForms 
                                 name="titulo"
                                 required="required"
                                 placeholder={pergunta.titulo}
-                                value={edittitulopergunta}
+                                value={editTituloPergunta}
                                 onChange={e => seteditTituloPergunta(e.target.value)}
                             />
                         </td>
@@ -84,8 +80,8 @@ export default function EditableRow({ handleCancelClick, id, pergunta, getForms 
                                 name="descricao"
                                 required="required"
                                 placeholder={pergunta.descricao}
-                                value={editdescricaopergunta}
-                                onChange={e => seteditdescricaopergunta(e.target.value)}
+                                value={editDescricaoPergunta}
+                                onChange={e => seteditDescricaoPergunta(e.target.value)}
                             />
                         </td>
 
@@ -95,21 +91,21 @@ export default function EditableRow({ handleCancelClick, id, pergunta, getForms 
                         {/* TIPO DE PERGUNTA */}
 
                         <td style={{ width: "10%" }}>
-
-                           
-
-                        <td style={{ width: "10%" }}>
                             <div className="dropdown">
                                 <button className="form-control focus-warning dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                    {pergunta.tipo_pergunta.titulo}
+                                    {editTipoPerguntaText}
                                 </button>
                                 <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                     {listaTiposPergunta.map(TipoPergunta => {
                                         return (
-                                            <li>
-                                                <a className="dropdown-item">
-                                                    {TipoPergunta.titulo}
-                                                </a>
+                                            <li
+                                                className="dropdown-item"
+                                                onClick={e => {
+                                                    seteditTipoPerguntaId(TipoPergunta.id)
+                                                    seteditTipoPerguntaText(TipoPergunta.titulo)
+                                                }}
+                                            >
+                                                {TipoPergunta.titulo}
                                             </li>
                                         )
                                     })}
@@ -117,9 +113,6 @@ export default function EditableRow({ handleCancelClick, id, pergunta, getForms 
                             </div>
                         </td>
 
-            
-
-                        </td>
 
 
                         {/* VALOR UNITÁRIO */}
@@ -130,8 +123,8 @@ export default function EditableRow({ handleCancelClick, id, pergunta, getForms 
                                 name="valor_unitario"
                                 required="required"
                                 placeholder={pergunta.valor_unitario}
-                                value={editvalorpergunta}
-                                onChange={e => seteditvalorpergunta(e.target.value)}
+                                value={editValorPergunta}
+                                onChange={e => seteditValorPergunta(e.target.value)}
                             />
                         </td>
 
