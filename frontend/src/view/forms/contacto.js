@@ -12,6 +12,8 @@ export default function ContactoComponent(props) {
     const [clientePermiteLocal, setClientePermiteLocal] = useState(true)
     const [clienteDistrito, setClienteDistrito] = useState('')
 
+    const [cliente, setCliente] = useState([])
+
     useEffect(() => {
         axios
             .get('http://ip-api.com/json/')
@@ -19,17 +21,18 @@ export default function ContactoComponent(props) {
             .catch(error => console.log(error))
     }, [])
 
-
-    function handleSubmitPedido(e) {
-        e.preventDefault()
-        console.log("SUBMETEU!")
-        const cliente = {
+    useEffect(() => {
+        setCliente({
             nome: clienteNome,
             email: clienteEmail,
             empresa: clienteEmpresa,
             tlm: clienteTlm,
             distrito: clientePermiteLocal ? clienteDistrito : null
-        }
+        })
+    }, [clienteNome, clienteEmail, clienteEmpresa, clienteTlm, clientePermiteLocal, clienteDistrito])
+
+    function handleSubmitPedido(e) {
+        e.preventDefault()
 
         console.log(cliente)
         // props.postPedido(cliente)
@@ -214,7 +217,7 @@ export default function ContactoComponent(props) {
 
                             Finalizar </button>
                     </div>
-                    <SumarioComponent perguntasObject={props.perguntasObject} />
+                    <SumarioComponent perguntasObject={props.perguntasObject} postPedido={props.postPedido} cliente={cliente} />
                 </form>
             </div>
         </div>

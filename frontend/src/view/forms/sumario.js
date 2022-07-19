@@ -12,8 +12,7 @@ export default function SumarioComponent(props) {
                         <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div className="modal-body">
-                        Parabéns! Concluio o seu pedido!
-                        Por favor, clique no "Avançar" para guardar o seu pedido, ou clique no "X" se ainda quiser mudar algo! c:
+                        Pedido concluído! Caso queira alterar alguma coisa, ainda vai a tempo de cancelar
                         <div>
                            {/* {props.perguntasObject} */}
                         </div>
@@ -22,7 +21,7 @@ export default function SumarioComponent(props) {
 
                     </div>
                     <div className="modal-footer">
-                        <button type="button" className="btn btn-warning" data-bs-dismiss="modal">Avançar!</button>
+                        <button type="button" className="btn btn-warning rounded-0" data-bs-dismiss="modal" onClick={e => props.postPedido(props.cliente)}>Voltar à Página Inicial</button>
                     </div>
                 </div>
             </div>
