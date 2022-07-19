@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import placeholder from '../../../assets/imgs/placeholder600x400.png'
+import logotipo from '../../../assets/imgs/logotipo.png'
+import isotipo from '../../../assets/imgs/isotipo.png'
+import isologo from '../../../assets/imgs/isologo.png'
+import imagotipo from '../../../assets/imgs/imagotipo.png'
 
 
 export default function CardComponent(props) {
@@ -35,7 +39,12 @@ export default function CardComponent(props) {
             >
                 <div className='row g-0'>
                     <div className='col-md-5 col-lg-4 col-xl-3 bg-indigo d-flex justify-content-center align-items-center'>
-                        <img src={placeholder} className='img-fluid ' alt='' />
+                    
+                        {props.pergunta.id === 23 && <img src={logotipo} className='img-fluid ' alt='' /> }
+                        {props.pergunta.id === 24 && <img src={isotipo} className='img-fluid ' alt='' /> }
+                        {props.pergunta.id === 25 && <img src={isologo} className='img-fluid ' alt='' /> }
+                        {props.pergunta.id === 26 && <img src={imagotipo} className='img-fluid ' alt='' /> }
+
                     </div>
                     <div className={(isChecked ? 'bg-warning' : '') + ' col-md-7 col-lg-8 col-xl-9'}>
                         <div className='w-100 ms-3 mt-1'>
