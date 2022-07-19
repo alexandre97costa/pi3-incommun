@@ -53,8 +53,8 @@ INSERT INTO pedido (id, cliente_id, valor_total, estado_id, motivo_id, created_a
 INSERT INTO formulario (id, titulo, created_at, updated_at, descricao)  VALUES 
 (1, 'Website Institucional', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Estimulamos ações através da comunicação diferenciada.'  ),
 (2, 'Loja Online',           CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'O bom conteúdo é a melhor ferramenta de vendas do mundo.'  ),
-(3, 'Website Hibrido',       CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Publicamos conteúdos que mostra aos seus clientes que entende o problema e que os pode resolver. É o necessário para geral credibilidade.'  ),
-(4, 'Identidade Visual',     CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Damos personalidade á sua marca para um mercado competitivo.'  ),
+(3, 'Website Hibrido',       CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Publicamos conteúdos que mostram aos seus clientes que entende o problema e que os pode resolver. É o necessário para geral credibilidade.'  ),
+(4, 'Identidade Visual',     CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Damos personalidade à sua marca para um mercado competitivo.'  ),
 (5, 'Redes Sociais',         CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Quanto mais estradas existirem, mais fácil será chegar até si.'  );
 
 /**************************************** fim formulario *****************************************************/
@@ -100,35 +100,35 @@ INSERT INTO pergunta (id, grupo_id, valor_unitario, tipo_id, created_at, updated
 /*Extras*/
 (1, 1,   12.3, 1,   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Incluir domínio',         'O domínio é a url do seu site. (www.oseusite.pt)'),
 (2, 1,   12.3, 1,   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Obter hospedagem',        'A hospedagem é o local onde o seu site é guardado'),
-(3, 1,   12.3, 1,   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Criação de um portfólio', 'Caso tenha trabalhos anteriores que queira mostrar um portfólio é a melhor opção para tal'),
-(4, 1,   12.3, 1,   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Conteúdos textuais',      'Os textos que iram estar presentes no site para apresentar o seu negócio'),
+(3, 1,   12.3, 1,   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Criação de um portfólio', 'Criar um portfólio é a melhor forma de apresentar algo ao cliente'),
+(4, 1,   12.3, 1,   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Conteúdos textuais',      'Conteúdos que estarão presentes na LandingPage'),
 
 /****************************************** Perguntas Site Institucional ******************************************/
 /*Quantas Paginas pretende*/
-(5, 2,   12.3, 4,   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Quantas categorias pretende?',               'Por exemplo se tiver uma instituição, pode ter diversas categorias, para informação, contactos, etc.'),
+(5, 2,   12.3, 4,   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Quantas divisões pretende fazer?', 'Pode dividir o site em: inicial, sobre nós, contactos, etc.'),
 /*Extras*/
 (6, 3,   12.3, 1,    CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Incluir domínio',          'O domínio é a url do seu site. (www.oseusite.pt)'),
 (7, 3,   12.3, 1,    CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Obter hospedagem',         'A hospedagem é o local onde o seu site é guardado'),
-(8, 3,   12.3, 1,    CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Criação de um portfólio',  'Caso tenha trabalhos anterioes que queira mostrar, um portfólio é a melhor opção para tal'),
-(9, 3,   12.3, 1,    CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Conteúdos textuais',       'Os textos que iram estar presentes no site para apresentar a sua instituição'),
+(8, 3,   12.3, 1,    CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Criação de um portfólio',  'Criar um portfólio é a melhor forma de apresentar algo ao cliente'),
+(9, 3,   12.3, 1,    CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Conteúdos textuais',      'Conteúdos que estarão presentes na sua instituição'),
 
 /****************************************** Loja Online ******************************************/
 /*Quantas Paginas pretende*/
-(13, 5,  12.3, 4,   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Categorias', 'Por exemplo se tiver uma loja online, pode ter diversas categorias, lista de produtos, encomendas, etc.'),
+(13, 5,  12.3, 4,   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Quantas divisões pretende fazer?', 'Pode dividir o site em: inicial, sobre nós, contactos, etc.'),
 /*Extras*/
 (14, 6,  12.3, 1,   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Incluir domínio',          'O domínio é a url do seu site. (www.oseusite.pt)'),
 (15, 6,  12.3, 1,   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Obter hospedagem',         'A hospedagem é o local onde o seu site é guardado'),
-(16, 6,  12.3, 1,   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Criação de um portfólio',  'Caso tenha trabalhos anterioes que queira mostrar, um portfólio é a melhor opção para tal'),
-(17, 6,  12.3, 1,   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Conteúdos textuais',       'Os textos que iram estar presentes no site para apresentar o seu negócio'),
+(16, 6,  12.3, 1,   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Criação de um portfólio',  'Criar um portfólio é a melhor forma de apresentar algo ao cliente'),
+(17, 6,  12.3, 1,   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Conteúdos textuais',      'Conteúdos que estarão presentes na LandingPage'),
 
 /****************************************** Hibrido ******************************************/
 /*Quantas Paginas pretende*/
-(18, 8,  12.3, 4,   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Categorias', 'Por exemplo se tiver um restaurante, pode ter diversas categorias, para o takeaway, reserva de lugares, etc.'),
+(18, 8,  12.3, 4,   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Quantas divisões pretende fazer?', 'Pode dividir o site em: inicial, sobre nós, contactos, etc.'),
 /*Extras*/
 (19, 9,  12.3, 1,   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Incluir domínio',         'O domínio é a url do seu site. (www.oseusite.pt)'),
 (20, 9,  12.3, 1,   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Obter hospedagem',        'A hospedagem é o local onde o seu site é guardado'),
-(21, 9,  12.3, 1,   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Criação de um portfólio', 'Caso tenha trabalhos anterioes que queira mostrar, um portfólio é a melhor opção para tal'),
-(22, 9,  12.3, 1,   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Conteúdos textuais',      'Os textos que iram estar presentes no site para apresentar o seu negócio'),
+(21, 9,  12.3, 1,   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Criação de um portfólio',  'Criar um portfólio é a melhor forma de apresentar algo ao cliente'),
+(22, 9,  12.3, 1,   CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Conteúdos textuais',      'Conteúdos que estarão presentes no website'),
 
 /*************************************** Criação Identidade Visual **********************************/
 /*Que tipo de logo prefere*/
