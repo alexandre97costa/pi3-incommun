@@ -86,13 +86,15 @@ export default function EditableRow({ handleCancelClick, id, pergunta, getForms 
                         </td>
 
 
-
-
                         {/* TIPO DE PERGUNTA */}
-
                         <td style={{ width: "10%" }}>
                             <div className="dropdown">
-                                <button className="form-control focus-warning dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                <button
+                                    type="button"
+                                    className="form-control focus-warning dropdown-toggle d-flex justify-content-between align-items-center"
+                                    id="dropdownMenuButton1"
+                                    data-bs-toggle="dropdown"
+                                    aria-expanded="false">
                                     {editTipoPerguntaText}
                                 </button>
                                 <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
@@ -112,7 +114,6 @@ export default function EditableRow({ handleCancelClick, id, pergunta, getForms 
                                 </ul>
                             </div>
                         </td>
-
 
 
                         {/* VALOR UNITÁRIO */}
