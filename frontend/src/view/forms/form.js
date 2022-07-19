@@ -162,11 +162,13 @@ export default function FormComponent(props) {
                                                 className={' small text-start'}
                                             >
                                                 {respostaObj.texto}
+                                                
                                             </td>
                                             <td
                                                 className={' small text-start'}
                                             >
                                                 {respostaObj.inteiro}
+                                                
                                             </td>
                                         </tr>
                                     )
@@ -212,7 +214,7 @@ export default function FormComponent(props) {
             </div>
 
             <LoadForm />
-            <Contacto postPedido={postPedido} />
+            <Contacto perguntasObject={props.perguntasObject} postPedido={postPedido} />
         </div>
     )
 }
