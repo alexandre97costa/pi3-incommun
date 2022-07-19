@@ -34,7 +34,7 @@ export default function NavDeLadoComponent(props) {
             <div className='d-flex flex-sm-column flex-row flex-grow-1 align-items-center align-items-sm-start pt-2'
             >
                 <Link to='/' className='navbar-brand w-100 my-0 my-sm-4 text-light d-flex justify-content-start align-items-center'>
-                    <img src={LogoIncommun} alt='incommun' className='w-75 ms-4' />
+                    <img src={LogoIncommun} alt='incommun' className='w-75  mx-auto d-block img-fluid' />
                 </Link>
 
                 {process.env.REACT_APP_MODE === 'development' &&
@@ -48,22 +48,22 @@ export default function NavDeLadoComponent(props) {
                     {/* Inicio */}
                     <li className='mb-2'>
                         <Link to='/back-office/'
-                            className='btn btn-outline-secondary border-0 rounded-0 px-2 px-sm-0 d-flex align-items-center'
+                            className='btn btn-outline-secondary border-0 rounded-0 px-2 px-sm-0'
                             onFocus={e => setTimeout(() => { e.target.blur() }, 200)}
                         >
                             <i className='bi bi-house fs-4 ms-sm-3 ms-md-4 me-sm-2'></i>
-                            <span className=' d-none d-sm-inline'>Início</span>
+                            <span className=' d-none d-sm-inline  fs-5'>Início</span>
                         </Link>
                     </li>
 
                     {/* Pedidos */}
                     <li className='mb-2'>
                         <Link to='/back-office/pedidos'
-                            className='btn btn-outline-secondary border-0 rounded-0 px-2 px-sm-0 d-flex align-items-center'
+                            className='btn btn-outline-secondary border-0 rounded-0 px-2 px-sm-0'
                             onFocus={e => setTimeout(() => { e.target.blur() }, 200)}
                         >
                             <i className='bi bi-file-earmark-spreadsheet fs-4 ms-sm-3 ms-md-4 me-sm-2'></i>
-                            <span className='d-none d-sm-inline'>
+                            <span className='d-none d-sm-inline  fs-5'>
                                 Pedidos
                                 {pedidosPendentes > 0 &&
                                     <span className='badge bg-warning text-dark border-0 rounded-pill ms-2'>{pedidosPendentes}</span>
@@ -75,11 +75,11 @@ export default function NavDeLadoComponent(props) {
                     {/* Formulário */}
                     <li className='mb-2'>
                         <Link to='/back-office/formularios'
-                            className='btn btn-outline-secondary border-0 rounded-0 px-2 px-sm-0 d-flex align-items-center'
+                            className='btn btn-outline-secondary border-0 rounded-0 px-2 px-sm-0 '
                             onFocus={e => setTimeout(() => { e.target.blur() }, 200)}
                         >
                             <i className='bi bi-ui-checks fs-4 ms-sm-3 ms-md-4 me-sm-2'></i>
-                            <span className='d-none d-sm-inline '>
+                            <span className='d-none d-sm-inline  fs-5'>
                                 Formulários
                             </span>
                         </Link>
@@ -89,35 +89,14 @@ export default function NavDeLadoComponent(props) {
                     {/* Clientes */}
                     <li className='mb-2'>
                         <Link to='/back-office/clientes'
-                            className='btn btn-outline-secondary border-0 rounded-0 px-2 px-sm-0 d-flex align-items-center'
+                            className='btn btn-outline-secondary border-0 rounded-0 px-2 px-sm-0'
                             onFocus={e => setTimeout(() => { e.target.blur() }, 200)}
                         >
                             <i className='bi bi-people fs-4 ms-sm-3 ms-md-4 me-sm-2'></i>
-                            <span className='d-none d-sm-inline '>Clientes</span>
+                            <span className='d-none d-sm-inline fs-5'>Clientes</span>
                         </Link>
                     </li>
 
-                    {/* PieChart */}
-                    <li className='mb-2 d-none'>
-                        <Link to='/back-office/piechart'
-                            className='btn btn-outline-secondary border-0 rounded-0 px-2 px-sm-0 d-flex align-items-center'
-                            onFocus={e => setTimeout(() => { e.target.blur() }, 200)}
-                        >
-                            <i className='bi bi-pie-chart fs-4 ms-sm-3 ms-md-4 me-sm-2'></i>
-                            <span className='d-none d-sm-inline '>Resumo</span>
-                        </Link>
-                    </li>
-
-                    {/* Visitas */}
-                    <li className='mb-2 d-none'>
-                        <Link to='/back-office/visitas'
-                            className='btn btn-outline-secondary border-0 rounded-0 px-2 px-sm-0 d-flex align-items-center'
-                            onFocus={e => setTimeout(() => { e.target.blur() }, 200)}
-                        >
-                            <i className='bi bi-graph-up fs-4 ms-sm-3 ms-md-4 me-sm-2'></i>
-                            <span className='d-none d-sm-inline '>Visitas</span>
-                        </Link>
-                    </li>
 
                     {/* User */}
                     <li className='mb-2 mt-auto'>
