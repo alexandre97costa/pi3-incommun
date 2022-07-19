@@ -29,40 +29,33 @@ export default function FrontPage() {
         return newNome
     }
 
-    function LoadLinks() {
-        return forms.map((form, index) => {
-            return (
-                <div key={form.id} className={((form.id === 1 || form.id === 2 || form.id === 3) ? 'collapse' : (form.id === 4) ? 'text-end' : 'text-start') + ' my-5'} id={"formulario-" + form.id} data-bs-parent="#collapse-group">
-                    <Link
-                        className='btn btn-warning fs-4 fw-normal rounded-0 py-3'
-                        to={'/servicos-personalizados/' + nomeTransform(form.titulo)}
-                        state={{ id: form.id }}
-                    >
-                        Vamos preencher!
-                    </Link>
-                </div>
-            )
-        })
-    }
+    function RestantesFormulários() {
 
-    function ButtonsLink() {
-        return forms.map((form, index) => {
-            return ((form.id === 1 || form.id === 2 || form.id === 3) &&
-                < div key={form.id} className='col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-4 text-center py-3'>
-                    <button
-                        className='btn btn-warning fs-4 fw-normal rounded-0 py-3'
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target={"#formulario-" + form.id}
-                        data-bs-parent="#collapse-group"
-                        style={{ width: '300px' }}
-                    >
-                        {form.titulo}
-                    </button>
-                </div >
-            )
+        return (
+            forms.map(form => {
+                if (form.id < 4) { return (<div key={form.id} className='d-none'></div>) }
+                return (
+                    <div className='col' key={form.id}>
+                        <div className='bg-transparent border border-warning border-3 p-4 pb-2 rounded-4'>
+                            <div className='fs-2 fw-bold mb-3 text-dark'>
+                                {form.titulo}
+                            </div>
+                            <div className='fs-5 fw-normal text-dark lh-sm mb-4'>
+                                {form.descricao}
+                            </div>
 
-        })
+                            <Link
+                                to={'/servicos-personalizados/' + nomeTransform(form.titulo)}
+                                className='btn btn-warning fw-semibold rounded-3 mb-3 w-100'
+                            >
+                                Vamos lá!
+                            </Link>
+
+                        </div>
+                    </div>
+                )
+            })
+        )
     }
 
     return (
@@ -154,12 +147,9 @@ export default function FrontPage() {
             </div>
 
             <div className='row justify-content-center bg-warning bg-opacity-10 py-5'>
-            <div className='col-12 text-center mb-5 mt-4'>
+                <div className='col-12 text-center mb-5 mt-4'>
                     <div className='display-3 fw-bold' >
                         Vamos a isto?
-                    </div>
-                    <div>
-                        Esta parte ainda não está acabada, ainda nao me decidi num estilo fixolas.
                     </div>
                 </div>
                 <div className='col-12 mt-4 mb-5'>
@@ -173,53 +163,21 @@ export default function FrontPage() {
                                         Criação de Website
                                     </div>
                                     <div className='fs-5 fw-normal text-dark lh-sm mb-4'>
-                                        Um texto fofinho e 3 botões. 3 BOTÕES.
+                                        Criamos a sua porta de entrada ao mundo digital, personalizado às suas necessidades.
 
                                     </div>
-                                    <div className='d-flex flex-column'>  
-                                        <button type='button' className='btn btn-warning rounded-3 mb-3 w-100'>Form 5</button>
-                                        <button type='button' className='btn btn-warning rounded-3 mb-3 w-100'>Form 5</button>
-                                        <button type='button' className='btn btn-warning rounded-3 mb-3 w-100'>Form 5</button>
+                                    <div className='d-flex flex-column'>
+                                        <Link to={'/servicos-personalizados/' + nomeTransform(forms[0]?.titulo)} className='btn btn-warning fw-semibold rounded-3 mb-3 w-100'>{forms[0]?.titulo}</Link>
+                                        <Link to={'/servicos-personalizados/' + nomeTransform(forms[1]?.titulo)} className='btn btn-warning fw-semibold rounded-3 mb-3 w-100'>{forms[1]?.titulo}</Link>
+                                        <Link to={'/servicos-personalizados/' + nomeTransform(forms[2]?.titulo)} className='btn btn-warning fw-semibold rounded-3 mb-3 w-100'>{forms[2]?.titulo}</Link>
                                     </div>
                                     <div className='accordion-group'>
-                                        
+
                                     </div>
                                 </div>
                             </div>
-                            <div className='col '>
-                                <div className='bg-white border border-warning border-3 p-4 pb-2 rounded-4'>
+                            <RestantesFormulários />
 
-                                    {/* Titulo */}
-                                    <div className='fs-2 fw-bold mb-3'>
-                                        Criação de Identidade Visual
-                                    </div>
-                                    {/* Texto */}
-                                    <div className='fs-5 fw-normal text-secondary lh-sm mb-4'>
-                                        Mais um texto fofinho, só um botão.
-                                    </div>
-
-                                    <div>
-                                        <LoadLinks />
-                                    </div>
-
-                                </div>
-                            </div>
-                            <div className='col h-100'>
-                                <div className='bg-transparent border border-warning border-3 p-4 pb-2 rounded-4'>
-
-                                    {/* Titulo */}
-                                    <div className='fs-2 fw-bold mb-3 text-warning'>
-                                        Gestão de Redes Sociais
-                                    </div>
-                                    {/* Texto */}
-                                    <div className='fs-5 fw-normal text-dark lh-sm mb-4'>
-                                        Outro texto, outro botão, outra voltinha.
-                                    </div>
-
-                                    <button type='button' className='btn btn-warning rounded-3 mb-3 w-100'>Form 5</button>
-
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
