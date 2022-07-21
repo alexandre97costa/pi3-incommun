@@ -29,7 +29,9 @@ export default function ContactarCliente(props) {
         btnText.textContent = 'A enviar...'
         setLoading(true)
 
-
+        setAssunto('')
+        setTitulo('')
+        setCorpo('')
 
         axios
             .post(
@@ -40,11 +42,8 @@ export default function ContactarCliente(props) {
                     assunto: assunto,
                     titulo: titulo,
                     corpo: corpo,
-                    
+
                 },
-                setAssunto(''),
-                setTitulo(''),
-                setCorpo(''),
                 authHeader()
             )
             .then(res => {
@@ -66,8 +65,6 @@ export default function ContactarCliente(props) {
 
     return (
         <>
-           
-
             <div className="modal fade" id="contactar-cliente-modal" tabIndex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="criar-user-modal-label" aria-hidden="true">
                 <div className="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
                     <div className="modal-content rounded-4 border-0 bg-dark-secondary shadow">
