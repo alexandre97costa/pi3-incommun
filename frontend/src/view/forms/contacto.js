@@ -16,8 +16,8 @@ export default function ContactoComponent(props) {
 
     useEffect(() => {
         axios
-            .get('http://ip-api.com/json/')
-            .then(res => setClienteDistrito(res.data.regionName))
+            .get('https://ipapi.co/json/')
+            .then(res => setClienteDistrito(res.data.region))
             .catch(error => console.log(error))
     }, [])
 
